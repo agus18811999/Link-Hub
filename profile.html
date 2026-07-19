@@ -202,15 +202,24 @@ card.onclick = (e) => {
     }
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
   // -> FUNGSI PENCATAT KLIK DENGAN TEKNIK IMAGE PIXEL TRACKING (100% ANTI-CORS)
+   // -> FUNGSI PELACAK KLIK (METODE IMAGE BEACON - 100% AMAN & ANTI BLOKIR)
     function recordClick(userId, blockId) {
-      console.log("1. Mengirim log klik via Image Pixel Tracker...", { userId, blockId });
-      
-      // Membuat URL tracking GET
-      const trackingUrl = `${SCRIPT_URL}?action=log_click&userId=${encodeURIComponent(userId)}&blockId=${encodeURIComponent(blockId)}&referrer=${encodeURIComponent(document.referrer || 'Direct')}&device=${encodeURIComponent(navigator.userAgent.substring(0, 100))}`;
-      
-      // Meluncurkan request gambar senyap (Fire and Forget)
-      const tracker = new Image();
-      tracker.src = trackingUrl;
+      try {
+        const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
+        const ref = encodeURIComponent(document.referrer || 'Direct');
+        
+        // Membangun URL GET Request
+        const trackingUrl = `${SCRIPT_URL}?action=log_click&userId=${userId}&blockId=${blockId}&device=${device}&referrer=${ref}`;
+        
+        // Metode Image Beacon: Membuat elemen gambar maya di latar belakang.
+        // Browser TIDAK BISA membatalkan pemuatan gambar, sehingga log dijamin sampai ke server Google.
+        const beacon = new Image();
+        beacon.src = trackingUrl;
+        
+        console.log("Klik terdeteksi! Mengirim Beacon ke:", trackingUrl);
+      } catch (e) {
+        console.error("Gagal meluncurkan beacon analitik.", e);
+      }
     }
     // FUNGSI SEARCH FILTERING
     function filterLinks(query) {
