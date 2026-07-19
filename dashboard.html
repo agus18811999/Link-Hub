@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | LinkHub - Premium Link in Bio</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Chart.js untuk Grafik Analitik Interaktif -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- SortableJS untuk Drag & Drop -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            slate: {
+              850: '#151e2e',
+              900: '#0f172a',
+              950: '#0b1120',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==================================================
+       PREMIUM DASHBOARD STYLES
+       ================================================== */
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      overflow: hidden; /* Prevent body scroll, layout handles scrolling */
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+    }
+
+    /* Toggle Switch iOS Style */
+    .toggle-checkbox:checked {
+      right: 0;
+      border-color: #10b981;
+    }
+    .toggle-checkbox:checked + .toggle-label {
+      background-color: #10b981;
+    }
+    .toggle-checkbox {
+      right: 0;
+      z-index: 1;
+      border-color: #475569;
+      transition: all 0.3s;
+    }
+    .toggle-label {
+      width: 2.5rem;
+      height: 1.25rem;
+      background-color: #475569;
+      border-radius: 9999px;
+      transition: all 0.3s;
+    }
+    .toggle-dot {
+      top: 0.125rem;
+      left: 0.125rem;
+      width: 1rem;
+      height: 1rem;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    .toggle-checkbox:checked ~ .toggle-dot {
+      transform: translateX(1.25rem);
+    }
+
+    /* Mobile Phone Mockup */
+    .phone-mockup {
+      width: 320px;
+      height: 650px;
+      border-radius: 40px;
+      border: 12px solid #1e293b;
+      background: #f3f4f6; /* Default theme bg */
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .phone-mockup::-webkit-scrollbar { width: 0px; } /* Hide scrollbar inside phone */
+    .phone-notch {
+      position: sticky;
+      top: 0;
+      width: 120px;
+      height: 25px;
+      background: #1e293b;
+      margin: 0 auto;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      z-index: 50;
+    }
+
+    /* Drag Handle Hover */
+    .drag-handle { cursor: grab; }
+    .drag-handle:active { cursor: grabbing; }
+    
+    /* Animation for expanding forms */
+    .expand-collapse {
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* Loading Overlay */
+    #pageLoader {
+      position: fixed;
+      inset: 0;
+      background: #0f172a;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="flex h-screen w-full font-sans antialiased">
+
+  <!-- FULL PAGE LOADER -->
+  <div id="pageLoader">
+    <div class="w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+    <h2 class="text-white font-bold text-xl tracking-wide">Menyiapkan Workspace...</h2>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SIDEBAR NAVIGATION -->
+  <!-- ========================================== -->
+  <aside class="w-20 lg:w-64 flex flex-col justify-between border-r border-slate-800 glass-panel z-20">
+    <div>
+      <!-- Logo -->
+      <div class="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-slate-800">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-lg">
+          <i class="fa-solid fa-link"></i>
+        </div>
+        <span class="text-2xl font-black tracking-tight text-white ml-3 hidden lg:block">Link<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Hub.</span></span>
+      </div>
+
+      <!-- Nav Links -->
+      <nav class="mt-6 px-3 lg:px-4 space-y-2">
+        <button onclick="switchTab('links')" id="nav-links" class="w-full flex items-center p-3 rounded-xl transition-all text-blue-400 bg-blue-500/10 group">
+          <i class="fa-solid fa-layer-group text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Tautan</span>
+        </button>
+        <button onclick="switchTab('appearance')" id="nav-appearance" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-palette text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Tampilan</span>
+        </button>
+        <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-gear text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Pengaturan</span>
+        </button>
+        <!-- Tombol Analisis Performa -->
+        <button onclick="switchTab('analytics')" id="nav-analytics" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-chart-line text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Analisis</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- User Profile Mini -->
+    <!-- User Profile Mini & Dedicated Logout (Compact Version) -->
+   <!-- User Profile Mini & Dedicated Logout (Seragam & Presisi dengan Menu Navigasi) -->
+    <div class="p-4 border-t border-slate-800 space-y-2 shrink-0">
+      
+      <!-- Box Profil (Presisi p-3 & text-sm, seimbang dengan menu navigasi) -->
+      <div class="w-full flex items-center p-3 rounded-xl transition-all cursor-pointer hover:bg-slate-800/50" onclick="switchTab('settings')" title="Kelola Profil Pengguna">
+        <!-- Ukuran avatar w-8 h-8 seimbang dengan p-3 -->
+        <img id="sidebarAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="w-8 h-8 rounded-full border border-slate-600 object-cover shrink-0">
+        <div class="ml-3 hidden lg:block overflow-hidden">
+          <p id="sidebarName" class="text-sm font-bold text-white truncate">Loading...</p>
+          <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider mt-0.5">Kelola Profil</p>
+        </div>
+      </div>
+
+      <!-- Tombol Keluar Mandiri (Presisi p-3 & text-sm, seragam dengan tombol menu atas) -->
+      <button onclick="logout()" class="w-full flex items-center p-3 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all group font-bold text-sm">
+        <!-- Ukuran ikon seragam w-6 & text-lg -->
+        <i class="fa-solid fa-right-from-bracket text-lg w-6 text-center group-hover:translate-x-0.5 transition-transform"></i>
+        <span class="ml-3 hidden lg:block">Keluar</span>
+      </button>
+
+    </div>
+  </aside>
+
+  <!-- ========================================== -->
+  <!-- MAIN CONTENT AREA -->
+  <!-- ========================================== -->
+  <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-950">
+    
+    <!-- TOP HEADER -->
+    <header class="h-20 border-b border-slate-800 glass-panel flex items-center justify-between px-6 md:px-10 z-10 shrink-0">
+      <div>
+        <h1 id="pageTitle" class="text-xl md:text-2xl font-black text-white">Kelola Tautan</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <a id="publicUrlBtn" href="#" target="_blank" class="hidden md:flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white bg-slate-800 py-2 px-4 rounded-full border border-slate-700 transition-colors">
+          <span id="publicUrlText">linkhub.com/username</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+        <button onclick="copyPublicLink()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/20 hover:scale-105 transition-transform" title="Salin Tautan">
+          <i class="fa-regular fa-copy"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- TAB CONTENT WRAPPER -->
+    <div class="flex-1 overflow-y-auto p-6 md:p-10 pb-32">
+      <div class="max-w-3xl mx-auto">
+        
+        <!-- ===================================== -->
+        <!-- TAB 1: LINKS MANAGEMENT -->
+        <!-- ===================================== -->
+        <div id="tab-links" class="tab-pane block">
+          
+          <!-- Add New Link Button -->
+          <button onclick="toggleForm('addLinkForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_rgba(139,92,246,0.4)] transition-all transform hover:-translate-y-1 mb-8">
+            <i class="fa-solid fa-plus text-xl"></i> Tambah Tautan Baru
+          </button>
+
+          <!-- Add Link Form (Hidden by default) -->
+        <!-- Add Link Form (Dengan Deskripsi & Thumbnail) -->
+          <div id="addLinkForm" class="expand-collapse max-h-0 opacity-0 mb-8">
+            <div class="glass-panel p-6 rounded-2xl">
+              <h3 class="text-white font-bold mb-4">Buat Tautan Baru</h3>
+              <form onsubmit="submitNewLink(event)">
+                <div class="space-y-4">
+                  <div>
+                    <input type="text" id="newLinkTitle" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Judul Asset (Misal: My CV)" required>
+                  </div>
+                  <div>
+                    <textarea id="newLinkDescription" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Deskripsi Singkat (Misal: Simak perjalanan karir saya...)"></textarea>
+                  </div>
+                  <div>
+                    <input type="url" id="newLinkThumbnail" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="URL Gambar Thumbnail / Icon (https://...)">
+                  </div>
+                  <div>
+                    <input type="url" id="newLinkUrl" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="URL Tujuan (https://...)" required>
+                  </div>
+                  <div class="flex gap-3 pt-2">
+                    <button type="submit" id="btnSubmitLink" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-colors">
+                      Simpan Tautan
+                    </button>
+                    <button type="button" onclick="toggleForm('addLinkForm')" class="px-6 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors">
+                      Batal
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- List of Links (Sortable) -->
+          <ul id="linksContainer" class="space-y-4">
+            <!-- Tautan akan dirender via JS di sini -->
+          </ul>
+          
+          <!-- Empty State -->
+          <div id="emptyLinksState" class="hidden text-center py-12 glass-panel rounded-3xl mt-4 border border-dashed border-slate-700">
+             <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-500 text-2xl">
+                <i class="fa-solid fa-ghost"></i>
+             </div>
+             <h3 class="text-white font-bold text-lg">Belum ada tautan</h3>
+             <p class="text-slate-400 text-sm mt-1">Tambahkan tautan pertama Anda agar audiens bisa terhubung.</p>
+          </div>
+        </div>
+
+        <!-- ===================================== -->
+        <!-- TAB 2: APPEARANCE (TAMPILAN) -->
+        <!-- ===================================== -->
+        <div id="tab-appearance" class="tab-pane hidden space-y-8">
+          
+          <!-- Profile Section -->
+          <div class="glass-panel p-8 rounded-3xl">
+            <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"><i class="fa-regular fa-id-badge text-purple-400"></i> Profil Halaman</h3>
+            
+            <div class="flex items-start gap-6 mb-6">
+             <div class="relative group">
+  <img id="appearanceAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="w-24 h-24 rounded-full border-4 border-slate-800 object-cover">
+  <!-- PANGGIL FUNGSI changeAvatarUrl() SAAT DIKLIK -->
+  <div class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity" onclick="changeAvatarUrl()">
+    <i class="fa-solid fa-camera text-white text-xl"></i>
+  </div>
+</div>
+             <div class="flex-1 space-y-4">
+                <!-- Judul Halaman / Nama & Warna Judul -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                  <div class="md:col-span-2">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Judul Halaman / Nama</label>
+                    <input type="text" id="settingPageTitle" class="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-purple-500 transition-colors">
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-2">Warna Judul</label>
+                    <div class="flex items-center gap-2">
+                      <input type="color" id="settingTitleColor" class="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-0 p-0" value="#111827">
+                      <input type="text" id="settingTitleColorText" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none uppercase" readonly>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bio / Deskripsi & Warna Bio -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                  <div class="md:col-span-2">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Bio / Deskripsi Singkat</label>
+                    <textarea id="settingBio" rows="3" class="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"></textarea>
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-2">Warna Bio</label>
+                    <div class="flex items-center gap-2">
+                      <input type="color" id="settingBioColor" class="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-0 p-0" value="#4b5563">
+                      <input type="text" id="settingBioColorText" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none uppercase" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Design & Theme Section -->
+        <!-- Design & Theme Section -->
+          <div class="glass-panel p-8 rounded-3xl">
+            <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i> Kustomisasi Desain</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              
+              <!-- Tipe Latar Belakang (Solid vs Gradasi) -->
+              <div class="md:col-span-2">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Tipe Latar Belakang</label>
+                <div class="flex gap-4">
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="bgType" value="solid" checked class="peer sr-only">
+                    <div class="py-3 border border-slate-700 rounded-xl text-center text-sm font-semibold text-slate-300 peer-checked:bg-purple-600 peer-checked:border-purple-600 peer-checked:text-white transition-all">Solid</div>
+                  </label>
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="bgType" value="gradient" class="peer sr-only">
+                    <div class="py-3 border border-slate-700 rounded-xl text-center text-sm font-semibold text-slate-300 peer-checked:bg-purple-600 peer-checked:border-purple-600 peer-checked:text-white transition-all">Gradasi</div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Kontrol Warna Solid (Tampil jika tipe = solid) -->
+              <div id="solidBgControls" class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Latar Belakang</label>
+                  <div class="flex items-center gap-3">
+                    <input type="color" id="settingBgColor" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0">
+                    <input type="text" id="settingBgColorText" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none uppercase" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kontrol Warna Gradasi (Tampil jika tipe = gradient) -->
+              <div id="gradientBgControls" class="md:col-span-2 hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Pertama</label>
+                  <div class="flex items-center gap-3">
+                    <input type="color" id="settingBgGrad1" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#7B2BB1">
+                    <input type="text" id="settingBgGrad1Text" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none uppercase" readonly>
+                  </div>
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Kedua</label>
+                  <div class="flex items-center gap-3">
+                    <input type="color" id="settingBgGrad2" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#3B82F6">
+                    <input type="text" id="settingBgGrad2Text" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none uppercase" readonly>
+                  </div>
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Arah Gradasi</label>
+                  <select id="settingBgGradDir" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-sm text-white focus:outline-none">
+                    <option value="135deg">Kiri Atas ke Kanan Bawah</option>
+                    <option value="45deg">Kiri Bawah ke Kanan Atas</option>
+                    <option value="to right">Kiri ke Kanan</option>
+                    <option value="to bottom">Atas ke Bawah</option>
+                  </select>
+                </div>
+                 <div id="imageBgControls" class="md:col-span-2 hidden">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">URL Gambar Latar Belakang</label>
+                <input type="url" id="settingBgImage" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none" placeholder="https://images.unsplash.com/photo-...">
+              </div>
+
+              <!-- Kontrol Video Latar Belakang -->
+              <div id="videoBgControls" class="md:col-span-2 hidden">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">URL Video Latar Belakang (Tautan langsung .MP4)</label>
+                <input type="url" id="settingBgVideo" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none" placeholder="https://assets.mixkit.co/videos/preview/mixkit-...">
+              </div>
+              </div>
+
+              <!-- Warna Tombol Tautan -->
+              <div class="md:col-span-2">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Tombol Tautan</label>
+                <div class="flex items-center gap-3">
+                  <input type="color" id="settingBtnColor" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0">
+                  <input type="text" id="settingBtnColorText" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none uppercase" readonly>
+                </div>
+              </div>
+
+              <!-- Gaya Bentuk Tombol -->
+              <div class="md:col-span-2">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Gaya Bentuk Tombol</label>
+                <div class="grid grid-cols-3 gap-4">
+                  <label class="cursor-pointer">
+                    <input type="radio" name="btnStyle" value="rounded-full" class="peer sr-only">
+                    <div class="h-14 border border-slate-700 rounded-full flex items-center justify-center text-sm font-semibold text-white peer-checked:bg-purple-600 peer-checked:border-purple-600 transition-colors">Kapsul</div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="btnStyle" value="rounded-xl" class="peer sr-only">
+                    <div class="h-14 border border-slate-700 rounded-xl flex items-center justify-center text-sm font-semibold text-white peer-checked:bg-purple-600 peer-checked:border-purple-600 transition-colors">Kotak Sudut</div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="btnStyle" value="rounded-none" class="peer sr-only">
+                    <div class="h-14 border border-slate-700 flex items-center justify-center text-sm font-semibold text-white peer-checked:bg-purple-600 peer-checked:border-purple-600 transition-colors">Kotak Tajam</div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Pilihan Gaya Huruf (Font Style Selector) -->
+              <div class="md:col-span-2">
+                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Gaya Huruf (Font Style - 50 Premium Google Fonts)</label>
+                <select id="settingFontFamily" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-sm text-white focus:outline-none">
+                  <!-- Opsi font akan digenerate otomatis via JS -->
+                </select>
+              </div>
+
+            </div>
+
+            <!-- Save Appearance Btn -->
+            <button onclick="saveAppearanceSettings()" id="btnSaveAppearance" class="w-full mt-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all">
+              Simpan Perubahan Tampilan
+            </button>
+          </div>
+
+        </div>
+           <div id="tab-settings" class="tab-pane hidden space-y-8">
+          
+          <!-- Profile Card -->
+          <div class="glass-panel p-8 rounded-3xl">
+            <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+              <i class="fa-regular fa-user text-blue-400"></i> Profil Pengguna
+            </h3>
+            
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-6">
+              <!-- Avatar Upload/Change Area -->
+              <div class="flex flex-col items-center gap-3">
+                <div class="relative group cursor-pointer" onclick="changeAvatarUrl()">
+                  <img id="settingsTabAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="w-28 h-28 rounded-full border-4 border-slate-800 object-cover shadow-xl">
+                  <div class="absolute inset-0 bg-black/60 rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fa-solid fa-camera text-white text-xl mb-1"></i>
+                    <span class="text-[9px] text-slate-300 font-bold uppercase tracking-wider">Ubah Foto</span>
+                  </div>
+                </div>
+                <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Foto Profil</span>
+              </div>
+
+              <!-- Profile Details Form -->
+              <div class="flex-1 w-full space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Nama Lengkap</label>
+                    <input type="text" id="userFullName" class="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                  </div>
+                  <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Email</label>
+                    <input type="email" id="userEmail" class="mt-1.5 w-full bg-slate-900 border border-slate-850 rounded-xl px-4 py-2.5 text-slate-500 cursor-not-allowed" readonly>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Username / URL Slug</label>
+                  <div class="relative mt-1.5">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-semibold">linkhub.com/</span>
+                    <input type="text" id="userUsername" class="w-full bg-slate-900 border border-slate-850 rounded-xl pl-[110px] pr-4 py-2.5 text-slate-500 cursor-not-allowed" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save Profile Btn -->
+            <button onclick="saveUserProfileSettings()" id="btnSaveUserProfile" class="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-lg hover:shadow-lg hover:shadow-blue-500/20 transition-all">
+              Simpan Perubahan Profil
+            </button>
+          </div>
+        </div>
+        <!-- ===================================== -->
+        <!-- TAB 4: ANALYTICS (ANALISIS PERFORMA) -->
+        <!-- ===================================== -->
+        <div id="tab-analytics" class="tab-pane hidden space-y-8">
+          
+          <!-- STATE LOADING ANALITIK -->
+          <div id="analyticsLoadingState" class="flex flex-col items-center justify-center py-20">
+            <div class="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+            <p class="text-slate-400 text-sm font-semibold">Menghimpun statistik performa...</p>
+          </div>
+
+          <!-- AREA ISI DATA ANALITIK -->
+          <div id="analyticsContentArea" class="hidden space-y-8">
+            
+            <!-- 1. BARIS KARTU RINGKASAN METRIK (SUMMARY CARDS) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Total Klik -->
+              <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 text-7xl text-blue-500/5 group-hover:scale-110 transition-transform"><i class="fa-solid fa-arrow-pointer"></i></div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Klik Tautan</p>
+                <h3 id="summaryTotalClicks" class="text-4xl font-black text-white mt-3 tracking-tight">0</h3>
+                <p class="text-xs text-emerald-400 font-semibold mt-2 flex items-center gap-1"><i class="fa-solid fa-arrow-trend-up"></i> Akumulasi Klik Seluruh Waktu</p>
+              </div>
+
+              <!-- Pengunjung Unik -->
+              <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 text-7xl text-purple-500/5 group-hover:scale-110 transition-transform"><i class="fa-solid fa-users"></i></div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pengunjung Unik</p>
+                <h3 id="summaryUniqueVisitors" class="text-4xl font-black text-white mt-3 tracking-tight">0</h3>
+                <p class="text-xs text-purple-400 font-semibold mt-2 flex items-center gap-1"><i class="fa-solid fa-user-shield"></i> Berdasarkan Alamat IP</p>
+              </div>
+
+              <!-- Rasio Klik Per Pengunjung -->
+              <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 text-7xl text-pink-500/5 group-hover:scale-110 transition-transform"><i class="fa-solid fa-calculator"></i></div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Rata-rata Klik / User</p>
+                <h3 id="summaryRatio" class="text-4xl font-black text-white mt-3 tracking-tight">0x</h3>
+                <p class="text-xs text-pink-400 font-semibold mt-2 flex items-center gap-1"><i class="fa-solid fa-bolt"></i> Tingkat Keaktifan Pengunjung</p>
+              </div>
+            </div>
+
+            <!-- 2. GRAFIK TREN HARIAN (7 HARI TERAKHIR) -->
+            <div class="glass-panel p-6 md:p-8 rounded-3xl">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h3 class="text-white font-extrabold text-lg">Tren Klik 7 Hari Terakhir</h3>
+                  <p class="text-xs text-slate-400 mt-1">Grafik aktivitas interaksi pengunjung secara real-time</p>
+                </div>
+                <span class="px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-full text-[10px] font-black uppercase tracking-widest">Live Report</span>
+              </div>
+              <div class="relative h-72 w-full">
+                <canvas id="trendChartCanvas"></canvas>
+              </div>
+            </div>
+
+            <!-- 3. DETAIL AGREGASI (GRID DUA KOLOM) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Kolom Kiri: Performa Tautan Tertinggi -->
+              <div class="glass-panel p-6 md:p-8 rounded-3xl flex flex-col">
+                <h3 class="text-white font-extrabold text-lg mb-6 flex items-center gap-2">
+                  <i class="fa-solid fa-award text-amber-400"></i> Klik Tautan Tertinggi
+                </h3>
+                <div id="analyticsLinksContainer" class="space-y-5 flex-1">
+                   <!-- Diisi secara dinamis via JS -->
+                </div>
+              </div>
+
+              <!-- Kolom Kanan: Sumber Trafik & Perangkat -->
+              <div class="grid grid-cols-1 gap-6">
+                <!-- Sumber Trafik -->
+                <div class="glass-panel p-6 rounded-3xl">
+                  <h3 class="text-white font-extrabold text-base mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-globe text-blue-400"></i> Sumber Lalu Lintas
+                  </h3>
+                  <div id="analyticsSourcesContainer" class="space-y-4">
+                     <!-- Diisi secara dinamis via JS -->
+                  </div>
+                </div>
+
+                <!-- Klasifikasi Perangkat -->
+                <div class="glass-panel p-6 rounded-3xl">
+                  <h3 class="text-white font-extrabold text-base mb-5 flex items-center gap-2">
+                    <i class="fa-solid fa-mobile-screen text-pink-400"></i> Jenis Perangkat
+                  </h3>
+                  <div id="analyticsDevicesContainer" class="space-y-4">
+                     <!-- Diisi secara dinamis via JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- RIGHT SIDE: LIVE PREVIEW MOCKUP -->
+  <!-- ========================================== -->
+  <!-- ========================================== -->
+  <!-- RIGHT SIDE: LIVE PREVIEW MOCKUP (IPHONE PREMIUM STYLE) -->
+  <!-- ========================================== -->
+  <aside class="w-[420px] hidden xl:flex flex-col items-center justify-center border-l border-slate-800/60 glass-panel bg-slate-950 relative overflow-hidden shrink-0 select-none">
+    
+    <!-- Ambient Light Effect di belakang HP -->
+    <div class="absolute w-72 h-72 bg-blue-500/5 rounded-full blur-[100px] -z-10"></div>
+    
+    <!-- Phone Mockup Container (Premium Squircle Frame) -->
+    <div class="relative w-[340px] h-[680px] bg-slate-900 rounded-[56px] p-[10px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_40px_rgba(255,255,255,0.02)] border border-slate-800 transition-all hover:scale-[1.01]" id="previewPhone">
+      
+      <!-- Outer Stainless Steel Edge / Bezel Shimmer -->
+      <div class="absolute inset-0 rounded-[56px] border-2 border-slate-700/30 pointer-events-none"></div>
+      <div class="absolute inset-[3px] rounded-[53px] border border-slate-950 pointer-events-none"></div>
+
+      <!-- Inner Screen Window -->
+      <div class="relative w-full h-full bg-[#f3f4f6] rounded-[44px] overflow-hidden flex flex-col" id="previewContent">
+        
+        <!-- iOS STATUS BAR -->
+        <div class="absolute top-0 inset-x-0 h-10 flex items-center justify-between px-8 z-30 pointer-events-none text-[11px] font-bold text-slate-800/80" id="statusBar">
+          <span>09:41</span>
+          <!-- Icons (Signal, Wifi, Battery) -->
+          <div class="flex items-center gap-1.5 text-[10px]">
+            <i class="fa-solid fa-signal"></i>
+            <i class="fa-solid fa-wifi"></i>
+            <i class="fa-solid fa-battery-three-quarters text-xs"></i>
+          </div>
+        </div>
+
+        <!-- DYNAMIC ISLAND (Floating Camera Capsule) -->
+        <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full flex items-center justify-between px-3 z-40 shadow-inner">
+          <!-- Camera Lens Reflection -->
+          <div class="w-2 h-2 rounded-full bg-slate-900/80 border border-blue-950/40 shadow-inner"></div>
+          <!-- Sensor Reflection -->
+          <div class="w-1.5 h-1.5 rounded-full bg-slate-950"></div>
+        </div>
+
+        <!-- Phone Inner Content (Scrollable area) -->
+   <div class="flex-1 overflow-y-auto px-6 pt-14 pb-8 flex flex-col items-center relative z-10">
+          <!-- Avatar with Deep Smooth Shadow -->
+          <div class="relative mt-4">
+            <div class="absolute inset-0 rounded-full bg-black/10 blur-md transform translate-y-1"></div>
+            <img id="previewAvatar" src="" class="relative w-24 h-24 rounded-full object-cover border-2 border-white/80 shadow-md">
+          </div>
+          
+          <!-- Title & Bio with Clean Typography -->
+          <h1 id="previewTitle" class="mt-4 text-[19px] font-extrabold text-center tracking-tight leading-tight text-slate-900">@username</h1>
+          <p id="previewBio" class="mt-2 text-[13.5px] text-slate-500 font-medium text-center leading-relaxed max-w-[240px]">Bio description here...</p>
+              <div class="w-full mt-5 px-1 relative z-20">
+          <input type="text" id="previewSearchInput" oninput="filterPreviewLinks(this.value)" class="w-full bg-black/5 border border-black/10 rounded-xl py-2.5 pl-9 pr-4 text-xs font-semibold text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-black/20" placeholder="Cari link (misal: Youtube, Shop)...">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+        </div>
+          <!-- Preview Buttons Container -->
+          <div id="previewLinksContainer" class="w-full mt-8 flex flex-col gap-3.5">
+             <!-- Di-render oleh JavaScript -->
+          </div>
+
+          <!-- Footer Branding inside Phone -->
+          <div class="mt-auto pt-10">
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.2em] uppercase opacity-40">LinkHub.</p>
+          </div>
+        </div>
+
+        <!-- iOS HOME INDICATOR (Bottom Bar) -->
+        <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-800/30 rounded-full z-30 pointer-events-none" id="homeIndicator"></div>
+
+      </div>
+    </div>
+  </aside>
+<!-- ===================================== -->
+        <!-- TAB 3: SETTINGS (PENGATURAN AKUN / PROFIL) -->
+        <!-- ===================================== -->
+     
+  <!-- =========================================================================
+       JAVASCRIPT LOGIC (DASHBOARD ENGINE)
+       ========================================================================= -->
+  <script>
+    // 1. KONFIGURASI BACKEND
+   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZOKBx_IVqtS0Vt0_XXh5GOY35llR9pzg-N6jTB_koX7DvHPbw9YcO7htZ0bzfWjhR/exec'; 
+
+    // STATE GLOBAL
+    let STATE = {
+      token: localStorage.getItem('lh_token'),
+      user: null,
+      settings: null,
+      blocks: []
+    };
+
+    // 2. OTENTIKASI & INISIALISASI
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!STATE.token) {
+        window.location.href = 'index.html'; // Tendang ke login jika belum ada token
+        return;
+      }
+      fetchDashboardData();
+    });
+    // Daftar 50 Premium Google Fonts pilihan untuk LinkHub
+    const PREMIUM_FONTS = [
+      "Plus Jakarta Sans", "Inter", "Roboto", "Open Sans", "Montserrat", "Poppins", "Lato", "Nunito", 
+      "Raleway", "Ubuntu", "Oswald", "Work Sans", "DM Sans", "Quicksand", "Manrope", "Fira Sans", 
+      "Josefin Sans", "Karla", "Rubik", "Cabin", "Albert Sans", "Arimo", "Heebo", "Kanit",
+      "Playfair Display", "Merriweather", "Lora", "PT Serif", "Cinzel", "Cormorant Garamond", 
+      "Crimson Text", "Libre Baskerville", "EB Garamond", "DM Serif Display", "Prata", "Cardo", 
+      "Noto Serif", "Syne", "Space Grotesk", "Outfit", "Sora", "Fira Code", "JetBrains Mono", 
+      "Space Mono", "Inconsolata", "Caveat", "Pacifico", "Dancing Script", "Sacramento", "Shadows Into Light"
+    ];
+
+    // Fungsi pembantu untuk memuat font Google Fonts secara dinamis ke document head
+    function loadGoogleFont(fontName) {
+      if (!fontName) return;
+      const id = 'gf-' + fontName.replace(/\s+/g, '-').toLowerCase();
+      if (!document.getElementById(id)) {
+        const link = document.createElement('link');
+        link.id = id;
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}:wght@400;500;600;700;800&display=swap`;
+        document.head.appendChild(link);
+      }
+    }
+// =========================================================================
+    // ENGINE VISUALISASI ANALYTICS DASHBOARD
+    // =========================================================================
+    
+    let trendChartInstance = null; // Menyimpan instansi grafik agar tidak tumpang tindih
+
+    // -> AMBIL DATA STATISTIK DARI DATABASE SPREADSHEET
+    async function fetchAnalyticsData() {
+      const loader = document.getElementById('analyticsLoadingState');
+      const contentArea = document.getElementById('analyticsContentArea');
+
+      loader.classList.remove('hidden');
+      contentArea.classList.add('hidden');
+
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'get_analytics_data');
+        payload.append('token', STATE.token);
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          renderAnalyticsDashboard(res.data);
+          loader.classList.add('hidden');
+          contentArea.classList.remove('hidden');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        loader.classList.add('hidden');
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal Memuat Analitik',
+          text: error.message || 'Terjadi gangguan jaringan ke database.',
+          background: '#1e293b',
+          color: '#fff'
+        });
+      }
+    }
+
+    // -> RENDER KARTU METRIK, BAR PROGRESS, DAN GRAFIK TREN
+    function renderAnalyticsDashboard(analytics) {
+      // 1. Render Kartu Ringkasan Atas
+      document.getElementById('summaryTotalClicks').textContent = analytics.summary.totalClicks.toLocaleString('id-ID');
+      document.getElementById('summaryUniqueVisitors').textContent = analytics.summary.uniqueVisitors.toLocaleString('id-ID');
+      
+      const ratio = analytics.summary.uniqueVisitors > 0 
+        ? (analytics.summary.totalClicks / analytics.summary.uniqueVisitors).toFixed(1) 
+        : '0';
+      document.getElementById('summaryRatio').textContent = ratio + 'x';
+
+      // 2. Render Grafik Tren Harian (Chart.js Line/Area Chart)
+      renderTrendChart(analytics.trend);
+
+      // 3. Render Klik Tautan Tertinggi (Progress Bar)
+      const linksContainer = document.getElementById('analyticsLinksContainer');
+      linksContainer.innerHTML = '';
+      
+      if (analytics.links.length === 0) {
+        linksContainer.innerHTML = `<p class="text-slate-500 text-xs text-center py-6">Belum ada aktivitas klik terekam.</p>`;
+      } else {
+        analytics.links.slice(0, 5).forEach(link => {
+          const row = document.createElement('div');
+          row.className = "space-y-1.5";
+          row.innerHTML = `
+            <div class="flex items-center justify-between text-xs font-semibold">
+              <span class="text-white truncate max-w-[200px]">${escapeHtml(link.title)}</span>
+              <span class="text-slate-400">${link.clicks.toLocaleString('id-ID')} Klik <span class="text-slate-600 font-bold ml-1">(${link.percent}%)</span></span>
+            </div>
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-500" style="width: ${link.percent}%"></div>
+            </div>
+          `;
+          linksContainer.appendChild(row);
+        });
+      }
+
+      // 4. Render Sumber Lalu Lintas
+      const sourcesContainer = document.getElementById('analyticsSourcesContainer');
+      sourcesContainer.innerHTML = '';
+      
+      if (analytics.trafficSources.length === 0) {
+        sourcesContainer.innerHTML = `<p class="text-slate-500 text-xs text-center py-3">Tidak ada data.</p>`;
+      } else {
+        analytics.trafficSources.slice(0, 4).forEach(source => {
+          const row = document.createElement('div');
+          row.className = "space-y-1.5";
+          row.innerHTML = `
+            <div class="flex items-center justify-between text-xs font-semibold">
+              <span class="text-slate-300 flex items-center gap-2">
+                <i class="fa-solid fa-share-nodes text-[10px] text-blue-400"></i> ${escapeHtml(source.source)}
+              </span>
+              <span class="text-slate-400">${source.percent}%</span>
+            </div>
+            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-500 rounded-full" style="width: ${source.percent}%"></div>
+            </div>
+          `;
+          sourcesContainer.appendChild(row);
+        });
+      }
+
+      // 5. Render Jenis Perangkat
+      const devicesContainer = document.getElementById('analyticsDevicesContainer');
+      devicesContainer.innerHTML = '';
+      
+      analytics.devices.forEach(device => {
+        let iconClass = 'fa-desktop text-slate-400';
+        if (device.device === 'Mobile') iconClass = 'fa-mobile-screen text-pink-400';
+        else if (device.device === 'Tablet') iconClass = 'fa-tablet-screen-button text-purple-400';
+
+        const row = document.createElement('div');
+        row.className = "space-y-1.5";
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-semibold">
+            <span class="text-slate-300 flex items-center gap-2">
+              <i class="fa-solid ${iconClass} text-[11px]"></i> ${device.device}
+            </span>
+            <span class="text-slate-400">${device.percent}%</span>
+          </div>
+          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: ${device.percent}%"></div>
+          </div>
+        `;
+        devicesContainer.appendChild(row);
+      });
+    }
+
+    // -> PUSTAKA CHART GENERATOR (CHART.JS CONFIGURATION)
+    function renderTrendChart(trendData) {
+      const canvas = document.getElementById('trendChartCanvas');
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      
+      // Hancurkan instansi lama agar tidak tumpang tindih saat dirender ulang
+      if (trendChartInstance) {
+        trendChartInstance.destroy();
+      }
+
+      const labels = trendData.map(t => t.date);
+      const clicks = trendData.map(t => t.clicks);
+
+      // Buat efek gradien ungu-kebiruan transparan di area bawah grafik
+      const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+      gradient.addColorStop(0, 'rgba(139, 92, 246, 0.35)'); // Purple
+      gradient.addColorStop(1, 'rgba(59, 130, 246, 0.00)');  // Transparent
+
+      trendChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Jumlah Klik',
+            data: clicks,
+            borderColor: '#a855f7', // Border ungu premium
+            borderWidth: 3,
+            backgroundColor: gradient,
+            fill: true,
+            tension: 0.38, // Lekukan kurva yang halus
+            pointBackgroundColor: '#3b82f6', // Titik biru neon
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#a855f7',
+            pointHoverBorderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }, // Sembunyikan legenda agar tampilan minimalis
+            tooltip: {
+              backgroundColor: '#1e293b',
+              titleFont: { family: 'Plus Jakarta Sans', size: 12, weight: 'bold' },
+              bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
+              padding: 12,
+              cornerRadius: 12,
+              displayColors: false
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { 
+                color: '#94a3b8', 
+                font: { family: 'Plus Jakarta Sans', size: 10, weight: 'bold' } 
+              }
+            },
+            y: {
+              grid: { color: 'rgba(255, 255, 255, 0.04)' },
+              ticks: { 
+                color: '#94a3b8', 
+                precision: 0,
+                font: { family: 'Plus Jakarta Sans', size: 10, weight: 'bold' } 
+              }
+            }
+          }
+        }
+      });
+    }
+    // 3. FETCH DATA UTAMA DASHBOARD
+async function fetchDashboardData() {
+  try {
+    const payload = new URLSearchParams();
+    payload.append('action', 'get_dashboard_data');
+    payload.append('token', STATE.token);
+
+    const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+    const res = await response.json();
+
+    if (res.status === 'success') {
+      STATE.user = res.data.user;
+      STATE.settings = res.data.pageSettings;
+      STATE.blocks = res.data.blocks;
+
+      initializeUI();
+    } else {
+      throw new Error(res.message);
+    }
+  } catch (error) {
+    console.error(error); // Menampilkan error asli di console untuk debugging
+    Swal.fire({
+      icon: 'error', 
+      title: 'Koneksi Gagal', 
+      text: 'Gagal memuat workspace: ' + error.message,
+      background: '#1e293b', 
+      color: '#fff'
+    }).then(() => logout());
+  } finally {
+    // Apapun yang terjadi (sukses/gagal), sembunyikan layar loading agar tidak stuck
+    setTimeout(() => {
+      const loader = document.getElementById('pageLoader');
+      if (loader) loader.style.display = 'none';
+    }, 500);
+  }
+}
+    // 4. RENDER UI SETELAH DATA DIDAPAT
+function initializeUI() {
+      // Setup Sidebar & Topbar
+      document.getElementById('sidebarName').textContent = STATE.user.name;
+      const avatarUrl = STATE.user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(STATE.user.name)}&background=random`;
+      document.getElementById('sidebarAvatar').src = avatarUrl;
+      document.getElementById('appearanceAvatar').src = avatarUrl;
+      document.getElementById('previewAvatar').src = avatarUrl;
+      // INISIALISASI PEMILIH WARNA TEKS (JUDUL & BIO)
+      const titleColor = STATE.settings.Title_Color || '#111827';
+      const bioColor = STATE.settings.Bio_Color || '#4b5563';
+
+      document.getElementById('settingTitleColor').value = titleColor;
+      document.getElementById('settingTitleColorText').value = titleColor.toUpperCase();
+
+      document.getElementById('settingBioColor').value = bioColor;
+      document.getElementById('settingBioColorText').value = bioColor.toUpperCase();
+
+      // Event Listener Warna Teks
+      const setupTextColListener = (inputId, textId) => {
+        const input = document.getElementById(inputId);
+        input.addEventListener('input', (e) => {
+          document.getElementById(textId).value = e.target.value.toUpperCase();
+          updateLivePreview();
+        });
+      };
+      setupTextColListener('settingTitleColor', 'settingTitleColorText');
+      setupTextColListener('settingBioColor', 'settingBioColorText');
+      const pUrl = document.getElementById('publicUrlText');
+      pUrl.textContent = STATE.user.publicUrl.replace('https://', '');
+      document.getElementById('publicUrlBtn').href = STATE.user.publicUrl;
+
+      // Render Tab Tampilan (Form)
+      document.getElementById('settingPageTitle').value = STATE.settings.Page_Title;
+      document.getElementById('settingBio').value = STATE.settings.Bio_Description;
+      
+      // GENERATE PILIHAN 50 FONT
+      const fontSelect = document.getElementById('settingFontFamily');
+      fontSelect.innerHTML = '';
+      PREMIUM_FONTS.forEach(font => {
+        const opt = document.createElement('option');
+        opt.value = font;
+        opt.textContent = font;
+        if (font === STATE.settings.Font_Family) opt.selected = true;
+        fontSelect.appendChild(opt);
+      });
+      fontSelect.addEventListener('change', updateLivePreview);
+
+      // INISIALISASI WARNA LATAR BELAKANG (SOLID / GRADASI)
+      const bgVal = STATE.settings.Bg_Color || '#f3f4f6';
+      if (bgVal.includes('linear-gradient')) {
+        document.querySelector('input[name="bgType"][value="gradient"]').checked = true;
+        document.getElementById('gradientBgControls').classList.remove('hidden');
+        document.getElementById('solidBgControls').classList.add('hidden');
+        
+        const match = bgVal.match(/linear-gradient\(([^,]+),\s*([^,]+),\s*([^)]+)\)/);
+        if (match) {
+          document.getElementById('settingBgGradDir').value = match[1].trim();
+          document.getElementById('settingBgGrad1').value = match[2].trim();
+          document.getElementById('settingBgGrad1Text').value = match[2].trim().toUpperCase();
+          document.getElementById('settingBgGrad2').value = match[3].trim();
+          document.getElementById('settingBgGrad2Text').value = match[3].trim().toUpperCase();
+        }
+      } else {
+        document.querySelector('input[name="bgType"][value="solid"]').checked = true;
+        document.getElementById('solidBgControls').classList.remove('hidden');
+        document.getElementById('gradientBgControls').classList.add('hidden');
+        
+        document.getElementById('settingBgColor').value = bgVal;
+        document.getElementById('settingBgColorText').value = bgVal.toUpperCase();
+      }
+
+      // Event Listener Tipe Latar Belakang
+      document.querySelectorAll('input[name="bgType"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (e.target.value === 'gradient') {
+            document.getElementById('gradientBgControls').classList.remove('hidden');
+            document.getElementById('solidBgControls').classList.add('hidden');
+          } else {
+            document.getElementById('solidBgControls').classList.remove('hidden');
+            document.getElementById('gradientBgControls').classList.add('hidden');
+          }
+          updateLivePreview();
+        });
+      });
+
+      // Event Listener Input Warna Solid & Gradasi
+      const setupColorListener = (colorId, textId) => {
+        const input = document.getElementById(colorId);
+        input.addEventListener('input', (e) => {
+          document.getElementById(textId).value = e.target.value.toUpperCase();
+          updateLivePreview();
+        });
+      };
+      setupColorListener('settingBgColor', 'settingBgColorText');
+      setupColorListener('settingBgGrad1', 'settingBgGrad1Text');
+      setupColorListener('settingBgGrad2', 'settingBgGrad2Text');
+      document.getElementById('settingBgGradDir').addEventListener('change', updateLivePreview);
+
+      // Warna Tombol
+      const btnColorInput = document.getElementById('settingBtnColor');
+      btnColorInput.value = STATE.settings.Button_Color;
+      document.getElementById('settingBtnColorText').value = STATE.settings.Button_Color;
+      btnColorInput.addEventListener('input', (e) => { 
+        document.getElementById('settingBtnColorText').value = e.target.value; 
+        updateLivePreview(); 
+      });
+
+      // Radio Buttons Gaya Tombol
+      const radios = document.getElementsByName('btnStyle');
+      for (let i = 0; i < radios.length; i++) {
+        if(radios[i].value === STATE.settings.Button_Style) radios[i].checked = true;
+        radios[i].addEventListener('change', updateLivePreview);
+      }
+
+      // Input Binding Pratinjau Teks
+      document.getElementById('settingPageTitle').addEventListener('input', updateLivePreview);
+      document.getElementById('settingBio').addEventListener('input', updateLivePreview);
+
+      // Render tab pengaturan akun
+      document.getElementById('userFullName').value = STATE.user.name;
+      document.getElementById('userEmail').value = STATE.user.email;
+      document.getElementById('userUsername').value = STATE.user.username;
+      document.getElementById('settingsTabAvatar').src = avatarUrl;
+
+      // Render Daftar Tautan & Pratinjau
+      renderLinksList();
+      updateLivePreview();
+      initDragAndDrop();
+    }
+    
+    // 5. RENDER DAFTAR TAUTAN (HTML)
+    function renderLinksList() {
+      const container = document.getElementById('linksContainer');
+      const emptyState = document.getElementById('emptyLinksState');
+      container.innerHTML = '';
+
+      if (STATE.blocks.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      STATE.blocks.forEach((block, index) => {
+        const li = document.createElement('li');
+        li.className = "glass-panel p-4 md:p-5 rounded-2xl flex flex-col md:flex-row gap-4 items-start md:items-center transform transition-transform";
+        li.dataset.id = block.Block_ID;
+
+        li.innerHTML = `
+          <!-- Drag Handle -->
+          <div class="drag-handle text-slate-500 hover:text-white px-2 py-4">
+            <i class="fa-solid fa-grip-vertical text-xl"></i>
+          </div>
+          
+          <!-- Content Info -->
+          <div class="flex-1 w-full">
+            <div class="flex items-center gap-3 mb-1">
+              <span class="font-bold text-white text-base">${escapeHtml(block.Title)}</span>
+              <button onclick="editTitle('${block.Block_ID}')" class="text-slate-500 hover:text-blue-400 transition-colors"><i class="fa-solid fa-pen text-xs"></i></button>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="${escapeHtml(block.URL_Destination)}" target="_blank" class="text-sm text-blue-400 hover:underline truncate max-w-[200px] md:max-w-[300px]">${escapeHtml(block.URL_Destination)}</a>
+              <button onclick="editUrl('${block.Block_ID}')" class="text-slate-500 hover:text-blue-400 transition-colors"><i class="fa-solid fa-pen text-xs"></i></button>
+            </div>
+          </div>
+
+          <!-- Actions (Toggle & Delete) -->
+          <div class="flex items-center justify-between w-full md:w-auto gap-6 pl-4 border-t border-slate-800 md:border-none pt-4 md:pt-0">
+            <!-- Switch Active -->
+            <div class="flex items-center justify-center">
+              <label class="relative inline-block w-10 h-5 align-middle select-none transition duration-200 ease-in cursor-pointer">
+                <input type="checkbox" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" 
+                       ${block.Is_Active ? 'checked' : ''} onchange="toggleBlockActive('${block.Block_ID}', this.checked)">
+                <label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
+              </label>
+            </div>
+
+            <!-- Delete Button -->
+            <button onclick="deleteLink('${block.Block_ID}')" class="text-slate-500 hover:text-red-500 transition-colors bg-slate-800/50 hover:bg-slate-800 p-2.5 rounded-xl">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(li);
+      });
+    }
+
+    // 6. UPDATE TAMPILAN PRATINJAU PONSEL SECARA REAL-TIME
+// 6. UPDATE TAMPILAN PRATINJAU PONSEL SECARA REAL-TIME
+// 6. UPDATE TAMPILAN PRATINJAU PONSEL SECARA REAL-TIME (VERSI BERSIH & FIX)
+    function updateLivePreview() {
+      // 1. Sinkronisasi Teks Judul & Bio
+      document.getElementById('previewTitle').textContent = document.getElementById('settingPageTitle').value || '@username';
+      document.getElementById('previewBio').textContent = document.getElementById('settingBio').value || 'Tidak ada deskripsi.';
+      
+      // 2. Formulasi Latar Belakang (Solid / Gradasi)
+      const bgType = document.querySelector('input[name="bgType"]:checked').value;
+      let finalBg = '';
+      let isDarkBg = false;
+
+      if (bgType === 'solid') {
+        finalBg = document.getElementById('settingBgColor').value;
+        isDarkBg = isColorDark(finalBg);
+      } else {
+        const dir = document.getElementById('settingBgGradDir').value;
+        const col1 = document.getElementById('settingBgGrad1').value;
+        const col2 = document.getElementById('settingBgGrad2').value;
+        finalBg = `linear-gradient(${dir}, ${col1}, ${col2})`;
+        isDarkBg = isColorDark(col1); // Deteksi kegelapan warna pertama
+      }
+
+      const previewContent = document.getElementById('previewContent');
+      previewContent.style.background = finalBg;
+      
+      // 3. Rendering Jenis Huruf (Font Style)
+      const selectedFont = document.getElementById('settingFontFamily').value;
+      loadGoogleFont(selectedFont);
+      previewContent.style.fontFamily = `"${selectedFont}", sans-serif`;
+
+      // 4. SINKRONISASI WARNA CUSTOM JUDUL & BIO (Memaksa mengikuti pemilih warna)
+      const customTitleColor = document.getElementById('settingTitleColor').value;
+      const customBioColor = document.getElementById('settingBioColor').value;
+      
+      document.getElementById('previewTitle').style.color = customTitleColor;
+      document.getElementById('previewBio').style.color = customBioColor;
+
+      // 5. Sinkronisasi Warna Search Bar & Status Bar Mockup
+      const searchInput = document.getElementById('previewSearchInput');
+      if (searchInput) {
+        if (isDarkBg) {
+          searchInput.className = "w-full bg-white/10 border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-xs font-semibold text-white placeholder-white/50 focus:outline-none focus:ring-1 focus:ring-white/20";
+        } else {
+          searchInput.className = "w-full bg-black/5 border border-black/10 rounded-xl py-2.5 pl-9 pr-4 text-xs font-semibold text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-black/20";
+        }
+      }
+
+      const statusBar = document.getElementById('statusBar');
+      const homeIndicator = document.getElementById('homeIndicator');
+      if (isDarkBg) {
+        if (statusBar) statusBar.style.color = 'rgba(255, 255, 255, 0.8)';
+        if (homeIndicator) homeIndicator.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+      } else {
+        if (statusBar) statusBar.style.color = 'rgba(15, 23, 42, 0.8)';
+        if (homeIndicator) homeIndicator.style.backgroundColor = 'rgba(15, 23, 42, 0.3)';
+      }
+
+      // 6. Render Card Tautan
+      const checkedRadio = document.querySelector('input[name="btnStyle"]:checked');
+      const btnStyle = checkedRadio ? checkedRadio.value : 'rounded-full';
+      
+      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)';
+      
+      const previewLinksContainer = document.getElementById('previewLinksContainer');
+      previewLinksContainer.innerHTML = '';
+
+      STATE.blocks.forEach(block => {
+        if (!block.Is_Active) return; 
+        
+        const card = document.createElement('a');
+        card.href = block.URL_Destination;
+        card.target = "_blank";
+        
+        card.className = `w-full flex items-center gap-3.5 p-3 border backdrop-blur-md shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98] group ${btnStyle}`;
+        
+        if (isDarkBg) {
+          card.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+          card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+        } else {
+          card.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+          card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+        }
+        
+        const imgUrl = block.Thumbnail_URL || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
+
+        card.innerHTML = `
+          <img src="${imgUrl}" class="w-11 h-11 rounded-xl object-cover border border-white/20 shadow-sm shrink-0">
+          <div class="flex-1 min-w-0 text-left">
+            <h4 class="font-bold text-[13px] tracking-tight truncate" style="color: ${cardTextColor};">${block.Title}</h4>
+            <p class="text-[10px] mt-0.5 leading-snug line-clamp-2 font-medium" style="color: ${cardDescColor};">${block.Description || ''}</p>
+          </div>
+          <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition-transform shrink-0" style="color: ${cardTextColor}; opacity: 0.5;"></i>
+        `;
+        
+        previewLinksContainer.appendChild(card);
+      });
+    }
+ // -> FUNGSI PENCARIAN TAUTAN PADA MOCKUP HP
+ function filterPreviewLinks(query) {
+   const cleanQuery = query.toLowerCase().trim();
+   const cards = document.querySelectorAll('#previewLinksContainer a');
+   
+   cards.forEach(card => {
+     const title = card.querySelector('h4').textContent.toLowerCase();
+     const desc = card.querySelector('p').textContent.toLowerCase();
+     
+     if (title.includes(cleanQuery) || desc.includes(cleanQuery)) {
+       card.style.display = 'flex';
+     } else {
+       card.style.display = 'none';
+     }
+   });
+ }
+    // 7. DRAG AND DROP ENGINE (SORTABLE JS)
+    function initDragAndDrop() {
+      const el = document.getElementById('linksContainer');
+      new Sortable(el, {
+        handle: '.drag-handle', // Handle specifically
+        animation: 200,
+        ghostClass: 'opacity-50',
+        onEnd: function () {
+          // Kumpulkan urutan baru
+          const items = el.querySelectorAll('li');
+          const newPositions = [];
+          
+          items.forEach((item, index) => {
+            const blockId = item.dataset.id;
+            newPositions.push({ Block_ID: blockId, Sort_Order: index + 1 });
+            // Update state lokal
+            const block = STATE.blocks.find(b => b.Block_ID === blockId);
+            if(block) block.Sort_Order = index + 1;
+          });
+
+          // Urutkan ulang array state
+          STATE.blocks.sort((a, b) => a.Sort_Order - b.Sort_Order);
+          updateLivePreview();
+          
+          // Kirim ke server secara senyap (tanpa loading alert agar smooth)
+          saveBlockPositions(newPositions);
+        }
+      });
+    }
+
+    async function saveBlockPositions(positionsArray) {
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_block_positions');
+        payload.append('token', STATE.token);
+        payload.append('positionsArray', JSON.stringify(positionsArray));
+
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch (error) {
+        console.error("Gagal menyimpan urutan", error);
+      }
+    }
+
+    // 8. CRUD ACTIONS
+    
+    // -> BUAT LINK BARU
+async function submitNewLink(e) {
+   e.preventDefault();
+   const title = document.getElementById('newLinkTitle').value;
+   const description = document.getElementById('newLinkDescription').value;
+   const thumbnail = document.getElementById('newLinkThumbnail').value;
+   const url = document.getElementById('newLinkUrl').value;
+   const btn = document.getElementById('btnSubmitLink');
+
+   btn.textContent = 'Menyimpan...';
+   btn.disabled = true;
+
+   try {
+     const newBlockData = { 
+       Block_Type: 'Link', 
+       Title: title, 
+       Description: description, 
+       Thumbnail_URL: thumbnail, 
+       URL_Destination: url 
+     };
+     
+     const payload = new URLSearchParams();
+     payload.append('action', 'create_content_block');
+     payload.append('token', STATE.token);
+     payload.append('blockData', JSON.stringify(newBlockData));
+
+     const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+     const res = await response.json();
+
+     if (res.status === 'success') {
+       STATE.blocks.push(res.data);
+       renderLinksList();
+       updateLivePreview();
+       
+       // Reset form
+       document.getElementById('newLinkTitle').value = '';
+       document.getElementById('newLinkDescription').value = '';
+       document.getElementById('newLinkThumbnail').value = '';
+       document.getElementById('newLinkUrl').value = '';
+       toggleForm('addLinkForm');
+       
+       showToast('Sukses', 'Tautan ditambahkan.');
+     } else {
+       throw new Error(res.message);
+     }
+   } catch (error) {
+     Swal.fire('Error', error.message, 'error');
+   } finally {
+     btn.textContent = 'Simpan Tautan';
+     btn.disabled = false;
+   }
+ }
+    // -> TOGGLE ACTIVE LINK
+    async function toggleBlockActive(blockId, isActive) {
+      const block = STATE.blocks.find(b => b.Block_ID === blockId);
+      if(block) block.Is_Active = isActive;
+      updateLivePreview(); // update pratinjau langsung
+
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_content_block');
+        payload.append('token', STATE.token);
+        payload.append('blockData', JSON.stringify({ Block_ID: blockId, Is_Active: isActive }));
+
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch (e) { console.error("Toggle failed"); }
+    }
+
+    // -> HAPUS LINK
+    function deleteLink(blockId) {
+      Swal.fire({
+        title: 'Hapus Tautan?',
+        text: "Tautan ini akan dihapus permanen.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#475569',
+        confirmButtonText: 'Ya, Hapus!',
+        background: '#1e293b', color: '#fff'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          
+          // Hapus dari state visual
+          STATE.blocks = STATE.blocks.filter(b => b.Block_ID !== blockId);
+          renderLinksList();
+          updateLivePreview();
+
+          // Panggil API
+          const payload = new URLSearchParams();
+          payload.append('action', 'delete_content_block');
+          payload.append('token', STATE.token);
+          payload.append('blockId', blockId);
+
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+
+    // -> SIMPAN PENGATURAN TAMPILAN
+// -> SIMPAN PENGATURAN TAMPILAN & FOTO PROFIL KE BACKEND
+    async function saveAppearanceSettings() {
+      const btn = document.getElementById('btnSaveAppearance');
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Menyimpan...';
+      btn.disabled = true;
+
+      try {
+        // Tentukan string latar belakang final yang akan disimpan
+        const bgType = document.querySelector('input[name="bgType"]:checked').value;
+        let finalBg = '';
+        if (bgType === 'solid') {
+          finalBg = document.getElementById('settingBgColor').value;
+        } else {
+          const dir = document.getElementById('settingBgGradDir').value;
+          const col1 = document.getElementById('settingBgGrad1').value;
+          const col2 = document.getElementById('settingBgGrad2').value;
+          finalBg = `linear-gradient(${dir}, ${col1}, ${col2})`;
+        }
+const settingsData = {
+          Page_Title: document.getElementById('settingPageTitle').value,
+          Bio_Description: document.getElementById('settingBio').value,
+          Bg_Color: finalBg,
+          Button_Color: document.getElementById('settingBtnColor').value,
+          Button_Style: document.querySelector('input[name="btnStyle"]:checked').value,
+          Font_Family: document.getElementById('settingFontFamily').value,
+          Title_Color: document.getElementById('settingTitleColor').value, // Kirim Warna Judul
+          Bio_Color: document.getElementById('settingBioColor').value     // Kirim Warna Bio
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_page_settings');
+        payload.append('token', STATE.token);
+        payload.append('settingsData', JSON.stringify(settingsData));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          showToast('Tersimpan', 'Pengaturan tampilan berhasil diperbarui.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch(error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.innerHTML = 'Simpan Perubahan Tampilan';
+        btn.disabled = false;
+      }
+    }
+    // -> FUNGSI UNTUK MENGUBAH URL FOTO PROFIL
+    function changeAvatarUrl() {
+      Swal.fire({
+        title: 'Ubah Foto Profil',
+        text: 'Masukkan URL gambar online Anda (jpg/png/webp):',
+        input: 'url',
+        inputPlaceholder: 'https://website.com/foto-anda.png',
+        inputValue: STATE.user.avatar || '',
+        background: '#1e293b',
+        color: '#fff',
+        showCancelButton: true,
+        confirmButtonColor: '#10b981',
+        cancelButtonColor: '#475569',
+        
+        confirmButtonText: 'Terapkan'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const newAvatar = result.value.trim();
+          
+          // Perbarui state lokal sementara
+          STATE.user.avatar = newAvatar;
+          
+          // Render langsung ke UI agar terjadi perubahan instan
+          const finalAvatar = newAvatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(STATE.user.name)}&background=random`;
+          document.getElementById('sidebarAvatar').src = finalAvatar;
+          document.getElementById('appearanceAvatar').src = finalAvatar;
+          document.getElementById('previewAvatar').src = finalAvatar;
+          // Tambahkan baris ini di dalam fungsi changeAvatarUrl() tepat setelah document.getElementById('previewAvatar').src = finalAvatar;
+document.getElementById('settingsTabAvatar').src = finalAvatar;
+          
+          showToast('Foto Diperbarui', 'Klik "Simpan Perubahan Tampilan" untuk menyimpan permanen ke database.');
+        }
+      });
+    }
+// -> SIMPAN PENGATURAN TAMPILAN & FOTO PROFIL KE BACKEND
+    async function saveUserProfileSettings() {
+      const btn = document.getElementById('btnSaveUserProfile');
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Menyimpan...';
+      btn.disabled = true;
+
+      try {
+        const fullName = document.getElementById('userFullName').value.trim();
+        
+        const settingsData = {
+          Full_Name: fullName,
+          Profile_Avatar: STATE.user.avatar
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_page_settings');
+        payload.append('token', STATE.token);
+        payload.append('settingsData', JSON.stringify(settingsData));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          // Perbarui state lokal
+          STATE.user.name = fullName;
+          document.getElementById('sidebarName').textContent = fullName;
+          
+          // HITUNG ULANG AVATAR INISIAL AGAR BERUBAH SECARA INSTAN (Misal: NA -> AG)
+          const finalAvatar = STATE.user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=random`;
+          document.getElementById('sidebarAvatar').src = finalAvatar;
+          document.getElementById('settingsTabAvatar').src = finalAvatar;
+          document.getElementById('previewAvatar').src = finalAvatar;
+
+          showToast('Tersimpan', 'Profil pengguna berhasil diperbarui.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch(error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.innerHTML = 'Simpan Perubahan Profil';
+        btn.disabled = false;
+      }
+    }    
+// 9. UTILITIES (HELPERS)
+
+    // Switch Nav Tabs
+// -> SISTEM NAVIGASI TAB DASHBOARD (VERSI DIPERBARUI)
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+
+      // Reset Gaya Tombol Navigasi di Sidebar
+      document.querySelectorAll('aside nav button').forEach(btn => {
+        btn.className = "w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group";
+      });
+      const activeBtn = document.getElementById(`nav-${tabName}`);
+      if (activeBtn) {
+        activeBtn.className = "w-full flex items-center p-3 rounded-xl transition-all text-blue-400 bg-blue-500/10 group";
+      }
+
+      // Tentukan Judul Berdasarkan Tab Terpilih
+      let titleText = 'Kelola Tautan';
+      if (tabName === 'appearance') titleText = 'Tampilan Desain';
+      else if (tabName === 'settings') titleText = 'Pengaturan Akun';
+      else if (tabName === 'analytics') {
+        titleText = 'Analisis Performa';
+        fetchAnalyticsData(); // Ambil statistik performa secara real-time saat tab dibuka!
+      }
+      document.getElementById('pageTitle').textContent = titleText;
+    }
+    // Form Toggle (Expand/Collapse)
+    function toggleForm(elementId) {
+      const el = document.getElementById(elementId);
+      if (el.style.maxHeight && el.style.maxHeight !== '0px') {
+        el.style.maxHeight = '0px';
+        el.style.opacity = '0';
+      } else {
+        el.style.maxHeight = '500px';
+        el.style.opacity = '1';
+      }
+    }
+
+    // Copy to clipboard
+    function copyPublicLink() {
+      navigator.clipboard.writeText(STATE.user.publicUrl).then(() => {
+        showToast('Disalin!', 'Link berhasil disalin ke clipboard.');
+      });
+    }
+
+    // Logout
+    function logout() {
+      localStorage.removeItem('lh_token');
+      localStorage.removeItem('lh_user');
+      window.location.href = 'index.html';
+    }
+
+    // Toast Alert
+    function showToast(title, message, icon='success') {
+      Swal.fire({ toast: true, position: 'top-end', icon: icon, title: title, text: message, showConfirmButton: false, timer: 3000, background: '#1e293b', color: '#fff' });
+    }
+
+    function escapeHtml(val) {
+      return String(val||'').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Cek apakah kode HEX itu gelap atau terang (Untuk menyesuaikan warna teks)
+    function isColorDark(hexColor) {
+      if (!hexColor) return false;
+      const hex = hexColor.replace('#', '');
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+      return (yiq < 128); // Jika kurang dari 128 artinya warna gelap
+    }
+
+    // Dummy Edit Functions (Bisa dikembangkan lebih lanjut pake SweetAlert input)
+    function editTitle(blockId) {
+      const block = STATE.blocks.find(b => b.Block_ID === blockId);
+      Swal.fire({
+        title: 'Edit Judul', input: 'text', inputValue: block.Title, background: '#1e293b', color: '#fff',
+        showCancelButton: true, confirmButtonColor: '#3b82f6',
+      }).then(async (res) => {
+        if(res.isConfirmed && res.value) {
+          block.Title = res.value;
+          renderLinksList(); updateLivePreview();
+          const payload = new URLSearchParams(); payload.append('action', 'update_content_block'); payload.append('token', STATE.token); payload.append('blockData', JSON.stringify({ Block_ID: blockId, Title: res.value }));
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+
+    function editUrl(blockId) {
+      const block = STATE.blocks.find(b => b.Block_ID === blockId);
+      Swal.fire({
+        title: 'Edit URL', input: 'url', inputValue: block.URL_Destination, background: '#1e293b', color: '#fff',
+        showCancelButton: true, confirmButtonColor: '#3b82f6',
+      }).then(async (res) => {
+        if(res.isConfirmed && res.value) {
+          block.URL_Destination = res.value;
+          renderLinksList();
+          const payload = new URLSearchParams(); payload.append('action', 'update_content_block'); payload.append('token', STATE.token); payload.append('blockData', JSON.stringify({ Block_ID: blockId, URL_Destination: res.value }));
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

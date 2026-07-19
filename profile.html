@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memuat Profil... | LinkHub</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans (Default) -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    /* Sembunyikan scrollbar bawaan agar rapi */
+    ::-webkit-scrollbar { width: 0px; }
+  </style>
+</head>
+<body class="flex flex-col items-center px-5 pt-12 pb-6 min-h-screen transition-colors duration-500" id="mainContainer">
+  <!-- FULL PAGE LOADER -->
+  <div id="profileLoader" class="fixed inset-0 bg-[#0f172a] z-50 flex flex-col items-center justify-center">
+    <div class="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+    <p class="text-sm font-bold text-slate-400">Memuat halaman...</p>
+  </div>
+
+  <!-- MAIN PROFILE CARD WRAPPER -->
+ <!-- MAIN PROFILE CARD WRAPPER (Diperlebar menjadi max-w-2xl agar lebih elegan & luas) -->
+ <div class="w-full max-w-[480px] flex-1 flex flex-col items-center text-center">
+ <!-- Avatar dengan Drop Shadow Premium -->
+    <div class="relative">
+      <div class="absolute inset-0 rounded-full bg-black/10 blur-md transform translate-y-1"></div>
+      <img id="profileAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="relative w-24 h-24 rounded-full object-cover border-2 border-white/80 shadow-md">
+    </div>
+    
+    <!-- Title & Bio -->
+   <h1 id="profileTitle" class="mt-5 text-3xl font-black tracking-tight leading-tight">Nama Pengguna</h1>
+    <p id="profileBio" class="mt-3 text-[15.5px] font-bold max-w-md opacity-85 leading-relaxed">Mendeskripsikan profil singkat di sini...</p>
+    <!-- SEARCH BAR INTERAKTIF (Akurat & Presisi) -->
+    <div class="w-full mt-7 relative" id="searchBoxContainer">
+      <input type="text" id="searchInput" oninput="filterLinks(this.value)" class="w-full bg-white/10 border border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm font-semibold placeholder-white/50 focus:outline-none focus:ring-1" placeholder="Cari link (misal: Youtube, Shop)...">
+      <!-- Icon Wrapper dengan Flex Centering yang Presisi -->
+      <div class="absolute left-4.5 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none" id="searchIcon">
+        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+      </div>
+    </div>
+
+    <!-- CONTAINER BUTTON LINKS (GLASSMORPHISM STYLE) -->
+    <div id="linksContainer" class="w-full mt-7 flex flex-col gap-4">
+       <!-- Akan dirender via JS -->
+    </div>
+    <!-- TAMBAHKAN BLOK FOOTER INI TEPAT DI BAWAHNYA: -->
+   <div class="mt-auto pt-16 pb-4 relative z-30">
+  <a href="#" class="text-[10px] font-black tracking-[0.25em] uppercase opacity-40 hover:opacity-80 transition-opacity" id="footerBranding">Powered by LinkHub.</a>
+</div>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP ANDA DI SINI
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZOKBx_IVqtS0Vt0_XXh5GOY35llR9pzg-N6jTB_koX7DvHPbw9YcO7htZ0bzfWjhR/exec'; 
+
+    let BLOCKS_DATA = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mengambil parameter username dari URL (Contoh: profile.html?u=business)
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get('u');
+
+      if (!username) {
+        showErrorPage("Username tidak ditentukan.");
+        return;
+      }
+
+      fetchUserProfile(username);
+    });
+
+    async function fetchUserProfile(username) {
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'get_dashboard_data');
+        payload.append('token', 'GUEST'); // Bypass token karena ini halaman publik
+        payload.append('guestUsername', username); // Memberitahu backend username yang dicari
+
+        // Note: Kita akan memanggil API get_dashboard_data dengan parameter username tamu
+        const response = await fetch(`${SCRIPT_URL}?action=get_dashboard_data&u=${username}`);
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          BLOCKS_DATA = res.data.blocks;
+          renderPublicProfile(res.data);
+          document.getElementById('profileLoader').style.display = 'none';
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        showErrorPage("Halaman tidak ditemukan atau gagal memuat data.");
+      }
+    }
+
+    function renderPublicProfile(data) {
+      const settings = data.pageSettings;
+      const user = data.user;
+
+      // Update Judul Halaman
+      document.title = `${settings.Page_Title}`;
+
+      // Update Teks & Bio
+      document.getElementById('profileTitle').textContent = settings.Page_Title;
+      document.getElementById('profileBio').textContent = settings.Bio_Description;
+
+      // Update Foto Profil
+      const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random`;
+      document.getElementById('profileAvatar').src = avatarUrl;
+
+      // UPDATE LATAR BELAKANG (SOLID / GRADASI)
+      const mainContainer = document.getElementById('mainContainer');
+      mainContainer.style.background = settings.Bg_Color;
+
+   const isDarkBg = isColorDark(settings.Bg_Color);
+      
+      // Menggunakan warna custom dari database, atau cadangan default jika kosong
+      const titleColor = settings.Title_Color || (isDarkBg ? '#ffffff' : '#0f172a');
+      const bioColor = settings.Bio_Color || (isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)');
+
+      document.getElementById('profileTitle').style.color = titleColor;
+      document.getElementById('profileBio').style.color = bioColor;
+
+      // SINKRONISASI WARNA SEARCH BAR
+    // SINKRONISASI WARNA SEARCH BAR & IKON SECARA PRESISI
+      const searchInput = document.getElementById('searchInput');
+      const searchIcon = document.getElementById('searchIcon');
+      
+      if (isDarkBg) {
+        searchInput.className = "w-full bg-white/10 border border-white/10 rounded-2xl py-3.5 pl-11 pr-4 text-sm font-semibold text-white placeholder-white/50 focus:outline-none focus:ring-1 focus:ring-white/20 shadow-sm";
+        searchIcon.className = "absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none text-white/50";
+      } else {
+        searchInput.className = "w-full bg-black/5 border border-black/10 rounded-2xl py-3.5 pl-11 pr-4 text-sm font-semibold text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-black/20 shadow-sm";
+        searchIcon.className = "absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none text-slate-500";
+      }
+
+      // LOAD GOOGLE FONTS SECARA DINAMIS
+      if (settings.Font_Family) {
+        loadGoogleFont(settings.Font_Family);
+        mainContainer.style.fontFamily = `"${settings.Font_Family}", sans-serif`;
+      }
+
+      // RENDERING GLASSMORPHISM LINK CARDS
+      const container = document.getElementById('linksContainer');
+      container.innerHTML = '';
+
+      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)';
+
+      BLOCKS_DATA.forEach(block => {
+        if (!block.Is_Active) return;
+
+        const card = document.createElement('a');
+        card.href = block.URL_Destination;
+        card.target = "_blank";
+        
+        // CSS Card Glassmorphism
+        card.className = `w-full flex items-center gap-4 p-3.5 border backdrop-blur-md shadow-sm transition-transform hover:scale-[1.015] active:scale-[0.985] group ${settings.Button_Style || 'rounded-full'}`;
+        
+        if (isDarkBg) {
+          card.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+          card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+        } else {
+          card.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+          card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+        }
+
+        const imgUrl = block.Thumbnail_URL || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
+
+      card.innerHTML = `
+          <img src="${imgUrl}" class="w-12 h-12 rounded-xl object-cover border border-white/20 shadow-sm shrink-0">
+          <div class="flex-1 min-w-0 text-left">
+            <!-- Judul kartu diperbesar menjadi text-[15.5px] -->
+            <h4 class="font-bold text-[15.5px] tracking-tight truncate" style="color: ${cardTextColor};">${block.Title}</h4>
+            <!-- Deskripsi kartu diperbesar menjadi text-[12.5px] dan jarak baris lebih renggang (leading-normal) -->
+            <p class="text-[12.5px] mt-1 leading-normal line-clamp-2 font-semibold" style="color: ${cardDescColor};">${block.Description || ''}</p>
+          </div>
+          <i class="fa-solid fa-chevron-right text-[11px] group-hover:translate-x-0.5 transition-transform shrink-0" style="color: ${cardTextColor}; opacity: 0.5;"></i>
+        `;
+
+
+        container.appendChild(card);
+      });
+    }
+
+    // FUNGSI SEARCH FILTERING
+    function filterLinks(query) {
+      const cleanQuery = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('#linksContainer a');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('h4').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(cleanQuery) || desc.includes(cleanQuery)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function loadGoogleFont(fontName) {
+      if (!fontName) return;
+      const id = 'gf-' + fontName.replace(/\s+/g, '-').toLowerCase();
+      if (!document.getElementById(id)) {
+        const link = document.createElement('link');
+        link.id = id;
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}:wght@400;500;600;700;800&display=swap`;
+        document.head.appendChild(link);
+      }
+    }
+
+    function isColorDark(colorVal) {
+      if (!colorVal) return false;
+      let hex = colorVal;
+      if (colorVal.includes('linear-gradient')) {
+        const match = colorVal.match(/#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})/);
+        if (match) hex = match[0];
+      }
+      hex = hex.replace('#', '');
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+      return (yiq < 128);
+    }
+
+    function showErrorPage(message) {
+      document.getElementById('profileLoader').style.display = 'none';
+      document.body.innerHTML = `
+        <div class="min-h-screen flex flex-col items-center justify-center text-center p-6">
+          <i class="fa-solid fa-triangle-exclamation text-red-500 text-5xl mb-4"></i>
+          <h1 class="text-xl font-bold text-white">Profil Tidak Ditemukan</h1>
+          <p class="text-sm text-slate-400 mt-2">${message}</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Akun | LinkHub - Premium Link in Bio</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans (Modern & Techy) -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- SweetAlert2 untuk Notifikasi Premium -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff4ff',
+              100: '#dbeaff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==================================================
+       ULTRA PREMIUM REGISTRATION STYLES & ANIMATIONS
+       ================================================== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0f172a; /* Deep Slate Background */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Glowing Background Orbs */
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: 0;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; top: -10%; left: -10%; background: rgba(16, 185, 129, 0.25); } /* Green/Teal */
+    .orb-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; background: rgba(59, 130, 246, 0.25); animation-delay: -5s;} /* Blue */
+    .orb-3 { width: 400px; height: 400px; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(139, 92, 246, 0.15); animation-delay: -2s; } /* Purple */
+
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
+    /* Blueprint Dot Pattern */
+    .bg-pattern {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.15;
+      background-image: radial-gradient(#ffffff 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    /* The Main Glass Container */
+    .register-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1160px;
+      min-height: 680px;
+      margin: 20px;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left Panel: Brand & Visual features list */
+    .brand-panel {
+      flex: 1.1;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(59, 130, 246, 0.05));
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Right Panel: Registration Form */
+   /* Right Panel: Register Form (Symmetric & Anti-Spillover) */
+    .form-panel {
+      flex: 1.2;
+      padding: 45px 50px; /* Jarak aman padding dalam kartu */
+      background: rgba(15, 23, 42, 0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Memisahkan area form dengan footer secara presisi */
+      min-height: 100%;
+    }
+    /* Custom Slim Scrollbar for Form Panel */
+    .form-panel::-webkit-scrollbar { width: 6px; }
+    .form-panel::-webkit-scrollbar-track { background: transparent; }
+    .form-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
+
+    /* Form Input Styles */
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .premium-input {
+      width: 100%;
+      height: 52px;
+      padding: 0 20px 0 50px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 600;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .premium-input::placeholder {
+      color: transparent; /* Sembunyikan placeholder bawaan */
+    }
+
+    .premium-input:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #10b981; /* Emerald green accent for Register flow */
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15), inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 17px;
+      transition: color 0.3s ease;
+    }
+
+    .premium-input:focus + .input-icon,
+    .premium-input:not(:placeholder-shown) + .input-icon {
+      color: #10b981;
+    }
+
+    /* Premium Floating Labels */
+    .floating-label {
+      position: absolute;
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .premium-input:not(:placeholder-shown) + .input-icon + .floating-label,
+    .premium-input:focus + .input-icon + .floating-label {
+      top: 13px;
+      font-size: 9.5px;
+      color: #10b981;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .premium-input:focus, .premium-input:not(:placeholder-shown) {
+      padding-top: 14px;
+    }
+
+    /* Button Styles */
+    .btn-primary {
+      width: 100%;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #10b981, #3b82f6); /* Emerald to Blue */
+      color: white;
+      font-size: 15.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .btn-primary:hover::before { left: 100%; }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.35);
+    }
+
+    /* Checkbox Styles */
+    .custom-checkbox {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .custom-checkbox:checked {
+      background: #10b981;
+      border-color: #10b981;
+    }
+    .custom-checkbox:checked::after {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      color: white;
+      font-size: 10px;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .register-container { flex-direction: column; min-height: auto; border-radius: 30px; }
+      .brand-panel { flex: none; padding: 40px 30px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+      .form-panel { padding: 40px 30px; max-height: none; overflow-y: visible; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Background -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+  <div class="bg-pattern"></div>
+
+  <!-- Main Register Card -->
+  <div class="register-container">
+    
+    <!-- LEFT PANEL: BRANDING & SAAS VALUES -->
+    <div class="brand-panel">
+      <!-- Logo Area -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-blue-500 flex items-center justify-center text-white text-xl shadow-lg">
+          <i class="fa-solid fa-link"></i>
+        </div>
+        <span class="text-2xl font-black tracking-tight text-white">Link<span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Hub.</span></span>
+      </div>
+
+      <!-- Feature/Benefit List -->
+      <div class="mt-10 mb-10 z-10 relative">
+        <h1 class="text-4xl md:text-[38px] font-black text-white leading-[1.15] mb-8">
+          Mulai Bangun <br>Identitas Digital Anda.
+        </h1>
+        
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+             <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-circle-check text-xs"></i></div>
+             <div>
+               <h4 class="font-extrabold text-white text-[15px]">Tautan Tidak Terbatas (Unlimited Links)</h4>
+               <p class="text-[12.5px] text-gray-400 mt-1">Tambahkan tautan video, portofolio, musik, dan sosial media sepuasnya.</p>
+             </div>
+          </div>
+          <div class="flex items-start gap-4">
+             <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-circle-check text-xs"></i></div>
+             <div>
+               <h4 class="font-extrabold text-white text-[15px]">Satu Domain Kustom Pribadi</h4>
+               <p class="text-[12.5px] text-gray-400 mt-1">Miliki link premium eksklusif Anda sendiri: <span class="text-emerald-400 font-bold">linkhub.com/username</span></p>
+             </div>
+          </div>
+          <div class="flex items-start gap-4">
+             <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-circle-check text-xs"></i></div>
+             <div>
+               <h4 class="font-extrabold text-white text-[15px]">100% Data Enkripsi Aman</h4>
+               <p class="text-[12.5px] text-gray-400 mt-1">Gated links, log keuangan, dan draf dilindungi penuh secara terisolasi.</p>
+             </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer Brand -->
+      <div class="mt-auto">
+        <p class="text-[11px] font-bold text-gray-500/70 uppercase tracking-[0.2em]">© 2026 LinkHub Technologies</p>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: REGISTRATION FORM -->
+    <!-- RIGHT PANEL: REGISTRATION FORM -->
+    <div class="form-panel">
+      
+      <!-- Bungkus Judul dan Form ke dalam flex-1 agar berada di tengah secara simetris -->
+      <div class="flex-1 flex flex-col justify-center">
+        
+        <!-- Header Form -->
+        <div class="mb-6 text-center md:text-left">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-3.5">
+            <i class="fa-solid fa-user-plus"></i> Join LinkHub
+          </span>
+          <h2 class="text-3xl font-black text-white leading-tight mb-2">Create Account</h2>
+          <p class="text-[14px] font-medium text-gray-400">Siapkan passport kustom landing page Anda.</p>
+        </div>
+
+        <form id="registerForm" onsubmit="handleRegister(event)">
+          <!-- Input Nama Lengkap -->
+          <div class="input-group">
+            <input type="text" id="nameInput" class="premium-input" placeholder=" " required autocomplete="off">
+            <i class="fa-regular fa-id-card input-icon"></i>
+            <span class="floating-label">Nama Lengkap</span>
+          </div>
+
+          <!-- Input Email -->
+          <div class="input-group">
+            <input type="email" id="emailInput" class="premium-input" placeholder=" " required autocomplete="off">
+            <i class="fa-regular fa-envelope input-icon"></i>
+            <span class="floating-label">Alamat Email</span>
+          </div>
+
+          <!-- Input Username -->
+          <div class="input-group mb-1">
+            <input type="text" id="usernameInput" class="premium-input" placeholder=" " required autocomplete="off" oninput="validateUsernameInput(this)">
+            <i class="fa-solid fa-at input-icon"></i>
+            <span class="floating-label">Username Link / Slug</span>
+          </div>
+          
+          <!-- Live Username Status -->
+          <div id="usernameStatus" class="text-[11px] font-bold transition-all duration-300 mb-4 min-h-[16px] pl-2 flex items-center gap-1.5 text-gray-500">
+             <i class="fa-solid fa-circle-info text-[9px] opacity-50"></i> Ketik nama untuk memeriksa ketersediaan link Anda.
+          </div>
+
+          <!-- Input Password -->
+          <div class="input-group">
+            <input type="password" id="passwordInput" class="premium-input pr-12" placeholder=" " required autocomplete="off">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <span class="floating-label">Kata Sandi Baru</span>
+            
+            <button type="button" onclick="togglePasswordVisibility('passwordInput', 'eyeIcon1')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-2 z-20">
+              <i id="eyeIcon1" class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+
+          <!-- Input Confirm Password -->
+          <div class="input-group">
+            <input type="password" id="confirmPasswordInput" class="premium-input pr-12" placeholder=" " required autocomplete="off">
+            <i class="fa-solid fa-shield-halved input-icon"></i>
+            <span class="floating-label">Konfirmasi Sandi</span>
+            
+            <button type="button" onclick="togglePasswordVisibility('confirmPasswordInput', 'eyeIcon2')" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-2 z-20">
+              <i id="eyeIcon2" class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+
+          <!-- Terms and Conditions checkbox -->
+          <div class="flex items-start gap-2.5 mb-6 mt-3 pl-1">
+            <input type="checkbox" id="termsCheck" class="custom-checkbox mt-0.5" required>
+            <label for="termsCheck" class="text-xs font-semibold text-gray-400 cursor-pointer hover:text-gray-300 select-none">
+              Saya menyetujui <a href="#" class="text-white font-bold hover:underline">Ketentuan Layanan</a> dan <a href="#" class="text-white font-bold hover:underline">Kebijakan Privasi</a> LinkHub.
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="btnRegister" class="btn-primary" disabled>
+            <span class="btn-text">Daftarkan Akun</span>
+            <i class="fa-solid fa-circle-plus text-sm btn-icon"></i>
+            <i class="fa-solid fa-circle-notch fa-spin hidden btn-loader"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Footer Link (Terkunci Rapih di Bagian Bawah Kartu) -->
+      <div class="mt-8 text-center flex-none">
+        <p class="text-[13.5px] font-semibold text-gray-400">
+          Sudah memiliki akun? 
+          <a href="index.html" class="text-white font-bold hover:text-emerald-400 transition-colors underline decoration-emerald-500/50 underline-offset-4 ml-1">Masuk sekarang</a>
+        </p>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  <script>
+    // ==================================================
+    // CONFIG BACKEND URL
+    // ==================================================
+   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZOKBx_IVqtS0Vt0_XXh5GOY35llR9pzg-N6jTB_koX7DvHPbw9YcO7htZ0bzfWjhR/exec'; 
+
+    // State Status Username (Menentukan apakah pendaftaran diizinkan)
+    let isUsernameAvailable = false;
+    let debounceTimer = null;
+
+    // 1. REAL-TIME USERNAME CHECKER (DEBUNCED 400MS)
+    function validateUsernameInput(inputEl) {
+      // Hanya izinkan huruf kecil, angka, dan underscore
+      inputEl.value = inputEl.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
+      const username = inputEl.value.trim();
+
+      const statusEl = document.getElementById('usernameStatus');
+      const btn = document.getElementById('btnRegister');
+
+      // Kunci tombol register secara bawaan jika sedang mengetik
+      btn.disabled = true;
+      isUsernameAvailable = false;
+
+      if (username.length < 3) {
+        statusEl.innerHTML = `<i class="fa-solid fa-circle-info text-[10px] opacity-50"></i> Username minimal harus 3 karakter.`;
+        statusEl.className = "text-xs font-bold mb-5 min-h-[16px] pl-2 flex items-center gap-1.5 text-gray-500";
+        return;
+      }
+
+      // Berikan animasi loading saat user berhenti mengetik sejenak
+      statusEl.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-[10px]"></i> Memeriksa ketersediaan link...`;
+      statusEl.className = "text-xs font-bold mb-5 min-h-[16px] pl-2 flex items-center gap-1.5 text-blue-400 animate-pulse";
+
+      // Debounce: Batasi hit ke Google Script agar hemat kuota
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(async () => {
+        try {
+          const payload = new URLSearchParams();
+          payload.append('action', 'check_username');
+          payload.append('username', username);
+
+          const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+          const res = await response.json();
+
+          if (res.status === 'success') {
+            isUsernameAvailable = true;
+            statusEl.innerHTML = `<i class="fa-solid fa-circle-check text-[10px]"></i> Tersedia! <span class="text-white/60 font-semibold ml-1">linkhub.com/${username}</span>`;
+            statusEl.className = "text-xs font-bold mb-5 min-h-[16px] pl-2 flex items-center gap-1.5 text-emerald-400";
+            
+            // Aktifkan kembali tombol jika terms tercentang
+            if (document.getElementById('termsCheck').checked) {
+              btn.disabled = false;
+            }
+          } else {
+            throw new Error(res.message);
+          }
+        } catch (error) {
+          isUsernameAvailable = false;
+          statusEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-[10px]"></i> ${error.message}`;
+          statusEl.className = "text-xs font-bold mb-5 min-h-[16px] pl-2 flex items-center gap-1.5 text-red-400";
+        }
+      }, 400);
+    }
+
+    // Listener Tambahan: Sinkronisasi Tombol Daftar dengan centang Syarat & Ketentuan
+    document.getElementById('termsCheck').addEventListener('change', function() {
+      const btn = document.getElementById('btnRegister');
+      btn.disabled = !this.checked || !isUsernameAvailable;
+    });
+
+    // 2. TOGGLE SHOW/HIDE PASSWORD
+    function togglePasswordVisibility(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+
+    // 3. SUBMIT FORM REGISTRASI
+    async function handleRegister(event) {
+      event.preventDefault();
+
+      if (!isUsernameAvailable) {
+        showErrorAlert('Username belum valid atau sudah diambil.');
+        return;
+      }
+
+      const fullName = document.getElementById('nameInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim().toLowerCase();
+      const username = document.getElementById('usernameInput').value.trim().toLowerCase();
+      const password = document.getElementById('passwordInput').value;
+      const confirmPassword = document.getElementById('confirmPasswordInput').value;
+      
+      const btn = document.getElementById('btnRegister');
+
+      // Validasi Kecocokan Password
+      if (password.length < 6) {
+        showErrorAlert('Kata sandi minimal harus 6 karakter.');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showErrorAlert('Konfirmasi kata sandi tidak cocok. Masukkan kembali dengan benar.');
+        return;
+      }
+
+      setButtonLoading(btn, true, 'Mendaftarkan...');
+
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'register');
+        payload.append('fullName', fullName);
+        payload.append('email', email);
+        payload.append('username', username);
+        payload.append('password', password);
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        setButtonLoading(btn, false, 'Daftarkan Akun');
+
+        if (res.status === 'success') {
+          // Sukses Alert & Redirect ke halaman login
+          Swal.fire({
+            icon: 'success',
+            title: 'Pendaftaran Sukses',
+            text: res.message,
+            background: '#1e293b',
+            color: '#fff',
+            confirmButtonColor: '#10b981'
+          }).then(() => {
+            window.location.href = 'index.html';
+          });
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        setButtonLoading(btn, false, 'Daftarkan Akun');
+        showErrorAlert(error.message);
+      }
+    }
+
+    // ---------------------------------------------------------
+    // UTILITIES (UI/UX HELPERS)
+    // ---------------------------------------------------------
+    function setButtonLoading(btnElement, isLoading, loadingText = 'Memproses...') {
+      const text = btnElement.querySelector('.btn-text');
+      const icon = btnElement.querySelector('.btn-icon');
+      const loader = btnElement.querySelector('.btn-loader');
+
+      btnElement.disabled = isLoading;
+
+      if (isLoading) {
+        if (text) text.textContent = loadingText;
+        if (icon) icon.classList.add('hidden');
+        if (loader) loader.classList.remove('hidden');
+      } else {
+        if (text) text.textContent = 'Daftarkan Akun'; // fallback original text
+        if (icon) icon.classList.remove('hidden');
+        if (loader) loader.classList.add('hidden');
+      }
+    }
+
+    function showToast(title, message, icon = 'success') {
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: icon,
+        title: title,
+        text: message,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#1e293b',
+        color: '#fff'
+      });
+    }
+
+    function showErrorAlert(message) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registrasi Gagal',
+        text: message || 'Terjadi kesalahan sistem.',
+        background: '#1e293b',
+        color: '#fff',
+        confirmButtonColor: '#ef4444'
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value).replaceAll('`', '&#096;');
+    }
+  </script>
+</body>
+</html>
