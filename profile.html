@@ -171,8 +171,10 @@
         card.target = "_blank";
         
         // SANGAT PENTING: Menambahkan kembali fungsi pelacak klik yang sempat terhapus
-        card.setAttribute('onclick', `recordClick('${user.id || ''}', '${block.Block_ID}')`);
-        
+        // GANTI MENJADI (Native JS Binding):
+card.onclick = (e) => {
+  recordClick(user.id || '', block.Block_ID);
+};
         card.className = `w-full flex items-center gap-4 p-3.5 border backdrop-blur-md shadow-sm transition-transform hover:scale-[1.015] active:scale-[0.985] group ${settings.Button_Style || 'rounded-full'}`;
         
         if (isDarkBg) {
