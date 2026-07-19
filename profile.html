@@ -201,26 +201,16 @@ card.onclick = (e) => {
       });
     }
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
-    async function recordClick(userId, blockId) {
-      console.log("1. Perintah klik terdeteksi. Mencoba mengirim data ke server...", { userId, blockId });
-      try {
-        const payload = new URLSearchParams();
-        payload.append('action', 'log_click');
-        payload.append('userId', userId);
-        payload.append('blockId', blockId);
-        payload.append('referrer', document.referrer || 'Direct');
-        payload.append('device', navigator.userAgent.substring(0, 100));
-
-        // Mengirim data POST tanpa keepalive untuk mencegah pemblokiran CORS browser
-        const response = await fetch(SCRIPT_URL, { 
-          method: 'POST', 
-          body: payload
-        });
-        const res = await response.json();
-        console.log("2. Koneksi Sukses. Respons dari Google Apps Script:", res);
-      } catch (e) {
-        console.error("Koneksi Gagal. Detail error:", e);
-      }
+  // -> FUNGSI PENCATAT KLIK DENGAN TEKNIK IMAGE PIXEL TRACKING (100% ANTI-CORS)
+    function recordClick(userId, blockId) {
+      console.log("1. Mengirim log klik via Image Pixel Tracker...", { userId, blockId });
+      
+      // Membuat URL tracking GET
+      const trackingUrl = `${SCRIPT_URL}?action=log_click&userId=${encodeURIComponent(userId)}&blockId=${encodeURIComponent(blockId)}&referrer=${encodeURIComponent(document.referrer || 'Direct')}&device=${encodeURIComponent(navigator.userAgent.substring(0, 100))}`;
+      
+      // Meluncurkan request gambar senyap (Fire and Forget)
+      const tracker = new Image();
+      tracker.src = trackingUrl;
     }
     // FUNGSI SEARCH FILTERING
     function filterLinks(query) {
