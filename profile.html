@@ -104,6 +104,7 @@
       }
     }
 
+// -> RENDER PROFIL PUBLIK (VERSI LENGKAP & INTEGRASI ANALYTICS)
     function renderPublicProfile(data) {
       const settings = data.pageSettings;
       const user = data.user;
@@ -119,21 +120,19 @@
       const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random`;
       document.getElementById('profileAvatar').src = avatarUrl;
 
-      // UPDATE LATAR BELAKANG (SOLID / GRADASI)
+      // Update Latar Belakang (Solid / Gradasi)
       const mainContainer = document.getElementById('mainContainer');
       mainContainer.style.background = settings.Bg_Color;
 
-   const isDarkBg = isColorDark(settings.Bg_Color);
+      const isDarkBg = isColorDark(settings.Bg_Color);
       
-      // Menggunakan warna custom dari database, atau cadangan default jika kosong
       const titleColor = settings.Title_Color || (isDarkBg ? '#ffffff' : '#0f172a');
       const bioColor = settings.Bio_Color || (isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)');
 
       document.getElementById('profileTitle').style.color = titleColor;
       document.getElementById('profileBio').style.color = bioColor;
 
-      // SINKRONISASI WARNA SEARCH BAR
-    // SINKRONISASI WARNA SEARCH BAR & IKON SECARA PRESISI
+      // Sinkronisasi Warna Search Bar & Ikon
       const searchInput = document.getElementById('searchInput');
       const searchIcon = document.getElementById('searchIcon');
       
@@ -145,13 +144,19 @@
         searchIcon.className = "absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none text-slate-500";
       }
 
-      // LOAD GOOGLE FONTS SECARA DINAMIS
+      // Sinkronisasi Warna Branding Footer
+      const footerBranding = document.getElementById('footerBranding');
+      if (footerBranding) {
+        footerBranding.style.color = isDarkBg ? 'rgba(255, 255, 255, 0.4)' : 'rgba(15, 23, 42, 0.4)';
+      }
+
+      // Load Google Fonts secara dinamis
       if (settings.Font_Family) {
         loadGoogleFont(settings.Font_Family);
         mainContainer.style.fontFamily = `"${settings.Font_Family}", sans-serif`;
       }
 
-      // RENDERING GLASSMORPHISM LINK CARDS
+      // Rendering Glassmorphism Link Cards
       const container = document.getElementById('linksContainer');
       container.innerHTML = '';
 
@@ -165,7 +170,9 @@
         card.href = block.URL_Destination;
         card.target = "_blank";
         
-        // CSS Card Glassmorphism
+        // SANGAT PENTING: Menambahkan kembali fungsi pelacak klik yang sempat terhapus
+        card.setAttribute('onclick', `recordClick('${user.id || ''}', '${block.Block_ID}')`);
+        
         card.className = `w-full flex items-center gap-4 p-3.5 border backdrop-blur-md shadow-sm transition-transform hover:scale-[1.015] active:scale-[0.985] group ${settings.Button_Style || 'rounded-full'}`;
         
         if (isDarkBg) {
@@ -178,22 +185,18 @@
 
         const imgUrl = block.Thumbnail_URL || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
 
-      card.innerHTML = `
+        card.innerHTML = `
           <img src="${imgUrl}" class="w-12 h-12 rounded-xl object-cover border border-white/20 shadow-sm shrink-0">
           <div class="flex-1 min-w-0 text-left">
-            <!-- Judul kartu diperbesar menjadi text-[15.5px] -->
             <h4 class="font-bold text-[15.5px] tracking-tight truncate" style="color: ${cardTextColor};">${block.Title}</h4>
-            <!-- Deskripsi kartu diperbesar menjadi text-[12.5px] dan jarak baris lebih renggang (leading-normal) -->
             <p class="text-[12.5px] mt-1 leading-normal line-clamp-2 font-semibold" style="color: ${cardDescColor};">${block.Description || ''}</p>
           </div>
           <i class="fa-solid fa-chevron-right text-[11px] group-hover:translate-x-0.5 transition-transform shrink-0" style="color: ${cardTextColor}; opacity: 0.5;"></i>
         `;
 
-
         container.appendChild(card);
       });
     }
-
     // FUNGSI SEARCH FILTERING
     function filterLinks(query) {
       const cleanQuery = query.toLowerCase().trim();
