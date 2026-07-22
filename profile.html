@@ -75,6 +75,11 @@
    <div class="mt-auto pt-16 pb-4 relative z-30">
   <a href="#" class="text-[10px] font-black tracking-[0.25em] uppercase opacity-40 hover:opacity-80 transition-opacity" id="footerBranding">Powered by LinkHub.</a>
 </div>
+  <div id="floatingSocialBar" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden transition-all duration-500 ease-out transform translate-y-10 opacity-0">
+      <div class="flex items-center gap-4 px-6 py-3.5 rounded-full border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.3)] backdrop-blur-xl" id="socialBarGlass">
+        <!-- Ikon akan dirender via JS di sini -->
+      </div>
+    </div>
  </div> 
 
   <!-- JAVASCRIPT ENGINE -->
@@ -220,6 +225,54 @@ card.onclick = (e) => {
     
       // ========================================================
       // RENDERING KATALOG PRODUK DIGITAL (DI DALAM renderPublicProfile)
+      // ========================================================
+      // RENDERING FLOATING SOCIAL ICONS BAR
+      // ========================================================
+      const socialBar = document.getElementById('floatingSocialBar');
+      const socialGlass = document.getElementById('socialBarGlass');
+      socialGlass.innerHTML = ''; // Reset kontainer
+      
+      const socColor = settings.Social_Color || '#ffffff';
+      let socialCount = 0;
+
+      // Fungsi Helper Pembuat Ikon
+      const createIcon = (url, iconClass) => {
+        if (!url) return;
+        socialCount++;
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        // Animasi pantulan halus saat disentuh/diklik
+        a.className = "flex items-center justify-center w-8 h-8 rounded-full hover:scale-110 active:scale-95 transition-transform duration-200";
+        a.innerHTML = `<i class="fa-brands ${iconClass} text-[22px]" style="color: ${socColor}; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));"></i>`;
+        socialGlass.appendChild(a);
+      };
+
+      // Buat ikon berdasarkan data dari database
+      createIcon(settings.Social_Instagram, 'fa-instagram');
+      createIcon(settings.Social_TikTok, 'fa-tiktok');
+      createIcon(settings.Social_YouTube, 'fa-youtube');
+      createIcon(settings.Social_Twitter, 'fa-x-twitter');
+      createIcon(settings.Social_Facebook, 'fa-facebook');
+
+      // Tampilkan bilah hanya jika minimal ada 1 link yang diisi
+      if (socialCount > 0) {
+        // Tentukan warna kaca latar belakang berdasarkan tema halaman
+        if (isDarkBg) {
+          socialGlass.style.backgroundColor = 'rgba(15, 23, 42, 0.65)'; // Dark Glass
+          socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+        } else {
+          socialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; // Light Glass
+          socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+        }
+
+        socialBar.classList.remove('hidden');
+        // Efek transisi masuk yang elegan (Slide Up & Fade In)
+        setTimeout(() => {
+          socialBar.classList.remove('translate-y-10', 'opacity-0');
+          socialBar.classList.add('translate-y-0', 'opacity-100');
+        }, 500);
+      }
       // ========================================================
   // ========================================================
       // RENDERING KATALOG PRODUK DIGITAL (TEMPEL DI AKHIR renderPublicProfile)
