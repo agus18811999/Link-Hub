@@ -56,6 +56,21 @@
     <div id="linksContainer" class="w-full mt-7 flex flex-col gap-4">
        <!-- Akan dirender via JS -->
     </div>
+       <div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="h-[1px] w-12 bg-white/20"></div>
+        <span class="text-[10px] font-black tracking-[0.2em] uppercase text-white/50"><i class="fa-solid fa-store mr-1"></i> Etalase Produk</span>
+        <div class="h-[1px] w-12 bg-white/20"></div>
+      </div>
+      <div id="productsContainer" class="w-full flex flex-col gap-5">
+        <!-- Produk akan dirender di sini via JS -->
+      </div>
+    </div>
+    <!-- CONTAINER ETALASE PRODUK DIGITAL (COMMERCE) -->
+   <!-- TAMBAHKAN BLOK ETALASE INI TEPAT DI BAWAHNYA: -->
+    <!-- CONTAINER ETALASE PRODUK DIGITAL (COMMERCE) -->
+
+    
     <!-- TAMBAHKAN BLOK FOOTER INI TEPAT DI BAWAHNYA: -->
    <div class="mt-auto pt-16 pb-4 relative z-30">
   <a href="#" class="text-[10px] font-black tracking-[0.25em] uppercase opacity-40 hover:opacity-80 transition-opacity" id="footerBranding">Powered by LinkHub.</a>
@@ -104,7 +119,10 @@
         showErrorPage("Halaman tidak ditemukan atau gagal memuat data.");
       }
     }
-
+// (Letakkan fungsi ini di luar, atau di dalam script global)
+      function formatRupiahProfile(angka) {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+      }
 // -> RENDER PROFIL PUBLIK (VERSI LENGKAP & INTEGRASI ANALYTICS)
     function renderPublicProfile(data) {
       const settings = data.pageSettings;
@@ -199,7 +217,75 @@ card.onclick = (e) => {
 
         container.appendChild(card);
       });
+    
+      // ========================================================
+      // RENDERING KATALOG PRODUK DIGITAL (DI DALAM renderPublicProfile)
+      // ========================================================
+  // ========================================================
+      // RENDERING KATALOG PRODUK DIGITAL (TEMPEL DI AKHIR renderPublicProfile)
+      // ========================================================
+      const productsContainer = document.getElementById('productsContainer');
+      const productsSection = document.getElementById('productsSection');
+      
+      if (productsContainer && productsSection) {
+        productsContainer.innerHTML = '';
+        const PRODUCTS_DATA = data.products || [];
+
+        if (PRODUCTS_DATA.length > 0) {
+          productsSection.classList.remove('hidden');
+          productsSection.classList.add('flex');
+
+          PRODUCTS_DATA.forEach(prod => {
+            if (!prod.Is_Active) return;
+
+            const waText = encodeURIComponent(prod.WA_Message || `Halo, saya mau beli ${prod.Product_Name}`);
+            const waLink = `https://wa.me/${prod.WA_Number}?text=${waText}`;
+
+            const card = document.createElement('div');
+            card.className = "w-full p-1 rounded-[28px] shadow-lg relative overflow-hidden group border";
+            
+            if (isDarkBg) {
+              card.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+              card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            } else {
+              card.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+              card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+            }
+
+            const imgUrl = prod.Product_Image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400';
+
+            card.innerHTML = `
+              <div class="flex flex-col p-4">
+                <div class="flex gap-4 items-start">
+                  <img src="${imgUrl}" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl object-cover shadow-md shrink-0 border border-white/10">
+                  <div class="flex-1 min-w-0 text-left">
+                    <h4 class="font-extrabold text-[15px] leading-tight" style="color: ${cardTextColor};">${prod.Product_Name}</h4>
+                    <p class="text-[11px] mt-1.5 line-clamp-2 leading-relaxed" style="color: ${cardDescColor};">${prod.Product_Desc}</p>
+                    <div class="mt-3 inline-block px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+                      <!-- Menggunakan fungsi pemformatan rupiah lokal -->
+                      <span class="text-emerald-500 font-black text-xs tracking-wide">
+                        ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(prod.Product_Price)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Tombol Beli via WhatsApp -->
+                <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${prod.Product_ID}')" class="mt-4 w-full py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(37,211,102,0.3)] transition-all active:scale-95">
+                  <i class="fa-brands fa-whatsapp text-lg"></i> Beli Sekarang
+                </a>
+              </div>
+            `;
+            productsContainer.appendChild(card);
+          });
+        } else {
+          productsSection.classList.remove('flex');
+          productsSection.classList.add('hidden');
+        }
+      }
+    
     }
+    
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
   // -> FUNGSI PENCATAT KLIK DENGAN TEKNIK IMAGE PIXEL TRACKING (100% ANTI-CORS)
    // -> FUNGSI PELACAK KLIK (METODE IMAGE BEACON - 100% AMAN & ANTI BLOKIR)
