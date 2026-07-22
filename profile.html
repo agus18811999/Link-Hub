@@ -252,21 +252,21 @@ card.onclick = (e) => {
       createIcon(settings.Social_Instagram, 'fa-instagram');
       createIcon(settings.Social_TikTok, 'fa-tiktok');
       createIcon(settings.Social_YouTube, 'fa-youtube');
-      createIcon(settings.Social_Twitter, 'fa-x-twitter');
+      createIcon(settings.Social_Twitter, 'fa-twitter');
       createIcon(settings.Social_Facebook, 'fa-facebook');
 
       // Tampilkan bilah hanya jika minimal ada 1 link yang diisi
-      if (socialCount > 0) {
-        // Tentukan warna kaca latar belakang berdasarkan tema halaman
-        if (isDarkBg) {
-          socialGlass.style.backgroundColor = 'rgba(15, 23, 42, 0.65)'; // Dark Glass
-          socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        } else {
-          socialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; // Light Glass
-          socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-        }
-
-        socialBar.classList.remove('hidden');
+     if (socialCount > 0) {
+          if (isDarkBg) {
+            // Kaca gelap transparan super tipis
+            socialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.07)';
+            socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+          } else {
+            // Kaca terang transparan
+            socialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.35)';
+            socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+          }
+          socialBar.classList.remove('hidden');
         // Efek transisi masuk yang elegan (Slide Up & Fade In)
         setTimeout(() => {
           socialBar.classList.remove('translate-y-10', 'opacity-0');
