@@ -46,6 +46,23 @@
     <!-- Title & Bio -->
    <h1 id="profileTitle" class="mt-5 text-3xl font-black tracking-tight leading-tight">Nama Pengguna</h1>
     <p id="profileBio" class="mt-3 text-[15.5px] font-bold max-w-md opacity-85 leading-relaxed">Mendeskripsikan profil singkat di sini...</p>
+    <!-- iOS GLASS SEGMENTED CONTROL TAB SWITCHER -->
+    <div class="w-full mt-6 p-1 bg-white/10 border border-white/10 rounded-2xl backdrop-blur-xl flex relative z-30 max-w-xs mx-auto">
+      <button onclick="switchPublicTab('links')" id="pubTabLinks" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-white bg-white/20 shadow-md transition-all duration-300 flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-link"></i> Tautan
+      </button>
+      <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-id-card-clip"></i> Rate Card
+      </button>
+    </div>
+
+    <!-- AREA TAUTAN & PRODUK (Dapat Disembunyikan saat Tab Rate Card Aktif) -->
+    <div id="publicMainContent" class="w-full flex flex-col items-center">
+       <!-- Search Bar, Links Container, Products Section ada di sini -->
+    </div>
+
+    <!-- AREA RATE CARD PUBLIK (NEW) -->
+  
     <!-- SEARCH BAR INTERAKTIF (Akurat & Presisi) -->
     <div class="w-full mt-7 relative" id="searchBoxContainer">
       <input type="text" id="searchInput" oninput="filterLinks(this.value)" class="w-full bg-white/10 border border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm font-semibold placeholder-white/50 focus:outline-none focus:ring-1" placeholder="Cari link (misal: Youtube, Shop)...">
@@ -86,10 +103,12 @@
     <div id="floatingBannerContainer" class="fixed bottom-24 right-4 md:right-8 z-40 max-w-[280px] hidden transition-all duration-500 ease-out transform translate-y-10 opacity-0">
        <!-- Diisi via JS -->
     </div>
+      <div id="publicRateCardSection" class="w-full mt-7 hidden flex-col space-y-6">
+       <!-- Dirender via JS -->
+    </div>
 
     <!-- iOS HOME INDICATOR (Bottom Bar) -->
-    <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-800/30 rounded-full z-30 pointer-events-none" id="homeIndicator"></div>
- 
+    
  </div> 
 
   <!-- JAVASCRIPT ENGINE -->
@@ -113,6 +132,30 @@
     });
 // -> PENGENDALI ROTASI OTOMATIS BANNER HALAMAN PUBLIK (AUTO-SLIDE)
     let publicBannerInterval = null;
+   function switchPublicTab(tab) {
+      const mainContent = document.getElementById('publicMainContent');
+      const rateSection = document.getElementById('publicRateCardSection');
+      const btnLinks = document.getElementById('pubTabLinks');
+      const btnRate = document.getElementById('pubTabRateCard');
+
+      if (tab === 'links') {
+        mainContent.classList.remove('hidden');
+        mainContent.classList.add('flex');
+        rateSection.classList.add('hidden');
+        rateSection.classList.remove('flex');
+
+        btnLinks.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white bg-white/20 shadow-md transition-all duration-300 flex items-center justify-center gap-1.5";
+        btnRate.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5";
+      } else {
+        mainContent.classList.add('hidden');
+        mainContent.classList.remove('flex');
+        rateSection.classList.remove('hidden');
+        rateSection.classList.add('flex');
+
+        btnRate.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white bg-white/20 shadow-md transition-all duration-300 flex items-center justify-center gap-1.5";
+        btnLinks.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5";
+      }
+    }
     function startPublicBannerSlider() {
       if (publicBannerInterval) clearInterval(publicBannerInterval);
       
@@ -493,7 +536,82 @@ card.onclick = (e) => {
           productsSection.classList.add('hidden');
         }
       }
-    
+     const rateContainer = document.getElementById('publicRateCardSection');
+      if (!rateContainer) return;
+      rateContainer.innerHTML = '';
+
+      const stats = data.rateStats || {};
+      const packages = data.ratePackages || [];
+      
+      // A. RENDER RINGKASAN STATISTIK DEMOGRAFI
+      const statsBox = document.createElement('div');
+      statsBox.className = "w-full p-5 rounded-[28px] border backdrop-blur-xl shadow-lg space-y-4";
+      statsBox.style.backgroundColor = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)';
+      statsBox.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
+
+      statsBox.innerHTML = `
+        <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Followers</p>
+            <p class="text-xl font-black text-violet-400 mt-1">${stats.Followers || '0'}</p>
+          </div>
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Engagement Rate</p>
+            <p class="text-xl font-black text-pink-400 mt-1">${stats.Engagement_Rate || '0%'}</p>
+          </div>
+        </div>
+
+        <!-- Progress Bar Demografi Gender -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-[10px] font-bold">
+            <span class="text-pink-400 flex items-center gap-1"><i class="fa-solid fa-venus"></i> Wanita ${stats.Gender_Female || '50%'}</span>
+            <span class="text-blue-400 flex items-center gap-1">Pria ${stats.Gender_Male || '50%'} <i class="fa-solid fa-mars"></i></span>
+          </div>
+          <div class="w-full h-2.5 bg-blue-500/30 rounded-full overflow-hidden flex">
+            <div class="h-full bg-pink-500 transition-all duration-500" style="width: ${stats.Gender_Female || '50%'}"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-between text-[11px] font-semibold text-white/70 pt-1 border-t border-white/10">
+          <span><i class="fa-solid fa-users text-xs mr-1 text-violet-400"></i> Usia: ${stats.Top_Age_Group || '18-24'}</span>
+          <span><i class="fa-solid fa-location-dot text-xs mr-1 text-red-400"></i> ${stats.Top_Location || 'Indonesia'}</span>
+        </div>
+      `;
+      rateContainer.appendChild(statsBox);
+
+      // B. RENDER PAKET KOLABORASI (DELIVERABLES)
+      if (packages.length > 0) {
+        packages.forEach(pkg => {
+          const card = document.createElement('div');
+          card.className = "w-full p-5 rounded-[28px] border backdrop-blur-xl shadow-lg relative flex flex-col text-left group";
+          card.style.backgroundColor = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)';
+          card.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
+
+          // URL Draf WA Pengajuan Kerja Sama Terstruktur
+          const waMessage = encodeURIComponent(`Halo Kak ${user.name}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon info jadwal ketersediaannya ya kak. Terima kasih!`);
+          const waLink = `https://wa.me/${data.pageSettings.Social_WhatsApp || '628123456789'}?text=${waMessage}`;
+
+          card.innerHTML = `
+            <div class="flex justify-between items-start gap-3">
+              <h4 class="font-extrabold text-base leading-tight" style="color: ${cardTextColor};">${pkg.Package_Name}</h4>
+              <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-xs rounded-xl shrink-0">
+                ${formatRupiahProfile(pkg.Package_Price)}
+              </span>
+            </div>
+
+            <p class="text-xs mt-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${pkg.Deliverables}</p>
+
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+              <span class="text-[10px] font-bold text-violet-400"><i class="fa-solid fa-bolt mr-1"></i> Est: ${pkg.Est_Reach || 'N/A'}</span>
+              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-1.5">
+                <i class="fa-solid fa-handshake"></i> Ajukan Kerja Sama
+              </a>
+            </div>
+          `;
+          rateContainer.appendChild(card);
+        });
+      }
+      renderPublicRateCard(data);
     }
     
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
@@ -545,7 +663,84 @@ card.onclick = (e) => {
         document.head.appendChild(link);
       }
     }
+// DEFINISI FUNGSI RENDER RATE CARD (Ditaruh di luar/di bawah renderPublicProfile)
+    function renderPublicRateCard(data) {
+      const rateContainer = document.getElementById('publicRateCardSection');
+      if (!rateContainer) return;
+      rateContainer.innerHTML = '';
 
+      const stats = data.rateStats || {};
+      const packages = data.ratePackages || [];
+      const user = data.user || {};
+
+      // A. RENDER RINGKASAN STATISTIK DEMOGRAFI
+      const statsBox = document.createElement('div');
+      statsBox.className = "w-full p-5 rounded-[28px] border backdrop-blur-xl shadow-lg space-y-4";
+      statsBox.style.backgroundColor = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)';
+      statsBox.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
+
+      statsBox.innerHTML = `
+        <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Followers</p>
+            <p class="text-xl font-black text-violet-400 mt-1">${stats.Followers || '0'}</p>
+          </div>
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Engagement Rate</p>
+            <p class="text-xl font-black text-pink-400 mt-1">${stats.Engagement_Rate || '0%'}</p>
+          </div>
+        </div>
+
+        <!-- Progress Bar Demografi Gender -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-[10px] font-bold">
+            <span class="text-pink-400 flex items-center gap-1"><i class="fa-solid fa-venus"></i> Wanita ${stats.Gender_Female || '50%'}</span>
+            <span class="text-blue-400 flex items-center gap-1">Pria ${stats.Gender_Male || '50%'} <i class="fa-solid fa-mars"></i></span>
+          </div>
+          <div class="w-full h-2.5 bg-blue-500/30 rounded-full overflow-hidden flex">
+            <div class="h-full bg-pink-500 transition-all duration-500" style="width: ${stats.Gender_Female || '50%'}"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-between text-[11px] font-semibold text-white/70 pt-1 border-t border-white/10">
+          <span><i class="fa-solid fa-users text-xs mr-1 text-violet-400"></i> Usia: ${stats.Top_Age_Group || '18-24'}</span>
+          <span><i class="fa-solid fa-location-dot text-xs mr-1 text-red-400"></i> ${stats.Top_Location || 'Indonesia'}</span>
+        </div>
+      `;
+      rateContainer.appendChild(statsBox);
+
+      // B. RENDER PAKET KOLABORASI (DELIVERABLES)
+      if (packages.length > 0) {
+        packages.forEach(pkg => {
+          const card = document.createElement('div');
+          card.className = "w-full p-5 rounded-[28px] border backdrop-blur-xl shadow-lg relative flex flex-col text-left group";
+          card.style.backgroundColor = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)';
+          card.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
+
+          const waMessage = encodeURIComponent(`Halo Kak ${user.name}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon info jadwal ketersediaannya ya kak. Terima kasih!`);
+          const waLink = `https://wa.me/${data.pageSettings.Social_WhatsApp || '628123456789'}?text=${waMessage}`;
+
+          card.innerHTML = `
+            <div class="flex justify-between items-start gap-3">
+              <h4 class="font-extrabold text-base leading-tight" style="color: ${cardTextColor};">${pkg.Package_Name}</h4>
+              <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-xs rounded-xl shrink-0">
+                ${formatRupiahProfile(pkg.Package_Price)}
+              </span>
+            </div>
+
+            <p class="text-xs mt-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${pkg.Deliverables}</p>
+
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+              <span class="text-[10px] font-bold text-violet-400"><i class="fa-solid fa-bolt mr-1"></i> Est: ${pkg.Est_Reach || 'N/A'}</span>
+              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-1.5">
+                <i class="fa-solid fa-handshake"></i> Ajukan Kerja Sama
+              </a>
+            </div>
+          `;
+          rateContainer.appendChild(card);
+        });
+      }
+    }
     function isColorDark(colorVal) {
       if (!colorVal) return false;
       let hex = colorVal;
