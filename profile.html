@@ -664,6 +664,7 @@ card.onclick = (e) => {
       }
     }
 // DEFINISI FUNGSI RENDER RATE CARD (Ditaruh di luar/di bawah renderPublicProfile)
+    // DEFINISI FUNGSI RENDER RATE CARD
     function renderPublicRateCard(data) {
       const rateContainer = document.getElementById('publicRateCardSection');
       if (!rateContainer) return;
@@ -672,6 +673,13 @@ card.onclick = (e) => {
       const stats = data.rateStats || {};
       const packages = data.ratePackages || [];
       const user = data.user || {};
+      
+      // ---> PERBAIKAN: MENGAMBIL SETTING DAN MENDEFINISIKAN WARNA AGAR TIDAK CRASH
+      const settings = data.pageSettings || {};
+      const isDarkBg = isColorDark(settings.Bg_Color);
+      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)';
+      // -------------------------------------------------------------------------
 
       // A. RENDER RINGKASAN STATISTIK DEMOGRAFI
       const statsBox = document.createElement('div');
@@ -718,7 +726,7 @@ card.onclick = (e) => {
           card.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
 
           const waMessage = encodeURIComponent(`Halo Kak ${user.name}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon info jadwal ketersediaannya ya kak. Terima kasih!`);
-          const waLink = `https://wa.me/${data.pageSettings.Social_WhatsApp || '628123456789'}?text=${waMessage}`;
+          const waLink = `https://wa.me/${settings.Social_WhatsApp || '628123456789'}?text=${waMessage}`;
 
           card.innerHTML = `
             <div class="flex justify-between items-start gap-3">
