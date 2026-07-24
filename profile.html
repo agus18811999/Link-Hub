@@ -841,7 +841,14 @@ const createIcon = (url, iconClass) => {
       const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
       return (yiq < 128);
     }
-
+    function escapeHtml(val) {
+      return String(val || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
     function showErrorPage(message) {
       document.getElementById('profileLoader').style.display = 'none';
       document.body.innerHTML = `
