@@ -59,6 +59,9 @@
       <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="flex-1 py-2 rounded-xl text-xs font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5">
         <i class="fa-solid fa-id-card-clip"></i> Rate Card
       </button>
+      <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="py-2.5 rounded-xl text-[11px] font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5">
+        <i class="fa-solid fa-user-secret"></i> Pesan
+      </button>
     </div>
 
     <!-- ================================================================= -->
@@ -106,6 +109,12 @@
     <div id="publicRateCardSection" class="w-full mt-7 hidden flex-col space-y-6">
        <!-- Rate card dirender via JS di sini -->
     </div>
+    <!-- ================================================================= -->
+    <!-- AREA NGL Q&A PUBLIK (TAMPIL HANYA SAAT TAB PESAN AKTIF)           -->
+    <!-- ================================================================= -->
+    <div id="publicNglSection" class="w-full mt-7 hidden flex-col items-center shrink-0">
+       <!-- Kotak pesan akan dirender via JS -->
+    </div>
 
     <!-- 6. FOOTER BRANDING (LINKHUB) -->
     <div class="mt-auto pt-16 pb-4 relative z-30">
@@ -135,28 +144,174 @@
     });
 // -> PENGENDALI ROTASI OTOMATIS BANNER HALAMAN PUBLIK (AUTO-SLIDE)
     let publicBannerInterval = null;
-   function switchPublicTab(tab) {
-      const mainContent = document.getElementById('publicMainContent');
-      const rateSection = document.getElementById('publicRateCardSection');
+      function renderPublicNglCard(data) {
+      const nglContainer = document.getElementById('publicNglSection');
+      if (!nglContainer) return;
+      
+      const ngl = data.nglSettings || { Is_Active: true, Prompt_Text: 'Tanyakan apa saja secara anonim! 🤫', Card_Theme: 'Neon_Purple' };
+      const user = data.user || {};
+
+      if (!ngl.Is_Active) {
+        nglContainer.innerHTML = `
+          <div class="p-6 text-center border border-white/10 bg-black/20 rounded-[32px] backdrop-blur-md">
+            <i class="fa-solid fa-lock text-3xl text-white/30 mb-3"></i>
+            <h3 class="text-white font-bold text-sm">Kotak Pesan Ditutup</h3>
+            <p class="text-xs text-white/50 mt-1">${user.name} sedang tidak menerima pesan anonim saat ini.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Tentukan Tema Background Gradasi
+      let themeClass = "bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700"; // Neon_Purple (Default)
+      if (ngl.Card_Theme === 'Sunset_Pink') themeClass = "bg-gradient-to-br from-rose-500 via-pink-500 to-orange-500";
+      if (ngl.Card_Theme === 'Dark_Glass') themeClass = "bg-slate-900/80 border border-white/10";
+
+      nglContainer.innerHTML = `
+        <div class="w-full max-w-sm rounded-[32px] p-1.5 shadow-2xl relative overflow-hidden ${themeClass}">
+          <!-- Pola grid latar belakang untuk aksen estetik -->
+          <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+          
+          <div class="relative bg-white/10 backdrop-blur-md rounded-[26px] p-6 text-center border border-white/20">
+            <!-- Header Prompt -->
+            <div class="flex justify-center mb-4">
+              <div class="w-12 h-12 rounded-full border-2 border-white/50 overflow-hidden shadow-lg">
+                <img src="${user.avatar || 'https://ui-avatars.com/api/?name=User'}" class="w-full h-full object-cover">
+              </div>
+            </div>
+            <h3 class="text-white font-black text-lg leading-snug tracking-tight shadow-black drop-shadow-md mb-6">${escapeHtml(ngl.Prompt_Text)}</h3>
+            
+            <!-- Area Textarea -->
+            <form onsubmit="submitAnonymousMessage(event, '${user.username}')" class="relative">
+              <textarea id="nglMessageInput" rows="4" maxlength="300" class="w-full bg-black/20 border border-white/20 rounded-2xl p-4 text-sm font-semibold text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none shadow-inner" placeholder="Ketik pesan rahasiamu di sini... (100% anonim)" required oninput="document.getElementById('charCount').textContent = this.value.length + '/300'"></textarea>
+              
+              <div class="flex items-center justify-between mt-2 mb-5 px-1">
+                <span id="charCount" class="text-[10px] font-bold text-white/50">0/300</span>
+                <button type="button" onclick="rollRandomQuestion()" class="text-xs text-white/70 hover:text-white flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-full transition-colors">
+                  <i class="fa-solid fa-dice"></i> Acak Ide
+                </button>
+              </div>
+
+              <!-- Tombol Submit -->
+              <button type="submit" id="btnSubmitNgl" class="w-full py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> Kirim Pesan Rahasia
+              </button>
+            </form>
+            
+            <div class="mt-5 flex items-center justify-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-white/40">
+              <i class="fa-solid fa-lock"></i> Dijamin 100% Anonim
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Kumpulan Ide Pertanyaan Acak
+    const RANDOM_QUESTIONS = [
+      "Apa rahasia terbesar yang belum pernah kamu ceritain ke siapapun?",
+      "Pernah naksir sama temen sekantor/sekelas nggak?",
+      "Spill lagu yang lagi sering banget kamu dengerin dong!",
+      "Kalau dapet uang 1 Miliar hari ini, mau dipakai buat apa?",
+      "Satu penyesalan terbesar kamu di masa lalu apa?",
+      "Cita-cita waktu kecil vs pekerjaan sekarang, beda jauh nggak?",
+      "Jujur, kamu lagi kangen sama seseorang nggak sekarang?"
+    ];
+
+    function rollRandomQuestion() {
+      const input = document.getElementById('nglMessageInput');
+      if (input) {
+        const randomQ = RANDOM_QUESTIONS[Math.floor(Math.random() * RANDOM_QUESTIONS.length)];
+        input.value = randomQ;
+        document.getElementById('charCount').textContent = input.value.length + '/300';
+      }
+    }
+
+    // FUNGSI SUBMIT PESAN (DIKIRIM KE BACKEND)
+    async function submitAnonymousMessage(e, username) {
+      e.preventDefault();
+      const input = document.getElementById('nglMessageInput');
+      const btn = document.getElementById('btnSubmitNgl');
+      
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Mengirim...';
+      btn.disabled = true;
+
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'send_ngl_message');
+        payload.append('guestUsername', username);
+        payload.append('messageText', msg);
+        // IP dan Browser ditangkap dan dienkripsi oleh backend/fetch
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          // Ganti form dengan kartu ucapan sukses (Confetti Vibe)
+          const formArea = input.parentElement;
+          formArea.innerHTML = `
+            <div class="py-8 flex flex-col items-center animate-pulse">
+              <div class="w-16 h-16 bg-emerald-400 rounded-full flex items-center justify-center text-white text-3xl mb-4 shadow-[0_0_30px_rgba(52,211,153,0.5)]">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <h4 class="text-white font-black text-lg">Pesan Terkirim!</h4>
+              <p class="text-xs text-white/70 mt-2 font-medium max-w-[200px] mx-auto">Pesan rahasiamu sudah terbang dan masuk ke kotak masuk ${username}.</p>
+            </div>
+          `;
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        alert(error.message); // Menampilkan peringatan (seperti spam limit 1 menit)
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pesan Rahasia';
+        btn.disabled = false;
+      }
+    }
+   // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 3 TABS: LINKS, RATECARD, NGL)
+    function switchPublicTab(tab) {
+      // 1. Definisikan semua elemen kontainer tab
+      const mainContent = document.getElementById('publicMainContent'); // Tab Tautan & Produk
+      const rateSection = document.getElementById('publicRateCardSection'); // Tab Rate Card
+      const nglSection = document.getElementById('publicNglSection'); // Tab Pesan Anonim (NGL)
+
+      // 2. Definisikan semua tombol tab
       const btnLinks = document.getElementById('pubTabLinks');
       const btnRate = document.getElementById('pubTabRateCard');
+      const btnNgl = document.getElementById('pubTabNgl');
 
-      if (tab === 'links') {
-        mainContent.classList.remove('hidden');
+      // 3. Sembunyikan semua kontainer tab terlebih dahulu (Reset State)
+      [mainContent, rateSection, nglSection].forEach(el => {
+        if(el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+
+      // 4. Atur gaya tombol ke status "Tidak Aktif" (Transparan)
+      const inactiveClass = "flex-1 py-2 rounded-xl text-[11px] font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5";
+      const activeClass = "flex-1 py-2 rounded-xl text-[11px] font-extrabold text-slate-800 bg-white shadow-md transition-all duration-300 flex items-center justify-center gap-1.5";
+      
+      if(btnLinks) btnLinks.className = inactiveClass;
+      if(btnRate) btnRate.className = inactiveClass;
+      if(btnNgl) btnNgl.className = inactiveClass;
+
+      // 5. Tampilkan tab yang dipilih & aktifkan tombolnya
+      if (tab === 'links' && mainContent) {
+        mainContent.classList.remove('hidden'); 
         mainContent.classList.add('flex');
-        rateSection.classList.add('hidden');
-        rateSection.classList.remove('flex');
-
-        btnLinks.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white bg-white/20 shadow-md transition-all duration-300 flex items-center justify-center gap-1.5";
-        btnRate.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5";
-      } else {
-        mainContent.classList.add('hidden');
-        mainContent.classList.remove('flex');
-        rateSection.classList.remove('hidden');
+        if(btnLinks) btnLinks.className = activeClass;
+      } 
+      else if (tab === 'ratecard' && rateSection) {
+        rateSection.classList.remove('hidden'); 
         rateSection.classList.add('flex');
-
-        btnRate.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white bg-white/20 shadow-md transition-all duration-300 flex items-center justify-center gap-1.5";
-        btnLinks.className = "flex-1 py-2 rounded-xl text-xs font-extrabold text-white/60 hover:text-white transition-all duration-300 flex items-center justify-center gap-1.5";
+        if(btnRate) btnRate.className = activeClass;
+      } 
+      else if (tab === 'ngl' && nglSection) {
+        nglSection.classList.remove('hidden'); 
+        nglSection.classList.add('flex');
+        if(btnNgl) btnNgl.className = activeClass;
       }
     }
     function startPublicBannerSlider() {
@@ -614,6 +769,7 @@ const createIcon = (url, iconClass) => {
         });
       }
       renderPublicRateCard(data);
+      renderPublicNglCard(data);
     }
     
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
