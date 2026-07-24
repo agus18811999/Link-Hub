@@ -39,193 +39,49 @@
     }
   </script>
 
-  <style>
-    /* ==================================================
-       ULTRA PREMIUM LOGIN STYLES & ANIMATIONS
-       ================================================== */
+ <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #0f172a; /* Deep Slate Background */
+      background-color: #0b1120;
+      color: #e2e8f0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
     }
 
     /* Ambient Glowing Background Orbs */
     .ambient-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
+      filter: blur(120px);
       z-index: 0;
-      animation: float 10s ease-in-out infinite alternate;
+      animation: float 12s ease-in-out infinite alternate;
     }
-    .orb-1 { width: 500px; height: 500px; top: -10%; left: -10%; background: rgba(59, 130, 246, 0.3); } /* Blue */
-    .orb-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; background: rgba(139, 92, 246, 0.25); animation-delay: -5s;} /* Purple */
-    .orb-3 { width: 400px; height: 400px; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(236, 72, 153, 0.15); animation-delay: -2s; } /* Pink */
+    .orb-1 { width: 500px; height: 500px; top: -10%; left: -10%; background: rgba(59, 130, 246, 0.2); }
+    .orb-2 { width: 600px; height: 600px; bottom: -20%; right: -10%; background: rgba(139, 92, 246, 0.2); animation-delay: -6s; }
 
-    /* Blueprint Dot Pattern */
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
     .bg-pattern {
       position: absolute;
       inset: 0;
       z-index: 1;
-      opacity: 0.15;
+      opacity: 0.12;
       background-image: radial-gradient(#ffffff 1px, transparent 1px);
-      background-size: 24px 24px;
+      background-size: 28px 24px;
       pointer-events: none;
     }
 
-    /* The Main Glass Container */
-    .login-container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 1100px;
-      min-height: 600px;
-      margin: 20px;
-      border-radius: 40px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    /* Glass Container */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
-      display: flex;
-      overflow: hidden;
     }
 
-    /* Left Panel: Brand & Visual */
- /* Left Panel: Brand & Visual */
-    .brand-panel {
-      flex: 1.2;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.05));
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 50px;
-      display: flex;
-      flex-direction: column; /* INI YANG BENAR */
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Right Panel: Login Form */
-    .form-panel {
-      flex: 1;
-      padding: 50px 60px;
-      background: rgba(15, 23, 42, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* Form Input Styles */
-    .input-group {
-      position: relative;
-      margin-bottom: 24px;
-    }
-
-    .premium-input {
-      width: 100%;
-      height: 56px;
-      padding: 0 20px 0 50px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 600;
-      outline: none;
-      transition: all 0.3s ease;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .premium-input::placeholder {
-      color: rgba(255, 255, 255, 0.3);
-      font-weight: 500;
-    }
-
-    .premium-input:focus {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), inset 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .input-icon {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 18px;
-      transition: color 0.3s ease;
-    }
-
-    .premium-input:focus + .input-icon,
-    .premium-input:not(:placeholder-shown) + .input-icon {
-      color: #3b82f6;
-    }
-
-    /* Button Styles */
-    .btn-primary {
-      width: 100%;
-      height: 56px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: all 0.5s ease;
-    }
-
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-
-    /* Mockup Visual Animations */
-    .mockup-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 16px;
-      backdrop-filter: blur(10px);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
-    }
-
-    /* Checkbox Styles */
+    /* Custom Checkbox */
     .custom-checkbox {
       appearance: none;
       width: 18px;
@@ -251,164 +107,140 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
     }
-
-    /* Responsive */
-    @media (max-width: 960px) {
-      .login-container { flex-direction: column; min-height: auto; border-radius: 30px; }
-      .brand-panel { flex: none; padding: 40px 30px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-      .form-panel { padding: 40px 30px; }
-      .mockup-wrapper { display: none; } /* Sembunyikan mockup di HP agar ringkas */
-    }
   </style>
 </head>
-<body>
+<body class="flex items-center justify-center p-4 md:p-6 relative overflow-x-hidden font-sans select-none">
 
-  <!-- Ambient Background -->
+  <!-- Ambient Background Elements -->
   <div class="ambient-orb orb-1"></div>
   <div class="ambient-orb orb-2"></div>
-  <div class="ambient-orb orb-3"></div>
   <div class="bg-pattern"></div>
 
-  <!-- Main Login Card -->
- <!-- Main Login Card -->
-  <div class="login-container">
+  <!-- MAIN LOGIN CONTAINER (ULTRA PREMIUM GLASSMORPHISM) -->
+  <div class="w-full max-w-[1020px] rounded-[36px] glass-card shadow-[0_30px_100px_rgba(0,0,0,0.6)] relative z-10 flex flex-col lg:flex-row overflow-hidden border border-white/10">
     
-    <!-- LEFT PANEL: BRANDING & VALUE PROPOSITION -->
-    <div class="brand-panel">
-      <!-- 1. Logo Area (Pojok Kiri Atas) -->
+    <!-- SISI KIRI: BRANDING & VISUAL MOCKUP -->
+    <div class="lg:w-1/2 p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/5 bg-gradient-to-br from-blue-600/10 via-purple-600/5 to-transparent relative">
+      
+      <!-- Logo & Brand Header -->
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-lg">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/20">
           <i class="fa-solid fa-link"></i>
         </div>
         <span class="text-2xl font-black tracking-tight text-white">Link<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Hub.</span></span>
       </div>
 
-      <!-- 2. Copywriting Area (Tengah Kiri) -->
-      <!-- Menambahkan flex-1 agar teks ini menempati ruang tengah dengan rapi -->
-      <div class="flex-1 flex flex-col justify-center mt-10 mb-10 z-10 relative">
-        <h1 class="text-4xl md:text-[42px] font-black text-white leading-[1.15] mb-5">
-          Satu Tautan untuk <br> Seluruh Audiens Anda.
+      <!-- Hero Copywriting -->
+      <div class="my-10 space-y-4">
+        <h1 class="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
+          Satu Tautan untuk <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Seluruh Audiens Anda.</span>
         </h1>
-        <p class="text-[15px] text-gray-300 font-medium leading-relaxed max-w-md">
-          Bangun mini-website epik, kumpulkan leads, dan analisis performa audiens Anda dalam satu dashboard cerdas yang elegan.
+        <p class="text-xs md:text-sm text-slate-300 font-medium leading-relaxed max-w-md">
+          Kelola bio-link, katalog toko digital, dan analitik pengunjung dalam satu dashboard SaaS yang canggih & presisi.
         </p>
 
-        <!-- Abstract UI Mockup (Decor) diletakkan di bawah teks agar sejajar -->
-        <div class="mockup-wrapper mt-10 relative h-32 w-full max-w-sm">
-          <!-- Floating Card 1 -->
-          <div class="mockup-card absolute top-0 left-0 w-64 flex items-center gap-3 z-20">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 to-orange-400 p-[2px]">
-               <img src="https://ui-avatars.com/api/?name=User&background=random" class="w-full h-full rounded-full border-2 border-[#1e293b]">
+        <!-- Floating Preview Card Decorative Mockup -->
+        <div class="pt-6 space-y-3 max-w-sm">
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg transform hover:scale-[1.02] transition-transform">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-chart-line"></i>
             </div>
             <div>
-              <div class="h-3 w-24 bg-white/20 rounded-full mb-2"></div>
-              <div class="h-2 w-16 bg-white/10 rounded-full"></div>
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Performa Real-Time</p>
+              <p class="text-xs font-black text-white">+1,250 Klik Minggu Ini</p>
             </div>
           </div>
-          <!-- Floating Card 2 -->
-          <div class="mockup-card absolute top-16 left-12 w-64 flex items-center gap-3 z-10" style="animation-delay: -2s; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">
-            <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center"><i class="fa-solid fa-play text-xs"></i></div>
-            <div class="h-3 w-32 bg-blue-400/30 rounded-full"></div>
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg transform hover:scale-[1.02] transition-transform ml-4">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Toko Digital</p>
+              <p class="text-xs font-black text-emerald-400">Pemesanan WhatsApp Instan</p>
+            </div>
           </div>
         </div>
       </div>
-      
-      <!-- 3. Footer Brand (Pojok Kiri Bawah) -->
-      <div class="mt-auto">
-        <p class="text-[11px] font-bold text-gray-500/70 uppercase tracking-[0.2em]">© 2026 LinkHub Technologies</p>
-      </div>
+
+      <!-- Footer Copyright -->
+      <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">© 2026 LinkHub Technologies</p>
     </div>
 
-    <!-- RIGHT PANEL: LOGIN FORM -->
-    <div class="form-panel">
-      <!-- Header Form -->
-      <div class="mb-10 text-center md:text-left">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-4">
-          <i class="fa-solid fa-lock"></i> Secure Login
+    <!-- SISI KANAN: FORMULIR MASUK (SECURE FORM) -->
+    <div class="lg:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-slate-950/40">
+      
+      <!-- Form Header -->
+      <div class="mb-8">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+          Secure Login
         </span>
-        <h2 class="text-[32px] font-black text-white leading-tight mb-2">Welcome Back</h2>
-        <p class="text-[14px] font-medium text-gray-400">Silakan masuk ke dashboard LinkHub Anda.</p>
+        <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">Selamat Datang</h2>
+        <p class="text-xs text-slate-400 font-medium mt-1">Silakan masuk untuk mengelola workspace Anda.</p>
       </div>
 
-      <form id="loginForm" onsubmit="handleLogin(event)">
-        <!-- Input Username / Email -->
-        <div class="input-group">
-          <!-- Hapus spasi default pada placeholder agar CSS hack berfungsi -->
-          <input type="text" id="authInput" class="premium-input" placeholder=" " required autocomplete="off">
-          <i class="fa-solid fa-user input-icon"></i>
-          <label class="absolute left-[50px] top-1/2 -translate-y-1/2 text-gray-400 font-semibold text-[14px] transition-all pointer-events-none z-10">Email atau Username</label>
-          <style>
-            #authInput:not(:placeholder-shown) + .input-icon + label,
-            #authInput:focus + .input-icon + label {
-              top: 14px;
-              font-size: 10px;
-              color: #3b82f6;
-              font-weight: 800;
-              text-transform: uppercase;
-              letter-spacing: 0.1em;
-            }
-            #authInput:focus, #authInput:not(:placeholder-shown) { padding-top: 16px; }
-          </style>
+      <!-- FORMULIR MASUK -->
+      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+        
+        <!-- Input Email / Username (Rapi & Bebas Bentrok Teks) -->
+        <div>
+          <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 block mb-2">Email atau Username</label>
+          <div class="relative flex items-center">
+            <i class="fa-solid fa-user absolute left-4 text-slate-500 text-sm"></i>
+            <input type="text" id="authInput" class="w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl pl-11 pr-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="nama@email.com atau username" required autocomplete="off">
+          </div>
         </div>
 
-        <!-- Input Password -->
-        <div class="input-group">
-          <input type="password" id="passwordInput" class="premium-input pr-12" placeholder=" " required autocomplete="off">
-          <i class="fa-solid fa-key input-icon"></i>
-          <label class="absolute left-[50px] top-1/2 -translate-y-1/2 text-gray-400 font-semibold text-[14px] transition-all pointer-events-none z-10">Kata Sandi</label>
-          <style>
-            #passwordInput:not(:placeholder-shown) + .input-icon + label,
-            #passwordInput:focus + .input-icon + label {
-              top: 14px;
-              font-size: 10px;
-              color: #3b82f6;
-              font-weight: 800;
-              text-transform: uppercase;
-              letter-spacing: 0.1em;
-            }
-            #passwordInput:focus, #passwordInput:not(:placeholder-shown) { padding-top: 16px; }
-          </style>
-          
-          <!-- Eye Toggle -->
-          <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors p-2 z-20">
-            <i id="eyeIcon" class="fa-regular fa-eye"></i>
-          </button>
+        <!-- Input Password (Rapi & Bebas Bentrok Teks) -->
+        <div>
+          <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 block mb-2">Kata Sandi</label>
+          <div class="relative flex items-center">
+            <i class="fa-solid fa-lock absolute left-4 text-slate-500 text-sm"></i>
+            <input type="password" id="passwordInput" class="w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl pl-11 pr-12 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="••••••••" required autocomplete="off">
+            <!-- Eye Toggle -->
+            <button type="button" onclick="togglePassword()" class="absolute right-4 text-slate-500 hover:text-white transition-colors p-1 z-20">
+              <i id="eyeIcon" class="fa-regular fa-eye text-sm"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Options: Remember Me & Forgot Password -->
-        <div class="flex items-center justify-between mb-8 mt-2">
-          <label class="flex items-center gap-2.5 cursor-pointer group">
+        <div class="flex items-center justify-between text-xs pt-1">
+          <label class="flex items-center gap-2 cursor-pointer group">
             <input type="checkbox" class="custom-checkbox">
-            <span class="text-[13px] font-semibold text-gray-400 group-hover:text-gray-200 transition-colors">Ingat saya</span>
+            <span class="font-semibold text-slate-400 group-hover:text-slate-200 transition-colors">Ingat saya</span>
           </label>
-          <a href="forgot-password.html" class="text-[13px] font-bold text-blue-400 hover:text-blue-300 transition-colors">Lupa sandi?</a>
+          <a href="forgot-password.html" class="font-bold text-blue-400 hover:text-blue-300 transition-colors">Lupa sandi?</a>
         </div>
 
-        <!-- Submit Button -->
-        <button type="submit" id="btnLogin" class="btn-primary">
+        <!-- Submit Button (Sleek Hologram Gradient Button) -->
+        <button type="submit" id="btnLogin" class="w-full h-12 mt-2 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-extrabold text-sm tracking-wide uppercase flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(59,130,246,0.25)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300">
           <span id="btnText">Masuk ke Dashboard</span>
-          <i id="btnIcon" class="fa-solid fa-arrow-right ml-1"></i>
-          <i id="btnLoader" class="fa-solid fa-circle-notch fa-spin hidden ml-1"></i>
+          <i id="btnIcon" class="fa-solid fa-arrow-right text-xs"></i>
+          <i id="btnLoader" class="fa-solid fa-circle-notch fa-spin hidden text-xs"></i>
         </button>
       </form>
 
       <!-- Register Link -->
-      <div class="mt-8 text-center">
-        <p class="text-[13.5px] font-semibold text-gray-400">
-          Belum punya akun? 
-          <a href="register.html" class="text-white font-bold hover:text-blue-400 transition-colors underline decoration-blue-500/50 underline-offset-4 ml-1">Daftar sekarang</a>
+      <div class="mt-8 text-center border-t border-white/5 pt-6">
+        <p class="text-xs font-semibold text-slate-400">
+          Belum memiliki akun? 
+          <a href="register.html" class="text-white font-extrabold hover:text-blue-400 transition-colors underline decoration-blue-500/50 underline-offset-4 ml-1">Daftar sekarang</a>
         </p>
       </div>
+
     </div>
-    
+
   </div>
+
 
   <script>
     // ==================================================
     // KONFIGURASI BACKEND
     // ==================================================
     // GANTI URL INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA!
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZOKBx_IVqtS0Vt0_XXh5GOY35llR9pzg-N6jTB_koX7DvHPbw9YcO7htZ0bzfWjhR/exec'; 
+   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3KHDlJ-DfYxnKPyLFUdNa0-wuPH7yOwtOznD6r9jeJSJJ04l7w0fkARTrWrFFleHx/exec'; 
 
     // ==================================================
     // LOGIKA FRONTEND
