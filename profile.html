@@ -53,20 +53,41 @@
     
     <!-- 3. iOS GLASS SEGMENTED CONTROL TAB SWITCHER -->
     <!-- iOS GLASS SEGMENTED CONTROL (3 TABS - ULTRA PREMIUM REDESIGN) -->
-    <div class="w-full mt-7 p-1.5 bg-black/20 border border-white/15 rounded-2xl backdrop-blur-2xl grid grid-cols-3 gap-1.5 relative z-30 max-w-[360px] mx-auto shrink-0 shadow-2xl" id="publicTabSwitcher">
-      <button onclick="switchPublicTab('links')" id="pubTabLinks" class="py-2.5 rounded-xl text-xs font-black text-slate-900 bg-white shadow-[0_4px_20px_rgba(255,255,255,0.25)] transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap">
-        <i class="fa-solid fa-link text-xs"></i> Tautan
-      </button>
-      <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap">
-        <i class="fa-solid fa-id-card-clip text-xs"></i> Rate Card
-      </button>
-      <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap">
-        <i class="fa-solid fa-user-secret text-xs"></i> Pesan
-      </button>
-          <button onclick="switchPublicTab('content')" id="pubTabContent" class="py-2.5 rounded-xl text-[11px] font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap">
-        <i class="fa-solid fa-play text-xs"></i> Konten
-      </button>
+ <!-- iOS GLASS SCROLLABLE TAB SWITCHER (4 TABS - PREMIUM REDESIGN) -->
+    <div class="w-full mt-7 relative z-30 max-w-[440px] mx-auto">
+      
+      <!-- Container Scroll Horizontal dengan Efek Kaca -->
+      <div class="flex items-center gap-2 p-1.5 bg-black/20 border border-white/15 rounded-2xl backdrop-blur-2xl overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar shadow-2xl" id="publicTabSwitcher" style="scrollbar-width: none; -ms-overflow-style: none;">
+        
+        <!-- Tab Tautan -->
+        <button onclick="switchPublicTab('links')" id="pubTabLinks" class="shrink-0 px-5 py-2.5 rounded-xl text-[11px] font-black text-slate-900 bg-white shadow-[0_4px_20px_rgba(255,255,255,0.25)] transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
+          <i class="fa-solid fa-link text-xs"></i> Tautan
+        </button>
+        
+        <!-- Tab Konten -->
+        <button onclick="switchPublicTab('content')" id="pubTabContent" class="shrink-0 px-5 py-2.5 rounded-xl text-[11px] font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
+          <i class="fa-solid fa-play text-xs"></i> Konten
+        </button>
+        
+        <!-- Tab Rate Card -->
+        <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="shrink-0 px-5 py-2.5 rounded-xl text-[11px] font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
+          <i class="fa-solid fa-id-card-clip text-xs"></i> Rate Card
+        </button>
+        
+        <!-- Tab Pesan NGL -->
+        <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="shrink-0 px-5 py-2.5 rounded-xl text-[11px] font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
+          <i class="fa-solid fa-user-secret text-xs"></i> Pesan
+        </button>
+
+      </div>
     </div>
+    
+    <!-- CSS Tambahan Khusus untuk Menyembunyikan Scrollbar di Browser Chrome/Safari -->
+    <style>
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
 
     <!-- ================================================================= -->
     <!-- 4. AREA TAUTAN & PRODUK (DIBUNGKUS DENGAN BENAR DI DALAM DIV INI) -->
