@@ -801,6 +801,7 @@ const createIcon = (url, iconClass) => {
             deliverablesHTML = `<p class="text-xs mt-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${escapeHtml(rawDeliverables)}</p>`;
           }
 
+       // CARI BAGIAN 'card.innerHTML' UNTUK PAKET DI DALAM renderPublicRateCard(data), LALU SEJAJARKAN MENJADI:
           card.innerHTML = `
             <!-- Judul & Badge Harga -->
             <div class="flex justify-between items-start gap-3">
@@ -813,12 +814,16 @@ const createIcon = (url, iconClass) => {
             <!-- List Poin Deliverables -->
             ${deliverablesHTML}
 
-            <!-- Bottom Row: Estimasi Reach & Tombol Ajukan -->
-            <div class="mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <span class="text-xs font-bold text-violet-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-bolt text-xs"></i> Est. Reach: <strong class="text-white">${escapeHtml(pkg.Est_Reach || 'N/A')}</strong>
-              </span>
-              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="w-full sm:w-auto px-5 py-3 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-2xl shadow-[0_4px_20px_rgba(139,92,246,0.3)] transition-all active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase">
+            <!-- Bottom Section: Est. Reach (Baris Atas) & Tombol Full-Width (Baris Bawah) -->
+            <div class="mt-5 pt-4 border-t border-white/10 flex flex-col gap-3">
+              <!-- Baris 1: Est Reach Tampil Panjang & Luas -->
+              <div class="flex items-start gap-1.5 text-xs font-bold text-violet-400 leading-relaxed">
+                <i class="fa-solid fa-bolt text-xs shrink-0 mt-0.5"></i>
+                <span>Est. Reach: <strong class="text-white font-bold ml-1">${escapeHtml(pkg.Est_Reach || 'N/A')}</strong></span>
+              </div>
+
+              <!-- Baris 2: Tombol Ajukan Kerja Sama Full-Width -->
+              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="w-full mt-1 py-3.5 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-2xl shadow-[0_4px_20px_rgba(139,92,246,0.3)] transition-all active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase">
                 <i class="fa-solid fa-handshake text-sm"></i> Ajukan Kerja Sama
               </a>
             </div>
