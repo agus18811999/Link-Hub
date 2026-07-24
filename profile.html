@@ -667,6 +667,7 @@ const createIcon = (url, iconClass) => {
     }
 // DEFINISI FUNGSI RENDER RATE CARD (Ditaruh di luar/di bawah renderPublicProfile)
     // DEFINISI FUNGSI RENDER RATE CARD
+    // -> RENDER RATE CARD PUBLIK (ULTRA PREMIUM REDESIGN WITH AUTO-CHECKLIST)
     function renderPublicRateCard(data) {
       const rateContainer = document.getElementById('publicRateCardSection');
       if (!rateContainer) return;
@@ -675,75 +676,150 @@ const createIcon = (url, iconClass) => {
       const stats = data.rateStats || {};
       const packages = data.ratePackages || [];
       const user = data.user || {};
-      
-      // ---> PERBAIKAN: MENGAMBIL SETTING DAN MENDEFINISIKAN WARNA AGAR TIDAK CRASH
       const settings = data.pageSettings || {};
+
       const isDarkBg = isColorDark(settings.Bg_Color);
       const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
-      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)';
-      // -------------------------------------------------------------------------
+      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)';
 
-      // A. RENDER RINGKASAN STATISTIK DEMOGRAFI
+      // Helper Pembersih & Pemformat Persentase (Otomatis konversi 0.6 -> 60%)
+      const cleanPercent = (val, fallback) => {
+        if (!val) return fallback;
+        let str = String(val).trim();
+        if (str.endsWith('%')) return str;
+        let num = parseFloat(str);
+        if (!isNaN(num)) {
+          if (num <= 1) return Math.round(num * 100) + '%';
+          return Math.round(num) + '%';
+        }
+        return fallback;
+      };
+
+      const femalePercent = cleanPercent(stats.Gender_Female, '50%');
+      const malePercent = cleanPercent(stats.Gender_Male, '50%');
+      
+      // Pemformat ER Rate
+      let erText = String(stats.Engagement_Rate || '0%').trim();
+      if (!erText.endsWith('%') && !isNaN(parseFloat(erText))) {
+        let num = parseFloat(erText);
+        erText = (num <= 1 ? (num * 100).toFixed(1) : num) + '%';
+      }
+
+      // ========================================================
+      // 1. RENDER KARTU DEMOGRAFI AUDIENS (AESTHETIC GLASS BOX)
+      // ========================================================
       const statsBox = document.createElement('div');
-      statsBox.className = "w-full p-5 rounded-[28px] border backdrop-blur-xl shadow-lg space-y-4";
-      statsBox.style.backgroundColor = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)';
-      statsBox.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
+      statsBox.className = "w-full p-6 rounded-[32px] border backdrop-blur-xl shadow-2xl space-y-5 relative overflow-hidden group";
+      
+      if (isDarkBg) {
+        statsBox.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+        statsBox.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+      } else {
+        statsBox.style.backgroundColor = 'rgba(255, 255, 255, 0.65)';
+        statsBox.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+      }
 
       statsBox.innerHTML = `
+        <!-- Header Demografi -->
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-black tracking-[0.2em] uppercase text-violet-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-pie"></i> Demografi Audiens
+          </span>
+          <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300">
+            ${stats.Platform || 'Social Media'}
+          </span>
+        </div>
+
+        <!-- Metric Cards Grid -->
         <div class="grid grid-cols-2 gap-3 text-center">
-          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
-            <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Followers</p>
-            <p class="text-xl font-black text-violet-400 mt-1">${stats.Followers || '0'}</p>
+          <div class="p-3.5 bg-black/10 rounded-2xl border border-white/10 shadow-inner">
+            <p class="text-[9px] font-black uppercase tracking-widest opacity-60" style="color: ${cardTextColor};">Followers</p>
+            <p class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-400 mt-1">${stats.Followers || '0'}</p>
           </div>
-          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
-            <p class="text-[9px] font-black uppercase tracking-widest text-white/50">Engagement Rate</p>
-            <p class="text-xl font-black text-pink-400 mt-1">${stats.Engagement_Rate || '0%'}</p>
+          <div class="p-3.5 bg-black/10 rounded-2xl border border-white/10 shadow-inner">
+            <p class="text-[9px] font-black uppercase tracking-widest opacity-60" style="color: ${cardTextColor};">Engagement Rate</p>
+            <p class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400 mt-1">${erText}</p>
           </div>
         </div>
 
         <!-- Progress Bar Demografi Gender -->
-        <div class="space-y-1.5">
-          <div class="flex justify-between text-[10px] font-bold">
-            <span class="text-pink-400 flex items-center gap-1"><i class="fa-solid fa-venus"></i> Wanita ${stats.Gender_Female || '50%'}</span>
-            <span class="text-blue-400 flex items-center gap-1">Pria ${stats.Gender_Male || '50%'} <i class="fa-solid fa-mars"></i></span>
+        <div class="space-y-2 pt-1">
+          <div class="flex justify-between text-[11px] font-bold">
+            <span class="text-pink-400 flex items-center gap-1.5"><i class="fa-solid fa-venus"></i> Wanita ${femalePercent}</span>
+            <span class="text-blue-400 flex items-center gap-1.5">Pria ${malePercent} <i class="fa-solid fa-mars"></i></span>
           </div>
-          <div class="w-full h-2.5 bg-blue-500/30 rounded-full overflow-hidden flex">
-            <div class="h-full bg-pink-500 transition-all duration-500" style="width: ${stats.Gender_Female || '50%'}"></div>
+          <div class="w-full h-3 bg-blue-500/30 rounded-full overflow-hidden flex p-0.5 border border-white/10 shadow-inner">
+            <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transition-all duration-700 shadow-md" style="width: ${femalePercent}"></div>
           </div>
         </div>
 
-        <div class="flex justify-between text-[11px] font-semibold text-white/70 pt-1 border-t border-white/10">
-          <span><i class="fa-solid fa-users text-xs mr-1 text-violet-400"></i> Usia: ${stats.Top_Age_Group || '18-24'}</span>
-          <span><i class="fa-solid fa-location-dot text-xs mr-1 text-red-400"></i> ${stats.Top_Location || 'Indonesia'}</span>
+        <!-- Detail Usia & Lokasi -->
+        <div class="flex items-center justify-between text-[11.5px] font-bold pt-3 border-t border-white/10">
+          <span style="color: ${cardTextColor};" class="opacity-80"><i class="fa-solid fa-users text-xs mr-1.5 text-violet-400"></i> Usia: <strong class="text-violet-400">${stats.Top_Age_Group || '18-24'}</strong></span>
+          <span style="color: ${cardTextColor};" class="opacity-80"><i class="fa-solid fa-location-dot text-xs mr-1.5 text-rose-400"></i> <strong class="text-rose-400">${stats.Top_Location || 'Indonesia'}</strong></span>
         </div>
       `;
       rateContainer.appendChild(statsBox);
 
-      // B. RENDER PAKET KOLABORASI (DELIVERABLES)
+      // ========================================================
+      // 2. RENDER PAKET KOLABORASI (DENGAN LIST CHECKMARK REKURSIF)
+      // ========================================================
       if (packages.length > 0) {
         packages.forEach(pkg => {
           const card = document.createElement('div');
-          card.className = "w-full p-5 rounded-[28px] border backdrop-blur-xl shadow-lg relative flex flex-col text-left group";
-          card.style.backgroundColor = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.6)';
-          card.style.borderColor = isDarkBg ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)';
+          card.className = "w-full p-6 rounded-[32px] border backdrop-blur-xl shadow-2xl relative flex flex-col text-left group transition-all duration-300 hover:scale-[1.01]";
+          
+          if (isDarkBg) {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+          } else {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.65)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+          }
 
+          // Format WhatsApp Link
           const waMessage = encodeURIComponent(`Halo Kak ${user.name}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon info jadwal ketersediaannya ya kak. Terima kasih!`);
           const waLink = `https://wa.me/${settings.Social_WhatsApp || '628123456789'}?text=${waMessage}`;
 
+          // Memecah Teks Deliverables Menjadi List Poin-poin Bercentang Hijau
+          const rawDeliverables = pkg.Deliverables || '';
+          const items = rawDeliverables.split(/(?:✔|\n|,)/).map(s => s.trim()).filter(s => s.length > 0);
+          
+          let deliverablesHTML = '';
+          if (items.length > 0) {
+            deliverablesHTML = `<ul class="space-y-2 mt-4">`;
+            items.forEach(item => {
+              deliverablesHTML += `
+                <li class="flex items-start gap-2.5 text-xs font-semibold leading-relaxed" style="color: ${cardDescColor};">
+                  <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-[9px] shrink-0 mt-0.5 shadow-sm"><i class="fa-solid fa-check"></i></span>
+                  <span>${escapeHtml(item)}</span>
+                </li>
+              `;
+            });
+            deliverablesHTML += `</ul>`;
+          } else {
+            deliverablesHTML = `<p class="text-xs mt-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${escapeHtml(rawDeliverables)}</p>`;
+          }
+
           card.innerHTML = `
+            <!-- Judul & Badge Harga -->
             <div class="flex justify-between items-start gap-3">
-              <h4 class="font-extrabold text-base leading-tight" style="color: ${cardTextColor};">${pkg.Package_Name}</h4>
-              <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-xs rounded-xl shrink-0">
+              <h4 class="font-black text-lg leading-snug tracking-tight" style="color: ${cardTextColor};">${escapeHtml(pkg.Package_Name)}</h4>
+              <span class="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-xs rounded-2xl shrink-0 shadow-sm">
                 ${formatRupiahProfile(pkg.Package_Price)}
               </span>
             </div>
 
-            <p class="text-xs mt-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${pkg.Deliverables}</p>
+            <!-- List Poin Deliverables -->
+            ${deliverablesHTML}
 
-            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-              <span class="text-[10px] font-bold text-violet-400"><i class="fa-solid fa-bolt mr-1"></i> Est: ${pkg.Est_Reach || 'N/A'}</span>
-              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="px-4 py-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-1.5">
-                <i class="fa-solid fa-handshake"></i> Ajukan Kerja Sama
+            <!-- Bottom Row: Estimasi Reach & Tombol Ajukan -->
+            <div class="mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <span class="text-xs font-bold text-violet-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-bolt text-xs"></i> Est. Reach: <strong class="text-white">${escapeHtml(pkg.Est_Reach || 'N/A')}</strong>
+              </span>
+              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="w-full sm:w-auto px-5 py-3 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-2xl shadow-[0_4px_20px_rgba(139,92,246,0.3)] transition-all active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase">
+                <i class="fa-solid fa-handshake text-sm"></i> Ajukan Kerja Sama
               </a>
             </div>
           `;
