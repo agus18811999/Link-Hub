@@ -63,6 +63,9 @@
       <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap">
         <i class="fa-solid fa-user-secret text-xs"></i> Pesan
       </button>
+          <button onclick="switchPublicTab('content')" id="pubTabContent" class="py-2.5 rounded-xl text-[11px] font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap">
+        <i class="fa-solid fa-play text-xs"></i> Konten
+      </button>
     </div>
 
     <!-- ================================================================= -->
@@ -115,6 +118,12 @@
     <!-- ================================================================= -->
     <div id="publicNglSection" class="w-full mt-7 hidden flex-col items-center shrink-0">
        <!-- Kotak pesan akan dirender via JS -->
+    </div>
+    <!-- ================================================================= -->
+    <!-- AREA CREATOR HUB PUBLIK (TAMPIL HANYA SAAT TAB KONTEN AKTIF)      -->
+    <!-- ================================================================= -->
+    <div id="publicContentSection" class="w-full mt-7 hidden flex-col items-center shrink-0 space-y-6">
+       <!-- Spotlight Media Player dirender via JS di sini -->
     </div>
 
     <!-- 6. FOOTER BRANDING (LINKHUB) -->
@@ -272,30 +281,30 @@
     }
    // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 3 TABS: LINKS, RATECARD, NGL)
    // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (REVISI PREMIUM 3 TABS)
+    // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 4 TABS)
     function switchPublicTab(tab) {
       const mainContent = document.getElementById('publicMainContent');
       const rateSection = document.getElementById('publicRateCardSection');
       const nglSection = document.getElementById('publicNglSection');
-      
+      const contentSection = document.getElementById('publicContentSection'); // Tambahan
+
       const btnLinks = document.getElementById('pubTabLinks');
       const btnRate = document.getElementById('pubTabRateCard');
       const btnNgl = document.getElementById('pubTabNgl');
+      const btnContent = document.getElementById('pubTabContent'); // Tambahan
 
-      // Sembunyikan semua tab
-      [mainContent, rateSection, nglSection].forEach(el => {
+      // Sembunyikan Semua
+      [mainContent, rateSection, nglSection, contentSection].forEach(el => {
         if(el) { el.classList.add('hidden'); el.classList.remove('flex'); }
       });
 
-      // Reset gaya tombol (Status Tidak Aktif: Teks Putih Terang Transparan)
-      const inactiveClass = "py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap";
-      // Status Aktif: Kapsul Putih Menyala
-      const activeClass = "py-2.5 rounded-xl text-xs font-black text-slate-900 bg-white shadow-[0_4px_20px_rgba(255,255,255,0.25)] transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap";
+      // Reset Gaya Tombol (Transparan)
+      const inactiveClass = "py-2.5 rounded-xl text-[11px] font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap";
+      const activeClass = "py-2.5 rounded-xl text-[11px] font-black text-slate-900 bg-white shadow-[0_4px_20px_rgba(255,255,255,0.25)] transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap";
+      
+      [btnLinks, btnRate, btnNgl, btnContent].forEach(btn => { if(btn) btn.className = inactiveClass; });
 
-      if(btnLinks) btnLinks.className = inactiveClass;
-      if(btnRate) btnRate.className = inactiveClass;
-      if(btnNgl) btnNgl.className = inactiveClass;
-
-      // Tampilkan tab terpilih & aktifkan tombolnya
+      // Tampilkan yang dipilih
       if (tab === 'links' && mainContent) {
         mainContent.classList.remove('hidden'); mainContent.classList.add('flex');
         if(btnLinks) btnLinks.className = activeClass;
@@ -305,7 +314,21 @@
       } else if (tab === 'ngl' && nglSection) {
         nglSection.classList.remove('hidden'); nglSection.classList.add('flex');
         if(btnNgl) btnNgl.className = activeClass;
+      } else if (tab === 'content' && contentSection) { // Tambahan
+        contentSection.classList.remove('hidden'); contentSection.classList.add('flex');
+        if(btnContent) btnContent.className = activeClass;
       }
+    }
+    // -> DEEP CONTENT TRACKING ENGINE (IMAGE BEACON)
+    function trackContentEvent(userId, contentId, eventType) {
+      try {
+        const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
+        // URL Format: log_content_event (sesuai backend router)
+        const trackingUrl = `${SCRIPT_URL}?action=log_content_event&userId=${userId}&contentId=${contentId}&eventType=${eventType}&ip=127.0.0.1&device=${device}`;
+        const beacon = new Image();
+        beacon.src = trackingUrl;
+        console.log(`[Analytics] Tracked ${eventType} for Content: ${contentId}`);
+      } catch (e) { console.error("Tracking Error:", e); }
     }
     function startPublicBannerSlider() {
       if (publicBannerInterval) clearInterval(publicBannerInterval);
@@ -455,6 +478,92 @@ card.onclick = (e) => {
       });
     
       // ========================================================
+      // ========================================================
+      // RENDERING CREATOR HUB (SPOTLIGHT MEDIA PLAYER)
+      // ========================================================
+      const publicContentSection = document.getElementById('publicContentSection');
+      
+      if (publicContentSection) {
+        publicContentSection.innerHTML = '';
+        const CREATOR_CONTENTS = data.creatorContents || [];
+        
+        if (CREATOR_CONTENTS.length > 0) {
+          CREATOR_CONTENTS.forEach(content => {
+            
+            // Lapis 1 (Impression Tracking): Catat log ketika kartu ini dirender (muncul di layar pengunjung)
+            trackContentEvent(user.id, content.Content_ID, 'Impression');
+
+            // Konfigurasi Tema & Ikon Platform
+            const cardBg = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.65)';
+            const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.8)';
+            
+            let platIcon = 'fa-link'; let platColor = 'text-slate-400';
+            let btnText = 'Buka Tautan'; let btnTheme = 'bg-slate-800 text-white hover:bg-slate-700';
+
+            // Smart Extractor logic: Mengambil ID Video untuk proses Inline Play (Embed)
+            let embedUrl = '';
+            
+            if (content.Platform === 'YouTube') { 
+              platIcon = 'fa-youtube'; platColor = 'text-red-500'; btnText = 'Tonton di YouTube'; btnTheme = 'bg-[#ff0000] text-white hover:bg-red-600'; 
+              const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+              const match = content.Media_URL.match(ytRegex);
+              if(match && match[1]) embedUrl = `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0`;
+            }
+            if (content.Platform === 'TikTok') { 
+              platIcon = 'fa-tiktok'; platColor = 'text-slate-200'; btnText = 'Lihat di TikTok'; btnTheme = 'bg-black text-white border border-white/20 hover:bg-slate-900'; 
+            }
+            if (content.Platform === 'Spotify') { 
+              platIcon = 'fa-spotify'; platColor = 'text-green-500'; btnText = 'Dengarkan di Spotify'; btnTheme = 'bg-[#1DB954] text-black hover:bg-[#1ed760]'; 
+              const sptRegex = /spotify.com\/(track|album|playlist|episode)\/([a-zA-Z0-9]+)/;
+              const match = content.Media_URL.match(sptRegex);
+              if(match) embedUrl = `https://open.spotify.com/embed/${match[1]}/${match[2]}?utm_source=generator`;
+            }
+            if (content.Platform === 'Instagram_Reels') { 
+              platIcon = 'fa-instagram'; platColor = 'text-pink-500'; btnText = 'Buka di Instagram'; btnTheme = 'bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white'; 
+            }
+
+            const defaultThumb = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800';
+            const card = document.createElement('div');
+            card.className = "w-full p-4 rounded-[32px] border backdrop-blur-xl shadow-2xl flex flex-col relative overflow-hidden transition-all duration-300 hover:scale-[1.01]";
+            card.style.backgroundColor = cardBg;
+            card.style.borderColor = cardBorder;
+
+            card.innerHTML = `
+              <!-- Area Thumbnail / Inline Player -->
+              <div class="relative w-full h-48 md:h-64 rounded-2xl overflow-hidden bg-black group shadow-inner border border-white/10" id="mediaContainer_${content.Content_ID}">
+                
+                <img src="${content.Thumbnail_URL || defaultThumb}" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
+                
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity">
+                  <button onclick="playInlineMedia('${content.Content_ID}', '${embedUrl}', '${user.id}')" class="w-16 h-16 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:scale-110 active:scale-95 transition-all cursor-pointer">
+                    <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
+                  </button>
+                </div>
+
+                ${content.Badge_Label ? `<span class="absolute top-3 left-3 px-3 py-1 bg-red-600 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-md border border-red-400/50">${escapeHtml(content.Badge_Label)}</span>` : ''}
+              </div>
+
+              <!-- Metadata Info -->
+              <div class="flex items-center gap-4 px-2 mt-5 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-black/10 border border-white/10 flex items-center justify-center shrink-0 shadow-inner">
+                  <i class="fa-brands ${platIcon} ${platColor} text-xl drop-shadow-md"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-extrabold text-base leading-tight truncate" style="color: ${cardTextColor};">${escapeHtml(content.Title)}</h4>
+                  <p class="text-xs mt-1 font-bold tracking-wide" style="color: ${cardDescColor};">${content.Platform.replace('_', ' ')} Media</p>
+                </div>
+              </div>
+
+              <!-- Outbound Button (Lapis 3 Tracking) -->
+              <a href="${content.Media_URL}" target="_blank" onclick="trackContentEvent('${user.id}', '${content.Content_ID}', 'Outbound_Click')" class="w-full py-4 rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all ${btnTheme}">
+                ${btnText} <i class="fa-solid fa-arrow-up-right-from-square text-[11px] opacity-70 ml-1"></i>
+              </a>
+            `;
+            
+            publicContentSection.appendChild(card);
+          });
+        }
+      }
       // RENDERING KATALOG PRODUK DIGITAL (DI DALAM renderPublicProfile)
       // ========================================================
       // RENDERING FLOATING SOCIAL ICONS BAR
@@ -802,7 +911,25 @@ const createIcon = (url, iconClass) => {
         }
       });
     }
+// -> FUNGSI INLINE MEDIA PLAYER (REPLACE IMAGE DENGAN IFRAME VIDEO ASLI)
+    function playInlineMedia(contentId, embedUrl, userId) {
+      // Lapis 2 (Play Event Tracking): Catat log ketika pengunjung memutar video secara langsung
+      trackContentEvent(userId, contentId, 'Play');
 
+      const container = document.getElementById(`mediaContainer_${contentId}`);
+      if (!container) return;
+
+      if (!embedUrl) {
+        // Jika platform tidak didukung Inline Play (misal TikTok), arahkan paksa ke aplikasi aslinya
+        alert("Platform ini memerlukan Anda untuk membukanya di aplikasi resmi.");
+        return;
+      }
+
+      // Ganti gambar dengan Iframe YouTube/Spotify
+      container.innerHTML = `
+        <iframe src="${embedUrl}" class="w-full h-full border-0 absolute inset-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      `;
+    }
     function loadGoogleFont(fontName) {
       if (!fontName) return;
       const id = 'gf-' + fontName.replace(/\s+/g, '-').toLowerCase();
