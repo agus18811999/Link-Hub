@@ -184,6 +184,32 @@
           <i class="fa-solid fa-chart-line text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
           <span class="ml-3 font-bold text-sm hidden lg:block">Analisis</span>
         </button>
+        <!-- Tombol Menu Toko (Social Commerce) -->
+        <button onclick="switchTab('store')" id="nav-store" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-bag-shopping text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Toko Produk</span>
+        </button>
+        <!-- Tombol Menu Banner Iklan (SaaS Ad Engine) -->
+        <button onclick="switchTab('banners')" id="nav-banners" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-rectangle-ad text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Banner Iklan</span>
+        </button>
+        <!-- Tombol Menu Rate Card (SaaS Media Kit) -->
+        <button onclick="switchTab('ratecard')" id="nav-ratecard" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-id-card-clip text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Rate Card</span>
+        </button>
+        <!-- Tombol Menu NGL Q&A -->
+        <button onclick="switchTab('ngl')" id="nav-ngl" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-envelope-open-text text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Inbox NGL</span>
+        </button>
+        <!-- Tombol Menu Creator Hub -->
+        <button onclick="switchTab('creator')" id="nav-creator" class="w-full flex items-center p-3 rounded-xl transition-all text-slate-400 hover:text-white hover:bg-slate-800 group">
+          <i class="fa-solid fa-clapperboard text-lg w-6 text-center group-hover:scale-110 transition-transform"></i>
+          <span class="ml-3 font-bold text-sm hidden lg:block">Creator Hub</span>
+        </button>
+        
       </nav>
     </div>
 
@@ -218,17 +244,35 @@
   <main class="flex-1 flex flex-col relative overflow-hidden bg-slate-950">
     
     <!-- TOP HEADER -->
-    <header class="h-20 border-b border-slate-800 glass-panel flex items-center justify-between px-6 md:px-10 z-10 shrink-0">
+   <!-- ========================================== -->
+    <!-- PREMIUM SaaS TOP HEADER -->
+    <!-- ========================================== -->
+  <!-- ========================================== -->
+    <!-- HIGH-END PREMIUM SaaS TOP HEADER -->
+    <!-- ========================================== -->
+    <header class="h-20 border-b border-slate-800 bg-slate-950/40 backdrop-blur-lg flex items-center justify-between px-6 md:px-10 z-10 shrink-0 select-none">
       <div>
-        <h1 id="pageTitle" class="text-xl md:text-2xl font-black text-white">Kelola Tautan</h1>
+        <!-- Tipografi judul yang bersih, tebal, dan elegan -->
+        <h1 id="pageTitle" class="text-xl md:text-[22px] font-extrabold text-white tracking-tight leading-none">Kelola Tautan</h1>
       </div>
-      <div class="flex items-center gap-4">
-        <a id="publicUrlBtn" href="#" target="_blank" class="hidden md:flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white bg-slate-800 py-2 px-4 rounded-full border border-slate-700 transition-colors">
-          <span id="publicUrlText">linkhub.com/username</span>
-          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+      
+      <!-- Sisi Kanan: Aksi & Informasi Tautan (Seimbang & Proporsional) -->
+      <div class="flex items-center gap-3">
+        <!-- Badge Link Publik yang Diperbesar & Diperjelas (text-sm) -->
+        <a id="publicUrlBtn" href="#" target="_blank" class="hidden md:flex items-center gap-3 text-sm font-bold text-slate-200 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700/80 py-2 px-4 rounded-full transition-all duration-300 shadow-lg group">
+          <!-- Indikator Aktif (Double-Layered Live Pulse Green Dot) -->
+          <span class="relative flex h-2 w-2 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <!-- Teks Link Diperbesar ke text-sm agar sangat jelas keterbacaannya -->
+          <span id="publicUrlText" class="tracking-wide">linkhub.com/username</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"></i>
         </a>
-        <button onclick="copyPublicLink()" class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/20 hover:scale-105 transition-transform" title="Salin Tautan">
-          <i class="fa-regular fa-copy"></i>
+        
+        <!-- Tombol Salin Tautan (Diselaraskan dengan tema warna slate agar rapi & minimalis) -->
+        <button onclick="copyPublicLink()" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 hover:border-slate-700/80 text-slate-300 hover:text-white flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all duration-200" title="Salin Tautan">
+          <i class="fa-regular fa-copy text-sm"></i>
         </button>
       </div>
     </header>
@@ -240,37 +284,63 @@
         <!-- ===================================== -->
         <!-- TAB 1: LINKS MANAGEMENT -->
         <!-- ===================================== -->
-        <div id="tab-links" class="tab-pane block">
+       <!-- ======================================================== -->
+        <!-- TAB 1: LINKS MANAGEMENT (KELOLA TAUTAN - PREMIUM REDESIGN) -->
+        <!-- ======================================================== -->
+       <!-- ======================================================== -->
+        <!-- TAB 1: LINKS (KELOLA TAUTAN - PREMIUM REDESIGN)          -->
+        <!-- ======================================================== -->
+        <div id="tab-links" class="tab-pane block select-none">
           
-          <!-- Add New Link Button -->
-          <button onclick="toggleForm('addLinkForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg flex items-center justify-center gap-3 shadow-[0_0_40px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_rgba(139,92,246,0.4)] transition-all transform hover:-translate-y-1 mb-8">
-            <i class="fa-solid fa-plus text-xl"></i> Tambah Tautan Baru
+          <!-- Tombol Tambah Tautan Baru (Sleek Hologram Gradient Button) -->
+          <button onclick="toggleForm('addLinkForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-extrabold text-base tracking-wider uppercase flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(59,130,246,0.25)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 transform">
+            <i class="fa-solid fa-plus text-lg"></i> Tambah Tautan Baru
           </button>
 
-          <!-- Add Link Form (Hidden by default) -->
-        <!-- Add Link Form (Dengan Deskripsi & Thumbnail) -->
-          <div id="addLinkForm" class="expand-collapse max-h-0 opacity-0 mb-8">
-            <div class="glass-panel p-6 rounded-2xl">
-              <h3 class="text-white font-bold mb-4">Buat Tautan Baru</h3>
+          <!-- Form Input Tautan Baru (Hidden by default) -->
+          <div id="addLinkForm" class="expand-collapse max-h-0 opacity-0 mb-8 mt-6">
+            <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 backdrop-blur-xl shadow-2xl">
+              
+              <!-- Header Form -->
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm border border-blue-500/20">
+                  <i class="fa-solid fa-plus"></i>
+                </div>
+                <h3 class="text-white font-extrabold text-base leading-none">Buat Tautan Baru</h3>
+              </div>
+
               <form onsubmit="submitNewLink(event)">
-                <div class="space-y-4">
+                <div class="space-y-5">
+                  <!-- Input: Judul Tautan -->
                   <div>
-                    <input type="text" id="newLinkTitle" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Judul Asset (Misal: My CV)" required>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Judul Tautan / Asset</label>
+                    <input type="text" id="newLinkTitle" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="Misal: My CV" required autocomplete="off">
                   </div>
+
+                  <!-- Input: Deskripsi Singkat -->
                   <div>
-                    <textarea id="newLinkDescription" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Deskripsi Singkat (Misal: Simak perjalanan karir saya...)"></textarea>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Deskripsi Singkat</label>
+                    <textarea id="newLinkDescription" rows="2" class="mt-2 w-full bg-slate-950/40 border border-slate-800 focus:border-blue-500/80 rounded-2xl p-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200 resize-none" placeholder="Misal: Simak perjalanan karir saya secara lengkap."></textarea>
                   </div>
+
+                  <!-- Input: URL Thumbnail -->
                   <div>
-                    <input type="url" id="newLinkThumbnail" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="URL Gambar Thumbnail / Icon (https://...)">
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">URL Gambar Thumbnail (Opsional)</label>
+                    <input type="url" id="newLinkThumbnail" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="https://example.com/logo-instagram.png" autocomplete="off">
                   </div>
+
+                  <!-- Input: URL Tujuan -->
                   <div>
-                    <input type="url" id="newLinkUrl" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="URL Tujuan (https://...)" required>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">URL Tujuan</label>
+                    <input type="url" id="newLinkUrl" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="https://dribbble.com/portfolio-anda" required autocomplete="off">
                   </div>
-                  <div class="flex gap-3 pt-2">
-                    <button type="submit" id="btnSubmitLink" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-colors">
+
+                  <!-- Tombol Aksi Form -->
+                  <div class="flex gap-3 pt-3">
+                    <button type="submit" id="btnSubmitLink" class="flex-1 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-extrabold text-sm tracking-wide hover:shadow-[0_4px_20px_rgba(59,130,246,0.2)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
                       Simpan Tautan
                     </button>
-                    <button type="button" onclick="toggleForm('addLinkForm')" class="px-6 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors">
+                    <button type="button" onclick="toggleForm('addLinkForm')" class="px-6 h-12 bg-slate-900 border border-slate-800 hover:border-slate-700/80 text-slate-300 font-bold text-sm rounded-xl transition-all duration-200">
                       Batal
                     </button>
                   </div>
@@ -279,65 +349,170 @@
             </div>
           </div>
 
-          <!-- List of Links (Sortable) -->
-          <ul id="linksContainer" class="space-y-4">
+          <!-- List of Links (Container Render Tautan) -->
+          <ul id="linksContainer" class="space-y-4 mt-6">
             <!-- Tautan akan dirender via JS di sini -->
           </ul>
           
-          <!-- Empty State -->
-          <div id="emptyLinksState" class="hidden text-center py-12 glass-panel rounded-3xl mt-4 border border-dashed border-slate-700">
-             <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-500 text-2xl">
+          <!-- Empty State (Kondisi Kosong dengan Garis Putus-Putus Presisi) -->
+          <div id="emptyLinksState" class="hidden text-center py-14 glass-panel rounded-[32px] mt-6 border border-dashed border-slate-800 bg-slate-900/5">
+             <div class="w-14 h-14 bg-slate-950/40 border border-slate-800 rounded-full flex items-center justify-center mx-auto mb-5 text-slate-500 text-xl shadow-inner animate-pulse">
                 <i class="fa-solid fa-ghost"></i>
              </div>
-             <h3 class="text-white font-bold text-lg">Belum ada tautan</h3>
-             <p class="text-slate-400 text-sm mt-1">Tambahkan tautan pertama Anda agar audiens bisa terhubung.</p>
+             <h3 class="text-white font-extrabold text-base">Belum ada tautan aktif</h3>
+             <p class="text-slate-400 text-xs mt-1.5 max-w-xs mx-auto leading-relaxed">Tambahkan tautan pertama Anda agar pengunjung dapat terhubung dengan seluruh aset digital Anda.</p>
+          </div>
+        </div>
+        <!-- ======================================================== -->
+        <!-- TAB: BANNERS (PROMO BANNER & ADVERTISING ENGINE)         -->
+        <!-- ======================================================== -->
+        <div id="tab-banners" class="tab-pane hidden select-none">
+          
+          <!-- Tombol Tambah Banner (Hologram Purple/Blue Gradient) -->
+          <button onclick="toggleForm('addBannerForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-extrabold text-base tracking-wider uppercase flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(59,130,246,0.25)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 transform">
+            <i class="fa-solid fa-rectangle-ad text-lg"></i> Tambah Banner Iklan
+          </button>
+
+          <!-- Form Input Kampanye Iklan Baru (Hidden by default) -->
+          <div id="addBannerForm" class="expand-collapse max-h-0 opacity-0 mb-8 mt-6">
+            <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-blue-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+              
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm border border-blue-500/20">
+                  <i class="fa-solid fa-rectangle-ad"></i>
+                </div>
+                <h3 class="text-white font-extrabold text-base leading-none">Detail Kampanye Iklan</h3>
+              </div>
+
+              <form onsubmit="submitNewBanner(event)">
+                <div class="space-y-5">
+                  <!-- Nama Kampanye & Dropdown Posisi -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Nama Kampanye Iklan</label>
+                      <input type="text" id="newBannerName" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="Misal: Promo Afiliasi Hosting" required autocomplete="off">
+                    </div>
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Penempatan Banner (Position)</label>
+                      <select id="newBannerPosition" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-xs font-bold text-white focus:outline-none shadow-inner">
+                        <option value="Top_Header">Top Header (Melayang Lebar di Atas Profil)</option>
+                        <option value="Inline_Card">Inline Card (Rapi di Tengah Barisan Tautan)</option>
+                        <option value="Floating_Card">Floating Card (Boks Melayang di Sudut Layar)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- URL Gambar Banner -->
+                 <div>
+            <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Gambar Banner (Unggah File Langsung)</label>
+            <!-- Area seret & taruh file yang mewah -->
+            <div class="mt-2 relative flex flex-col items-center justify-center border-2 border-dashed border-slate-800 hover:border-blue-500/80 rounded-2xl p-6 bg-slate-950/40 text-center cursor-pointer transition-all duration-300 group" id="uploadBannerZone" onclick="document.getElementById('fileBannerInput').click()">
+              <!-- Input file asli disembunyikan agar tampilan tetap estetik -->
+              <input type="file" id="fileBannerInput" class="hidden" accept="image/*" onchange="handleBannerUpload(this)">
+              <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-500 group-hover:text-blue-400 transition-colors mb-2" id="uploadIcon"></i>
+              <p class="text-xs font-semibold text-slate-300" id="uploadText">Seret file ke sini atau klik untuk memilih gambar (Maks. 5MB)</p>
+              <p class="text-[10px] text-slate-500 mt-1" id="uploadSubtext">Format file yang didukung: JPG, PNG, atau WEBP</p>
+              
+              <!-- Input hidden untuk menampung URL Google Drive setelah sukses diunggah -->
+              <input type="hidden" id="newBannerImage" required>
+            </div>
+          </div>
+
+                  <!-- URL Tujuan Pengalihan -->
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">URL Tujuan Pengalihan (Destination URL)</label>
+                    <input type="url" id="newBannerDestination" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="https://shopee.co.id/produk-afiliasi-anda" required autocomplete="off">
+                  </div>
+
+                  <!-- Tombol Aksi Form -->
+                  <div class="flex gap-3 pt-4">
+                    <button type="submit" id="btnSubmitBanner" class="flex-1 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-extrabold text-sm tracking-wide hover:shadow-[0_4px_20px_rgba(59,130,246,0.2)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
+                      Aktifkan Kampanye Iklan
+                    </button>
+                    <button type="button" onclick="toggleForm('addBannerForm')" class="px-6 h-12 bg-slate-900 border border-slate-800 hover:border-slate-700/80 text-slate-300 font-bold text-sm rounded-xl transition-all duration-200">
+                      Batal
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Container Daftar Kampanye Banner Aktif -->
+          <div id="bannersContainer" class="space-y-4 mt-6">
+            <!-- Banner dirender via JS di sini -->
+          </div>
+          
+          <!-- Empty State Iklan -->
+          <div id="emptyBannersState" class="hidden text-center py-14 glass-panel rounded-[32px] mt-6 border border-dashed border-slate-800 bg-slate-900/5">
+             <div class="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-5 text-blue-500 text-xl shadow-inner animate-pulse">
+                <i class="fa-solid fa-rectangle-ad"></i>
+             </div>
+             <h3 class="text-white font-extrabold text-base">Belum Ada Banner Iklan</h3>
+             <p class="text-slate-400 text-xs mt-1.5 max-w-xs mx-auto leading-relaxed">Pasang banner promo, banner sponsor, atau link afiliasi visual untuk meningkatkan pendapatan pasif Anda.</p>
           </div>
         </div>
 
         <!-- ===================================== -->
         <!-- TAB 2: APPEARANCE (TAMPILAN) -->
         <!-- ===================================== -->
-        <div id="tab-appearance" class="tab-pane hidden space-y-8">
+       <!-- ======================================================== -->
+        <!-- TAB 2: APPEARANCE (TAMPILAN DESAIN - PREMIUM REDESIGN)    -->
+        <!-- ======================================================== -->
+        <div id="tab-appearance" class="tab-pane hidden space-y-8 select-none">
           
-          <!-- Profile Section -->
-          <div class="glass-panel p-8 rounded-3xl">
-            <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"><i class="fa-regular fa-id-badge text-purple-400"></i> Profil Halaman</h3>
+          <!-- 1. KARTU PROFIL HALAMAN -->
+          <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center gap-3.5 mb-8">
+              <div class="w-10 h-10 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-lg border border-purple-500/20">
+                <i class="fa-regular fa-id-badge"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-extrabold text-lg leading-none">Profil Halaman</h3>
+                <p class="text-xs text-slate-400 mt-1.5">Kelola identitas utama visual halaman publik Anda</p>
+              </div>
+            </div>
             
-            <div class="flex items-start gap-6 mb-6">
-             <div class="relative group">
-  <img id="appearanceAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="w-24 h-24 rounded-full border-4 border-slate-800 object-cover">
-  <!-- PANGGIL FUNGSI changeAvatarUrl() SAAT DIKLIK -->
-  <div class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity" onclick="changeAvatarUrl()">
-    <i class="fa-solid fa-camera text-white text-xl"></i>
-  </div>
-</div>
-             <div class="flex-1 space-y-4">
-                <!-- Judul Halaman / Nama & Warna Judul -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+              <!-- Avatar Area dengan Efek Frosted Camera Overlay -->
+              <div class="flex flex-col items-center gap-3 shrink-0">
+                <div class="relative group cursor-pointer" onclick="changeAvatarUrl()" title="Ubah Foto Profil">
+                  <img id="appearanceAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="w-24 h-24 rounded-full border-4 border-slate-950 object-cover shadow-2xl transition-transform duration-300 group-hover:scale-105">
+                  <div class="absolute inset-0 bg-black/60 rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 border-2 border-white/20">
+                    <i class="fa-solid fa-camera text-white text-xl mb-1"></i>
+                    <span class="text-[9px] text-slate-300 font-bold uppercase tracking-wider">Ubah Foto</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Input Nama & Bio Terintegrasi dengan Color Picker -->
+              <div class="flex-1 w-full space-y-5">
+                <!-- Baris Nama Lengkap & Warna Judul -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-end">
                   <div class="md:col-span-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Judul Halaman / Nama</label>
-                    <input type="text" id="settingPageTitle" class="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-purple-500 transition-colors">
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Judul Halaman / Nama</label>
+                    <input type="text" id="settingPageTitle" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-purple-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-purple-500/20 shadow-inner transition-all duration-200">
                   </div>
                   <div>
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-2">Warna Judul</label>
-                    <div class="flex items-center gap-2">
-                      <input type="color" id="settingTitleColor" class="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-0 p-0" value="#111827">
-                      <input type="text" id="settingTitleColorText" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none uppercase" readonly>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Warna Judul</label>
+                    <div class="relative flex items-center mt-2 h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-3 shadow-inner">
+                      <input type="color" id="settingTitleColor" class="w-8 h-8 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#EBECEF">
+                      <input type="text" id="settingTitleColorText" class="ml-3 bg-transparent text-xs font-bold text-white uppercase focus:outline-none tracking-wide w-full" readonly>
                     </div>
                   </div>
                 </div>
 
-                <!-- Bio / Deskripsi & Warna Bio -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <!-- Baris Bio / Deskripsi & Warna Bio -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-end">
                   <div class="md:col-span-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide">Bio / Deskripsi Singkat</label>
-                    <textarea id="settingBio" rows="3" class="mt-1.5 w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"></textarea>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Bio / Deskripsi Singkat</label>
+                    <textarea id="settingBio" rows="3" class="mt-2 w-full bg-slate-950/40 border border-slate-800 focus:border-purple-500/80 rounded-2xl p-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-purple-500/20 shadow-inner transition-all duration-200 resize-none"></textarea>
                   </div>
                   <div>
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-2">Warna Bio</label>
-                    <div class="flex items-center gap-2">
-                      <input type="color" id="settingBioColor" class="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-0 p-0" value="#4b5563">
-                      <input type="text" id="settingBioColorText" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none uppercase" readonly>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Warna Bio</label>
+                    <div class="relative flex items-center mt-2 h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-3 shadow-inner">
+                      <input type="color" id="settingBioColor" class="w-8 h-8 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#FAFAFA">
+                      <input type="text" id="settingBioColorText" class="ml-3 bg-transparent text-xs font-bold text-white uppercase focus:outline-none tracking-wide w-full" readonly>
                     </div>
                   </div>
                 </div>
@@ -345,116 +520,113 @@
             </div>
           </div>
 
-          <!-- Design & Theme Section -->
-        <!-- Design & Theme Section -->
-          <div class="glass-panel p-8 rounded-3xl">
-            <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i> Kustomisasi Desain</h3>
+          <!-- 2. KARTU KUSTOMISASI DESAIN -->
+          <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center gap-3.5 mb-8">
+              <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-lg border border-emerald-500/20">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-extrabold text-lg leading-none">Kustomisasi Desain</h3>
+                <p class="text-xs text-slate-400 mt-1.5">Sesuaikan latar belakang, tombol, dan gaya tipografi</p>
+              </div>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               
-              <!-- Tipe Latar Belakang (Solid vs Gradasi) -->
+              <!-- Segmented Control: Tipe Latar Belakang -->
               <div class="md:col-span-2">
-                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Tipe Latar Belakang</label>
-                <div class="flex gap-4">
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2.5 pl-1">Tipe Latar Belakang</label>
+                <div class="flex p-1 bg-slate-950/60 rounded-2xl border border-slate-800/80">
                   <label class="flex-1 cursor-pointer">
                     <input type="radio" name="bgType" value="solid" checked class="peer sr-only">
-                    <div class="py-3 border border-slate-700 rounded-xl text-center text-sm font-semibold text-slate-300 peer-checked:bg-purple-600 peer-checked:border-purple-600 peer-checked:text-white transition-all">Solid</div>
+                    <div class="py-2.5 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-blue-600 peer-checked:text-white transition-all duration-300">Solid Color</div>
                   </label>
                   <label class="flex-1 cursor-pointer">
                     <input type="radio" name="bgType" value="gradient" class="peer sr-only">
-                    <div class="py-3 border border-slate-700 rounded-xl text-center text-sm font-semibold text-slate-300 peer-checked:bg-purple-600 peer-checked:border-purple-600 peer-checked:text-white transition-all">Gradasi</div>
+                    <div class="py-2.5 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-blue-600 peer-checked:text-white transition-all duration-300">Gradient Color</div>
                   </label>
                 </div>
               </div>
 
-              <!-- Kontrol Warna Solid (Tampil jika tipe = solid) -->
-              <div id="solidBgControls" class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Kontrol Warna Solid -->
+              <div id="solidBgControls" class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Latar Belakang</label>
-                  <div class="flex items-center gap-3">
-                    <input type="color" id="settingBgColor" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0">
-                    <input type="text" id="settingBgColorText" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none uppercase" readonly>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Warna Latar Belakang</label>
+                  <div class="relative flex items-center h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-3 shadow-inner">
+                    <input type="color" id="settingBgColor" class="w-8 h-8 rounded-xl cursor-pointer bg-transparent border-0 p-0">
+                    <input type="text" id="settingBgColorText" class="ml-3 bg-transparent text-xs font-bold text-white uppercase focus:outline-none tracking-wide w-full" readonly>
                   </div>
                 </div>
               </div>
 
-              <!-- Kontrol Warna Gradasi (Tampil jika tipe = gradient) -->
-              <div id="gradientBgControls" class="md:col-span-2 hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Kontrol Warna Gradasi -->
+              <div id="gradientBgControls" class="md:col-span-2 hidden grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div>
-                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Pertama</label>
-                  <div class="flex items-center gap-3">
-                    <input type="color" id="settingBgGrad1" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#7B2BB1">
-                    <input type="text" id="settingBgGrad1Text" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none uppercase" readonly>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Warna Pertama</label>
+                  <div class="relative flex items-center h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-3 shadow-inner">
+                    <input type="color" id="settingBgGrad1" class="w-8 h-8 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#7B2BB1">
+                    <input type="text" id="settingBgGrad1Text" class="ml-3 bg-transparent text-xs font-bold text-white uppercase focus:outline-none tracking-wide w-full" readonly>
                   </div>
                 </div>
                 <div>
-                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Kedua</label>
-                  <div class="flex items-center gap-3">
-                    <input type="color" id="settingBgGrad2" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#3B82F6">
-                    <input type="text" id="settingBgGrad2Text" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none uppercase" readonly>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Warna Kedua</label>
+                  <div class="relative flex items-center h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-3 shadow-inner">
+                    <input type="color" id="settingBgGrad2" class="w-8 h-8 rounded-xl cursor-pointer bg-transparent border-0 p-0" value="#3B82F6">
+                    <input type="text" id="settingBgGrad2Text" class="ml-3 bg-transparent text-xs font-bold text-white uppercase focus:outline-none tracking-wide w-full" readonly>
                   </div>
                 </div>
                 <div>
-                  <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Arah Gradasi</label>
-                  <select id="settingBgGradDir" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-sm text-white focus:outline-none">
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Arah Gradasi</label>
+                  <select id="settingBgGradDir" class="w-full h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-4 text-xs font-bold text-white focus:outline-none shadow-inner">
                     <option value="135deg">Kiri Atas ke Kanan Bawah</option>
                     <option value="45deg">Kiri Bawah ke Kanan Atas</option>
                     <option value="to right">Kiri ke Kanan</option>
                     <option value="to bottom">Atas ke Bawah</option>
                   </select>
                 </div>
-                 <div id="imageBgControls" class="md:col-span-2 hidden">
-                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">URL Gambar Latar Belakang</label>
-                <input type="url" id="settingBgImage" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none" placeholder="https://images.unsplash.com/photo-...">
               </div>
 
-              <!-- Kontrol Video Latar Belakang -->
-              <div id="videoBgControls" class="md:col-span-2 hidden">
-                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">URL Video Latar Belakang (Tautan langsung .MP4)</label>
-                <input type="url" id="settingBgVideo" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none" placeholder="https://assets.mixkit.co/videos/preview/mixkit-...">
-              </div>
-              </div>
-
-              <!-- Warna Tombol Tautan -->
+              <!-- Kontrol Warna Tombol Tautan -->
               <div class="md:col-span-2">
-                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Warna Tombol Tautan</label>
-                <div class="flex items-center gap-3">
-                  <input type="color" id="settingBtnColor" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0">
-                  <input type="text" id="settingBtnColorText" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none uppercase" readonly>
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Warna Tombol Tautan</label>
+                <div class="relative flex items-center h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-3 shadow-inner">
+                  <input type="color" id="settingBtnColor" class="w-8 h-8 rounded-xl cursor-pointer bg-transparent border-0 p-0">
+                  <input type="text" id="settingBtnColorText" class="ml-3 bg-transparent text-xs font-bold text-white uppercase focus:outline-none tracking-wide w-full" readonly>
                 </div>
               </div>
 
-              <!-- Gaya Bentuk Tombol -->
+              <!-- Segmented Control: Gaya Bentuk Tombol -->
               <div class="md:col-span-2">
-                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Gaya Bentuk Tombol</label>
-                <div class="grid grid-cols-3 gap-4">
-                  <label class="cursor-pointer">
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2.5 pl-1">Gaya Bentuk Tombol</label>
+                <div class="flex p-1 bg-slate-950/60 rounded-2xl border border-slate-800/80">
+                  <label class="flex-1 cursor-pointer">
                     <input type="radio" name="btnStyle" value="rounded-full" class="peer sr-only">
-                    <div class="h-14 border border-slate-700 rounded-full flex items-center justify-center text-sm font-semibold text-white peer-checked:bg-purple-600 peer-checked:border-purple-600 transition-colors">Kapsul</div>
+                    <div class="py-3 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-purple-600 peer-checked:text-white transition-all duration-300">Kapsul</div>
                   </label>
-                  <label class="cursor-pointer">
+                  <label class="flex-1 cursor-pointer">
                     <input type="radio" name="btnStyle" value="rounded-xl" class="peer sr-only">
-                    <div class="h-14 border border-slate-700 rounded-xl flex items-center justify-center text-sm font-semibold text-white peer-checked:bg-purple-600 peer-checked:border-purple-600 transition-colors">Kotak Sudut</div>
+                    <div class="py-3 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-purple-600 peer-checked:text-white transition-all duration-300">Kotak Sudut</div>
                   </label>
-                  <label class="cursor-pointer">
+                  <label class="flex-1 cursor-pointer">
                     <input type="radio" name="btnStyle" value="rounded-none" class="peer sr-only">
-                    <div class="h-14 border border-slate-700 flex items-center justify-center text-sm font-semibold text-white peer-checked:bg-purple-600 peer-checked:border-purple-600 transition-colors">Kotak Tajam</div>
+                    <div class="py-3 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-purple-600 peer-checked:text-white transition-all duration-300">Kotak Tajam</div>
                   </label>
                 </div>
               </div>
 
-              <!-- Pilihan Gaya Huruf (Font Style Selector) -->
+              <!-- Pilihan Gaya Huruf -->
               <div class="md:col-span-2">
-                <label class="text-xs font-bold text-slate-400 uppercase tracking-wide block mb-3">Gaya Huruf (Font Style - 50 Premium Google Fonts)</label>
-                <select id="settingFontFamily" class="w-full h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 text-sm text-white focus:outline-none">
-                  <!-- Opsi font akan digenerate otomatis via JS -->
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Gaya Huruf (Font Style)</label>
+                <select id="settingFontFamily" class="w-full h-12 bg-slate-950/40 border border-slate-800 rounded-2xl px-4 text-xs font-bold text-white focus:outline-none shadow-inner">
+                  <!-- Generated via JS -->
                 </select>
               </div>
 
             </div>
 
-            <!-- Save Appearance Btn -->
-            <button onclick="saveAppearanceSettings()" id="btnSaveAppearance" class="w-full mt-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-lg hover:shadow-lg hover:shadow-emerald-500/30 transition-all">
+            <!-- Tombol Simpan Perubahan (Sleek Glassmorphic Emerald Button) -->
+            <button onclick="saveAppearanceSettings()" id="btnSaveAppearance" class="w-full mt-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-extrabold text-sm tracking-wider uppercase hover:shadow-[0_4px_30px_rgba(16,185,129,0.3)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
               Simpan Perubahan Tampilan
             </button>
           </div>
@@ -503,6 +675,58 @@
                 </div>
               </div>
             </div>
+            <!-- 3. KARTU KUSTOMISASI SOSIAL MEDIA (NEW) -->
+          <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center gap-3.5 mb-8">
+              <div class="w-10 h-10 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-lg border border-pink-500/20">
+                <i class="fa-solid fa-hashtag"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-extrabold text-lg leading-none">Ikon Sosial Media</h3>
+                <p class="text-xs text-slate-400 mt-1.5">Tampilkan bilah ikon melayang di bagian bawah halaman Anda.</p>
+              </div>
+            </div>
+            
+            <div class="space-y-5">
+              <!-- Warna Ikon -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-2 pl-1">Warna Ikon (Menyesuaikan Tema Latar)</label>
+                <div class="flex p-1 bg-slate-950/60 rounded-2xl border border-slate-800/80 w-full md:w-1/2">
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="socialColor" value="#ffffff" checked class="peer sr-only">
+                    <div class="py-2.5 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-white peer-checked:text-slate-900 transition-all duration-300"><i class="fa-solid fa-circle text-white border border-slate-300 rounded-full mr-1"></i> Putih</div>
+                  </label>
+                  <label class="flex-1 cursor-pointer">
+                    <input type="radio" name="socialColor" value="#0f172a" class="peer sr-only">
+                    <div class="py-2.5 rounded-xl text-center text-xs font-bold text-slate-400 peer-checked:bg-slate-900 peer-checked:text-white transition-all duration-300"><i class="fa-solid fa-circle text-slate-900 border border-slate-700 rounded-full mr-1"></i> Gelap</div>
+                  </label>
+                </div>
+              </div>
+
+              <hr class="border-slate-800/60 my-5">
+
+              <!-- Input Links -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-1.5"><i class="fa-brands fa-instagram text-pink-500"></i> Instagram</label>
+                  <input type="url" id="socialInstagram" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-pink-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-pink-500/20 shadow-inner transition-all duration-200" placeholder="https://instagram.com/username">
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-1.5"><i class="fa-brands fa-tiktok text-slate-100"></i> TikTok</label>
+                  <input type="url" id="socialTikTok" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-slate-400/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-slate-400/20 shadow-inner transition-all duration-200" placeholder="https://tiktok.com/@username">
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-1.5"><i class="fa-brands fa-youtube text-red-500"></i> YouTube</label>
+                  <input type="url" id="socialYouTube" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-red-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-red-500/20 shadow-inner transition-all duration-200" placeholder="https://youtube.com/@channel">
+                </div>
+                <div>
+                  <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-1.5"><i class="fa-brands fa-x-twitter text-slate-300"></i> Twitter / X</label>
+                  <input type="url" id="socialTwitter" class="mt-2 w-full h-12 bg-slate-950/40 border border-slate-800 focus:border-slate-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-slate-500/20 shadow-inner transition-all duration-200" placeholder="https://x.com/username">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- (Tombol Simpan Perubahan Tampilan ada di bawah ini) -->
 
             <!-- Save Profile Btn -->
             <button onclick="saveUserProfileSettings()" id="btnSaveUserProfile" class="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold text-lg hover:shadow-lg hover:shadow-blue-500/20 transition-all">
@@ -513,52 +737,84 @@
         <!-- ===================================== -->
         <!-- TAB 4: ANALYTICS (ANALISIS PERFORMA) -->
         <!-- ===================================== -->
-        <div id="tab-analytics" class="tab-pane hidden space-y-8">
+       <!-- ======================================================== -->
+        <!-- TAB 4: ANALYTICS (ANALISIS PERFORMA - PREMIUM REDESIGN)  -->
+        <!-- ======================================================== -->
+        <div id="tab-analytics" class="tab-pane hidden space-y-8 select-none">
           
-          <!-- STATE LOADING ANALITIK -->
-          <div id="analyticsLoadingState" class="flex flex-col items-center justify-center py-20">
-            <div class="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mb-4"></div>
-            <p class="text-slate-400 text-sm font-semibold">Menghimpun statistik performa...</p>
+          <!-- STATE LOADING ANALITIK (Frosted Spinner) -->
+          <div id="analyticsLoadingState" class="flex flex-col items-center justify-center py-24">
+            <div class="w-14 h-14 border-4 border-blue-500/10 border-t-blue-500 rounded-full animate-spin mb-5"></div>
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-widest animate-pulse">Menghimpun statistik performa...</p>
           </div>
 
           <!-- AREA ISI DATA ANALITIK -->
           <div id="analyticsContentArea" class="hidden space-y-8">
             
-            <!-- 1. BARIS KARTU RINGKASAN METRIK (SUMMARY CARDS) -->
+            <!-- 1. BARIS KARTU RINGKASAN METRIK (NEON GLOW SUMMARY CARDS) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <!-- Total Klik -->
-              <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
-                <div class="absolute -right-4 -bottom-4 text-7xl text-blue-500/5 group-hover:scale-110 transition-transform"><i class="fa-solid fa-arrow-pointer"></i></div>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Klik Tautan</p>
-                <h3 id="summaryTotalClicks" class="text-4xl font-black text-white mt-3 tracking-tight">0</h3>
-                <p class="text-xs text-emerald-400 font-semibold mt-2 flex items-center gap-1"><i class="fa-solid fa-arrow-trend-up"></i> Akumulasi Klik Seluruh Waktu</p>
+              
+              <!-- Total Klik (Blue Glow) -->
+              <div class="glass-panel p-6 rounded-[32px] border border-blue-500/10 bg-slate-900/10 shadow-[0_0_40px_rgba(59,130,246,0.03)] relative overflow-hidden group transition-all duration-300 hover:border-blue-500/20">
+                <div class="absolute -right-6 -bottom-6 text-8xl text-blue-500/5 group-hover:scale-110 transition-transform duration-300 pointer-events-none">
+                  <i class="fa-solid fa-arrow-pointer"></i>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                  <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Klik Tautan</p>
+                </div>
+                <h3 id="summaryTotalClicks" class="text-5xl font-black text-white mt-4 tracking-tight leading-none">0</h3>
+                <p class="text-[11px] text-emerald-400 font-bold mt-4 flex items-center gap-1.5">
+                  <i class="fa-solid fa-arrow-trend-up text-xs"></i> Akumulasi Klik Seluruh Waktu
+                </p>
               </div>
 
-              <!-- Pengunjung Unik -->
-              <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
-                <div class="absolute -right-4 -bottom-4 text-7xl text-purple-500/5 group-hover:scale-110 transition-transform"><i class="fa-solid fa-users"></i></div>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pengunjung Unik</p>
-                <h3 id="summaryUniqueVisitors" class="text-4xl font-black text-white mt-3 tracking-tight">0</h3>
-                <p class="text-xs text-purple-400 font-semibold mt-2 flex items-center gap-1"><i class="fa-solid fa-user-shield"></i> Berdasarkan Alamat IP</p>
+              <!-- Pengunjung Unik (Purple Glow) -->
+              <div class="glass-panel p-6 rounded-[32px] border border-purple-500/10 bg-slate-900/10 shadow-[0_0_40px_rgba(139,92,246,0.03)] relative overflow-hidden group transition-all duration-300 hover:border-purple-500/20">
+                <div class="absolute -right-6 -bottom-6 text-8xl text-purple-500/5 group-hover:scale-110 transition-transform duration-300 pointer-events-none">
+                  <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
+                  <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pengunjung Unik</p>
+                </div>
+                <h3 id="summaryUniqueVisitors" class="text-5xl font-black text-white mt-4 tracking-tight leading-none">0</h3>
+                <p class="text-[11px] text-purple-400 font-bold mt-4 flex items-center gap-1.5">
+                  <i class="fa-solid fa-user-shield text-xs"></i> Terhitung Berdasarkan Alamat IP
+                </p>
               </div>
 
-              <!-- Rasio Klik Per Pengunjung -->
-              <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
-                <div class="absolute -right-4 -bottom-4 text-7xl text-pink-500/5 group-hover:scale-110 transition-transform"><i class="fa-solid fa-calculator"></i></div>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Rata-rata Klik / User</p>
-                <h3 id="summaryRatio" class="text-4xl font-black text-white mt-3 tracking-tight">0x</h3>
-                <p class="text-xs text-pink-400 font-semibold mt-2 flex items-center gap-1"><i class="fa-solid fa-bolt"></i> Tingkat Keaktifan Pengunjung</p>
+              <!-- Rasio Klik (Pink Glow) -->
+              <div class="glass-panel p-6 rounded-[32px] border border-pink-500/10 bg-slate-900/10 shadow-[0_0_40px_rgba(236,72,153,0.03)] relative overflow-hidden group transition-all duration-300 hover:border-pink-500/20">
+                <div class="absolute -right-6 -bottom-6 text-8xl text-pink-500/5 group-hover:scale-110 transition-transform duration-300 pointer-events-none">
+                  <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-pink-500"></div>
+                  <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Rata-rata Klik / User</p>
+                </div>
+                <h3 id="summaryRatio" class="text-5xl font-black text-white mt-4 tracking-tight leading-none">0x</h3>
+                <p class="text-[11px] text-pink-400 font-bold mt-4 flex items-center gap-1.5">
+                  <i class="fa-solid fa-bolt text-xs"></i> Tingkat Keaktifan Pengunjung
+                </p>
               </div>
             </div>
 
             <!-- 2. GRAFIK TREN HARIAN (7 HARI TERAKHIR) -->
-            <div class="glass-panel p-6 md:p-8 rounded-3xl">
-              <div class="flex items-center justify-between mb-6">
+            <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 shadow-xl">
+              <div class="flex items-center justify-between mb-8">
                 <div>
-                  <h3 class="text-white font-extrabold text-lg">Tren Klik 7 Hari Terakhir</h3>
-                  <p class="text-xs text-slate-400 mt-1">Grafik aktivitas interaksi pengunjung secara real-time</p>
+                  <h3 class="text-white font-extrabold text-lg tracking-tight">Tren Klik 7 Hari Terakhir</h3>
+                  <p class="text-xs text-slate-400 mt-1.5">Grafik aktivitas interaksi pengunjung secara real-time</p>
                 </div>
-                <span class="px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-full text-[10px] font-black uppercase tracking-widest">Live Report</span>
+                <!-- Premium iOS Live Pulse Tag -->
+                <span class="flex items-center gap-2 px-3.5 py-1.5 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-full text-[10px] font-black uppercase tracking-widest">
+                  <span class="relative flex h-1.5 w-1.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-purple-500"></span>
+                  </span>
+                  Live Report
+                </span>
               </div>
               <div class="relative h-72 w-full">
                 <canvas id="trendChartCanvas"></canvas>
@@ -567,11 +823,18 @@
 
             <!-- 3. DETAIL AGREGASI (GRID DUA KOLOM) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              
               <!-- Kolom Kiri: Performa Tautan Tertinggi -->
-              <div class="glass-panel p-6 md:p-8 rounded-3xl flex flex-col">
-                <h3 class="text-white font-extrabold text-lg mb-6 flex items-center gap-2">
-                  <i class="fa-solid fa-award text-amber-400"></i> Klik Tautan Tertinggi
-                </h3>
+              <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 shadow-xl flex flex-col">
+                <div class="flex items-center gap-3.5 mb-8">
+                  <div class="w-10 h-10 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 text-lg border border-amber-500/20">
+                    <i class="fa-solid fa-award"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-white font-extrabold text-lg leading-none">Klik Tautan Tertinggi</h3>
+                    <p class="text-xs text-slate-400 mt-1.5">Daftar tautan terpopuler yang paling sering diklik</p>
+                  </div>
+                </div>
                 <div id="analyticsLinksContainer" class="space-y-5 flex-1">
                    <!-- Diisi secara dinamis via JS -->
                 </div>
@@ -580,27 +843,428 @@
               <!-- Kolom Kanan: Sumber Trafik & Perangkat -->
               <div class="grid grid-cols-1 gap-6">
                 <!-- Sumber Trafik -->
-                <div class="glass-panel p-6 rounded-3xl">
-                  <h3 class="text-white font-extrabold text-base mb-5 flex items-center gap-2">
-                    <i class="fa-solid fa-globe text-blue-400"></i> Sumber Lalu Lintas
-                  </h3>
+                <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 shadow-xl">
+                  <div class="flex items-center gap-3.5 mb-6">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-lg border border-blue-500/20">
+                      <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-white font-extrabold text-base leading-none">Sumber Lalu Lintas</h3>
+                      <p class="text-xs text-slate-400 mt-1.5">Asal usul rujukan halaman profil Anda</p>
+                    </div>
+                  </div>
                   <div id="analyticsSourcesContainer" class="space-y-4">
                      <!-- Diisi secara dinamis via JS -->
                   </div>
                 </div>
 
                 <!-- Klasifikasi Perangkat -->
-                <div class="glass-panel p-6 rounded-3xl">
-                  <h3 class="text-white font-extrabold text-base mb-5 flex items-center gap-2">
-                    <i class="fa-solid fa-mobile-screen text-pink-400"></i> Jenis Perangkat
-                  </h3>
+                <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/10 shadow-xl">
+                  <div class="flex items-center gap-3.5 mb-6">
+                    <div class="w-10 h-10 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-lg border border-pink-500/20">
+                      <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-white font-extrabold text-base leading-none">Jenis Perangkat</h3>
+                      <p class="text-xs text-slate-400 mt-1.5">Pembagian tipe gadget yang dipakai pengunjung</p>
+                    </div>
+                  </div>
                   <div id="analyticsDevicesContainer" class="space-y-4">
                      <!-- Diisi secara dinamis via JS -->
                   </div>
                 </div>
               </div>
+
             </div>
 
+          </div>
+        </div>
+        <!-- ======================================================== -->
+        <!-- TAB: STORE (KATALOG PRODUK DIGITAL - PREMIUM COMMERCE)   -->
+        <!-- ======================================================== -->
+        <div id="tab-store" class="tab-pane hidden select-none">
+          
+          <!-- Tombol Tambah Produk (Sleek Emerald Gradient) -->
+          <button onclick="toggleForm('addProductForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 text-white font-extrabold text-base tracking-wider uppercase flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(16,185,129,0.25)] hover:shadow-[0_8px_40px_rgba(20,184,166,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 transform">
+            <i class="fa-solid fa-cart-plus text-lg"></i> Tambah Produk Baru
+          </button>
+
+          <!-- Form Input Produk Baru (Hidden by default) -->
+          <div id="addProductForm" class="expand-collapse max-h-0 opacity-0 mb-8 mt-6">
+            <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-emerald-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+              
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm border border-emerald-500/20">
+                  <i class="fa-solid fa-box-open"></i>
+                </div>
+                <h3 class="text-white font-extrabold text-base leading-none">Detail Produk Digital</h3>
+              </div>
+
+              <form onsubmit="submitNewProduct(event)">
+                <div class="space-y-5">
+                  <!-- Info Dasar Produk -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Nama Produk</label>
+                      <input type="text" id="newProductName" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-emerald-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/20 shadow-inner transition-all duration-200" placeholder="Misal: E-Book Jago Bisnis" required autocomplete="off">
+                    </div>
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Harga Produk (Rp)</label>
+                      <input type="text" id="newProductPrice" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-emerald-500/80 rounded-2xl px-4 text-sm font-bold text-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 shadow-inner transition-all duration-200" placeholder="Misal: 99000" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Deskripsi & Keunggulan Produk</label>
+                    <textarea id="newProductDesc" rows="2" class="mt-2 w-full bg-slate-950/60 border border-slate-800 focus:border-emerald-500/80 rounded-2xl p-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/20 shadow-inner transition-all duration-200 resize-none" placeholder="Jelaskan apa yang pembeli dapatkan..."></textarea>
+                  </div>
+
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">URL Gambar Thumbnail Produk</label>
+                    <input type="url" id="newProductImage" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-emerald-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/20 shadow-inner transition-all duration-200" placeholder="https://example.com/cover-buku.png" autocomplete="off">
+                  </div>
+
+                  <hr class="border-slate-800 my-4">
+
+                  <!-- Integrasi WhatsApp -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">No. WhatsApp Admin (Mulai dgn 62)</label>
+                      <input type="text" id="newProductWA" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-emerald-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/20 shadow-inner transition-all duration-200" placeholder="6281234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required autocomplete="off">
+                    </div>
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Teks Pesan Otomatis (Template)</label>
+                      <input type="text" id="newProductMsg" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-emerald-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/20 shadow-inner transition-all duration-200" placeholder="Halo kak, saya mau beli produk ini..." required autocomplete="off">
+                    </div>
+                  </div>
+
+                  <!-- Tombol Aksi Form -->
+                  <div class="flex gap-3 pt-4">
+                    <button type="submit" id="btnSubmitProduct" class="flex-1 h-12 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-sm tracking-wide hover:shadow-[0_4px_20px_rgba(16,185,129,0.2)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
+                      Simpan Produk ke Katalog
+                    </button>
+                    <button type="button" onclick="toggleForm('addProductForm')" class="px-6 h-12 bg-slate-900 border border-slate-800 hover:border-slate-700/80 text-slate-300 font-bold text-sm rounded-xl transition-all duration-200">
+                      Batal
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Container Daftar Produk -->
+          <div id="productsContainer" class="space-y-4 mt-6">
+            <!-- Produk dirender via JS di sini -->
+          </div>
+          
+          <!-- Empty State Produk -->
+          <div id="emptyProductsState" class="hidden text-center py-14 glass-panel rounded-[32px] mt-6 border border-dashed border-slate-800 bg-slate-900/5">
+             <div class="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-5 text-emerald-500 text-xl shadow-inner">
+                <i class="fa-solid fa-store"></i>
+             </div>
+             <h3 class="text-white font-extrabold text-base">Etalase Masih Kosong</h3>
+             <p class="text-slate-400 text-xs mt-1.5 max-w-xs mx-auto leading-relaxed">Mulai pajang e-book, preset, atau jasa Anda dan terima pembayaran langsung via WhatsApp.</p>
+          </div>
+        </div>
+        <!-- ======================================================== -->
+        <!-- TAB: RATE CARD (MEDIA KIT & STATISTIK AUDIENS)          -->
+        <!-- ======================================================== -->
+        <div id="tab-ratecard" class="tab-pane hidden select-none space-y-8">
+          
+          <!-- 1. KARTU INPUT STATISTIK & DEMOGRAFI AUDIENS -->
+          <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center gap-3.5 mb-8">
+              <div class="w-10 h-10 rounded-2xl bg-violet-500/10 flex items-center justify-center text-violet-400 text-lg border border-violet-500/20">
+                <i class="fa-solid fa-chart-pie"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-extrabold text-lg leading-none">Demografi & Statistik Audiens</h3>
+                <p class="text-xs text-slate-400 mt-1.5">Tampilkan data pengikut dan jangkauan audiens Anda kepada calon brand.</p>
+              </div>
+            </div>
+
+            <form onsubmit="submitRateStats(event)">
+              <div class="space-y-5">
+                <!-- Platform & Total Followers -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Platform Utama</label>
+                    <input type="text" id="statsPlatform" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="Misal: Instagram & TikTok" required>
+                  </div>
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Total Pengikut </label>
+                    <input type="text" id="statsFollowers" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500/80 rounded-2xl px-4 text-sm font-bold text-violet-400 focus:outline-none" placeholder="Misal: 150K" required>
+                  </div>
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Engagement Rate (%)</label>
+                    <input type="text" id="statsER" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500/80 rounded-2xl px-4 text-sm font-bold text-pink-400 focus:outline-none" placeholder="Misal: 4.8%" required>
+                  </div>
+                </div>
+
+                <!-- Demografi Gender -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-1.5"><i class="fa-solid fa-venus text-pink-400"></i> Persentase Audiens Wanita (%)</label>
+                    <input type="text" id="statsFemale" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-pink-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="65%" required>
+                  </div>
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 flex items-center gap-1.5"><i class="fa-solid fa-mars text-blue-400"></i> Persentase Audiens Pria (%)</label>
+                    <input type="text" id="statsMale" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="35%" required>
+                  </div>
+                </div>
+
+                <!-- Usia & Lokasi Terbanyak -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Kelompok Usia Terbanyak</label>
+                    <input type="text" id="statsAge" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="18 - 24 Tahun (45%)">
+                  </div>
+                  <div>
+                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Kota / Domisili Penonton Terbanyak</label>
+                    <input type="text" id="statsLocation" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="Jakarta, Surabaya, Bandung">
+                  </div>
+                </div>
+
+                <!-- Tombol Simpan Statistik -->
+                <button type="submit" id="btnSaveStats" class="w-full h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-extrabold text-xs tracking-wider uppercase hover:shadow-[0_4px_25px_rgba(139,92,246,0.3)] transition-all">
+                  Simpan Data Statistik Audiens
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 2. KELOLA PAKET HARGA KOLABORASI -->
+          <div class="space-y-6">
+            <!-- Tombol Tambah Paket -->
+            <button onclick="toggleForm('addPackageForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white font-extrabold text-base tracking-wider uppercase flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(139,92,246,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all">
+              <i class="fa-solid fa-plus text-lg"></i> Tambah Paket Kolaborasi Baru
+            </button>
+
+            <!-- Form Input Paket Baru -->
+            <div id="addPackageForm" class="expand-collapse max-h-0 opacity-0">
+              <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+                <h3 class="text-white font-extrabold text-base mb-6">Detail Paket Rate Card</h3>
+                <form onsubmit="submitNewRatePackage(event)">
+                  <div class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Nama Paket Jasa</label>
+                        <input type="text" id="newPkgName" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="Misal: TikTok Video + IG Story Bundle" required>
+                      </div>
+                      <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Harga Paket (Rp)</label>
+                        <input type="text" id="newPkgPrice" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500 rounded-2xl px-4 text-sm font-bold text-emerald-400 focus:outline-none" placeholder="2500000" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Rincian Layanan yang Didapat Brand (Deliverables)</label>
+                      <textarea id="newPkgDeliverables" rows="3" class="mt-2 w-full bg-slate-950/60 border border-slate-800 focus:border-violet-500 rounded-2xl p-4 text-sm font-semibold text-white focus:outline-none resize-none" placeholder="Misal: 1x Video TikTok 60s, 2x Frame IG Story, Tautan Bio 7 Hari"></textarea>
+                    </div>
+
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Estimasi Jangkauan (Est. Reach)</label>
+                      <input type="text" id="newPkgReach" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-violet-500 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none" placeholder="Misal: 50K - 150K Views">
+                    </div>
+
+                    <div class="flex gap-3 pt-3">
+                      <button type="submit" id="btnSubmitPackage" class="flex-1 h-12 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-extrabold text-sm tracking-wide">Simpan Paket</button>
+                      <button type="button" onclick="toggleForm('addPackageForm')" class="px-6 h-12 bg-slate-900 border border-slate-800 text-slate-300 font-bold text-sm rounded-xl">Batal</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Container Daftar Paket Rate Card -->
+            <div id="ratePackagesContainer" class="space-y-4">
+               <!-- Rendered via JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyRatePackagesState" class="hidden text-center py-12 glass-panel rounded-[32px] border border-dashed border-slate-800">
+               <i class="fa-solid fa-handshake text-3xl text-violet-400/50 mb-3"></i>
+               <h3 class="text-white font-extrabold text-base">Belum Ada Paket Rate Card</h3>
+               <p class="text-slate-400 text-xs mt-1">Tambahkan penawaran paket harga pertama Anda untuk calon pengiklan.</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- ======================================================== -->
+        <!-- TAB: INBOX NGL (ANONYMOUS Q&A ENGINE)                    -->
+        <!-- ======================================================== -->
+        <div id="tab-ngl" class="tab-pane hidden select-none space-y-8">
+          
+          <!-- 1. PENGATURAN KOTAK PESAN -->
+          <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-rose-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center gap-3.5 mb-8">
+              <div class="w-10 h-10 rounded-2xl bg-rose-500/10 flex items-center justify-center text-rose-400 text-lg border border-rose-500/20">
+                <i class="fa-solid fa-user-secret"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-extrabold text-lg leading-none">Pengaturan Q&A Anonim</h3>
+                <p class="text-xs text-slate-400 mt-1.5">Sesuaikan tampilan kotak pesan rahasia di halaman profil Anda.</p>
+              </div>
+              <!-- Toggle Aktif/Nonaktif -->
+              <div class="ml-auto flex items-center gap-3 bg-black/20 p-2 rounded-2xl border border-white/5">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest hidden md:block">Status</span>
+                <label class="relative inline-block w-10 h-5 cursor-pointer">
+                  <input type="checkbox" id="nglIsActive" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" onchange="saveNglSettings()">
+                  <label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
+                </label>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Teks Pancingan (Prompt)</label>
+                <input type="text" id="nglPrompt" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-rose-500/80 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-rose-500/20 shadow-inner transition-all duration-200" placeholder="Kirim pesan rahasia ke aku! 🤫">
+              </div>
+              <div>
+                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Tema Warna Kotak</label>
+                <select id="nglTheme" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-rose-500/80 rounded-2xl px-4 text-sm font-bold text-white focus:outline-none shadow-inner">
+                  <option value="Neon_Purple">Neon Purple (Ungu Gelap Premium)</option>
+                  <option value="Sunset_Pink">Sunset Pink (Merah Muda Estetik)</option>
+                  <option value="Dark_Glass">Dark Glass (Hitam Elegan Transparan)</option>
+                </select>
+              </div>
+            </div>
+            
+            <button onclick="saveNglSettings()" id="btnSaveNglSettings" class="w-full mt-6 py-3.5 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-extrabold text-sm tracking-wider uppercase hover:shadow-[0_4px_25px_rgba(244,63,94,0.3)] transition-all active:scale-[0.99]">
+              Simpan Pengaturan Q&A
+            </button>
+          </div>
+
+          <!-- 2. KOTAK MASUK (INBOX) -->
+          <div class="pt-2 border-t border-slate-800">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-white font-extrabold text-lg flex items-center gap-2">
+                <i class="fa-solid fa-inbox text-slate-400"></i> Kotak Masuk Pesan
+              </h3>
+              <span id="unreadBadge" class="px-3 py-1 bg-rose-500/10 border border-rose-500/20 text-rose-400 font-black text-[10px] rounded-xl uppercase tracking-widest shadow-sm">
+                0 Pesan Baru
+              </span>
+            </div>
+
+            <!-- Area Render Pesan -->
+            <div id="nglInboxContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+               <!-- Pesan dirender via JS -->
+            </div>
+
+            <!-- Empty State Inbox -->
+            <div id="emptyNglState" class="hidden text-center py-14 glass-panel rounded-[32px] border border-dashed border-slate-800 bg-slate-900/5">
+               <div class="w-16 h-16 bg-slate-950/40 border border-slate-800 rounded-full flex items-center justify-center mx-auto mb-5 text-slate-500 text-2xl shadow-inner animate-bounce">
+                  <i class="fa-regular fa-paper-plane"></i>
+               </div>
+               <h3 class="text-white font-extrabold text-base">Kotak Masuk Kosong</h3>
+               <p class="text-slate-400 text-xs mt-1.5 max-w-xs mx-auto leading-relaxed">Bagikan link profil Anda ke Instagram Story untuk mulai menerima pesan anonim dari followers Anda!</p>
+            </div>
+          </div>
+          
+        </div>
+        <!-- ======================================================== -->
+        <!-- TAB: CREATOR HUB & DEEP CONTENT ANALYTICS                -->
+        <!-- ======================================================== -->
+        <div id="tab-creator" class="tab-pane hidden select-none space-y-8">
+          
+          <!-- 1. GRAFIK RETENSI & RINGKASAN PERFORMA -->
+          <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-red-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+              <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 text-lg border border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+                  <i class="fa-solid fa-chart-simple"></i>
+                </div>
+                <div>
+                  <h3 class="text-white font-extrabold text-lg leading-none">Deep Content Analytics</h3>
+                  <p class="text-xs text-slate-400 mt-1.5">Evaluasi tingkat retensi (Impression vs Play Rate) konten media Anda.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Grafik Chart.js -->
+            <div class="relative w-full h-64">
+              <canvas id="creatorChartCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- 2. PEMASANG KONTEN OTOMATIS (SMART EXTRACTOR) -->
+          <div class="space-y-6">
+            <button onclick="toggleForm('addContentForm')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-red-600 via-rose-600 to-pink-600 text-white font-extrabold text-base tracking-wider uppercase flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(225,29,72,0.25)] hover:scale-[1.01] active:scale-[0.99] transition-all">
+              <i class="fa-solid fa-film text-lg"></i> Promosikan Konten Baru
+            </button>
+
+            <div id="addContentForm" class="expand-collapse max-h-0 opacity-0">
+              <div class="glass-panel p-6 md:p-8 rounded-[32px] border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-2xl">
+                <h3 class="text-white font-extrabold text-base mb-6 flex items-center gap-2">
+                  <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Smart Content Extractor
+                </h3>
+                
+                <form onsubmit="submitCreatorContent(event)">
+                  <div class="space-y-5">
+                    <!-- URL Input (Smart Detect) -->
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">URL Video / Audio (Paste di sini)</label>
+                      <input type="url" id="newContentUrl" oninput="handleSmartExtract(this.value)" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-red-500 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none shadow-inner transition-colors" placeholder="https://youtu.be/... atau https://tiktok.com/..." required autocomplete="off">
+                      <p id="extractStatus" class="text-[10px] font-bold text-slate-500 mt-2 pl-2 transition-colors"></p>
+                    </div>
+
+                    <!-- Auto-filled Details Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Platform</label>
+                        <select id="newContentPlatform" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-red-500 rounded-2xl px-4 text-sm font-bold text-white focus:outline-none shadow-inner">
+                          <option value="YouTube">YouTube</option>
+                          <option value="TikTok">TikTok</option>
+                          <option value="Spotify">Spotify</option>
+                          <option value="Instagram_Reels">Instagram Reels</option>
+                          <option value="Custom_Video">Lainnya (Custom)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Label Sorotan (Badge)</label>
+                        <input type="text" id="newContentBadge" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-red-500 rounded-2xl px-4 text-sm font-bold text-amber-400 focus:outline-none shadow-inner" placeholder="Misal: 🔴 NEW RELEASE" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">Judul Konten</label>
+                      <input type="text" id="newContentTitle" class="mt-2 w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-red-500 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none shadow-inner" placeholder="Tulis judul yang menarik..." required autocomplete="off">
+                    </div>
+
+                    <div>
+                      <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1">URL Thumbnail Gambar</label>
+                      <div class="flex items-center gap-3 mt-2">
+                        <img id="previewExtractedThumb" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100" class="w-12 h-12 rounded-xl object-cover border border-slate-700 hidden">
+                        <input type="url" id="newContentThumb" class="w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-red-500 rounded-2xl px-4 text-sm font-semibold text-white focus:outline-none shadow-inner" placeholder="https://..." autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="flex gap-3 pt-3">
+                      <button type="submit" id="btnSubmitContent" class="flex-1 h-12 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-extrabold text-sm tracking-wide shadow-md">Tambahkan ke Profil</button>
+                      <button type="button" onclick="toggleForm('addContentForm')" class="px-6 h-12 bg-slate-900 border border-slate-800 text-slate-300 font-bold text-sm rounded-xl">Batal</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- 3. CONTENT LEADERBOARD (Katalog Promosi) -->
+            <div class="flex items-center justify-between mt-8 mb-4 px-2">
+              <h3 class="text-white font-extrabold text-lg flex items-center gap-2">
+                <i class="fa-solid fa-ranking-star text-amber-400"></i> Papan Peringkat Konten
+              </h3>
+            </div>
+
+            <div id="creatorContentsContainer" class="space-y-4">
+               <!-- Rendered via JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyCreatorState" class="hidden text-center py-12 glass-panel rounded-[32px] border border-dashed border-slate-800">
+               <i class="fa-solid fa-clapperboard text-4xl text-red-500/20 mb-4 animate-pulse"></i>
+               <h3 class="text-white font-extrabold text-base">Belum Ada Konten Dipromosikan</h3>
+               <p class="text-slate-400 text-xs mt-1 max-w-xs mx-auto">Sematkan video terbaru Anda di sini agar langsung bisa diputar oleh pengunjung!</p>
+            </div>
           </div>
         </div>
 
@@ -613,6 +1277,9 @@
   <!-- ========================================== -->
   <!-- ========================================== -->
   <!-- RIGHT SIDE: LIVE PREVIEW MOCKUP (IPHONE PREMIUM STYLE) -->
+  <!-- ========================================== -->
+ <!-- ========================================== -->
+  <!-- RIGHT SIDE: LIVE PREVIEW MOCKUP (REVISED)  -->
   <!-- ========================================== -->
   <aside class="w-[420px] hidden xl:flex flex-col items-center justify-center border-l border-slate-800/60 glass-panel bg-slate-950 relative overflow-hidden shrink-0 select-none">
     
@@ -649,28 +1316,95 @@
         </div>
 
         <!-- Phone Inner Content (Scrollable area) -->
-   <div class="flex-1 overflow-y-auto px-6 pt-14 pb-8 flex flex-col items-center relative z-10">
+        <div class="flex-1 overflow-y-auto px-6 pt-14 pb-20 flex flex-col items-center relative z-10">
+          
+          <!-- PREVIEW TOP HEADER BANNER (Untuk Banner Iklan Atas) -->
+          <div id="previewTopBanner" class="w-full h-[140px] relative z-20 mb-6 shrink-0 hidden"></div>
+          
           <!-- Avatar with Deep Smooth Shadow -->
-          <div class="relative mt-4">
+          <div class="relative mt-4 shrink-0">
             <div class="absolute inset-0 rounded-full bg-black/10 blur-md transform translate-y-1"></div>
             <img id="previewAvatar" src="" class="relative w-24 h-24 rounded-full object-cover border-2 border-white/80 shadow-md">
           </div>
           
           <!-- Title & Bio with Clean Typography -->
-          <h1 id="previewTitle" class="mt-4 text-[19px] font-extrabold text-center tracking-tight leading-tight text-slate-900">@username</h1>
-          <p id="previewBio" class="mt-2 text-[13.5px] text-slate-500 font-medium text-center leading-relaxed max-w-[240px]">Bio description here...</p>
-              <div class="w-full mt-5 px-1 relative z-20">
-          <input type="text" id="previewSearchInput" oninput="filterPreviewLinks(this.value)" class="w-full bg-black/5 border border-black/10 rounded-xl py-2.5 pl-9 pr-4 text-xs font-semibold text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-black/20" placeholder="Cari link (misal: Youtube, Shop)...">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-        </div>
-          <!-- Preview Buttons Container -->
-          <div id="previewLinksContainer" class="w-full mt-8 flex flex-col gap-3.5">
-             <!-- Di-render oleh JavaScript -->
+          <h1 id="previewTitle" class="mt-4 text-[19px] font-extrabold text-center tracking-tight leading-tight text-slate-900 shrink-0">@username</h1>
+          <p id="previewBio" class="mt-2 text-[13.5px] text-slate-500 font-medium text-center leading-relaxed max-w-[240px] shrink-0">Bio description here...</p>
+          
+          <!-- MINI TAB SWITCHER MOCKUP HP -->
+         <!-- MINI TAB SWITCHER MOCKUP HP (REVISI ELEGANT iOS GLASS) -->
+         <!-- MINI TAB SWITCHER MOCKUP HP (4 TABS) -->
+          <div class="w-full mt-4 p-1 bg-black/20 border border-white/10 rounded-2xl backdrop-blur-xl grid grid-cols-4 gap-1 relative z-30 max-w-[300px] mx-auto shrink-0 shadow-inner" id="previewTabSwitcher">
+            <button onclick="switchPreviewTab('links')" id="prevTabLinks" class="py-1.5 rounded-xl text-[9.5px] font-extrabold text-slate-900 bg-white shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-0.5">
+              <i class="fa-solid fa-link text-[10px]"></i> Tautan
+            </button>
+            <button onclick="switchPreviewTab('ratecard')" id="prevTabRateCard" class="py-1.5 rounded-xl text-[9.5px] font-extrabold text-white/60 hover:text-white transition-all duration-300 flex flex-col items-center justify-center gap-0.5">
+              <i class="fa-solid fa-id-card-clip text-[10px]"></i> Rate Card
+            </button>
+            <button onclick="switchPreviewTab('ngl')" id="prevTabNgl" class="py-1.5 rounded-xl text-[9.5px] font-extrabold text-white/60 hover:text-white transition-all duration-300 flex flex-col items-center justify-center gap-0.5">
+              <i class="fa-solid fa-user-secret text-[10px]"></i> Pesan
+            </button>
+            <!-- TAB BARU: KONTEN KREATOR -->
+            <button onclick="switchPreviewTab('content')" id="prevTabContent" class="py-1.5 rounded-xl text-[9.5px] font-extrabold text-white/60 hover:text-white transition-all duration-300 flex flex-col items-center justify-center gap-0.5">
+              <i class="fa-solid fa-play text-[10px]"></i> Konten
+            </button>
+          </div>
+
+          <!-- ======================================================== -->
+          <!-- KONTEN UTAMA MOCKUP (TAUTAN, IKLAN INLINE & PRODUK)       -->
+          <!-- ======================================================== -->
+          <!-- Elemen di dalam div ini akan Sembunyi/Tampil sesuai Tab Switcher -->
+          <div id="previewMainContent" class="w-full flex flex-col items-center shrink-0">
+            
+            <!-- Search Bar -->
+            <div class="w-full mt-5 px-1 relative z-20">
+              <input type="text" id="previewSearchInput" class="w-full bg-black/5 border border-black/10 rounded-xl py-2.5 pl-9 pr-4 text-xs font-semibold text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-black/20" placeholder="Cari link (misal: Youtube, Shop)..." readonly>
+              <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+            </div>
+            
+            <!-- Preview Buttons Container -->
+            <div id="previewLinksContainer" class="w-full mt-8 flex flex-col gap-3.5">
+               <!-- Tautan dan Inline Ad di-render oleh JavaScript di sini -->
+            </div>
+
+            <!-- Preview Products Section -->
+            <div id="previewProductsSection" class="w-full mt-5 hidden flex-col items-center">
+              <div class="flex items-center gap-2 mb-3" id="previewProductsHeader">
+                <span class="text-[9px] font-black tracking-[0.25em] uppercase"><i class="fa-solid fa-store mr-1"></i> Etalase Produk</span>
+              </div>
+              <div id="previewProductsContainer" class="w-full flex flex-col gap-3.5">
+                 <!-- Produk Rendered via JS -->
+              </div>
+            </div>
+            
+          </div> <!-- Penutup previewMainContent -->
+
+          <!-- ======================================================== -->
+          <!-- KONTEN RATE CARD MOCKUP (DITAMPILKAN JIKA TAB DIKLIK)    -->
+          <!-- ======================================================== -->
+          <div id="previewRateCardSection" class="w-full mt-5 hidden flex-col space-y-3 shrink-0">
+             <!-- Rate Card Rendered via JS -->
+          </div>
+           <div id="previewNglSection" class="w-full mt-5 hidden flex-col items-center shrink-0">
+             <!-- Rendered via JS -->
+          </div>
+           <div id="previewContentSection" class="w-full mt-5 hidden flex-col items-center shrink-0 space-y-4">
+             <!-- Rendered via JS -->
           </div>
 
           <!-- Footer Branding inside Phone -->
           <div class="mt-auto pt-10">
-            <p class="text-[9px] font-black text-slate-400 tracking-[0.2em] uppercase opacity-40">LinkHub.</p>
+            <p class="text-[9px] font-black text-slate-400 tracking-[0.25em] uppercase opacity-40">LinkHub.</p>
+          </div>
+        </div> <!-- Penutup area scrollable (overflow-y-auto) -->
+
+        <!-- PREVIEW FLOATING CARD BANNER (Melayang di atas HP / Tidak Ikut Di-scroll) -->
+        <div id="previewFloatingBanner" class="absolute bottom-16 right-3 z-40 max-w-[120px] rounded-xl overflow-hidden shadow-lg border border-white/10 group transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none hidden"></div>
+
+        <!-- FLOATING SOCIAL ICONS BAR (Melayang di dasar layar HP) -->
+        <div id="previewSocialBar" class="absolute bottom-5 left-1/2 -translate-x-1/2 z-40 hidden transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
+          <div class="flex items-center gap-3.5 px-4.5 py-2.5 rounded-full border shadow-md backdrop-blur-xl" id="previewSocialGlass">
+            <!-- Ikon Sosial Media digenerate via JS -->
           </div>
         </div>
 
@@ -689,7 +1423,7 @@
        ========================================================================= -->
   <script>
     // 1. KONFIGURASI BACKEND
-   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZOKBx_IVqtS0Vt0_XXh5GOY35llR9pzg-N6jTB_koX7DvHPbw9YcO7htZ0bzfWjhR/exec'; 
+   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3KHDlJ-DfYxnKPyLFUdNa0-wuPH7yOwtOznD6r9jeJSJJ04l7w0fkARTrWrFFleHx/exec'; 
 
     // STATE GLOBAL
     let STATE = {
@@ -707,6 +1441,870 @@
       }
       fetchDashboardData();
     });
+    // =========================================================================
+    // JAVASCRIPT ANONYMOUS Q&A ENGINE (NGL INBOX)
+    // =========================================================================
+// =========================================================================
+    // JAVASCRIPT CREATOR HUB ENGINE (SMART EXTRACTOR & DEEP ANALYTICS)
+    // =========================================================================
+
+    let creatorChartInstance = null;
+
+    // 1. SMART EXTRACTOR: Deteksi URL YouTube/TikTok otomatis
+    function handleSmartExtract(url) {
+      const statusEl = document.getElementById('extractStatus');
+      const platformEl = document.getElementById('newContentPlatform');
+      const thumbEl = document.getElementById('newContentThumb');
+      const previewThumb = document.getElementById('previewExtractedThumb');
+      
+      if (!url) {
+        statusEl.textContent = "";
+        previewThumb.classList.add('hidden');
+        return;
+      }
+
+      statusEl.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-blue-400"></i> Menganalisis URL...`;
+      statusEl.className = "text-[10px] font-bold mt-2 pl-2 text-blue-400";
+
+      setTimeout(() => {
+        const cleanUrl = url.toLowerCase();
+
+        // Cek YouTube
+        const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+        const ytMatch = url.match(ytRegex);
+        
+        if (ytMatch && ytMatch[1]) {
+          platformEl.value = 'YouTube';
+          const thumbUrl = `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+          thumbEl.value = thumbUrl;
+          previewThumb.src = thumbUrl;
+          previewThumb.classList.remove('hidden');
+          statusEl.innerHTML = `<i class="fa-solid fa-check text-emerald-400"></i> YouTube Terdeteksi! ID: ${ytMatch[1]}`;
+          return;
+        }
+
+        // Cek TikTok
+         // 2. Cek Instagram Reels / Posts (NEW)
+        if (cleanUrl.includes('instagram.com') || cleanUrl.includes('instagr.am')) {
+          platformEl.value = 'Instagram_Reels';
+          previewThumb.classList.add('hidden');
+          statusEl.innerHTML = `<i class="fa-solid fa-check text-pink-400"></i> Instagram Reels Terdeteksi! Masukkan judul & thumbnail.`;
+          return;
+        }
+
+        // 3. Cek TikTok
+        if (cleanUrl.includes('tiktok.com')) {
+          platformEl.value = 'TikTok';
+          previewThumb.classList.add('hidden');
+          statusEl.innerHTML = `<i class="fa-solid fa-check text-cyan-400"></i> TikTok Terdeteksi! Masukkan judul & thumbnail.`;
+          return;
+        }
+
+        // 4. Cek Spotify
+        if (cleanUrl.includes('spotify.com')) {
+          platformEl.value = 'Spotify';
+          previewThumb.classList.add('hidden');
+          statusEl.innerHTML = `<i class="fa-solid fa-check text-green-400"></i> Spotify Terdeteksi! Masukkan judul & thumbnail.`;
+          return;
+        }
+
+        statusEl.innerHTML = `<i class="fa-solid fa-link text-slate-400"></i> URL Kustom. Harap isi data secara manual.`;
+      }, 500); // Simulasi proses loading yang mewah
+    }
+
+    // 2. RENDER DAFTAR KONTEN (LEADERBOARD)
+    function renderCreatorContents() {
+      const container = document.getElementById('creatorContentsContainer');
+      const emptyState = document.getElementById('emptyCreatorState');
+      container.innerHTML = '';
+
+      if (!STATE.creatorContents || STATE.creatorContents.length === 0) {
+        emptyState.classList.remove('hidden');
+        if (creatorChartInstance) creatorChartInstance.destroy();
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      // Urutkan berdasarkan Jumlah Diputar (Plays) tertinggi ke terendah
+      const sortedContents = [...STATE.creatorContents].sort((a, b) => (b.Stats?.Plays || 0) - (a.Stats?.Plays || 0));
+
+      sortedContents.forEach((content, index) => {
+        const stats = content.Stats || { Impressions: 0, Plays: 0, Outbound_Clicks: 0, Play_Rate: '0.0' };
+        
+        // Tentukan Ikon Platform
+        let platIcon = 'fa-link text-slate-400';
+        if (content.Platform === 'YouTube') platIcon = 'fa-youtube text-red-500';
+        if (content.Platform === 'TikTok') platIcon = 'fa-tiktok text-white';
+        if (content.Platform === 'Spotify') platIcon = 'fa-spotify text-green-500';
+        if (content.Platform === 'Instagram_Reels') platIcon = 'fa-instagram text-pink-500';
+
+        const div = document.createElement('div');
+        div.className = "glass-panel p-5 rounded-[28px] border border-white/5 flex flex-col xl:flex-row gap-6 items-start xl:items-center relative overflow-hidden group";
+
+        // Medali untuk Top 3
+        let rankBadge = '';
+        if (index === 0) rankBadge = '<div class="absolute -top-1 -left-1 w-10 h-10 bg-amber-400 text-amber-900 rounded-br-2xl flex items-center justify-center font-black text-xs shadow-lg z-10"><i class="fa-solid fa-trophy"></i></div>';
+        else if (index === 1) rankBadge = '<div class="absolute -top-1 -left-1 w-8 h-8 bg-slate-300 text-slate-700 rounded-br-2xl flex items-center justify-center font-black text-[10px] shadow-lg z-10">2</div>';
+        else if (index === 2) rankBadge = '<div class="absolute -top-1 -left-1 w-8 h-8 bg-amber-700 text-amber-100 rounded-br-2xl flex items-center justify-center font-black text-[10px] shadow-lg z-10">3</div>';
+
+        const thumbUrl = content.Thumbnail_URL || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200';
+
+        div.innerHTML = `
+          ${rankBadge}
+          <!-- Thumbnail Video -->
+          <div class="relative w-full xl:w-40 h-24 rounded-2xl overflow-hidden shadow-md shrink-0 border border-slate-700 group-hover:border-red-500/50 transition-colors">
+            <img src="${thumbUrl}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <i class="fa-solid fa-play text-white text-3xl drop-shadow-md"></i>
+            </div>
+            ${content.Badge_Label ? `<span class="absolute bottom-1.5 right-1.5 bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded shadow">${escapeHtml(content.Badge_Label)}</span>` : ''}
+          </div>
+
+          <!-- Detail & Deep Analytics Grid -->
+          <div class="flex-1 w-full min-w-0">
+            <div class="flex items-center gap-2.5 mb-1.5">
+              <i class="fa-brands ${platIcon} text-lg drop-shadow"></i>
+              <h4 class="font-extrabold text-white text-sm truncate leading-tight">${escapeHtml(content.Title)}</h4>
+            </div>
+            <p class="text-[10px] text-slate-500 mb-4 truncate font-medium">${escapeHtml(content.Media_URL)}</p>
+            
+            <div class="grid grid-cols-4 gap-3">
+              <div class="bg-slate-950/50 rounded-xl p-2 border border-white/5">
+                <p class="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Dilihat</p>
+                <p class="text-sm font-black text-slate-300 mt-0.5">${stats.Impressions.toLocaleString('id-ID')}</p>
+              </div>
+              <div class="bg-slate-950/50 rounded-xl p-2 border border-red-500/20 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+                <p class="text-[8px] font-bold text-red-400 uppercase tracking-widest">Diputar</p>
+                <p class="text-sm font-black text-white mt-0.5">${stats.Plays.toLocaleString('id-ID')}</p>
+              </div>
+              <div class="bg-slate-950/50 rounded-xl p-2 border border-white/5">
+                <p class="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Rasio Play</p>
+                <p class="text-sm font-black text-amber-400 mt-0.5">${stats.Play_Rate}%</p>
+              </div>
+              <div class="bg-slate-950/50 rounded-xl p-2 border border-white/5">
+                <p class="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Konversi</p>
+                <p class="text-sm font-black text-emerald-400 mt-0.5">${stats.Outbound_Clicks.toLocaleString('id-ID')}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aksi (Toggle/Delete) -->
+          <div class="flex flex-row xl:flex-col items-center justify-end gap-4 w-full xl:w-auto border-t border-slate-800 xl:border-none pt-4 xl:pt-0">
+            <label class="relative inline-block w-10 h-5 cursor-pointer">
+              <input type="checkbox" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" 
+                     ${content.Is_Active ? 'checked' : ''} onchange="toggleCreatorContent('${content.Content_ID}', this.checked)">
+              <label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
+            </label>
+            <button onclick="deleteCreatorContent('${content.Content_ID}')" class="w-10 h-10 rounded-xl bg-slate-800/50 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-transparent hover:border-red-500/30 transition-all flex items-center justify-center shadow-sm">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      renderCreatorChart(sortedContents);
+    }
+
+    // 3. RENDER GRAFIK RETENSI CHART.JS
+    function renderCreatorChart(data) {
+      const canvas = document.getElementById('creatorChartCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (creatorChartInstance) creatorChartInstance.destroy();
+
+      const labels = data.slice(0, 5).map(c => c.Title.length > 15 ? c.Title.substring(0, 15) + '...' : c.Title);
+      const impressions = data.slice(0, 5).map(c => c.Stats?.Impressions || 0);
+      const plays = data.slice(0, 5).map(c => c.Stats?.Plays || 0);
+
+      creatorChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Dilihat (Impressions)',
+              data: impressions,
+              backgroundColor: 'rgba(148, 163, 184, 0.2)',
+              borderRadius: 4,
+              barPercentage: 0.6
+            },
+            {
+              label: 'Diputar (Plays)',
+              data: plays,
+              backgroundColor: '#ef4444', // Red Neon
+              borderRadius: 4,
+              barPercentage: 0.6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { position: 'top', labels: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', size: 11, weight: 'bold' } } },
+            tooltip: { backgroundColor: '#0f172a', titleFont: { family: 'Plus Jakarta Sans' }, bodyFont: { family: 'Plus Jakarta Sans' }, padding: 12, cornerRadius: 8 }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#64748b', font: { family: 'Plus Jakarta Sans', size: 9, weight: 'bold' } } },
+            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', precision: 0, font: { family: 'Plus Jakarta Sans', size: 10 } } }
+          }
+        }
+      });
+    }
+
+    // 4. API CALLS CRUD KONTEN
+    async function submitCreatorContent(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitContent');
+      btn.textContent = 'Menyimpan...'; btn.disabled = true;
+
+      try {
+        const newCnt = {
+          Platform: document.getElementById('newContentPlatform').value,
+          Title: document.getElementById('newContentTitle').value,
+          Media_URL: document.getElementById('newContentUrl').value,
+          Thumbnail_URL: document.getElementById('newContentThumb').value,
+          Badge_Label: document.getElementById('newContentBadge').value
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'create_creator_content');
+        payload.append('token', STATE.token);
+        payload.append('contentData', JSON.stringify(newCnt));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          // Initialize stats logic for newly created content to avoid undefined error
+          res.data.Stats = { Impressions: 0, Plays: 0, Outbound_Clicks: 0, Play_Rate: '0.0' };
+          
+          if(!STATE.creatorContents) STATE.creatorContents = [];
+          STATE.creatorContents.push(res.data);
+          renderCreatorContents();
+          
+          document.getElementById('addContentForm').querySelector('form').reset();
+          document.getElementById('extractStatus').textContent = '';
+          document.getElementById('previewExtractedThumb').classList.add('hidden');
+          toggleForm('addContentForm');
+          showToast('Sukses', 'Konten berhasil ditambahkan.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.textContent = 'Tambahkan ke Profil'; btn.disabled = false;
+      }
+    }
+
+    async function toggleCreatorContent(id, isActive) {
+      const cnt = STATE.creatorContents.find(c => c.Content_ID === id);
+      if(cnt) cnt.Is_Active = isActive;
+       updateLivePreview();
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_creator_content');
+        payload.append('token', STATE.token);
+        payload.append('contentData', JSON.stringify({ Content_ID: id, Is_Active: isActive }));
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch(e){}
+    }
+
+    function deleteCreatorContent(id) {
+      Swal.fire({
+        title: 'Hapus Konten?', text: "Konten dan data statistiknya akan dihapus.", icon: 'warning',
+        showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#475569', confirmButtonText: 'Hapus'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          STATE.creatorContents = STATE.creatorContents.filter(c => c.Content_ID !== id);
+          renderCreatorContents();
+          const payload = new URLSearchParams();
+          payload.append('action', 'delete_creator_content');
+          payload.append('token', STATE.token);
+          payload.append('contentId', id);
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+    // RENDER DAFTAR PESAN MASUK
+// -> RENDER KOTAK MASUK NGL (LENGKAP DENGAN IG STORY GENERATOR & TIME-AGO)
+    // -> RENDER KOTAK MASUK NGL (REVISI LAYOUT FULL-WIDTH IG STORY BUTTON)
+    function renderNglInbox() {
+      const container = document.getElementById('nglInboxContainer');
+      const emptyState = document.getElementById('emptyNglState');
+      const unreadBadge = document.getElementById('unreadBadge');
+      container.innerHTML = '';
+
+      if (!STATE.nglInbox || STATE.nglInbox.length === 0) {
+        emptyState.classList.remove('hidden');
+        unreadBadge.textContent = '0 Pesan Baru';
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      let unreadCount = 0;
+
+      STATE.nglInbox.forEach(msg => {
+        if (!msg.Is_Read) unreadCount++;
+
+        const div = document.createElement('div');
+        div.className = `p-6 rounded-[32px] border backdrop-blur-xl shadow-xl flex flex-col relative transition-all duration-300 hover:-translate-y-1 ${msg.Is_Read ? 'bg-slate-900/40 border-white/5 opacity-80' : 'bg-gradient-to-br from-rose-500/10 via-purple-600/10 to-slate-900/40 border-rose-500/30 shadow-[0_10px_30px_rgba(244,63,94,0.05)]'}`;
+
+        const formattedTime = timeAgo(msg.Created_At);
+
+        div.innerHTML = `
+          <!-- Baris 1: Pengirim Anonim & Badge Unread -->
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-mask text-rose-400 text-sm"></i>
+              <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pengirim Anonim</span>
+            </div>
+            
+            ${!msg.Is_Read ? `
+              <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-400 font-black text-[9px] uppercase tracking-widest">
+                <span class="relative flex h-1.5 w-1.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500"></span>
+                </span>
+                Baru
+              </div>
+            ` : ''}
+          </div>
+          
+          <!-- Baris 2: Teks Isi Pesan Rahasia -->
+          <p class="text-sm font-bold text-white leading-relaxed flex-1 my-3">"${escapeHtml(msg.Message_Text)}"</p>
+          
+          <!-- Baris 3: Informasi Waktu Relatif & Aksi Hapus/Baca (Melintang Rapi) -->
+          <div class="flex items-center justify-between pt-4 border-t ${msg.Is_Read ? 'border-slate-800' : 'border-rose-500/20'} mb-4">
+            <span class="text-[10px] font-extrabold text-slate-500 tracking-wide flex items-center gap-1.5">
+              <i class="fa-regular fa-clock text-xs text-slate-500"></i> ${formattedTime}
+            </span>
+            
+            <div class="flex items-center gap-2">
+              ${!msg.Is_Read ? `<button onclick="markNglRead('${msg.Message_ID}')" class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all flex items-center justify-center text-xs shadow-sm" title="Tandai Dibaca"><i class="fa-solid fa-check"></i></button>` : ''}
+              <button onclick="deleteNglMessage('${msg.Message_ID}')" class="w-8 h-8 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30 transition-all flex items-center justify-center text-xs shadow-sm" title="Hapus Pesan"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+          </div>
+
+          <!-- Baris 4: Tombol Emas IG Story Full-Width (Tampilan Mewah & Utama) -->
+          <button onclick="generateIgStoryCard('${escapeHtml(msg.Message_Text).replace(/'/g, "\\'")}')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-white font-extrabold text-xs uppercase tracking-wider shadow-[0_4px_20px_rgba(245,158,11,0.25)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-camera text-sm"></i> Jadikan Story Instagram
+          </button>
+        `;
+        container.appendChild(div);
+      });
+
+      unreadBadge.textContent = `${unreadCount} Pesan Baru`;
+    }
+    // =========================================================================
+    // HELPER 1: KONVERTER WAKTU RELATIF (TIME-AGO)
+    // =========================================================================
+    function timeAgo(dateString) {
+      if (!dateString) return 'Baru saja';
+      const date = new Date(dateString);
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+
+      if (seconds < 60) return 'Baru saja';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes} menit yang lalu`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} jam yang lalu`;
+      const days = Math.floor(hours / 24);
+      if (days < 30) return `${days} hari yang lalu`;
+      const months = Math.floor(days / 30);
+      if (months < 12) return `${months} bulan yang lalu`;
+      return `${Math.floor(months / 12)} tahun yang lalu`;
+    }
+
+    // =========================================================================
+    // HELPER 2: INSTAGRAM STORY CARD GENERATOR (HTML CANVAS 9:16)
+    // =========================================================================
+    function generateIgStoryCard(msgText) {
+      // 1. Buat Canvas Offscreen Resolusi Tinggi 1080x1920 (Standard IG Story)
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext('2d');
+
+      // 2. Latar Belakang Gradasi Neon Sunset
+      const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1920);
+      bgGrad.addColorStop(0, '#e11d48');   // Rose
+      bgGrad.addColorStop(0.5, '#c026d3'); // Fuchsia
+      bgGrad.addColorStop(1, '#4c1d95');   // Violet
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // 3. Kartu Kaca Utama (Center Box)
+      const cardWidth = 900;
+      const cardHeight = 650;
+      const cardX = (1080 - cardWidth) / 2;
+      const cardY = (1920 - cardHeight) / 2 - 100;
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 4;
+      
+      // Draw Rounded Box
+      ctx.beginPath();
+      ctx.roundRect(cardX, cardY, cardWidth, cardHeight, 48);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      // 4. Header Sub-Title
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+      ctx.font = '900 32px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('PENGIRIM ANONIM 🤫', 1080 / 2, cardY + 110);
+
+      // 5. Teks Pesan Rahasia (Auto-Wrap Line Break)
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 50px "Plus Jakarta Sans", sans-serif';
+      
+      // Helper Wrap Text Canvas
+      const words = `"${msgText}"`.split(' ');
+      let line = '';
+      let currentY = cardY + 240;
+      const maxWidth = 780;
+      const lineHeight = 68;
+
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line, 1080 / 2, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, 1080 / 2, currentY);
+
+      // 6. Watermark Footer Branding
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 36px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(`Kirim pesan rahasia di linkhub.com/${STATE.user.username}`, 1080 / 2, 1750);
+
+      // 7. Tampilkan Pop-up Download Gambar (SweetAlert Preview)
+      const dataUrl = canvas.toDataURL('image/png');
+      
+      Swal.fire({
+        title: 'IG Story Ready! 📸',
+        text: 'Kartu cerita Instagram 9:16 telah siap diunduh.',
+        imageUrl: dataUrl,
+        imageWidth: 220,
+        imageAlt: 'IG Story Card',
+        background: '#1e293b',
+        color: '#fff',
+        showCancelButton: true,
+        confirmButtonColor: '#f59e0b', // Warna Emas
+        cancelButtonColor: '#475569',
+        confirmButtonText: '<i class="fa-solid fa-download mr-1"></i> Unduh Gambar (PNG)',
+        cancelButtonText: 'Tutup'
+      }).then((res) => {
+        if (res.isConfirmed) {
+          const downloadLink = document.createElement('a');
+          downloadLink.href = dataUrl;
+          downloadLink.download = `LinkHub_Story_${new Date().getTime()}.png`;
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        }
+      });
+    }
+    // FUNGSI SIMPAN PENGATURAN NGL
+    async function saveNglSettings() {
+      const btn = document.getElementById('btnSaveNglSettings');
+      if (btn) { btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Menyimpan...'; btn.disabled = true; }
+
+      try {
+        const nglData = {
+          Prompt_Text: document.getElementById('nglPrompt').value,
+          Card_Theme: document.getElementById('nglTheme').value,
+          Is_Active: document.getElementById('nglIsActive').checked
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_ngl_settings');
+        payload.append('token', STATE.token);
+        payload.append('nglData', JSON.stringify(nglData));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          STATE.nglSettings = nglData;
+          updateLivePreview(); 
+          showToast('Tersimpan', 'Pengaturan NGL diperbarui.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        if (btn) { btn.innerHTML = 'Simpan Pengaturan Q&A'; btn.disabled = false; }
+      }
+    }
+
+    // TANDAI DIBACA
+    async function markNglRead(id) {
+      const msg = STATE.nglInbox.find(m => m.Message_ID === id);
+      if(msg) msg.Is_Read = true;
+      renderNglInbox(); // Update UI instan
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'mark_ngl_read');
+        payload.append('token', STATE.token);
+        payload.append('messageId', id);
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch(e) {}
+    }
+
+    // HAPUS PESAN
+    function deleteNglMessage(id) {
+      Swal.fire({
+        title: 'Hapus Pesan?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#475569', confirmButtonText: 'Hapus', background: '#1e293b', color: '#fff'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          STATE.nglInbox = STATE.nglInbox.filter(m => m.Message_ID !== id);
+          renderNglInbox();
+          const payload = new URLSearchParams();
+          payload.append('action', 'delete_ngl_message');
+          payload.append('token', STATE.token);
+          payload.append('messageId', id);
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+    // =========================================================================
+    // JAVASCRIPT RATE CARD & MEDIA KIT ENGINE
+    // =========================================================================
+// -> FUNGSI PENGALIH TAB MINI PADA MOCKUP HP DASHBOARD
+    // GANTI FUNGSI switchPreviewTab DI JAVASCRIPT dashboard.html ANDA:
+// -> FUNGSI PENGALIH TAB MOCKUP HP (DIREVISI AGAR TIDAK BEREBUT TAMPILAN)
+    function switchPreviewTab(tab) {
+      const mainContent = document.getElementById('previewMainContent');
+      const rateSection = document.getElementById('previewRateCardSection');
+      const nglSection = document.getElementById('previewNglSection');
+      const contentSection = document.getElementById('previewContentSection');
+
+      const btnLinks = document.getElementById('prevTabLinks');
+      const btnRate = document.getElementById('prevTabRateCard');
+      const btnNgl = document.getElementById('prevTabNgl');
+      const btnContent = document.getElementById('prevTabContent');
+
+      if (!mainContent) return;
+
+      // Sembunyikan SELURUH tab secara mutlak
+      [mainContent, rateSection, nglSection, contentSection].forEach(el => {
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+
+      // Reset gaya tombol menjadi transparan
+      const inactiveClass = "py-1.5 rounded-xl text-[9px] font-extrabold text-white/60 hover:text-white transition-all duration-300 flex flex-col items-center justify-center gap-0.5 whitespace-nowrap";
+      const activeClass = "py-1.5 rounded-xl text-[9px] font-extrabold text-slate-900 bg-white shadow-md transition-all duration-300 flex flex-col items-center justify-center gap-0.5 whitespace-nowrap";
+
+      if (btnLinks) btnLinks.className = inactiveClass;
+      if (btnRate) btnRate.className = inactiveClass;
+      if (btnNgl) btnNgl.className = inactiveClass;
+      if (btnContent) btnContent.className = inactiveClass;
+
+      // Tampilkan HANYA tab yang diklik
+      if (tab === 'links' && mainContent) {
+        mainContent.classList.remove('hidden'); mainContent.classList.add('flex');
+        if (btnLinks) btnLinks.className = activeClass;
+      } else if (tab === 'ratecard' && rateSection) {
+        rateSection.classList.remove('hidden'); rateSection.classList.add('flex');
+        if (btnRate) btnRate.className = activeClass;
+      } else if (tab === 'ngl' && nglSection) {
+        nglSection.classList.remove('hidden'); nglSection.classList.add('flex');
+        if (btnNgl) btnNgl.className = activeClass;
+      } else if (tab === 'content' && contentSection) {
+        contentSection.classList.remove('hidden'); contentSection.classList.add('flex');
+        if (btnContent) btnContent.className = activeClass;
+      }
+    }
+    // RENDER DAFTAR PAKET RATE CARD DI DASHBOARD
+    function renderRatePackagesList() {
+      const container = document.getElementById('ratePackagesContainer');
+      const emptyState = document.getElementById('emptyRatePackagesState');
+      container.innerHTML = '';
+
+      if (!STATE.ratePackages || STATE.ratePackages.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      STATE.ratePackages.forEach(pkg => {
+        const div = document.createElement('div');
+        div.className = "glass-panel p-5 rounded-3xl border border-white/5 flex flex-col md:flex-row gap-5 items-start md:items-center";
+
+        div.innerHTML = `
+          <div class="flex-1 w-full">
+            <div class="flex items-center gap-3">
+              <h4 class="font-extrabold text-white text-base">${escapeHtml(pkg.Package_Name)}</h4>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-xs">
+                ${formatRupiah(pkg.Package_Price)}
+              </span>
+            </div>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">${escapeHtml(pkg.Deliverables)}</p>
+            <p class="text-[10px] font-bold text-violet-400 mt-2 flex items-center gap-1">
+              <i class="fa-solid fa-eye"></i> Est. Reach: ${escapeHtml(pkg.Est_Reach || 'N/A')}
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between w-full md:w-auto gap-5 pl-2 border-t border-slate-800 md:border-none pt-4 md:pt-0">
+            <label class="relative inline-block w-10 h-5 cursor-pointer">
+              <input type="checkbox" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" 
+                     ${pkg.Is_Active ? 'checked' : ''} onchange="toggleRatePackageActive('${pkg.Package_ID}', this.checked)">
+              <label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
+            </label>
+            <button onclick="deleteRatePackage('${pkg.Package_ID}')" class="text-slate-500 hover:text-red-500 transition-colors bg-slate-800/50 p-2.5 rounded-xl">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // SIMPAN/UPDATE DEMOGRAFI AUDIENS
+    async function submitRateStats(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSaveStats');
+      btn.textContent = 'Menyimpan...';
+      btn.disabled = true;
+
+      try {
+        const statsData = {
+          Platform: document.getElementById('statsPlatform').value,
+          Followers: document.getElementById('statsFollowers').value,
+          Engagement_Rate: document.getElementById('statsER').value,
+          Gender_Female: document.getElementById('statsFemale').value,
+          Gender_Male: document.getElementById('statsMale').value,
+          Top_Age_Group: document.getElementById('statsAge').value,
+          Top_Location: document.getElementById('statsLocation').value
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_rate_stats');
+        payload.append('token', STATE.token);
+        payload.append('statsData', JSON.stringify(statsData));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          STATE.rateStats = statsData;
+          updateLivePreview();
+          showToast('Tersimpan', 'Data demografi Rate Card berhasil diperbarui.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.textContent = 'Simpan Data Statistik Audiens';
+        btn.disabled = false;
+      }
+    }
+
+    // SUBMIT PAKET RATE CARD BARU
+    async function submitNewRatePackage(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitPackage');
+      btn.textContent = 'Menyimpan...';
+      btn.disabled = true;
+
+      try {
+        const newPkg = {
+          Package_Name: document.getElementById('newPkgName').value,
+          Package_Price: document.getElementById('newPkgPrice').value,
+          Deliverables: document.getElementById('newPkgDeliverables').value,
+          Est_Reach: document.getElementById('newPkgReach').value
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'create_rate_package');
+        payload.append('token', STATE.token);
+        payload.append('packageData', JSON.stringify(newPkg));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          if(!STATE.ratePackages) STATE.ratePackages = [];
+          STATE.ratePackages.push(res.data);
+          renderRatePackagesList();
+          updateLivePreview();
+          
+          document.getElementById('addPackageForm').querySelector('form').reset();
+          toggleForm('addPackageForm');
+          showToast('Sukses', 'Paket Rate Card berhasil ditambahkan.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.textContent = 'Simpan Paket';
+        btn.disabled = false;
+      }
+    }
+
+    async function toggleRatePackageActive(id, isActive) {
+      const pkg = STATE.ratePackages.find(p => p.Package_ID === id);
+      if(pkg) pkg.Is_Active = isActive;
+      updateLivePreview();
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_rate_package');
+        payload.append('token', STATE.token);
+        payload.append('packageData', JSON.stringify({ Package_ID: id, Is_Active: isActive }));
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch(e){}
+    }
+
+    function deleteRatePackage(id) {
+      Swal.fire({
+        title: 'Hapus Paket?', text: "Paket Rate Card ini akan dihapus permanen.", icon: 'warning',
+        showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#475569', confirmButtonText: 'Hapus', background: '#1e293b', color: '#fff'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          STATE.ratePackages = STATE.ratePackages.filter(p => p.Package_ID !== id);
+          renderRatePackagesList();
+          updateLivePreview();
+          const payload = new URLSearchParams();
+          payload.append('action', 'delete_rate_package');
+          payload.append('token', STATE.token);
+          payload.append('packageId', id);
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+
+    // PASTIKAN: Di dalam switchTab(tabName), tambahkan:
+    // else if (tabName === 'ratecard') { titleText = 'Rate Card'; renderRatePackagesList(); }
+    
+    // PASTIKAN: Di dalam fetchDashboardData(), tambahkan:
+    // STATE.ratePackages = res.data.ratePackages || [];
+    // STATE.rateStats = res.data.rateStats || {};
+    
+    // PASTIKAN: Di dalam initializeUI(), tambahkan pemuatan nilai awal form demografi:
+    // if(STATE.rateStats) {
+    //   document.getElementById('statsPlatform').value = STATE.rateStats.Platform || '';
+    //   document.getElementById('statsFollowers').value = STATE.rateStats.Followers || '';
+    //   document.getElementById('statsER').value = STATE.rateStats.Engagement_Rate || '';
+    //   document.getElementById('statsFemale').value = STATE.rateStats.Gender_Female || '';
+    //   document.getElementById('statsMale').value = STATE.rateStats.Gender_Male || '';
+    //   document.getElementById('statsAge').value = STATE.rateStats.Top_Age_Group || '';
+    //   document.getElementById('statsLocation').value = STATE.rateStats.Top_Location || '';
+    // }
+    // renderRatePackagesList();
+    // -> FUNGSI PENGOLAH UNGGAH GAMBAR BANNER KE GOOGLE DRIVE
+    async function handleBannerUpload(input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      // Batasi ukuran file maksimal 5MB agar aman bagi kuota Apps Script
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire({ icon: 'warning', title: 'File Terlalu Besar', text: 'Maksimal batas ukuran file gambar adalah 5MB.', background: '#1e293b', color: '#fff', confirmButtonColor: '#3b82f6' });
+        return;
+      }
+
+      const uploadZone = document.getElementById('uploadBannerZone');
+      const uploadIcon = document.getElementById('uploadIcon');
+      const uploadText = document.getElementById('uploadText');
+      const uploadSubtext = document.getElementById('uploadSubtext');
+
+      // Ubah tampilan boks menjadi Loading State (Putaran Spinner)
+      uploadText.textContent = "Mengunggah gambar ke Google Drive...";
+      uploadIcon.className = "fa-solid fa-circle-notch fa-spin text-3xl text-blue-400 mb-2";
+      uploadZone.style.pointerEvents = 'none'; // Kunci klik selama mengunggah
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        const base64Data = e.target.result;
+        
+        try {
+          const payload = new URLSearchParams();
+          payload.append('action', 'upload_image');
+          payload.append('base64Data', base64Data);
+          payload.append('fileName', file.name);
+
+          const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+          const res = await response.json();
+
+          if (res.status === 'success') {
+            // Masukkan URL Google Drive hasil unggahan ke dalam input hidden untuk disimpan
+            document.getElementById('newBannerImage').value = res.url;
+            
+            // Ubah tampilan boks menjadi Success State (Centang Hijau)
+            uploadIcon.className = "fa-solid fa-circle-check text-3xl text-emerald-400 mb-2";
+            uploadText.innerHTML = `<span class="text-emerald-400 font-bold">Gambar Sukses Terunggah!</span>`;
+            uploadSubtext.innerHTML = `File terpilih: <span class="text-white">${file.name}</span>`;
+            uploadZone.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+          } else {
+            throw new Error(res.message);
+          }
+        } catch (err) {
+          // Kembalikan ke tampilan semula jika terjadi error koneksi
+          uploadIcon.className = "fa-solid fa-cloud-arrow-up text-3xl text-slate-500 mb-2";
+          uploadText.textContent = "Gagal mengunggah. Klik untuk coba lagi.";
+          uploadSubtext.textContent = err.message;
+          uploadZone.style.borderColor = '';
+        } finally {
+          uploadZone.style.pointerEvents = 'auto'; // Aktifkan kembali klik
+        }
+      };
+      
+      // Jalankan pembacaan file lokal komputer
+      reader.readAsDataURL(file);
+    }
+    // -> PENGENDALI ROTASI OTOMATIS BANNER PREVIEW DASHBOARD (AUTO-SLIDE)
+    let previewBannerInterval = null;
+    function startPreviewBannerSlider() {
+      if (previewBannerInterval) clearInterval(previewBannerInterval);
+      
+      const slides = document.querySelectorAll('.preview-top-slide');
+      if (slides.length <= 1) {
+        if (slides.length === 1) {
+          slides[0].style.opacity = '1';
+          slides[0].style.zIndex = '10';
+        }
+        return;
+      }
+      
+      let currentIndex = 0;
+      slides[currentIndex].style.opacity = '1';
+      slides[currentIndex].style.zIndex = '10';
+      
+      previewBannerInterval = setInterval(() => {
+        // Redupkan slide aktif saat ini
+        slides[currentIndex].style.opacity = '0';
+        slides[currentIndex].style.zIndex = '1';
+        
+        // Pindah ke indeks berikutnya
+        currentIndex = (currentIndex + 1) % slides.length;
+        
+        // Nyalakan slide berikutnya
+        slides[currentIndex].style.opacity = '1';
+        slides[currentIndex].style.zIndex = '10';
+      }, 4000); // Berputar otomatis setiap 4 detik
+    }
     // Daftar 50 Premium Google Fonts pilihan untuk LinkHub
     const PREMIUM_FONTS = [
       "Plus Jakarta Sans", "Inter", "Roboto", "Open Sans", "Montserrat", "Poppins", "Lato", "Nunito", 
@@ -730,6 +2328,305 @@
         document.head.appendChild(link);
       }
     }
+// =========================================================================
+    // JAVASCRIPT ADVERTISING ENGINE (PROMO BANNER MANAGEMENT)
+    // =========================================================================
+
+    // RENDER DAFTAR KAMPANYE BANNER DI DASHBOARD ADMIN
+    // GANTI FUNGSI renderBannersList() DI JAVASCRIPT DASHBOARD ANDA DENGAN INI:
+    function renderBannersList() {
+      const container = document.getElementById('bannersContainer');
+      const emptyState = document.getElementById('emptyBannersState');
+      container.innerHTML = '';
+
+      if (!STATE.banners || STATE.banners.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      STATE.banners.forEach(banner => {
+        const div = document.createElement('div');
+        div.className = "glass-panel p-4 md:p-5 rounded-3xl border border-white/5 flex flex-col lg:flex-row gap-5 items-start lg:items-center";
+        
+        // MENGAMANKAN NILAI NUMERIK AGAR BEBAS DARI CRASH UNDEFINED
+        const totalViews = Number(banner.Total_Views || 0);
+        const totalClicks = Number(banner.Total_Clicks || 0);
+
+        const ctr = totalViews > 0 
+          ? ((totalClicks / totalViews) * 100).toFixed(1) 
+          : '0.0';
+
+        div.innerHTML = `
+          <!-- Thumbnail Gambar Banner -->
+          <img src="${banner.Image_URL}" class="w-24 h-14 md:w-32 md:h-18 rounded-xl object-cover border border-slate-700 shadow-md shrink-0">
+          
+          <!-- Informasi & Statistik Real-Time Kampanye Iklan -->
+          <div class="flex-1 w-full min-w-0">
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-white text-sm truncate">${escapeHtml(banner.Banner_Name)}</h4>
+              <span class="px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-[9px] font-black text-blue-400 uppercase tracking-widest shrink-0">
+                ${banner.Position.replace('_', ' ')}
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1 truncate">${escapeHtml(banner.Destination_URL)}</p>
+            
+            <!-- Grid Statistik (Views, Klik, CTR) -->
+            <div class="mt-3 grid grid-cols-3 gap-4 max-w-sm">
+              <div class="px-2.5 py-1 bg-slate-950/40 rounded-lg text-center">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Impresi (Views)</p>
+                <p class="text-xs font-bold text-slate-300 mt-0.5">${totalViews.toLocaleString('id-ID')}</p>
+              </div>
+              <div class="px-2.5 py-1 bg-slate-950/40 rounded-lg text-center">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Jumlah Klik</p>
+                <p class="text-xs font-bold text-blue-400 mt-0.5">${totalClicks.toLocaleString('id-ID')}</p>
+              </div>
+              <div class="px-2.5 py-1 bg-slate-950/40 rounded-lg text-center">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Rasio CTR</p>
+                <p class="text-xs font-bold text-purple-400 mt-0.5">${ctr}%</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tombol Aksi Toggle & Hapus -->
+          <div class="flex items-center justify-between w-full lg:w-auto gap-5 pl-2 border-t border-slate-800 lg:border-none pt-4 lg:pt-0">
+            <label class="relative inline-block w-10 h-5 cursor-pointer">
+              <input type="checkbox" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" 
+                     ${banner.Is_Active ? 'checked' : ''} onchange="toggleBannerActive('${banner.Banner_ID}', this.checked)">
+              <label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
+            </label>
+            <button onclick="deleteBanner('${banner.Banner_ID}')" class="text-slate-500 hover:text-red-500 transition-colors bg-slate-800/50 hover:bg-slate-800 p-2.5 rounded-xl">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+    // FUNGSI SUBMIT KAMPANYE BANNER BARU
+    async function submitNewBanner(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitBanner');
+      btn.textContent = 'Memproses...';
+      btn.disabled = true;
+
+      try {
+        const newBanner = {
+          Banner_Name: document.getElementById('newBannerName').value,
+          Image_URL: document.getElementById('newBannerImage').value,
+          Destination_URL: document.getElementById('newBannerDestination').value,
+          Position: document.getElementById('newBannerPosition').value
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'create_banner');
+        payload.append('token', STATE.token);
+        payload.append('bannerData', JSON.stringify(newBanner));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          if(!STATE.banners) STATE.banners = [];
+          STATE.banners.push(res.data);
+          renderBannersList();
+          updateLivePreview();
+          
+          document.getElementById('addBannerForm').querySelector('form').reset();
+          toggleForm('addBannerForm');
+          showToast('Sukses', 'Banner iklan berhasil didaftarkan.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.textContent = 'Aktifkan Kampanye Iklan';
+        btn.disabled = false;
+      }
+    }
+
+    // FUNGSI TOGGLE ACTIVE & HAPUS KAMPANYE BANNER
+    async function toggleBannerActive(id, isActive) {
+      const banner = STATE.banners.find(b => b.Banner_ID === id);
+      if(banner) banner.Is_Active = isActive;
+      updateLivePreview();
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_banner');
+        payload.append('token', STATE.token);
+        payload.append('bannerData', JSON.stringify({ Banner_ID: id, Is_Active: isActive }));
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch(e){}
+    }
+
+    function deleteBanner(id) {
+      Swal.fire({
+        title: 'Hapus Banner Iklan?', text: "Data kampanye iklan ini akan dihapus permanen.", icon: 'warning',
+        showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#475569', confirmButtonText: 'Hapus', background: '#1e293b', color: '#fff'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          STATE.banners = STATE.banners.filter(b => b.Banner_ID !== id);
+          renderBannersList();
+          updateLivePreview();
+          const payload = new URLSearchParams();
+          payload.append('action', 'delete_banner');
+          payload.append('token', STATE.token);
+          payload.append('bannerId', id);
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+
+    // PASTIKAN: Di dalam switchTab('banners'), panggil `titleText = 'Kelola Iklan';`
+    // PASTIKAN: Di dalam fetchDashboardData(), tambahkan: `STATE.banners = res.data.banners || [];`
+    // PASTIKAN: Di dalam initializeUI(), tambahkan: `renderBannersList();`
+
+    // =========================================================================
+    // ENGINE TOKO & KATALOG PRODUK (SOCIAL COMMERCE)
+    // =========================================================================
+
+    // Format mata uang Rupiah
+    function formatRupiah(angka) {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+    }
+
+    // Perbarui judul Header saat tab Toko dibuka
+    // (Cari fungsi switchTab Anda yang lama, lalu tambahkan kondisi ini):
+    // if (tabName === 'store') titleText = 'Katalog Produk';
+
+    // RENDER DAFTAR PRODUK DI DASHBOARD
+    function renderProductsList() {
+      const container = document.getElementById('productsContainer');
+      const emptyState = document.getElementById('emptyProductsState');
+      container.innerHTML = '';
+
+      if (!STATE.products || STATE.products.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      STATE.products.forEach(prod => {
+        const div = document.createElement('div');
+        div.className = "glass-panel p-4 md:p-5 rounded-3xl border border-white/5 flex flex-col md:flex-row gap-5 items-start md:items-center";
+        
+        const imgUrl = prod.Product_Image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150';
+
+        div.innerHTML = `
+          <img src="${imgUrl}" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl object-cover border border-slate-700 shadow-md shrink-0">
+          
+          <div class="flex-1 w-full">
+            <h4 class="font-bold text-white text-base">${escapeHtml(prod.Product_Name)}</h4>
+            <p class="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">${escapeHtml(prod.Product_Desc)}</p>
+            <div class="mt-2 flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-[10px] tracking-wide">
+                ${formatRupiah(prod.Product_Price)}
+              </span>
+              <span class="text-[10px] font-semibold text-slate-500 flex items-center gap-1">
+                <i class="fa-brands fa-whatsapp text-green-500"></i> ${prod.WA_Number}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between w-full md:w-auto gap-5 pl-2 border-t border-slate-800 md:border-none pt-4 md:pt-0">
+            <!-- Toggle Active -->
+            <label class="relative inline-block w-10 h-5 cursor-pointer">
+              <input type="checkbox" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" 
+                     ${prod.Is_Active ? 'checked' : ''} onchange="toggleProductActive('${prod.Product_ID}', this.checked)">
+              <label class="toggle-label block overflow-hidden h-5 rounded-full bg-slate-600 cursor-pointer"></label>
+            </label>
+            <!-- Tombol Hapus -->
+            <button onclick="deleteProduct('${prod.Product_ID}')" class="text-slate-500 hover:text-red-500 transition-colors bg-slate-800/50 hover:bg-slate-800 p-2.5 rounded-xl" title="Hapus Produk">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // FUNGSI SUBMIT PRODUK BARU
+    async function submitNewProduct(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitProduct');
+      btn.textContent = 'Menyimpan...';
+      btn.disabled = true;
+
+      try {
+        const newProd = {
+          Product_Name: document.getElementById('newProductName').value,
+          Product_Price: document.getElementById('newProductPrice').value,
+          Product_Desc: document.getElementById('newProductDesc').value,
+          Product_Image: document.getElementById('newProductImage').value,
+          WA_Number: document.getElementById('newProductWA').value,
+          WA_Message: document.getElementById('newProductMsg').value
+        };
+
+        const payload = new URLSearchParams();
+        payload.append('action', 'create_product');
+        payload.append('token', STATE.token);
+        payload.append('productData', JSON.stringify(newProd));
+
+        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        const res = await response.json();
+
+        if (res.status === 'success') {
+          if(!STATE.products) STATE.products = [];
+          STATE.products.push(res.data);
+          renderProductsList();
+          updateLivePreview(); // Render ke mockup HP
+          
+          document.getElementById('addProductForm').querySelector('form').reset();
+          toggleForm('addProductForm');
+          showToast('Sukses', 'Produk ditambahkan ke Etalase.');
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        Swal.fire('Error', error.message, 'error');
+      } finally {
+        btn.textContent = 'Simpan Produk ke Katalog';
+        btn.disabled = false;
+      }
+    }
+
+    // FUNGSI TOGGLE & HAPUS PRODUK
+    async function toggleProductActive(id, isActive) {
+      const prod = STATE.products.find(p => p.Product_ID === id);
+      if(prod) prod.Is_Active = isActive;
+      updateLivePreview();
+      try {
+        const payload = new URLSearchParams();
+        payload.append('action', 'update_product');
+        payload.append('token', STATE.token);
+        payload.append('productData', JSON.stringify({ Product_ID: id, Is_Active: isActive }));
+        await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+      } catch(e){}
+    }
+
+    function deleteProduct(id) {
+      Swal.fire({
+        title: 'Hapus Produk?', text: "Data produk akan dihapus permanen.", icon: 'warning',
+        showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#475569', confirmButtonText: 'Hapus', background: '#1e293b', color: '#fff'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          STATE.products = STATE.products.filter(p => p.Product_ID !== id);
+          renderProductsList();
+          updateLivePreview();
+          const payload = new URLSearchParams();
+          payload.append('action', 'delete_product');
+          payload.append('token', STATE.token);
+          payload.append('productId', id);
+          await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+        }
+      });
+    }
+
+    // PASTIKAN: Saat fetchDashboardData sukses, simpan `STATE.products = res.data.products;`
+    // PASTIKAN: Panggil `renderProductsList();` di dalam fungsi `initializeUI()`.
 // =========================================================================
     // ENGINE VISUALISASI ANALYTICS DASHBOARD
     // =========================================================================
@@ -948,6 +2845,14 @@ async function fetchDashboardData() {
       STATE.user = res.data.user;
       STATE.settings = res.data.pageSettings;
       STATE.blocks = res.data.blocks;
+      STATE.products = res.data.products || [];
+      STATE.banners = res.data.banners || [];
+       STATE.ratePackages = res.data.ratePackages || [];
+          STATE.rateStats = res.data.rateStats || {};
+          STATE.nglSettings = res.data.nglSettings || {};
+STATE.nglInbox = res.data.nglInbox || [];
+// Tambahkan di bawah STATE.banners = res.data.banners...
+      STATE.creatorContents = res.data.creatorContents || [];
 
       initializeUI();
     } else {
@@ -970,7 +2875,8 @@ async function fetchDashboardData() {
     }, 500);
   }
 }
-    // 4. RENDER UI SETELAH DATA DIDAPAT
+   
+// 4. RENDER UI SETELAH DATA DIDAPAT
 function initializeUI() {
       // Setup Sidebar & Topbar
       document.getElementById('sidebarName').textContent = STATE.user.name;
@@ -981,13 +2887,37 @@ function initializeUI() {
       // INISIALISASI PEMILIH WARNA TEKS (JUDUL & BIO)
       const titleColor = STATE.settings.Title_Color || '#111827';
       const bioColor = STATE.settings.Bio_Color || '#4b5563';
-
+document.getElementById('nglPrompt').addEventListener('input', updateLivePreview);
+      document.getElementById('nglTheme').addEventListener('change', updateLivePreview);
       document.getElementById('settingTitleColor').value = titleColor;
       document.getElementById('settingTitleColorText').value = titleColor.toUpperCase();
 
       document.getElementById('settingBioColor').value = bioColor;
       document.getElementById('settingBioColorText').value = bioColor.toUpperCase();
+// (Letakkan di sekitar pemuatan data tab pengaturan lainnya di initializeUI)
+      if(STATE.nglSettings) {
+document.getElementById('nglPrompt').value = STATE.nglSettings.Prompt_Text || '';
+document.getElementById('nglTheme').value = STATE.nglSettings.Card_Theme || 'Neon_Purple';
+document.getElementById('nglIsActive').checked = STATE.nglSettings.Is_Active !== false;
+}
+      // INISIALISASI DATA SOSIAL MEDIA
+      document.getElementById('socialInstagram').value = STATE.settings.Social_Instagram || '';
+      document.getElementById('socialTikTok').value = STATE.settings.Social_TikTok || '';
+      document.getElementById('socialYouTube').value = STATE.settings.Social_YouTube || '';
+      document.getElementById('socialTwitter').value = STATE.settings.Social_Twitter || '';
+      
+      const socialColorRadios = document.getElementsByName('socialColor');
+      const savedSocialColor = STATE.settings.Social_Color || '#ffffff';
+      for (let i = 0; i < socialColorRadios.length; i++) {
+        if(socialColorRadios[i].value === savedSocialColor) socialColorRadios[i].checked = true;
+        socialColorRadios[i].addEventListener('change', updateLivePreview);
+      }
 
+      // Input Binding Pratinjau Teks (Agar ikon otomatis muncul saat diketik)
+      document.getElementById('socialInstagram').addEventListener('input', updateLivePreview);
+      document.getElementById('socialTikTok').addEventListener('input', updateLivePreview);
+      document.getElementById('socialYouTube').addEventListener('input', updateLivePreview);
+      document.getElementById('socialTwitter').addEventListener('input', updateLivePreview);
       // Event Listener Warna Teks
       const setupTextColListener = (inputId, textId) => {
         const input = document.getElementById(inputId);
@@ -998,9 +2928,9 @@ function initializeUI() {
       };
       setupTextColListener('settingTitleColor', 'settingTitleColorText');
       setupTextColListener('settingBioColor', 'settingBioColorText');
-      const pUrl = document.getElementById('publicUrlText');
-      pUrl.textContent = STATE.user.publicUrl.replace('https://', '');
-      document.getElementById('publicUrlBtn').href = STATE.user.publicUrl;
+     const pUrl = document.getElementById('publicUrlText');
+      pUrl.textContent = `linkhub.com/${STATE.user.username}`; // Hanya menampilkan domain + username slug
+      document.getElementById('publicUrlBtn').href = STATE.user.publicUrl; // Link asli tetap mengarah 
 
       // Render Tab Tampilan (Form)
       document.getElementById('settingPageTitle').value = STATE.settings.Page_Title;
@@ -1094,11 +3024,27 @@ function initializeUI() {
       document.getElementById('userEmail').value = STATE.user.email;
       document.getElementById('userUsername').value = STATE.user.username;
       document.getElementById('settingsTabAvatar').src = avatarUrl;
+      // ---> INTEGRASI RATE CARD: MASUKKAN NILAI FORM DEMOGRAFI AWAL
+      if (STATE.rateStats) {
+        document.getElementById('statsPlatform').value = STATE.rateStats.Platform || '';
+        document.getElementById('statsFollowers').value = STATE.rateStats.Followers || '';
+        document.getElementById('statsER').value = STATE.rateStats.Engagement_Rate || '';
+        document.getElementById('statsFemale').value = STATE.rateStats.Gender_Female || '';
+        document.getElementById('statsMale').value = STATE.rateStats.Gender_Male || '';
+        document.getElementById('statsAge').value = STATE.rateStats.Top_Age_Group || '';
+        document.getElementById('statsLocation').value = STATE.rateStats.Top_Location || '';
+      }
+
 
       // Render Daftar Tautan & Pratinjau
       renderLinksList();
       updateLivePreview();
+      renderProductsList();
+        renderBannersList();
+         renderRatePackagesList();
       initDragAndDrop();
+      // Tambahkan di bawah renderBannersList();
+      renderCreatorContents();
     }
     
     // 5. RENDER DAFTAR TAUTAN (HTML)
@@ -1216,7 +3162,171 @@ function initializeUI() {
         if (statusBar) statusBar.style.color = 'rgba(15, 23, 42, 0.8)';
         if (homeIndicator) homeIndicator.style.backgroundColor = 'rgba(15, 23, 42, 0.3)';
       }
+      // ========================================================
+      // 8. RENDER FLOATING SOCIAL ICONS DI MOCKUP HP (Tambahkan di akhir updateLivePreview)
+      // ========================================================
+      const previewSocialBar = document.getElementById('previewSocialBar');
+      const previewSocialGlass = document.getElementById('previewSocialGlass');
+      
+      if (previewSocialBar && previewSocialGlass) {
+        previewSocialGlass.innerHTML = ''; // Reset kontainer
+        
+        const socColor = document.querySelector('input[name="socialColor"]:checked').value;
+        const inst = document.getElementById('socialInstagram').value.trim();
+        const tiktok = document.getElementById('socialTikTok').value.trim();
+        const youtube = document.getElementById('socialYouTube').value.trim();
+        const twitter = document.getElementById('socialTwitter').value.trim();
+        
+        let socialCount = 0;
+        
+        // Helper pembuat ikon kecil mockup
+        const createPreviewIcon = (url, iconClass) => {
+          if (!url) return;
+          socialCount++;
+          const div = document.createElement('div');
+          div.className = "flex items-center justify-center w-7 h-7";
+          div.innerHTML = `<i class="fa-brands ${iconClass} text-[18px]" style="color: ${socColor}; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));"></i>`;
+          previewSocialGlass.appendChild(div);
+        };
+        
+        createPreviewIcon(inst, 'fa-instagram');
+        createPreviewIcon(tiktok, 'fa-tiktok');
+        createPreviewIcon(youtube, 'fa-youtube');
+        createPreviewIcon(twitter, 'fa-twitter');
+        
+        // Tampilkan bilah melayang di mockup jika ada minimal 1 link yang diisi
+        if (socialCount > 0) {
+         if (isDarkBg) {
+            // Kaca gelap transparan super tipis
+            previewSocialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.07)';
+            previewSocialGlass.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+          } else {
+            // Kaca terang transparan
+            previewSocialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.35)';
+            previewSocialGlass.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+          }
+          
+          previewSocialBar.classList.remove('hidden');
+          setTimeout(() => {
+            previewSocialBar.classList.remove('translate-y-4', 'opacity-0');
+            previewSocialBar.classList.add('translate-y-0', 'opacity-100');
+          }, 100);
+        } else {
+          previewSocialBar.classList.add('hidden', 'translate-y-4', 'opacity-0');
+          previewSocialBar.classList.remove('translate-y-0', 'opacity-100');
+        }
+      }
+// ========================================================
+      // 9. RENDER KAMPANYE BANNER IKLAN DI MOCKUP HP (Tambahkan di akhir updateLivePreview)
+      // ========================================================
+      const previewTopBanner = document.getElementById('previewTopBanner');
+      const previewFloatingBanner = document.getElementById('previewFloatingBanner');
+  
+      
+      if (previewTopBanner) previewTopBanner.innerHTML = '';
+      if (previewFloatingBanner) previewFloatingBanner.innerHTML = '';
+      
+      
+      
+       // === REVISI JALUR RENDERING BANNER DI MOCKUP HP ===
+    const activeBanners = (STATE.banners || []).filter(b => b.Is_Active);
+    
+    // 1. RENDERING TOP HEADER BANNER (DENGAN SLIDER CAROUSEL & UKURAN RAMBING)
+    const topHeaderBanners = activeBanners.filter(b => b.Position === 'Top_Header');
+    
+    if (topHeaderBanners.length > 0 && previewTopBanner) {
+      previewTopBanner.innerHTML = '';
+      // Tinggi dibatasi ramping h-16 (64px) agar presisi di layar HP preview
+      previewTopBanner.className = "w-full h-[140px] relative z-20 mb-6 shrink-0";
+      const sliderInner = document.createElement('div');
+      sliderInner.className = "relative w-full h-full rounded-xl overflow-hidden shadow-md border border-white/10 bg-black/10";
+      
+      topHeaderBanners.forEach((banner, idx) => {
+        const slide = document.createElement('div');
+        slide.className = "absolute inset-0 transition-opacity duration-500 ease-in-out opacity-0 preview-top-slide";
+        slide.style.zIndex = idx === 0 ? '10' : '1';
+        
+        slide.innerHTML = `
+          <a href="${banner.Destination_URL}" target="_blank" class="block w-full h-full">
+            <img src="${banner.Image_URL}" class="w-full h-full object-cover">
+          </a>
+        `;
+        sliderInner.appendChild(slide);
+      });
+      
+      // Tombol close silang tunggal untuk menutup seluruh rangkaian slider
+      const closeBtn = document.createElement('button');
+      closeBtn.className = "absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-black/60 border border-white/10 text-white flex items-center justify-center text-[7px] z-30 pointer-events-auto cursor-pointer";
+      closeBtn.innerHTML = '<i class="fa-solid fa-x"></i>';
+      closeBtn.onclick = (e) => {
+        e.stopPropagation();
+        previewTopBanner.style.display = 'none';
+      };
+      
+      previewTopBanner.appendChild(sliderInner);
+      previewTopBanner.appendChild(closeBtn);
+      previewTopBanner.classList.remove('hidden');
+      
+      // Jalankan perputaran otomatis harian di mockup HP
+      startPreviewBannerSlider();
+    } else {
+      if (previewTopBanner) {
+        previewTopBanner.classList.add('hidden');
+        if (previewBannerInterval) clearInterval(previewBannerInterval);
+      }
+    }
 
+    // Reset kontainer floating banner sebelum dirender ulang
+    if (previewFloatingBanner) {
+      previewFloatingBanner.innerHTML = '';
+      previewFloatingBanner.classList.add('hidden');
+    }
+
+    // 2. RENDERING UNTUK POSISI INLINE & FLOATING
+    activeBanners.forEach(banner => {
+      
+      // B. RENDERING INLINE CARD BANNER DI TENGAH BARISAN LINK MOCKUP
+      if (banner.Position === 'Inline_Card' && previewLinksContainer) {
+        const cardAd = document.createElement('div');
+        cardAd.className = `w-full p-0.5 rounded-[22px] overflow-hidden shadow-sm border ${btnStyle}`;
+        
+        if (isDarkBg) {
+          cardAd.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+          cardAd.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+        } else {
+          cardAd.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+          cardAd.style.borderColor = 'rgba(255, 255, 255, 0.7)';
+        }
+        
+        cardAd.innerHTML = `
+          <div class="w-full h-full rounded-[20px] overflow-hidden">
+            <img src="${banner.Image_URL}" class="w-full h-auto object-cover">
+          </div>
+        `;
+        previewLinksContainer.appendChild(cardAd);
+      }
+      
+      // C. RENDERING FLOATING CARD BANNER DI SUDUT LAYAR MOCKUP (DIBUAT RAMPING)
+      else if (banner.Position === 'Floating_Card' && previewFloatingBanner) {
+        previewFloatingBanner.className = "absolute bottom-16 right-3 z-40 max-w-[120px] rounded-xl overflow-hidden shadow-lg border border-white/10 group transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none";
+        previewFloatingBanner.innerHTML = `
+          <div class="relative w-full h-full">
+            <a href="${banner.Destination_URL}" target="_blank">
+              <img src="${banner.Image_URL}" class="w-full h-auto object-cover">
+            </a>
+            <button onclick="document.getElementById('previewFloatingBanner').style.display='none'" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-black/60 border border-white/10 text-white flex items-center justify-center text-[7px] z-20 pointer-events-auto cursor-pointer">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+        `;
+        previewFloatingBanner.classList.remove('hidden');
+        setTimeout(() => {
+          previewFloatingBanner.classList.remove('translate-y-4', 'opacity-0');
+          previewFloatingBanner.classList.add('translate-y-0', 'opacity-100');
+        }, 300);
+      }
+      
+    });
       // 6. Render Card Tautan
       const checkedRadio = document.querySelector('input[name="btnStyle"]:checked');
       const btnStyle = checkedRadio ? checkedRadio.value : 'rounded-full';
@@ -1257,6 +3367,259 @@ function initializeUI() {
         
         previewLinksContainer.appendChild(card);
       });
+      // ========================================================
+      // ========================================================
+      // 11. RENDER KOTAK PESAN NGL DI MOCKUP HP (Tambahkan di akhir updateLivePreview)
+      // ========================================================
+      // ========================================================
+      // 12. RENDER KONTEN CREATOR HUB DI MOCKUP HP (Tambahkan di akhir updateLivePreview)
+      // ========================================================
+      const previewContentSection = document.getElementById('previewContentSection');
+      if (previewContentSection) {
+        previewContentSection.innerHTML = '';
+        
+        const activeContents = (STATE.creatorContents || []).filter(c => c.Is_Active);
+        
+        if (activeContents.length > 0) {
+          activeContents.forEach(content => {
+            
+            // Konfigurasi Tema Kartu Player
+            const cardBg = isDarkBg ? 'rgba(255, 255, 255, 0.04)' : 'rgba(255, 255, 255, 0.6)';
+            const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.8)';
+            const textColor = isDarkBg ? '#ffffff' : '#0f172a';
+            const subTextColor = isDarkBg ? 'rgba(255, 255, 255, 0.6)' : 'rgba(15, 23, 42, 0.6)';
+            
+            let platIcon = 'fa-link'; let platColor = 'text-slate-400';
+            let btnText = 'Buka Tautan'; let btnTheme = 'bg-slate-800 text-white hover:bg-slate-700';
+
+            if (content.Platform === 'YouTube') { platIcon = 'fa-youtube'; platColor = 'text-red-500'; btnText = 'Tonton di YouTube'; btnTheme = 'bg-[#ff0000] text-white hover:bg-red-600'; }
+            if (content.Platform === 'TikTok') { platIcon = 'fa-tiktok'; platColor = 'text-slate-200'; btnText = 'Lihat di TikTok'; btnTheme = 'bg-black text-white border border-white/20 hover:bg-slate-900'; }
+            if (content.Platform === 'Spotify') { platIcon = 'fa-spotify'; platColor = 'text-green-500'; btnText = 'Dengarkan di Spotify'; btnTheme = 'bg-[#1DB954] text-black hover:bg-[#1ed760]'; }
+            if (content.Platform === 'Instagram_Reels') { platIcon = 'fa-instagram'; platColor = 'text-pink-500'; btnText = 'Buka di Instagram'; btnTheme = 'bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white'; }
+
+            const defaultThumb = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400';
+
+            const card = document.createElement('div');
+            card.className = "w-full p-2 rounded-[28px] border shadow-lg flex flex-col relative overflow-hidden transition-transform hover:scale-[1.01]";
+            card.style.backgroundColor = cardBg;
+            card.style.borderColor = cardBorder;
+
+            card.innerHTML = `
+              <!-- Thumbnail & Play Button Overlay -->
+              <div class="relative w-full h-36 rounded-[22px] overflow-hidden bg-black group cursor-pointer border border-white/10">
+                <img src="${content.Thumbnail_URL || defaultThumb}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <div class="w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-play text-white text-lg ml-1"></i>
+                  </div>
+                </div>
+                ${content.Badge_Label ? `<span class="absolute top-2 left-2 px-2 py-0.5 bg-red-600 text-white text-[8px] font-black uppercase tracking-wider rounded shadow">${escapeHtml(content.Badge_Label)}</span>` : ''}
+              </div>
+
+              <!-- Metadata Info -->
+              <div class="flex items-center gap-3 px-2 mt-3 mb-4">
+                <div class="w-8 h-8 rounded-full bg-black/10 border border-white/10 flex items-center justify-center shrink-0">
+                  <i class="fa-brands ${platIcon} ${platColor} text-sm"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-bold text-[13px] leading-tight truncate" style="color: ${textColor};">${escapeHtml(content.Title)}</h4>
+                  <p class="text-[9px] mt-0.5 font-medium truncate" style="color: ${subTextColor};">${content.Platform.replace('_', ' ')} Video</p>
+                </div>
+              </div>
+
+              <!-- Outbound Button -->
+              <div class="w-full py-2.5 rounded-xl font-extrabold text-[10px] flex items-center justify-center gap-1.5 shadow-md ${btnTheme}">
+                ${btnText} <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-70"></i>
+              </div>
+            `;
+            
+            previewContentSection.appendChild(card);
+          });
+        }
+      }
+    
+    // ========================================================
+      // 11. RENDER KOTAK PESAN NGL DI MOCKUP HP (REVISI STATUS PRESISI)
+      // ========================================================
+      const previewNglSection = document.getElementById('previewNglSection');
+      if (previewNglSection) {
+        previewNglSection.innerHTML = '';
+        
+        const ngl = STATE.nglSettings || {};
+        const promptText = document.getElementById('nglPrompt') ? document.getElementById('nglPrompt').value : (ngl.Prompt_Text || 'Tanyakan apa saja secara anonim! 🤫');
+        const theme = document.getElementById('nglTheme') ? document.getElementById('nglTheme').value : (ngl.Card_Theme || 'Neon_Purple');
+        
+        // Membaca status centang sakelar secara presisi
+        const nglCheckbox = document.getElementById('nglIsActive');
+        const isActive = nglCheckbox ? nglCheckbox.checked : (ngl.Is_Active !== false);
+
+        if (!isActive) {
+          // Jika Sakelar MATI (OFF)
+          previewNglSection.innerHTML = `
+            <div class="p-4 text-center border border-white/10 bg-black/20 rounded-2xl w-full">
+              <i class="fa-solid fa-lock text-xl text-slate-400 mb-1"></i>
+              <p class="text-[10px] font-bold text-slate-300">Kotak Pesan Nonaktif</p>
+            </div>
+          `;
+        } else {
+          // Jika Sakelar HIDUP (ON)
+          let themeClass = "bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700";
+          if (theme === 'Sunset_Pink') themeClass = "bg-gradient-to-br from-rose-500 via-pink-500 to-orange-500";
+          if (theme === 'Dark_Glass') themeClass = "bg-slate-900/80 border border-white/10";
+
+          previewNglSection.innerHTML = `
+            <div class="w-full rounded-2xl p-1 shadow-lg relative overflow-hidden ${themeClass}">
+              <div class="relative bg-white/10 backdrop-blur-md rounded-[14px] p-4 text-center border border-white/20">
+                <div class="flex justify-center mb-2">
+                  <div class="w-8 h-8 rounded-full border border-white/50 overflow-hidden shadow">
+                    <img src="${STATE.user.avatar || 'https://ui-avatars.com/api/?name=User'}" class="w-full h-full object-cover">
+                  </div>
+                </div>
+                <h3 class="text-white font-black text-xs leading-snug mb-3">${escapeHtml(promptText)}</h3>
+                <div class="w-full bg-black/20 border border-white/20 rounded-xl p-2.5 text-[10px] font-semibold text-white/50 text-left mb-3">
+                  Ketik pesan rahasiamu di sini...
+                </div>
+                <div class="w-full py-2 bg-white text-slate-900 rounded-xl font-black text-[9px] uppercase tracking-wider shadow">
+                  Kirim Pesan Rahasia
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      }
+      
+      // 7. RENDER KARTU PRODUK DI MOCKUP HP (Tambahkan di akhir updateLivePreview)
+      // ========================================================
+      const previewProductsSection = document.getElementById('previewProductsSection');
+      const previewProductsContainer = document.getElementById('previewProductsContainer');
+      const previewProductsHeader = document.getElementById('previewProductsHeader');
+      
+      if (previewProductsSection && previewProductsContainer) {
+        previewProductsContainer.innerHTML = '';
+        
+        // Saring hanya produk milik user yang berstatus Is_Active = true
+        const activeProducts = (STATE.products || []).filter(p => p.Is_Active);
+        
+        if (activeProducts.length > 0) {
+          previewProductsSection.classList.remove('hidden');
+          previewProductsSection.classList.add('flex');
+          
+          // Sesuaikan warna teks header etalase dengan kecerahan background mockup
+          if (previewProductsHeader) {
+            previewProductsHeader.style.color = isDarkBg ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)';
+          }
+          
+          activeProducts.forEach(prod => {
+            const card = document.createElement('div');
+            
+            // Mengikuti gaya bentuk tombol (Kapsul/Sudut/Tajam) yang dipilih user
+            card.className = `w-full p-3 border backdrop-blur-md shadow-sm transition-transform hover:scale-[1.02] ${btnStyle}`;
+            
+            if (isDarkBg) {
+              card.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+              card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+            } else {
+              card.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+              card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+            }
+            
+            const imgUrl = prod.Product_Image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
+            
+            card.innerHTML = `
+              <div class="flex gap-3 items-start">
+                <img src="${imgUrl}" class="w-14 h-14 rounded-xl object-cover border border-white/10 shrink-0">
+                <div class="flex-1 min-w-0 text-left">
+                  <h4 class="font-bold text-[12px] tracking-tight truncate" style="color: ${cardTextColor};">${prod.Product_Name}</h4>
+                  <p class="text-[9px] mt-0.5 leading-snug line-clamp-2 font-medium" style="color: ${cardDescColor};">${prod.Product_Desc}</p>
+                  
+                  <div class="mt-1.5 inline-block px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-md">
+                    <span class="text-emerald-500 font-black text-[9px] tracking-wide">${formatRupiah(prod.Product_Price)}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Tombol Beli WhatsApp Simulasi -->
+              <div class="mt-3 w-full py-2 rounded-lg bg-[#25D366] text-white font-extrabold text-[10px] flex items-center justify-center gap-1.5 shadow-sm">
+                <i class="fa-brands fa-whatsapp text-sm"></i> Beli Sekarang
+              </div>
+            `;
+            previewProductsContainer.appendChild(card);
+          });
+        } else {
+          previewProductsSection.classList.remove('flex');
+          previewProductsSection.classList.add('hidden');
+        }
+      }
+       const previewRateCardSection = document.getElementById('previewRateCardSection');
+      if (previewRateCardSection) {
+        previewRateCardSection.innerHTML = '';
+        
+        const stats = STATE.rateStats || {};
+        const activePackages = (STATE.ratePackages || []).filter(p => p.Is_Active);
+
+        // A. Render Boks Demografi Audiens di Mockup
+        const statsCard = document.createElement('div');
+        statsCard.className = `w-full p-3 border backdrop-blur-md shadow-sm space-y-2.5 ${btnStyle}`;
+        
+        if (isDarkBg) {
+          statsCard.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+          statsCard.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+        } else {
+          statsCard.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+          statsCard.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+        }
+
+        statsCard.innerHTML = `
+          <div class="grid grid-cols-2 gap-2 text-center">
+            <div class="p-2 bg-black/10 rounded-xl">
+              <p class="text-[7.5px] font-black uppercase tracking-widest" style="color: ${cardDescColor};">Followers</p>
+              <p class="text-xs font-black text-violet-400 mt-0.5">${stats.Followers || '0'}</p>
+            </div>
+            <div class="p-2 bg-black/10 rounded-xl">
+              <p class="text-[7.5px] font-black uppercase tracking-widest" style="color: ${cardDescColor};">ER Rate</p>
+              <p class="text-xs font-black text-pink-400 mt-0.5">${stats.Engagement_Rate || '0%'}</p>
+            </div>
+          </div>
+          
+          <div class="space-y-1">
+            <div class="flex justify-between text-[8px] font-bold">
+              <span class="text-pink-400"><i class="fa-solid fa-venus"></i> ${stats.Gender_Female || '50%'}</span>
+              <span class="text-blue-400">${stats.Gender_Male || '50%'} <i class="fa-solid fa-mars"></i></span>
+            </div>
+            <div class="w-full h-1.5 bg-blue-500/30 rounded-full overflow-hidden flex">
+              <div class="h-full bg-pink-500" style="width: ${stats.Gender_Female || '50%'}"></div>
+            </div>
+          </div>
+        `;
+        previewRateCardSection.appendChild(statsCard);
+
+        // B. Render Kartu Paket Rate Card di Mockup
+        activePackages.forEach(pkg => {
+          const card = document.createElement('div');
+          card.className = `w-full p-3 border backdrop-blur-md shadow-sm flex flex-col text-left ${btnStyle}`;
+          
+          if (isDarkBg) {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+          } else {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+          }
+
+          card.innerHTML = `
+            <div class="flex justify-between items-start gap-2">
+              <h4 class="font-extrabold text-[11px] leading-tight truncate" style="color: ${cardTextColor};">${pkg.Package_Name}</h4>
+              <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-[9px] rounded-md shrink-0">
+                ${formatRupiah(pkg.Package_Price)}
+              </span>
+            </div>
+            <p class="text-[9px] mt-1 line-clamp-2 leading-snug" style="color: ${cardDescColor};">${pkg.Deliverables}</p>
+            <div class="mt-2.5 w-full py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-extrabold text-[9px] flex items-center justify-center gap-1 shadow-sm">
+              <i class="fa-solid fa-handshake"></i> Ajukan Kerja Sama
+            </div>
+          `;
+          previewRateCardSection.appendChild(card);
+        });
+      }
     }
  // -> FUNGSI PENCARIAN TAUTAN PADA MOCKUP HP
  function filterPreviewLinks(query) {
@@ -1444,7 +3807,12 @@ const settingsData = {
           Button_Style: document.querySelector('input[name="btnStyle"]:checked').value,
           Font_Family: document.getElementById('settingFontFamily').value,
           Title_Color: document.getElementById('settingTitleColor').value, // Kirim Warna Judul
-          Bio_Color: document.getElementById('settingBioColor').value     // Kirim Warna Bio
+          Bio_Color: document.getElementById('settingBioColor').value,     // Kirim Warna Bio
+            Social_Instagram: document.getElementById('socialInstagram').value.trim(),
+          Social_TikTok: document.getElementById('socialTikTok').value.trim(),
+          Social_YouTube: document.getElementById('socialYouTube').value.trim(),
+          Social_Twitter: document.getElementById('socialTwitter').value.trim(),
+          Social_Color: document.querySelector('input[name="socialColor"]:checked').value
         };
 
         const payload = new URLSearchParams();
@@ -1512,7 +3880,12 @@ document.getElementById('settingsTabAvatar').src = finalAvatar;
         
         const settingsData = {
           Full_Name: fullName,
-          Profile_Avatar: STATE.user.avatar
+          Profile_Avatar: STATE.user.avatar,
+          Social_Instagram: document.getElementById('socialInstagram').value.trim(),
+          Social_TikTok: document.getElementById('socialTikTok').value.trim(),
+          Social_YouTube: document.getElementById('socialYouTube').value.trim(),
+          Social_Twitter: document.getElementById('socialTwitter').value.trim(),
+          Social_Color: document.querySelector('input[name="socialColor"]:checked').value
         };
 
         const payload = new URLSearchParams();
@@ -1533,8 +3906,14 @@ document.getElementById('settingsTabAvatar').src = finalAvatar;
           document.getElementById('sidebarAvatar').src = finalAvatar;
           document.getElementById('settingsTabAvatar').src = finalAvatar;
           document.getElementById('previewAvatar').src = finalAvatar;
+          STATE.settings.Social_Instagram = settingsData.Social_Instagram;
+          STATE.settings.Social_TikTok = settingsData.Social_TikTok;
+          STATE.settings.Social_YouTube = settingsData.Social_YouTube;
+          STATE.settings.Social_Twitter = settingsData.Social_Twitter;
+          STATE.settings.Social_Color = settingsData.Social_Color;
 
-          showToast('Tersimpan', 'Profil pengguna berhasil diperbarui.');
+          updateLivePreview(); // Segarkan pratinjau mockup HP
+          showToast('Tersimpan', 'Profil pengguna dan sosial media berhasil diperbarui.');
         } else {
           throw new Error(res.message);
         }
@@ -1546,10 +3925,13 @@ document.getElementById('settingsTabAvatar').src = finalAvatar;
       }
     }    
 // 9. UTILITIES (HELPERS)
-
+// ========================================================
+      // 10. RENDER RATE CARD DI MOCKUP HP (Tambahkan di akhir updateLivePreview)
+      // ========================================================
+     
     // Switch Nav Tabs
 // -> SISTEM NAVIGASI TAB DASHBOARD (VERSI DIPERBARUI)
-    function switchTab(tabName) {
+   function switchTab(tabName) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
       document.getElementById(`tab-${tabName}`).classList.remove('hidden');
 
@@ -1562,27 +3944,45 @@ document.getElementById('settingsTabAvatar').src = finalAvatar;
         activeBtn.className = "w-full flex items-center p-3 rounded-xl transition-all text-blue-400 bg-blue-500/10 group";
       }
 
-      // Tentukan Judul Berdasarkan Tab Terpilih
+      // Tentukan Judul Header berdasarkan Tab yang Aktif
       let titleText = 'Kelola Tautan';
       if (tabName === 'appearance') titleText = 'Tampilan Desain';
       else if (tabName === 'settings') titleText = 'Pengaturan Akun';
+      else if (tabName === 'store') titleText = 'Katalog Produk';
       else if (tabName === 'analytics') {
         titleText = 'Analisis Performa';
-        fetchAnalyticsData(); // Ambil statistik performa secara real-time saat tab dibuka!
+        fetchAnalyticsData();
       }
+      // ---> INTEGRASI BARU UNTUK BANNER IKLAN:
+      else if (tabName === 'banners') {
+        titleText = 'Kelola Iklan';
+        renderBannersList(); // Memastikan daftar banner terupdate saat tab diklik
+      }
+      // Tambahkan di dalam rangkaian if-else switchTab:
+      else if (tabName === 'creator') {
+        titleText = 'Creator Hub';
+        renderCreatorContents(); // Pastikan chart me-render ulang ukurannya saat tab dibuka
+      }
+       else if (tabName === 'ratecard') {
+        titleText = 'Rate Card & Media Kit';
+        renderRatePackagesList(); // Memastikan daftar paket terupdate saat tab diklik
+      }
+      else if (tabName === 'ngl') { titleText = 'Pesan Rahasia'; renderNglInbox(); }
       document.getElementById('pageTitle').textContent = titleText;
+      
     }
+    
     // Form Toggle (Expand/Collapse)
-    function toggleForm(elementId) {
-      const el = document.getElementById(elementId);
-      if (el.style.maxHeight && el.style.maxHeight !== '0px') {
-        el.style.maxHeight = '0px';
-        el.style.opacity = '0';
-      } else {
-        el.style.maxHeight = '500px';
-        el.style.opacity = '1';
-      }
-    }
+   function toggleForm(elementId) {
+  const el = document.getElementById(elementId);
+  if (el.style.maxHeight && el.style.maxHeight !== '0px') {
+    el.style.maxHeight = '0px';
+    el.style.opacity = '0';
+  } else {
+    el.style.maxHeight = '1200px'; // Batas dinaikkan agar form panjang tidak terpotong
+    el.style.opacity = '1';
+  }
+}
 
     // Copy to clipboard
     function copyPublicLink() {
