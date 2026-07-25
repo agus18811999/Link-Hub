@@ -1183,8 +1183,101 @@ const createIcon = (url, iconClass) => {
           rateContainer.appendChild(card);
         });
       }
+       renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor);
       renderPublicRateCard(data);
       renderPublicNglCard(data);
+    }
+    // -> DEFINISI FUNGSI RENDER KOMUNITAS VIP & PENGUMUMAN PUBLIK
+    function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
+      const publicCommunitySection = document.getElementById('publicCommunitySection');
+      if (!publicCommunitySection) return;
+      
+      publicCommunitySection.innerHTML = '';
+      const COM_HUBS = data.comHubs || [];
+      const COM_POSTS = data.comPosts || [];
+      
+      // A. RENDER DAFTAR KOMUNITAS / GRUP VIP
+      if (COM_HUBS.length > 0) {
+        COM_HUBS.forEach(hub => {
+          if (!hub.Is_Active) return;
+
+          const card = document.createElement('div');
+          card.className = "w-full p-4 md:p-5 rounded-[32px] border backdrop-blur-xl shadow-xl flex flex-col text-left group transition-all hover:scale-[1.01]";
+          
+          if (isDarkBg) {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+          } else {
+            card.style.backgroundColor = 'rgba(255, 255, 255, 0.65)';
+            card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+          }
+
+          // Tombol Buka Akses / Gated Modal
+          let btnAction = '';
+          if (hub.Is_Gated) {
+            btnAction = `<button onclick="openCommunityModal('${hub.Community_ID}', '${escapeHtml(hub.Community_Name)}')" class="w-full py-3.5 rounded-2xl bg-slate-900 border border-slate-700/80 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all tracking-wide uppercase"><i class="fa-solid fa-lock text-slate-400"></i> Gabung Grup VIP (Form)</button>`;
+          } else {
+            btnAction = `<a href="${hub.Group_Link}" target="_blank" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(6,182,212,0.3)] active:scale-95 transition-all tracking-wide uppercase"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk Grup Sekarang</a>`;
+          }
+
+          const coverHTML = hub.Cover_Image 
+            ? `<img src="${escapeHtml(hub.Cover_Image)}" class="w-16 h-16 md:w-20 md:h-20 rounded-2xl object-cover border border-white/10 shrink-0 shadow-md">`
+            : `<div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl shrink-0 shadow-inner"><i class="fa-solid fa-users"></i></div>`;
+
+          card.innerHTML = `
+            <div class="flex items-start gap-4">
+              ${coverHTML}
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                  <span class="px-2.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-black text-[9px] uppercase tracking-widest">${hub.Is_Gated ? 'Gated' : 'Public'}</span>
+                  <span class="text-[9px] font-black text-rose-400"><i class="fa-solid fa-fire text-[9px]"></i> ${hub.Total_Members || 0} Members</span>
+                </div>
+                <h4 class="font-extrabold text-base md:text-lg tracking-tight leading-snug" style="color: ${cardTextColor};">${escapeHtml(hub.Community_Name)}</h4>
+                <p class="text-[11px] md:text-xs mt-1.5 line-clamp-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${escapeHtml(hub.Description)}</p>
+              </div>
+            </div>
+            <div class="mt-5 w-full">
+              ${btnAction}
+            </div>
+          `;
+          publicCommunitySection.appendChild(card);
+        });
+      }
+
+      // B. Render Papan Pengumuman Resmi Komunitas
+      if (COM_POSTS.length > 0) {
+        const postHeader = document.createElement('div');
+        postHeader.className = "flex items-center justify-between w-full my-4 px-2 shrink-0";
+        postHeader.innerHTML = `
+          <span class="text-[10px] font-black tracking-[0.2em] uppercase text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-bullhorn text-sm"></i> Papan Pengumuman</span>
+          <span class="text-[9px] font-black tracking-widest opacity-50 uppercase" style="color: ${cardDescColor};">Official Notice</span>
+        `;
+        publicCommunitySection.appendChild(postHeader);
+
+        COM_POSTS.forEach(post => {
+          const pCard = document.createElement('div');
+          pCard.className = `w-full p-5 border-t border-r border-b border-l-4 border-l-emerald-400 border-white/10 rounded-[28px] shadow-lg text-left mb-4 relative overflow-hidden transition-transform hover:scale-[1.01]`;
+          
+          if (isDarkBg) { pCard.style.backgroundColor = 'rgba(15, 23, 42, 0.7)'; } 
+          else { pCard.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; }
+          
+          pCard.innerHTML = `
+            <div class="flex items-center justify-between gap-3 mb-3">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-[9px] uppercase tracking-wider">
+                <i class="fa-solid fa-thumbtack text-[8px]"></i> ${post.Is_Members_Only ? 'Member VIP' : 'Kabar Resmi'}
+              </span>
+              <span class="text-[9.5px] font-extrabold opacity-60 flex items-center gap-1" style="color: ${cardDescColor};">
+                <i class="fa-regular fa-clock text-[9px]"></i> ${timeAgo(post.Created_At)}
+              </span>
+            </div>
+            <h5 class="font-extrabold text-sm md:text-[15px] leading-snug tracking-tight mb-3" style="color: ${cardTextColor};">${escapeHtml(post.Post_Title)}</h5>
+            <div class="p-3.5 rounded-2xl bg-black/20 border border-white/5 shadow-inner">
+              <p class="text-[11px] md:text-xs leading-relaxed font-semibold whitespace-pre-line" style="color: ${cardDescColor};">${escapeHtml(post.Post_Content)}</p>
+            </div>
+          `;
+          publicCommunitySection.appendChild(pCard);
+        });
+      }
     }
      function timeAgo(dateString) {
       if (!dateString) return 'Baru saja';
