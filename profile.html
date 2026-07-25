@@ -1188,6 +1188,7 @@ const createIcon = (url, iconClass) => {
       renderPublicNglCard(data);
     }
     // -> DEFINISI FUNGSI RENDER KOMUNITAS VIP & PENGUMUMAN PUBLIK
+    // GANTI FUNGSI renderPublicCommunity DI profile.html DENGAN VERSI FIX INI:
     function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
       const publicCommunitySection = document.getElementById('publicCommunitySection');
       if (!publicCommunitySection) return;
@@ -1199,10 +1200,11 @@ const createIcon = (url, iconClass) => {
       // A. RENDER DAFTAR KOMUNITAS / GRUP VIP
       if (COM_HUBS.length > 0) {
         COM_HUBS.forEach(hub => {
-          if (!hub.Is_Active) return;
+          // Perbaikan: Hanya abaikan jika Is_Active bernilai FALSE secara eksplisit
+          if (hub.Is_Active === false) return;
 
           const card = document.createElement('div');
-          card.className = "w-full p-4 md:p-5 rounded-[32px] border backdrop-blur-xl shadow-xl flex flex-col text-left group transition-all hover:scale-[1.01]";
+          card.className = "w-full p-4 md:p-5 rounded-[32px] border backdrop-blur-xl shadow-xl flex flex-col text-left group transition-all hover:scale-[1.01] mb-2";
           
           if (isDarkBg) {
             card.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
@@ -1244,7 +1246,7 @@ const createIcon = (url, iconClass) => {
         });
       }
 
-      // B. Render Papan Pengumuman Resmi Komunitas
+      // B. RENDER PAPAN PENGUMUMAN RESMI KOMUNITAS
       if (COM_POSTS.length > 0) {
         const postHeader = document.createElement('div');
         postHeader.className = "flex items-center justify-between w-full my-4 px-2 shrink-0";
@@ -1278,8 +1280,8 @@ const createIcon = (url, iconClass) => {
           publicCommunitySection.appendChild(pCard);
         });
       }
-    }
-     function timeAgo(dateString) {
+    } 
+    function timeAgo(dateString) {
       if (!dateString) return 'Baru saja';
       const date = new Date(dateString);
       const now = new Date();
