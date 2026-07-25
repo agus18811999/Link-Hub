@@ -572,52 +572,68 @@ card.onclick = (e) => {
             affiliateGridContainer.innerHTML = '';
             const filteredData = filterCategory === 'Semua' ? AFFILIATE_DATA : AFFILIATE_DATA.filter(i => i.Category === filterCategory);
             
-            filteredData.forEach(item => {
-              // Konfigurasi Tema & Ikon Platform
-              const cardBg = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.65)';
-              const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.8)';
-              
-              let btnTheme = 'bg-blue-600 hover:bg-blue-500';
-              let btnText = 'Beli Sekarang';
-              if (item.Platform === 'Shopee') { btnTheme = 'bg-[#EE4D2D] hover:bg-[#d74226]'; btnText = 'Beli di Shopee'; }
-              if (item.Platform === 'Tokopedia') { btnTheme = 'bg-[#03AC0E] hover:bg-[#028b0b]'; btnText = 'Beli di Tokopedia'; }
-              if (item.Platform === 'TikTok_Shop') { btnTheme = 'bg-black hover:bg-slate-900 border border-white/20'; btnText = 'Beli di TikTok'; }
-              if (item.Platform === 'Lazada') { btnTheme = 'bg-[#0F146D] hover:bg-[#0a0d4a]'; btnText = 'Beli di Lazada'; }
-              if (item.Platform === 'Amazon') { btnTheme = 'bg-[#FF9900] text-black hover:bg-[#e68a00]'; btnText = 'Buy on Amazon'; }
+          // GANTI BAGIAN filteredData.forEach DI DALAM renderPublicProfile() profile.html:
+          filteredData.forEach(item => {
+            const cardBg = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.65)';
+            const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.8)';
+            
+            let btnTheme = 'bg-blue-600 hover:bg-blue-500';
+            let btnText = 'Beli Sekarang';
+            if (item.Platform === 'Shopee') { btnTheme = 'bg-[#EE4D2D] hover:bg-[#d74226]'; btnText = 'Beli di Shopee'; }
+            if (item.Platform === 'Tokopedia') { btnTheme = 'bg-[#03AC0E] hover:bg-[#028b0b]'; btnText = 'Beli di Tokopedia'; }
+            if (item.Platform === 'TikTok_Shop') { btnTheme = 'bg-black hover:bg-slate-900 border border-white/20'; btnText = 'Beli di TikTok'; }
+            if (item.Platform === 'Lazada') { btnTheme = 'bg-[#0F146D] hover:bg-[#0a0d4a]'; btnText = 'Beli di Lazada'; }
+            if (item.Platform === 'Amazon') { btnTheme = 'bg-[#FF9900] text-black hover:bg-[#e68a00]'; btnText = 'Buy on Amazon'; }
 
-              const defaultThumb = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400';
-              const imgUrl = item.Image_URL || defaultThumb;
+            const defaultThumb = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400';
+            const imgUrl = item.Image_URL || defaultThumb;
 
-              const card = document.createElement('div');
-              card.className = "w-full p-2 rounded-[24px] border backdrop-blur-xl shadow-lg flex flex-col relative overflow-hidden transition-transform hover:scale-[1.02]";
-              card.style.backgroundColor = cardBg;
-              card.style.borderColor = cardBorder;
-
-              card.innerHTML = `
-                <!-- Gambar Kotak 1:1 -->
-                <div class="relative w-full aspect-square rounded-[18px] overflow-hidden bg-white shadow-inner mb-3 border border-black/5">
-                  <img src="${imgUrl}" class="w-full h-full object-cover">
-                  ${item.Badge_Tag ? `<span class="absolute top-2 left-2 px-2 py-1 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-md border border-red-400/50">${escapeHtml(item.Badge_Tag)}</span>` : ''}
+            // --- KALKULASI HARGA & PERSENTASE DISKON ALA SHOPEE ---
+            const orig = Number(item.Original_Price || 0);
+            const promo = Number(item.Promo_Price || 0);
+            
+            let priceBlockHTML = '';
+            if (orig > 0 && promo > 0 && orig > promo) {
+              const discountPercent = Math.round(((orig - promo) / orig) * 100);
+              priceBlockHTML = `
+                <div class="flex items-center gap-1.5 flex-wrap mt-auto pt-1">
+                  <span class="text-emerald-400 font-black text-[13px] tracking-tight">${formatRupiahProfile(promo)}</span>
+                  <span class="text-slate-300/80 font-semibold text-[9.5px] line-through">${formatRupiahProfile(orig)}</span>
+                  <span class="px-1 py-0.5 bg-red-500/20 text-red-400 font-black text-[8px] rounded border border-red-500/30">-${discountPercent}%</span>
                 </div>
-
-                <!-- Info Harga & Nama -->
-                <div class="flex flex-col flex-1 px-1.5 pb-1 text-left">
-                  <h4 class="font-bold text-[12.5px] leading-snug line-clamp-2 mb-2" style="color: ${cardTextColor};">${escapeHtml(item.Item_Name)}</h4>
-                  
-                  <div class="mt-auto flex flex-col gap-0.5">
-                    ${item.Original_Price ? `<span class="text-[10px] font-bold text-slate-500 line-through opacity-70">${formatRupiahProfile(item.Original_Price)}</span>` : '<span class="h-3"></span>'}
-                    ${item.Promo_Price ? `<span class="text-emerald-400 font-black text-[14px] tracking-tight">${formatRupiahProfile(item.Promo_Price)}</span>` : '<span class="text-emerald-400 font-black text-[14px] tracking-tight">Cek Harga</span>'}
-                  </div>
-                </div>
-
-                <!-- Action Button (DEEP LINK TRIGGER) -->
-                <a href="${item.Affiliate_URL}" onclick="handleAffiliateClick(event, '${user.id}', '${item.Item_ID}', '${item.Platform}', '${item.Affiliate_URL}')" class="w-full mt-3 py-2.5 rounded-xl text-white font-extrabold text-[11px] flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all uppercase tracking-wide ${btnTheme}">
-                  ${btnText} <i class="fa-solid fa-chevron-right text-[9px]"></i>
-                </a>
               `;
-              
-              affiliateGridContainer.appendChild(card);
-            });
+            } else if (promo > 0) {
+              priceBlockHTML = `<span class="text-emerald-400 font-black text-[13px] tracking-tight mt-auto pt-1">${formatRupiahProfile(promo)}</span>`;
+            } else {
+              priceBlockHTML = `<span class="text-emerald-400 font-black text-[13px] tracking-tight mt-auto pt-1">Cek Harga</span>`;
+            }
+
+            const card = document.createElement('div');
+            card.className = "w-full p-2 rounded-[24px] border backdrop-blur-xl shadow-lg flex flex-col relative overflow-hidden transition-transform hover:scale-[1.02]";
+            card.style.backgroundColor = cardBg;
+            card.style.borderColor = cardBorder;
+
+            card.innerHTML = `
+              <!-- Gambar Kotak 1:1 -->
+              <div class="relative w-full aspect-square rounded-[18px] overflow-hidden bg-white shadow-inner mb-2 border border-black/5">
+                <img src="${imgUrl}" class="w-full h-full object-cover">
+                ${item.Badge_Tag ? `<span class="absolute top-2 left-2 px-2 py-1 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-md border border-red-400/50">${escapeHtml(item.Badge_Tag)}</span>` : ''}
+              </div>
+
+              <!-- Info Nama & Blok Harga Ala Shopee -->
+              <div class="flex flex-col flex-1 px-1 pb-1 text-left">
+                <h4 class="font-bold text-[12px] leading-snug line-clamp-2 mb-1" style="color: ${cardTextColor};">${escapeHtml(item.Item_Name)}</h4>
+                ${priceBlockHTML}
+              </div>
+
+              <!-- Action Button (DEEP LINK TRIGGER) -->
+              <a href="${item.Affiliate_URL}" onclick="handleAffiliateClick(event, '${user.id}', '${item.Item_ID}', '${item.Platform}', '${item.Affiliate_URL}')" class="w-full mt-2.5 py-2.5 rounded-xl text-white font-extrabold text-[11px] flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all uppercase tracking-wide ${btnTheme}">
+                ${btnText} <i class="fa-solid fa-chevron-right text-[9px]"></i>
+              </a>
+            `;
+            
+            affiliateGridContainer.appendChild(card);
+          });  
           };
 
           // Inisialisasi awal
