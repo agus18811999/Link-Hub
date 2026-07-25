@@ -681,36 +681,7 @@ card.onclick = (e) => {
     // =========================================================================
 
     // 1. Helper Konverter Waktu Relatif (timeAgo)
-    function timeAgo(dateString) {
-      if (!dateString) return 'Baru saja';
-      const date = new Date(dateString);
-      const now = new Date();
-      const seconds = Math.floor((now - date) / 1000);
-
-      if (seconds < 60) return 'Baru saja';
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 60) return `${minutes} menit yang lalu`;
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return `${hours} jam yang lalu`;
-      const days = Math.floor(hours / 24);
-      if (days < 30) return `${days} hari yang lalu`;
-      const months = Math.floor(days / 30);
-      if (months < 12) return `${months} bulan yang lalu`;
-      return `${Math.floor(months / 12)} tahun yang lalu`;
-    }
-
-    // 2. Helper Pelacak Analitik Konten (trackContentEvent)
-    function trackContentEvent(userId, contentId, eventType) {
-      try {
-        const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
-        const trackingUrl = `${SCRIPT_URL}?action=log_content_event&userId=${userId}&contentId=${contentId}&eventType=${eventType}&ip=127.0.0.1&device=${device}`;
-        const beacon = new Image();
-        beacon.src = trackingUrl;
-        console.log(`[Analytics] Tracked ${eventType} for Content: ${contentId}`);
-      } catch (e) { 
-        console.error("Tracking Error:", e); 
-      }
-    }
+   
     // ========================================================
       // RENDERING AFFILIATE MARKETING ENGINE (RACUN PRODUK)
       // ========================================================
@@ -1215,7 +1186,37 @@ const createIcon = (url, iconClass) => {
       renderPublicRateCard(data);
       renderPublicNglCard(data);
     }
-    
+     function timeAgo(dateString) {
+      if (!dateString) return 'Baru saja';
+      const date = new Date(dateString);
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+
+      if (seconds < 60) return 'Baru saja';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return `${minutes} menit yang lalu`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours} jam yang lalu`;
+      const days = Math.floor(hours / 24);
+      if (days < 30) return `${days} hari yang lalu`;
+      const months = Math.floor(days / 30);
+      if (months < 12) return `${months} bulan yang lalu`;
+      return `${Math.floor(months / 12)} tahun yang lalu`;
+    }
+
+    // 2. Helper Pelacak Analitik Konten (trackContentEvent)
+    function trackContentEvent(userId, contentId, eventType) {
+      try {
+        const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
+        const trackingUrl = `${SCRIPT_URL}?action=log_content_event&userId=${userId}&contentId=${contentId}&eventType=${eventType}&ip=127.0.0.1&device=${device}`;
+        const beacon = new Image();
+        beacon.src = trackingUrl;
+        console.log(`[Analytics] Tracked ${eventType} for Content: ${contentId}`);
+      } catch (e) { 
+        console.error("Tracking Error:", e); 
+      }
+    }
+   
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
   // -> FUNGSI PENCATAT KLIK DENGAN TEKNIK IMAGE PIXEL TRACKING (100% ANTI-CORS)
    // -> FUNGSI PELACAK KLIK (METODE IMAGE BEACON - 100% AMAN & ANTI BLOKIR)
