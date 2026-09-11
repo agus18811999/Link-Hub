@@ -1205,12 +1205,18 @@ function switchPublicTab(tab) {
 // =========================================================================
 
 /* --- 1. RENDERING KATALOG RACUN PRODUK DI DALAM renderPublicProfile(data) --- */
-const publicAffiliateSection = document.getElementById('publicAffiliateSection');
-const affiliateCategoryFilter = document.getElementById('affiliateCategoryFilter');
-const affiliateGridContainer = document.getElementById('affiliateGridContainer');
+// =========================================================================
+// JAVASCRIPT AFFILIATE STOREFRONT & DEEP-LINKING ENGINE (REVISED)
+// =========================================================================
+function renderPublicAffiliate(data, isDarkBg) {
+  const publicAffiliateSection = document.getElementById('publicAffiliateSection');
+  const affiliateCategoryFilter = document.getElementById('affiliateCategoryFilter');
+  const affiliateGridContainer = document.getElementById('affiliateGridContainer');
 
-if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer) {
+  if (!publicAffiliateSection || !affiliateCategoryFilter || !affiliateGridContainer) return;
+
   const AFFILIATE_DATA = (data.affiliateItems || []).filter(item => item.Is_Active !== false);
+  const user = data.user || {};
 
   if (AFFILIATE_DATA.length > 0) {
     const cardBg = isDarkBg ? 'rgba(15, 23, 42, 0.78)' : 'rgba(255, 255, 255, 0.88)';
@@ -1252,7 +1258,6 @@ if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer)
         : AFFILIATE_DATA.filter(i => (i.Category || 'Lainnya') === filterCategory);
 
       filteredData.forEach(item => {
-        // Deteksi Platform & Warna Tombol Resmi
         let btnTheme = 'bg-gradient-to-r from-orange-500 to-rose-600 shadow-orange-500/30 text-white';
         let btnText = 'Beli Sekarang';
         let platIcon = 'fa-solid fa-bag-shopping';
@@ -1294,7 +1299,6 @@ if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer)
         const defaultThumb = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400';
         const imgUrl = item.Image_URL || defaultThumb;
 
-        // --- KALKULASI HARGA CORET & PERSENTASE DISKON ALA FLASH SALE ---
         const orig = Number(item.Original_Price || 0);
         const promo = Number(item.Promo_Price || 0);
         
@@ -1320,7 +1324,6 @@ if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer)
         card.style.borderColor = cardBorder;
 
         card.innerHTML = `
-          <!-- Gambar Produk Rasio 1:1 Squircle Chamber -->
           <div class="relative w-full aspect-square rounded-[18px] overflow-hidden bg-slate-950/70 border border-white/10 mb-2">
             <img 
               src="${escapeHtml(imgUrl)}" 
@@ -1329,20 +1332,17 @@ if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer)
               alt="${escapeHtml(item.Item_Name)}"
             >
 
-            <!-- Lencana Promo Badge (Kiri Atas) -->
             ${item.Badge_Tag ? `
               <span class="absolute top-2 left-2 px-2 py-0.5 bg-rose-600/90 border border-rose-400/50 text-white text-[8px] sm:text-[9px] font-black uppercase tracking-wider rounded-lg shadow-md backdrop-blur-md">
                 ${escapeHtml(item.Badge_Tag)}
               </span>
             ` : ''}
 
-            <!-- Lencana Platform Resmi (Kanan Atas) -->
             <span class="absolute top-2 right-2 px-2 py-0.5 rounded-lg border text-[8px] font-extrabold uppercase tracking-wider backdrop-blur-md shadow-sm ${platBadgeStyle}">
               <i class="${platIcon} mr-0.5 text-[8px]"></i> ${platBadge}
             </span>
           </div>
 
-          <!-- Detail Nama & Blok Harga -->
           <div class="flex flex-col flex-1 px-1 pb-1 text-left">
             <span class="text-[8.5px] font-extrabold uppercase tracking-wider text-slate-400 mb-0.5">${escapeHtml(item.Category || 'Lainnya')}</span>
             <h4 class="font-bold text-xs sm:text-[13px] leading-snug line-clamp-2 mb-1" style="color: ${cardTextColor};">
@@ -1351,7 +1351,6 @@ if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer)
             ${priceBlockHTML}
           </div>
 
-          <!-- Tombol Aksi Pembelian Langsung (DEEP-LINKING TRIGGER) -->
           <a 
             href="${escapeHtml(item.Affiliate_URL)}" 
             onclick="handleAffiliateClick(event, '${user.id || ''}', '${item.Item_ID}', '${item.Platform}', '${escapeHtml(item.Affiliate_URL)}')" 
@@ -1366,12 +1365,10 @@ if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer)
       });
     };
 
-    // Inisialisasi Awal Filter & Grid Produk
     renderFilters('Semua');
     renderGrid('Semua');
   }
 }
-
 // 2. SMART DEEP-LINKING & AFFILIATE TRACKING ENGINE (APP INTENT TRIGGER)
 function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
   e.preventDefault();
@@ -2119,6 +2116,7 @@ if (socialBar && socialGlass) {
        renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor);
       renderPublicRateCard(data);
       renderPublicNglCard(data);
+      renderPublicAffiliate(data, isDarkBg); 
     }
     // -> DEFINISI FUNGSI RENDER KOMUNITAS VIP & PENGUMUMAN PUBLIK
     // GANTI FUNGSI renderPublicCommunity DI profile.html DENGAN VERSI FIX INI:
