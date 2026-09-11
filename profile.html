@@ -9,8 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -2100,6 +2099,7 @@ if (linksContainer) {
 /* --- B. RENDERING ETALASE PRODUK DIGITAL (SOCIAL COMMERCE) --- */
 
 /* --- C. RENDERING FLOATING LIQUID SOCIAL BAR --- */
+/* --- C. RENDERING FLOATING LIQUID SOCIAL BAR (FIX IKON TWITTER / X) --- */
 const socialBar = document.getElementById('floatingSocialBar');
 const socialGlass = document.getElementById('socialBarGlass');
 
@@ -2108,21 +2108,33 @@ if (socialBar && socialGlass) {
   const socColor = settings.Social_Color || '#ffffff';
   let socialCount = 0;
 
-  const createIcon = (url, iconClass) => {
-    if (!url) return;
+  // Helper pembuat ikon (mendukung Font Awesome dan Vektor SVG Mandiri)
+  const createIcon = (url, iconClass, isX = false) => {
+    if (!url || String(url).trim() === '') return;
     socialCount++;
     const a = document.createElement('a');
-    a.href = url;
+    a.href = url.trim();
     a.target = '_blank';
     a.className = "flex items-center justify-center w-8 h-8 rounded-full hover:scale-125 active:scale-95 transition-transform duration-200 shrink-0";
-    a.innerHTML = `<i class="fa-brands ${iconClass} text-[21px]" style="color: ${socColor}; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));"></i>`;
+    
+    if (isX) {
+      // Vektor Resmi X (Twitter) - Dijamin 100% Muncul Tanpa Tergantung Versi CDN
+      a.innerHTML = `
+        <svg class="w-5 h-5 transition-transform" viewBox="0 0 24 24" fill="${socColor}" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      `;
+    } else {
+      a.innerHTML = `<i class="fa-brands ${iconClass} text-[21px]" style="color: ${socColor}; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));"></i>`;
+    }
     socialGlass.appendChild(a);
   };
 
   createIcon(settings.Social_Instagram, 'fa-instagram');
   createIcon(settings.Social_TikTok, 'fa-tiktok');
   createIcon(settings.Social_YouTube, 'fa-youtube');
-  createIcon(settings.Social_Twitter, 'fa-x-twitter');
+  // Ikon X (Twitter) menggunakan SVG bawaan resmi
+  createIcon(settings.Social_Twitter, '', true);
   createIcon(settings.Social_Facebook, 'fa-facebook');
 
   if (socialCount > 0) {
@@ -2145,7 +2157,8 @@ if (socialBar && socialGlass) {
     socialBar.classList.remove('flex');
   }
 }
-      // ========================================================
+
+// ========================================================
       // ========================================================
       // RENDERING ADVERTISING ENGINE (PROMO BANNERS)
       // ========================================================
