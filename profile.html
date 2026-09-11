@@ -1766,30 +1766,25 @@ function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
         slides[currentIndex].style.zIndex = '10';
       }, 4000); // Berputar otomatis setiap 4 detik
     }
-    async function fetchUserProfile(username) {
-      try {
-        const payload = new URLSearchParams();
-        payload.append('action', 'get_dashboard_data');
-        payload.append('token', 'GUEST'); // Bypass token karena ini halaman publik
-        payload.append('guestUsername', username); // Memberitahu backend username yang dicari
+   async function fetchUserProfile(username) {
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=get_dashboard_data&u=${encodeURIComponent(username)}`);
+    const res = await response.json();
 
-        // Note: Kita akan memanggil API get_dashboard_data dengan parameter username tamu
-        const response = await fetch(`${SCRIPT_URL}?action=get_dashboard_data&u=${username}`);
-        const res = await response.json();
-
-        if (res.status === 'success') {
-          BLOCKS_DATA = res.data.blocks;
-          renderPublicProfile(res.data);
-          document.getElementById('profileLoader').style.display = 'none';
-        } else {
-          throw new Error(res.message);
-        }
-      } catch (error) {
-        showErrorPage("Halaman tidak ditemukan atau gagal memuat data.");
-      }
+    if (res.status === 'success') {
+      BLOCKS_DATA = res.data.blocks || [];
+      renderPublicProfile(res.data);
+      const loader = document.getElementById('profileLoader');
+      if (loader) loader.style.display = 'none';
+    } else {
+      throw new Error(res.message);
     }
-// (Letakkan fungsi ini di luar, atau di dalam script global)
-      function formatRupiahProfile(angka) {
+  } catch (error) {
+    console.error("Detail Error Asli:", error); // Menampilkan error asli jika ada masalah
+    showErrorPage(error.message || "Halaman tidak ditemukan atau gagal memuat data.");
+  }
+}
+function formatRupiahProfile(angka) {
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
       }
 // -> RENDER PROFIL PUBLIK (VERSI LENGKAP & INTEGRASI ANALYTICS)
@@ -2405,10 +2400,10 @@ if (socialBar && socialGlass) {
           rateContainer.appendChild(card);
         });
       }
-       renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor);
-      renderPublicRateCard(data);
-      renderPublicNglCard(data);
-      renderPublicAffiliate(data, isDarkBg); 
+      if (typeof renderPublicCommunity === 'function') renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor);
+  if (typeof renderPublicRateCard === 'function') renderPublicRateCard(data);
+  if (typeof renderPublicNglCard === 'function') renderPublicNglCard(data);
+  if (typeof renderPublicAffiliate === 'function') renderPublicAffiliate(data, isDarkBg);
     }
 
 
