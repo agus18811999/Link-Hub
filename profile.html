@@ -665,16 +665,103 @@
     <!-- ================================================================= -->
     <!-- AREA RACUN PRODUK AFILIASI (TAMPIL HANYA SAAT TAB RACUN AKTIF)    -->
     <!-- ================================================================= -->
-    <div id="publicAffiliateSection" class="w-full mt-7 hidden flex-col items-center shrink-0">
-       <!-- Filter Kategori -->
-       <div id="affiliateCategoryFilter" class="w-full mb-6 flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2" style="scrollbar-width: none;">
-         <!-- Dirender via JS -->
-       </div>
-       <!-- Grid Produk E-Commerce -->
-       <div id="affiliateGridContainer" class="w-full grid grid-cols-2 gap-3.5">
-         <!-- Dirender via JS -->
-       </div>
-    </div>
+   <!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: AFFILIATE STOREFRONT & SPILL HUB (ULTRA LUXURY EDITION)   -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC AFFILIATE SECTION -->
+<style>
+  /* Filter Category Track Custom Hide Scrollbar */
+  #affiliateCategoryFilter::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
+  #affiliateCategoryFilter {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Filter Category Pill Buttons */
+  .affiliate-filter-pill {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    cursor: pointer;
+  }
+  .affiliate-filter-pill.active {
+    background: linear-gradient(135deg, #f97316 0%, #f43f5e 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    box-shadow: 
+      0 6px 20px -3px rgba(249, 115, 22, 0.5),
+      inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+    transform: translateY(-1px) scale(1.02);
+  }
+
+  /* Public Affiliate Product Card Glassmorphism */
+  .public-affiliate-card {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.45),
+      0 0 30px -5px rgba(249, 115, 22, 0.12),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-affiliate-card:hover {
+    transform: translateY(-3px) scale(1.015);
+    border-color: rgba(249, 115, 22, 0.45);
+    box-shadow: 
+      0 25px 60px -10px rgba(0, 0, 0, 0.6),
+      0 0 45px -5px rgba(249, 115, 22, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  }
+
+  /* Direct Purchase Platform Button */
+  .btn-affiliate-buy {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-affiliate-buy::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-affiliate-buy:hover::before {
+    left: 100%;
+  }
+  .btn-affiliate-buy:hover {
+    transform: translateY(-1.5px);
+    filter: brightness(1.1);
+  }
+  .btn-affiliate-buy:active {
+    transform: translateY(1px) scale(0.98);
+  }
+</style>
+
+<!-- PUBLIC AFFILIATE CONTAINER -->
+<div id="publicAffiliateSection" class="w-full mt-7 hidden flex-col items-center shrink-0">
+  
+  <!-- 1. KAPSUL FILTER KATEGORI PRODUK (HORIZONTAL SCROLL TRACK) -->
+  <div 
+    id="affiliateCategoryFilter" 
+    class="w-full mb-5 flex items-center gap-2 overflow-x-auto pb-1.5 px-0.5" 
+    style="scrollbar-width: none; -ms-overflow-style: none;"
+  >
+    <!-- Filter Kategori akan dirender secara dinamis oleh JavaScript -->
+  </div>
+
+  <!-- 2. GRID PRODUK E-COMMERCE (2 KOLOM SIMETRIS) -->
+  <div id="affiliateGridContainer" class="w-full grid grid-cols-2 gap-3 sm:gap-4">
+    <!-- Kartu Racun Produk akan dirender secara dinamis oleh JavaScript -->
+  </div>
+
+</div>
     <!-- ================================================================= -->
     <!-- AREA COMMUNITY VIP (TAMPIL HANYA SAAT TAB KOMUNITAS AKTIF)        -->
     <!-- ================================================================= -->
@@ -1113,44 +1200,218 @@ function switchPublicTab(tab) {
   }
 }
     // -> SMART DEEP-LINKING & AFFILIATE TRACKING ENGINE
-    function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
-      e.preventDefault(); // Hentikan perpindahan halaman biasa
-      
-      // 1. Kirim Log Analytics secara senyap via Image Beacon
-      try {
-        const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
-        const trackingUrl = `${SCRIPT_URL}?action=log_affiliate_click&userId=${userId}&itemId=${itemId}&platform=${platform}&ip=127.0.0.1&device=${device}`;
-        new Image().src = trackingUrl;
-      } catch (err) { console.error("Tracking Error:", err); }
+  // =========================================================================
+// JAVASCRIPT AFFILIATE STOREFRONT & DEEP-LINKING ENGINE (EXECUTIVE REDESIGN)
+// =========================================================================
 
-      // 2. Logika Deteksi Perangkat (Mobile vs Desktop)
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+/* --- 1. RENDERING KATALOG RACUN PRODUK DI DALAM renderPublicProfile(data) --- */
+const publicAffiliateSection = document.getElementById('publicAffiliateSection');
+const affiliateCategoryFilter = document.getElementById('affiliateCategoryFilter');
+const affiliateGridContainer = document.getElementById('affiliateGridContainer');
 
-      // 3. Eksekusi Deep-Linking
-      if (isMobile) {
-        let appIntentUrl = originalUrl;
-        
-        // Coba konversi skema URL untuk membuka aplikasi native
-        if (platform === 'Shopee') {
-          appIntentUrl = originalUrl.replace(/^https?:\/\//i, 'shopeeid://');
-        } else if (platform === 'Tokopedia') {
-          appIntentUrl = originalUrl.replace(/^https?:\/\//i, 'tokopedia://');
-        } else if (platform === 'TikTok_Shop') {
-          appIntentUrl = originalUrl.replace(/^https?:\/\//i, 'snssdk1180://');
+if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer) {
+  const AFFILIATE_DATA = (data.affiliateItems || []).filter(item => item.Is_Active !== false);
+
+  if (AFFILIATE_DATA.length > 0) {
+    const cardBg = isDarkBg ? 'rgba(15, 23, 42, 0.78)' : 'rgba(255, 255, 255, 0.88)';
+    const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.9)';
+    const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+
+    // A. Fungsi Render Kapsul Filter Kategori
+    const renderFilters = (activeCategory) => {
+      const categories = ['Semua', ...new Set(AFFILIATE_DATA.map(item => item.Category || 'Lainnya'))];
+      affiliateCategoryFilter.innerHTML = '';
+
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        const isActive = cat === activeCategory;
+
+        btn.className = `affiliate-filter-pill shrink-0 px-4 py-2 rounded-xl text-xs font-bold border backdrop-blur-md flex items-center gap-1.5 shadow-sm ${
+          isActive 
+            ? 'active' 
+            : isDarkBg 
+              ? 'bg-white/10 border-white/15 text-white/80 hover:bg-white/20 hover:text-white' 
+              : 'bg-black/10 border-black/15 text-slate-800 hover:bg-black/15'
+        }`;
+
+        btn.innerHTML = `<span>${escapeHtml(cat)}</span>`;
+        btn.onclick = () => {
+          renderGrid(cat);
+          renderFilters(cat);
+        };
+
+        affiliateCategoryFilter.appendChild(btn);
+      });
+    };
+
+    // B. Fungsi Render Grid Kartu Produk E-Commerce
+    const renderGrid = (filterCategory) => {
+      affiliateGridContainer.innerHTML = '';
+      const filteredData = filterCategory === 'Semua' 
+        ? AFFILIATE_DATA 
+        : AFFILIATE_DATA.filter(i => (i.Category || 'Lainnya') === filterCategory);
+
+      filteredData.forEach(item => {
+        // Deteksi Platform & Warna Tombol Resmi
+        let btnTheme = 'bg-gradient-to-r from-orange-500 to-rose-600 shadow-orange-500/30 text-white';
+        let btnText = 'Beli Sekarang';
+        let platIcon = 'fa-solid fa-bag-shopping';
+        let platBadge = 'Shopee Official';
+        let platBadgeStyle = 'bg-[#EE4D2D]/20 border-[#EE4D2D]/40 text-[#EE4D2D]';
+
+        if (item.Platform === 'Shopee') {
+          btnTheme = 'bg-gradient-to-r from-[#EE4D2D] via-[#F05537] to-[#FF6433] shadow-orange-500/35 text-white';
+          btnText = 'Beli di Shopee';
+          platIcon = 'fa-solid fa-bag-shopping';
+          platBadge = 'Shopee';
+          platBadgeStyle = 'bg-[#EE4D2D]/20 border-[#EE4D2D]/40 text-[#FF6433]';
+        } else if (item.Platform === 'Tokopedia') {
+          btnTheme = 'bg-gradient-to-r from-[#03AC0E] via-[#02960C] to-[#00800A] shadow-emerald-500/35 text-white';
+          btnText = 'Beli di Tokopedia';
+          platIcon = 'fa-solid fa-bag-shopping';
+          platBadge = 'Tokopedia';
+          platBadgeStyle = 'bg-[#03AC0E]/20 border-[#03AC0E]/40 text-[#03AC0E]';
+        } else if (item.Platform === 'TikTok_Shop') {
+          btnTheme = 'bg-gradient-to-r from-slate-950 via-slate-900 to-black border border-white/25 shadow-cyan-500/20 text-white';
+          btnText = 'Beli di TikTok';
+          platIcon = 'fa-brands fa-tiktok';
+          platBadge = 'TikTok Shop';
+          platBadgeStyle = 'bg-cyan-500/20 border-cyan-400/40 text-cyan-300';
+        } else if (item.Platform === 'Lazada') {
+          btnTheme = 'bg-gradient-to-r from-[#0F146D] via-[#162094] to-[#1E29B4] shadow-blue-500/35 text-white';
+          btnText = 'Beli di Lazada';
+          platIcon = 'fa-solid fa-cart-shopping';
+          platBadge = 'Lazada';
+          platBadgeStyle = 'bg-blue-500/20 border-blue-400/40 text-blue-300';
+        } else if (item.Platform === 'Amazon') {
+          btnTheme = 'bg-gradient-to-r from-[#FF9900] via-[#E68A00] to-[#CC7A00] shadow-amber-500/35 text-black';
+          btnText = 'Buy on Amazon';
+          platIcon = 'fa-brands fa-amazon';
+          platBadge = 'Amazon';
+          platBadgeStyle = 'bg-amber-500/20 border-amber-400/40 text-amber-300';
         }
+
+        const defaultThumb = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400';
+        const imgUrl = item.Image_URL || defaultThumb;
+
+        // --- KALKULASI HARGA CORET & PERSENTASE DISKON ALA FLASH SALE ---
+        const orig = Number(item.Original_Price || 0);
+        const promo = Number(item.Promo_Price || 0);
         
-        // Coba buka aplikasi bawaan
-        window.location.href = appIntentUrl;
-        
-        // Fallback: Jika aplikasi tidak terinstal, buka di browser setelah 2 detik
-        setTimeout(() => {
-          window.location.href = originalUrl;
-        }, 2000);
-      } else {
-        // Jika dibuka dari Laptop/Desktop, langsung buka di tab baru
-        window.open(originalUrl, '_blank');
-      }
+        let priceBlockHTML = '';
+        if (orig > 0 && promo > 0 && orig > promo) {
+          const discountPercent = Math.round(((orig - promo) / orig) * 100);
+          priceBlockHTML = `
+            <div class="flex items-center gap-1.5 flex-wrap mt-auto pt-1">
+              <span class="text-emerald-400 font-black text-xs sm:text-sm tracking-tight">${formatRupiahProfile(promo)}</span>
+              <span class="text-slate-400 font-semibold text-[9.5px] line-through">${formatRupiahProfile(orig)}</span>
+              <span class="px-1.5 py-0.2 bg-rose-500/20 text-rose-400 font-black text-[8px] rounded-md border border-rose-500/30">-${discountPercent}%</span>
+            </div>
+          `;
+        } else if (promo > 0) {
+          priceBlockHTML = `<span class="text-emerald-400 font-black text-xs sm:text-sm tracking-tight mt-auto pt-1">${formatRupiahProfile(promo)}</span>`;
+        } else {
+          priceBlockHTML = `<span class="text-slate-400 font-bold text-xs mt-auto pt-1">Cek Harga Langsung</span>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = "public-affiliate-card w-full p-2.5 sm:p-3 rounded-[24px] flex flex-col relative overflow-hidden group";
+        card.style.backgroundColor = cardBg;
+        card.style.borderColor = cardBorder;
+
+        card.innerHTML = `
+          <!-- Gambar Produk Rasio 1:1 Squircle Chamber -->
+          <div class="relative w-full aspect-square rounded-[18px] overflow-hidden bg-slate-950/70 border border-white/10 mb-2">
+            <img 
+              src="${escapeHtml(imgUrl)}" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400'"
+              alt="${escapeHtml(item.Item_Name)}"
+            >
+
+            <!-- Lencana Promo Badge (Kiri Atas) -->
+            ${item.Badge_Tag ? `
+              <span class="absolute top-2 left-2 px-2 py-0.5 bg-rose-600/90 border border-rose-400/50 text-white text-[8px] sm:text-[9px] font-black uppercase tracking-wider rounded-lg shadow-md backdrop-blur-md">
+                ${escapeHtml(item.Badge_Tag)}
+              </span>
+            ` : ''}
+
+            <!-- Lencana Platform Resmi (Kanan Atas) -->
+            <span class="absolute top-2 right-2 px-2 py-0.5 rounded-lg border text-[8px] font-extrabold uppercase tracking-wider backdrop-blur-md shadow-sm ${platBadgeStyle}">
+              <i class="${platIcon} mr-0.5 text-[8px]"></i> ${platBadge}
+            </span>
+          </div>
+
+          <!-- Detail Nama & Blok Harga -->
+          <div class="flex flex-col flex-1 px-1 pb-1 text-left">
+            <span class="text-[8.5px] font-extrabold uppercase tracking-wider text-slate-400 mb-0.5">${escapeHtml(item.Category || 'Lainnya')}</span>
+            <h4 class="font-bold text-xs sm:text-[13px] leading-snug line-clamp-2 mb-1" style="color: ${cardTextColor};">
+              ${escapeHtml(item.Item_Name)}
+            </h4>
+            ${priceBlockHTML}
+          </div>
+
+          <!-- Tombol Aksi Pembelian Langsung (DEEP-LINKING TRIGGER) -->
+          <a 
+            href="${escapeHtml(item.Affiliate_URL)}" 
+            onclick="handleAffiliateClick(event, '${user.id || ''}', '${item.Item_ID}', '${item.Platform}', '${escapeHtml(item.Affiliate_URL)}')" 
+            class="btn-affiliate-buy w-full mt-2.5 py-2.5 rounded-xl font-extrabold text-[10.5px] sm:text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 border border-white/20 cursor-pointer shadow-md ${btnTheme}"
+          >
+            <span>${btnText}</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-80"></i>
+          </a>
+        `;
+
+        affiliateGridContainer.appendChild(card);
+      });
+    };
+
+    // Inisialisasi Awal Filter & Grid Produk
+    renderFilters('Semua');
+    renderGrid('Semua');
+  }
+}
+
+// 2. SMART DEEP-LINKING & AFFILIATE TRACKING ENGINE (APP INTENT TRIGGER)
+function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
+  e.preventDefault();
+
+  // 1. Catat Log Klik secara Senyap via Image Beacon
+  try {
+    const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
+    const trackingUrl = `${SCRIPT_URL}?action=log_affiliate_click&userId=${userId}&itemId=${itemId}&platform=${platform}&ip=127.0.0.1&device=${device}`;
+    new Image().src = trackingUrl;
+  } catch (err) {
+    console.error("Tracking Error:", err);
+  }
+
+  // 2. Deteksi Perangkat (Mobile vs Desktop)
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  // 3. Eksekusi Skema Deep-Linking Aplikasi Asli
+  if (isMobile) {
+    let appIntentUrl = originalUrl;
+
+    // Konversi protokol URL untuk membuka aplikasi native
+    if (platform === 'Shopee') {
+      appIntentUrl = originalUrl.replace(/^https?:\/\//i, 'shopeeid://');
+    } else if (platform === 'Tokopedia') {
+      appIntentUrl = originalUrl.replace(/^https?:\/\//i, 'tokopedia://');
+    } else if (platform === 'TikTok_Shop') {
+      appIntentUrl = originalUrl.replace(/^https?:\/\//i, 'snssdk1180://');
     }
+
+    window.location.href = appIntentUrl;
+
+    // Fallback: Jika aplikasi tidak terpasang di HP, buka melalui browser dalam 2 detik
+    setTimeout(() => {
+      window.location.href = originalUrl;
+    }, 2000);
+  } else {
+    // Jika dibuka melalui Desktop/Laptop, langsung buka tab baru
+    window.open(originalUrl, '_blank');
+  }
+}
     // -> DEEP CONTENT TRACKING ENGINE (IMAGE BEACON)
     function trackContentEvent(userId, contentId, eventType) {
       try {
@@ -1278,114 +1539,7 @@ function switchPublicTab(tab) {
     // ========================================================
       // RENDERING AFFILIATE MARKETING ENGINE (RACUN PRODUK)
       // ========================================================
-      const publicAffiliateSection = document.getElementById('publicAffiliateSection');
-      const affiliateCategoryFilter = document.getElementById('affiliateCategoryFilter');
-      const affiliateGridContainer = document.getElementById('affiliateGridContainer');
-      
-      if (publicAffiliateSection && affiliateCategoryFilter && affiliateGridContainer) {
-        let AFFILIATE_DATA = data.affiliateItems || [];
-        
-        if (AFFILIATE_DATA.length > 0) {
-          
-          // Render Kategori (Filter Pills)
-          const renderFilters = (activeCategory) => {
-            const categories = ['Semua', ...new Set(AFFILIATE_DATA.map(item => item.Category))];
-            affiliateCategoryFilter.innerHTML = '';
-            
-            categories.forEach(cat => {
-              const btn = document.createElement('button');
-              const isActive = cat === activeCategory;
-              
-              if (isActive) {
-                btn.className = "shrink-0 px-4 py-1.5 rounded-full text-[11px] font-black text-slate-900 bg-white shadow-md transition-all";
-              } else {
-                if(isDarkBg) btn.className = "shrink-0 px-4 py-1.5 rounded-full text-[11px] font-bold text-white/70 bg-white/10 border border-white/10 hover:bg-white/20 transition-all";
-                else btn.className = "shrink-0 px-4 py-1.5 rounded-full text-[11px] font-bold text-slate-600 bg-black/5 border border-black/5 hover:bg-black/10 transition-all";
-              }
-              
-              btn.textContent = cat;
-              btn.onclick = () => { renderGrid(cat); renderFilters(cat); };
-              affiliateCategoryFilter.appendChild(btn);
-            });
-          };
-
-          // Render Grid Kartu Produk E-Commerce
-          const renderGrid = (filterCategory) => {
-            affiliateGridContainer.innerHTML = '';
-            const filteredData = filterCategory === 'Semua' ? AFFILIATE_DATA : AFFILIATE_DATA.filter(i => i.Category === filterCategory);
-            
-          // GANTI BAGIAN filteredData.forEach DI DALAM renderPublicProfile() profile.html:
-          filteredData.forEach(item => {
-            const cardBg = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.65)';
-            const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.8)';
-            
-            let btnTheme = 'bg-blue-600 hover:bg-blue-500';
-            let btnText = 'Beli Sekarang';
-            if (item.Platform === 'Shopee') { btnTheme = 'bg-[#EE4D2D] hover:bg-[#d74226]'; btnText = 'Beli di Shopee'; }
-            if (item.Platform === 'Tokopedia') { btnTheme = 'bg-[#03AC0E] hover:bg-[#028b0b]'; btnText = 'Beli di Tokopedia'; }
-            if (item.Platform === 'TikTok_Shop') { btnTheme = 'bg-black hover:bg-slate-900 border border-white/20'; btnText = 'Beli di TikTok'; }
-            if (item.Platform === 'Lazada') { btnTheme = 'bg-[#0F146D] hover:bg-[#0a0d4a]'; btnText = 'Beli di Lazada'; }
-            if (item.Platform === 'Amazon') { btnTheme = 'bg-[#FF9900] text-black hover:bg-[#e68a00]'; btnText = 'Buy on Amazon'; }
-
-            const defaultThumb = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400';
-            const imgUrl = item.Image_URL || defaultThumb;
-
-            // --- KALKULASI HARGA & PERSENTASE DISKON ALA SHOPEE ---
-            const orig = Number(item.Original_Price || 0);
-            const promo = Number(item.Promo_Price || 0);
-            
-            let priceBlockHTML = '';
-            if (orig > 0 && promo > 0 && orig > promo) {
-              const discountPercent = Math.round(((orig - promo) / orig) * 100);
-              priceBlockHTML = `
-                <div class="flex items-center gap-1.5 flex-wrap mt-auto pt-1">
-                  <span class="text-emerald-400 font-black text-[13px] tracking-tight">${formatRupiahProfile(promo)}</span>
-                  <span class="text-slate-300/80 font-semibold text-[9.5px] line-through">${formatRupiahProfile(orig)}</span>
-                  <span class="px-1 py-0.5 bg-red-500/20 text-red-400 font-black text-[8px] rounded border border-red-500/30">-${discountPercent}%</span>
-                </div>
-              `;
-            } else if (promo > 0) {
-              priceBlockHTML = `<span class="text-emerald-400 font-black text-[13px] tracking-tight mt-auto pt-1">${formatRupiahProfile(promo)}</span>`;
-            } else {
-              priceBlockHTML = `<span class="text-emerald-400 font-black text-[13px] tracking-tight mt-auto pt-1">Cek Harga</span>`;
-            }
-
-            const card = document.createElement('div');
-            card.className = "w-full p-2 rounded-[24px] border backdrop-blur-xl shadow-lg flex flex-col relative overflow-hidden transition-transform hover:scale-[1.02]";
-            card.style.backgroundColor = cardBg;
-            card.style.borderColor = cardBorder;
-
-            card.innerHTML = `
-              <!-- Gambar Kotak 1:1 -->
-              <div class="relative w-full aspect-square rounded-[18px] overflow-hidden bg-white shadow-inner mb-2 border border-black/5">
-                <img src="${imgUrl}" class="w-full h-full object-cover">
-                ${item.Badge_Tag ? `<span class="absolute top-2 left-2 px-2 py-1 bg-red-600 text-white text-[9px] font-black uppercase tracking-widest rounded-lg shadow-md border border-red-400/50">${escapeHtml(item.Badge_Tag)}</span>` : ''}
-              </div>
-
-              <!-- Info Nama & Blok Harga Ala Shopee -->
-              <div class="flex flex-col flex-1 px-1 pb-1 text-left">
-                <h4 class="font-bold text-[12px] leading-snug line-clamp-2 mb-1" style="color: ${cardTextColor};">${escapeHtml(item.Item_Name)}</h4>
-                ${priceBlockHTML}
-              </div>
-
-              <!-- Action Button (DEEP LINK TRIGGER) -->
-              <a href="${item.Affiliate_URL}" onclick="handleAffiliateClick(event, '${user.id}', '${item.Item_ID}', '${item.Platform}', '${item.Affiliate_URL}')" class="w-full mt-2.5 py-2.5 rounded-xl text-white font-extrabold text-[11px] flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all uppercase tracking-wide ${btnTheme}">
-                ${btnText} <i class="fa-solid fa-chevron-right text-[9px]"></i>
-              </a>
-            `;
-            
-            affiliateGridContainer.appendChild(card);
-          });  
-          };
-
-          // Inisialisasi awal
-          renderFilters('Semua');
-          renderGrid('Semua');
-        }
-      }
-      // ========================================================
-      // ========================================================
-      // RENDERING CREATOR HUB (SPOTLIGHT MEDIA PLAYER)
+     // RENDERING CREATOR HUB (SPOTLIGHT MEDIA PLAYER)
       // ========================================================
       const publicContentSection = document.getElementById('publicContentSection');
 
