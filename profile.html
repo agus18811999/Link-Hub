@@ -407,69 +407,95 @@
 </div>
     
 <!-- ========================================================================= -->
-<!-- PUBLIC PROFILE: RATE CARD & MEDIA KIT (SPONSORSHIP PORTAL - ULTRA LUXE)   -->
 <!-- ========================================================================= -->
-
-<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC RATE CARD SECTION -->
+<!-- ULTRA-LUXURY FROSTED CRYSTAL RATE CARD STYLING (REVISI HIGH-END)          -->
+<!-- ========================================================================= -->
 <style>
-  /* Master Rate Card Glass Container */
+  /* Master Glassmorphism Card Chamber */
   .public-rate-card {
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
     box-shadow: 
-      0 25px 60px -12px rgba(0, 0, 0, 0.5),
+      0 25px 60px -12px rgba(0, 0, 0, 0.6),
       0 0 35px -5px rgba(168, 85, 247, 0.15),
-      inset 0 1px 1px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 1px 0 rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
   .public-rate-card:hover {
-    transform: translateY(-2.5px) scale(1.01);
-    border-color: rgba(168, 85, 247, 0.45);
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(192, 132, 252, 0.4);
+    border-top-color: rgba(255, 255, 255, 0.6);
     box-shadow: 
-      0 30px 70px -10px rgba(0, 0, 0, 0.6),
-      0 0 45px -5px rgba(168, 85, 247, 0.3),
-      inset 0 1px 2px rgba(255, 255, 255, 0.45);
+      0 30px 70px -10px rgba(0, 0, 0, 0.7),
+      0 0 50px -5px rgba(168, 85, 247, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 
-  /* Metric KPI Mini Chamber */
+  /* Metric KPI Mini Chamber (Frosted Inset) */
   .ratecard-kpi-chamber {
-    background: rgba(15, 23, 42, 0.65);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(10, 15, 30, 0.75) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      inset 0 2px 6px rgba(0, 0, 0, 0.5),
+      0 6px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px);
   }
 
-  /* Dual-Tone Gender Ratio Bar Track */
+  /* Dual-Tone Gender Ratio Neon Track */
   .ratecard-gender-track {
     background: rgba(59, 130, 246, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 
-  /* WhatsApp Collaboration Action CTA */
+  /* High-Converting WhatsApp Collaboration Action CTA */
   .btn-ratecard-collab {
-    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 40%, #ec4899 75%, #f43f5e 100%);
-    box-shadow: 0 8px 25px -5px rgba(168, 85, 247, 0.45);
+    background: linear-gradient(135deg, #7c3aed 0%, #9333ea 35%, #c026d3 70%, #e11d48 100%);
+    background-size: 220% 220%;
+    animation: ratecardBtnSheen 5s ease infinite;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 12px 30px -5px rgba(147, 51, 234, 0.55),
+      inset 0 1px 1px rgba(255, 255, 255, 0.45);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
   .btn-ratecard-collab::before {
     content: '';
     position: absolute;
     top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    transition: all 0.6s ease;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.65s ease;
   }
+
   .btn-ratecard-collab:hover::before {
     left: 100%;
   }
+
   .btn-ratecard-collab:hover {
-    transform: translateY(-1.5px);
-    box-shadow: 0 12px 30px -5px rgba(236, 72, 153, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 
+      0 18px 45px -5px rgba(217, 70, 239, 0.7),
+      inset 0 1px 2px rgba(255, 255, 255, 0.6);
   }
+
   .btn-ratecard-collab:active {
     transform: translateY(1px) scale(0.98);
+  }
+
+  @keyframes ratecardBtnSheen {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 </style>
 
@@ -2678,9 +2704,9 @@ function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
     // DEFINISI FUNGSI RENDER RATE CARD
     // -> RENDER RATE CARD PUBLIK (ULTRA PREMIUM REDESIGN WITH AUTO-CHECKLIST)
    // =========================================================================
-// JAVASCRIPT PUBLIC RATE CARD & SPONSORSHIP ENGINE (EXECUTIVE REDESIGN)
 // =========================================================================
-
+// JAVASCRIPT PUBLIC RATE CARD & SPONSORSHIP ENGINE (ULTRA-LUXURY REVISION)
+// =========================================================================
 function renderPublicRateCard(data) {
   const rateContainer = document.getElementById('publicRateCardSection');
   if (!rateContainer) return;
@@ -2692,12 +2718,22 @@ function renderPublicRateCard(data) {
   const settings = data.pageSettings || {};
 
   const isDark = typeof isColorDark === 'function' ? isColorDark(settings.Bg_Color) : true;
-  const cardBg = isDark ? 'rgba(15, 23, 42, 0.78)' : 'rgba(255, 255, 255, 0.88)';
-  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.9)';
   const cardTextColor = isDark ? '#ffffff' : '#0f172a';
-  const cardDescColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)';
+  const cardDescColor = isDark ? 'rgba(255, 255, 255, 0.72)' : 'rgba(15, 23, 42, 0.72)';
 
-  // Helper Pembersih & Pemformat Persentase (0.6 -> 60%)
+  // 1. Helper Pemformat Angka Ribuan/Jutaan (Contoh: 8000000 -> 8.000.000)
+  const formatFollowers = (val) => {
+    if (!val && val !== 0) return '0';
+    const str = String(val).trim();
+    // Ekstrak angka saja
+    const digitsOnly = str.replace(/[^\d]/g, '');
+    if (digitsOnly.length > 0) {
+      return Number(digitsOnly).toLocaleString('id-ID');
+    }
+    return str;
+  };
+
+  // 2. Helper Pembersih & Pemformat Persentase (0.6 -> 60%)
   const cleanPercent = (val, fallback) => {
     if (!val) return fallback;
     let str = String(val).trim();
@@ -2720,112 +2756,120 @@ function renderPublicRateCard(data) {
   }
 
   // =========================================================================
-  // 1. KARTU DEMOGRAFI & STATISTIK AUDIENS (MEDIA KIT SHOWCASE)
+  // A. KARTU DEMOGRAFI & STATISTIK AUDIENS (CRYSTAL CHAMBER)
   // =========================================================================
   const statsBox = document.createElement('div');
   statsBox.className = "public-rate-card w-full p-5 sm:p-6 rounded-[32px] space-y-5 relative overflow-hidden";
-  statsBox.style.backgroundColor = cardBg;
-  statsBox.style.borderColor = cardBorder;
 
   statsBox.innerHTML = `
+    <!-- Top Ambient Specular Light Ray -->
+    <div class="absolute top-0 inset-x-8 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent pointer-events-none"></div>
+    <div class="absolute -top-12 -right-12 w-36 h-36 bg-purple-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
     <!-- Header Demografi -->
-    <div class="flex items-center justify-between pb-3.5 border-b border-white/10">
+    <div class="flex items-center justify-between pb-3.5 border-b border-white/10 relative z-10">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-300 flex items-center justify-center text-base shadow-sm">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/10 border border-purple-400/30 text-purple-300 flex items-center justify-center text-lg shadow-[0_0_15px_rgba(168,85,247,0.25)]">
           <i class="fa-solid fa-chart-pie"></i>
         </div>
         <div class="text-left">
-          <h4 class="font-black text-sm sm:text-base tracking-tight leading-none" style="color: ${cardTextColor};">Demografi & Wawasan Audiens</h4>
-          <p class="text-[11px] text-purple-300/80 font-bold mt-1">Laporan Resmi Jangkauan Media Sosial</p>
+          <h4 class="font-black text-sm sm:text-base tracking-tight leading-snug" style="color: ${cardTextColor};">
+            Demografi & Wawasan Audiens
+          </h4>
+          <p class="text-[11px] text-purple-300/80 font-bold mt-0.5">Laporan Resmi Jangkauan Media Sosial</p>
         </div>
       </div>
 
-      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-300 font-extrabold text-[9.5px] uppercase tracking-wider shrink-0">
-        ${escapeHtml(stats.Platform || 'All Platforms')}
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-200 font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wider shrink-0 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+        ${escapeHtml(stats.Platform || 'Instagram & TikTok')}
       </span>
     </div>
 
-    <!-- Grid 2 Metrik KPI Utama (Followers & Engagement Rate) -->
-    <div class="grid grid-cols-2 gap-3 text-center">
-      <div class="ratecard-kpi-chamber p-3.5 rounded-2xl">
-        <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">Total Pengikut</p>
-        <p class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-300 mt-1">
-          ${escapeHtml(stats.Followers || '0')}
+    <!-- Grid 2 Metrik KPI Utama (Followers & Engagement Rate Berformat) -->
+    <div class="grid grid-cols-2 gap-3.5 text-center relative z-10">
+      
+      <!-- Box Total Pengikut -->
+      <div class="ratecard-kpi-chamber p-4 rounded-2xl flex flex-col justify-center">
+        <p class="text-[9.5px] font-black uppercase tracking-widest text-slate-400">Total Pengikut</p>
+        <p class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-violet-200 to-purple-400 mt-1 tracking-tight drop-shadow-[0_2px_10px_rgba(168,85,247,0.3)]">
+          ${formatFollowers(stats.Followers)}
         </p>
       </div>
-      <div class="ratecard-kpi-chamber p-3.5 rounded-2xl">
-        <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">Engagement Rate</p>
-        <p class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-300 mt-1">
+
+      <!-- Box Engagement Rate -->
+      <div class="ratecard-kpi-chamber p-4 rounded-2xl flex flex-col justify-center">
+        <p class="text-[9.5px] font-black uppercase tracking-widest text-slate-400">Engagement Rate</p>
+        <p class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-pink-200 to-rose-400 mt-1 tracking-tight drop-shadow-[0_2px_10px_rgba(244,63,94,0.3)]">
           ${escapeHtml(erText)}
         </p>
       </div>
+
     </div>
 
     <!-- Dual-Tone Gender Ratio Visual Bar -->
-    <div class="space-y-2 pt-1">
+    <div class="space-y-2 pt-1 relative z-10">
       <div class="flex justify-between text-xs font-bold">
-        <span class="text-pink-400 flex items-center gap-1.5"><i class="fa-solid fa-venus"></i> Wanita ${femalePercent}</span>
-        <span class="text-blue-400 flex items-center gap-1.5">Pria ${malePercent} <i class="fa-solid fa-mars"></i></span>
+        <span class="text-pink-400 flex items-center gap-1.5 drop-shadow"><i class="fa-solid fa-venus"></i> Wanita ${femalePercent}</span>
+        <span class="text-blue-400 flex items-center gap-1.5 drop-shadow">Pria ${malePercent} <i class="fa-solid fa-mars"></i></span>
       </div>
       <div class="ratecard-gender-track w-full h-3 rounded-full overflow-hidden flex p-0.5">
-        <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transition-all duration-700 shadow-md" style="width: ${femalePercent}"></div>
+        <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transition-all duration-700 shadow-[0_0_12px_rgba(236,72,153,0.65)]" style="width: ${femalePercent}"></div>
       </div>
     </div>
 
     <!-- Rincian Kelompok Usia & Lokasi Geografis -->
-    <div class="flex items-center justify-between text-xs font-bold pt-3.5 border-t border-white/10 gap-2 flex-wrap text-left">
-      <span class="flex items-center gap-1.5" style="color: ${cardTextColor};">
+    <div class="flex items-center justify-between text-xs font-bold pt-3.5 border-t border-white/10 gap-2 flex-wrap text-left relative z-10">
+      <span class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10" style="color: ${cardTextColor};">
         <i class="fa-solid fa-users text-xs text-violet-400"></i>
-        <span>Usia: <strong class="text-violet-400">${escapeHtml(stats.Top_Age_Group || '18 - 24 Tahun')}</strong></span>
+        <span>Usia: <strong class="text-violet-300 font-extrabold">${escapeHtml(stats.Top_Age_Group || '18 - 24')}</strong></span>
       </span>
-      <span class="flex items-center gap-1.5" style="color: ${cardTextColor};">
+      <span class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10" style="color: ${cardTextColor};">
         <i class="fa-solid fa-location-dot text-xs text-rose-400"></i>
-        <span>Domisili: <strong class="text-rose-400">${escapeHtml(stats.Top_Location || 'Indonesia')}</strong></span>
+        <span>Domisili: <strong class="text-rose-300 font-extrabold">${escapeHtml(stats.Top_Location || 'Indonesia')}</strong></span>
       </span>
     </div>
   `;
   rateContainer.appendChild(statsBox);
 
   // =========================================================================
-  // 2. HEADER PEMBAGI PAKET KOLABORASI
+  // B. HEADER PEMBAGI PAKET KOLABORASI
   // =========================================================================
   if (packages.length > 0) {
     const divider = document.createElement('div');
     divider.className = "flex items-center justify-center gap-3 my-2 w-full px-2";
     divider.innerHTML = `
-      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm">
+      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-purple-400/30 to-transparent"></div>
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-200 text-[10px] font-black uppercase tracking-[0.25em] shadow-[0_0_20px_rgba(168,85,247,0.15)] backdrop-blur-md">
         <i class="fa-solid fa-handshake text-xs text-amber-300"></i> Paket Kolaborasi & Sponsorship
       </span>
-      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-purple-400/30 to-transparent"></div>
     `;
     rateContainer.appendChild(divider);
 
     // =========================================================================
-    // 3. KARTU PAKET TIER PRICING DENGAN DELIVERABLES CHECKLIST
+    // C. KARTU PAKET TIER PRICING DENGAN DELIVERABLES CHECKLIST
     // =========================================================================
     packages.forEach(pkg => {
       const card = document.createElement('div');
       card.className = "public-rate-card w-full p-5 sm:p-6 rounded-[32px] flex flex-col text-left relative overflow-hidden group";
-      card.style.backgroundColor = cardBg;
-      card.style.borderColor = cardBorder;
 
-      // WhatsApp Message Generator
+      // WhatsApp Direct Link
       const waNumber = settings.Social_WhatsApp || '628123456789';
       const waMessage = encodeURIComponent(`Halo Kak ${user.name || ''}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon informasi ketersediaan jadwal slot dan brief selanjutnya. Terima kasih!`);
       const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
 
-      // Parsing Rincian Deliverables menjadi Checklist
+      // Parsing Rincian Deliverables menjadi Checklist Ikon Kaca
       const rawDeliverables = pkg.Deliverables || '';
       const items = rawDeliverables.split(/(?:✔|\n|,)/).map(s => s.trim()).filter(s => s.length > 0);
       
       let deliverablesHTML = '';
       if (items.length > 0) {
-        deliverablesHTML = `<ul class="space-y-2 mt-4 mb-5">`;
+        deliverablesHTML = `<ul class="space-y-2.5 mt-4 mb-5">`;
         items.forEach(item => {
           deliverablesHTML += `
-            <li class="flex items-start gap-2.5 text-xs font-semibold leading-relaxed" style="color: ${cardDescColor};">
-              <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-[9px] shrink-0 mt-0.5 shadow-sm">
+            <li class="flex items-start gap-3 text-xs font-bold leading-relaxed" style="color: ${cardDescColor};">
+              <span class="w-5 h-5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-400/35 flex items-center justify-center text-[10px] shrink-0 mt-0.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
                 <i class="fa-solid fa-check"></i>
               </span>
               <span>${escapeHtml(item)}</span>
@@ -2838,19 +2882,22 @@ function renderPublicRateCard(data) {
       }
 
       card.innerHTML = `
+        <!-- Top Ambient Highlight -->
+        <div class="absolute top-0 inset-x-8 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent pointer-events-none"></div>
+
         <!-- Baris Atas: Judul Paket & Badge Harga Hijau Emerald Glow -->
         <div class="flex justify-between items-start gap-3 pb-3.5 border-b border-white/10">
           <div>
             <h4 class="font-black text-base sm:text-lg tracking-tight leading-snug" style="color: ${cardTextColor};">
               ${escapeHtml(pkg.Package_Name)}
             </h4>
-            <div class="flex items-center gap-1.5 text-[11px] font-extrabold text-purple-300 mt-1">
-              <i class="fa-solid fa-bolt text-amber-300 text-xs"></i>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10.5px] font-extrabold text-amber-300 mt-2">
+              <i class="fa-solid fa-bolt text-xs"></i>
               <span>Est. Reach: <strong class="text-white">${escapeHtml(pkg.Est_Reach || 'N/A')}</strong></span>
             </div>
           </div>
 
-          <div class="px-3.5 py-1.5 bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 font-black text-xs sm:text-sm rounded-2xl shadow-inner shrink-0">
+          <div class="px-4 py-2 bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 font-black text-xs sm:text-sm rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)] backdrop-blur-md shrink-0">
             ${formatRupiahProfile(pkg.Package_Price)}
           </div>
         </div>
@@ -2863,9 +2910,9 @@ function renderPublicRateCard(data) {
           href="${waLink}" 
           target="_blank" 
           onclick="recordClick('${user.id || ''}', '${pkg.Package_ID}')" 
-          class="btn-ratecard-collab w-full py-3.5 rounded-2xl text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 border border-white/20 cursor-pointer shadow-lg mt-auto"
+          class="btn-ratecard-collab w-full py-4 rounded-2xl text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer mt-auto"
         >
-          <i class="fa-solid fa-handshake text-sm"></i>
+          <i class="fa-solid fa-handshake text-base"></i>
           <span>Ajukan Kerja Sama via WhatsApp</span>
         </a>
       `;
@@ -2874,7 +2921,7 @@ function renderPublicRateCard(data) {
     });
   }
 }
-    function isColorDark(colorVal) {
+   function isColorDark(colorVal) {
       if (!colorVal) return false;
       let hex = colorVal;
       if (colorVal.includes('linear-gradient')) {
