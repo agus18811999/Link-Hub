@@ -1808,6 +1808,8 @@ function formatRupiahProfile(angka) {
       mainContainer.style.background = settings.Bg_Color;
 
       const isDarkBg = isColorDark(settings.Bg_Color);
+      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+  const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)';
       
       const titleColor = settings.Title_Color || (isDarkBg ? '#ffffff' : '#0f172a');
       const bioColor = settings.Bio_Color || (isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)');
