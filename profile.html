@@ -42,103 +42,626 @@
   <div class="w-full max-w-[480px] flex-1 flex flex-col items-center text-center">
     
     <!-- 1. Avatar dengan Drop Shadow Premium -->
-    <div class="relative">
-      <div class="absolute inset-0 rounded-full bg-black/10 blur-md transform translate-y-1"></div>
-      <img id="profileAvatar" src="https://ui-avatars.com/api/?name=User&background=random" class="relative w-24 h-24 rounded-full object-cover border-2 border-white/80 shadow-md">
+    <!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: LUXURY CREATOR AVATAR CHAMBER (ULTRA-HIGH-END REVISION)   -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY AVATAR STYLING & ANIMATIONS -->
+<style>
+  /* 1. Ambient Breathing Plasma Halo */
+  .avatar-luminous-halo {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 30%, #8b5cf6 70%, #ec4899 100%);
+    filter: blur(18px);
+    opacity: 0.65;
+    animation: avatarHaloPulse 5s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes avatarHaloPulse {
+    0% { transform: scale(0.95) rotate(0deg); opacity: 0.5; }
+    50% { transform: scale(1.05) rotate(180deg); opacity: 0.85; }
+    100% { transform: scale(0.95) rotate(360deg); opacity: 0.5; }
+  }
+
+  /* 2. Concentric Chromatic Gradient Ring */
+  .avatar-chromatic-ring {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 35%, #a855f7 70%, #ec4899 100%);
+    background-size: 200% 200%;
+    animation: avatarChromaticSheen 6s linear infinite;
+    padding: 2.5px;
+    box-shadow: 
+      0 15px 35px -5px rgba(0, 0, 0, 0.45),
+      0 0 25px rgba(56, 189, 248, 0.25),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes avatarChromaticSheen {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .avatar-master-wrapper:hover .avatar-chromatic-ring {
+    transform: scale(1.03);
+    box-shadow: 
+      0 20px 45px -5px rgba(56, 189, 248, 0.45),
+      0 0 35px rgba(168, 85, 247, 0.4),
+      inset 0 1px 3px rgba(255, 255, 255, 0.7);
+  }
+
+  /* 3. Floating Verified Seal Badge */
+  .avatar-verified-seal {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+    border: 2.5px solid #0f172a;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.6);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .avatar-master-wrapper:hover .avatar-verified-seal {
+    transform: scale(1.15) rotate(6deg);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.8);
+  }
+</style>
+
+<!-- AVATAR STRUCTURE WRAPPER -->
+<div class="relative avatar-master-wrapper shrink-0 group select-none cursor-pointer">
+  
+  <!-- Layer 1: Ambient Plasma Glow Halo -->
+  <div class="avatar-luminous-halo"></div>
+
+  <!-- Layer 2: Chromatic Gradient Rim Frame -->
+  <div class="relative avatar-chromatic-ring rounded-full">
+    
+    <!-- Layer 3: Frosted Glass Spacer Buffer -->
+    <div class="p-1 rounded-full bg-slate-950/80 backdrop-blur-xl border border-white/20 shadow-inner">
+      
+      <!-- Layer 4: High-Res Profile Avatar (ID TETAP TERJAGA) -->
+      <img 
+        id="profileAvatar" 
+        src="https://ui-avatars.com/api/?name=User&background=random" 
+        class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover bg-slate-900 border border-black/20 block transition-transform duration-300 group-hover:scale-[1.01]"
+        alt="Profile Avatar"
+      >
     </div>
+
+  </div>
+
+  <!-- Layer 5: Floating Verified Creator Seal Badge -->
+  <div class="absolute -bottom-0.5 -right-0.5 sm:bottom-0 sm:right-0 avatar-verified-seal w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white z-20 shadow-lg" title="Akun Resmi Terverifikasi">
+    <i class="fa-solid fa-check text-[11px] sm:text-xs font-black drop-shadow-md"></i>
+  </div>
+
+</div>
     
     <!-- 2. Title & Bio -->
     <h1 id="profileTitle" class="mt-5 text-3xl font-black tracking-tight leading-tight">Nama Pengguna</h1>
     <p id="profileBio" class="mt-3 text-[15.5px] font-bold max-w-md opacity-85 leading-relaxed">Mendeskripsikan profil singkat di sini...</p>
     
-    <!-- 3. iOS GLASS SEGMENTED CONTROL TAB SWITCHER -->
-    <!-- iOS GLASS SEGMENTED CONTROL (3 TABS - ULTRA PREMIUM REDESIGN) -->
- <!-- iOS GLASS SEGMENTED CONTROL (4 TABS - REDESIGNED) -->
-   <!-- iOS GLASS SCROLLABLE TAB SWITCHER (5 TABS - PREMIUM REDESIGN) -->
-   <!-- iOS GLASS SCROLLABLE TAB SWITCHER (6 TABS - PREMIUM REDESIGN) -->
-    <div class="w-full mt-7 relative z-30 max-w-[480px] mx-auto">
-      <div class="flex items-center gap-2 p-1.5 bg-black/20 border border-white/15 rounded-2xl backdrop-blur-2xl overflow-x-auto overflow-y-hidden snap-x snap-mandatory hide-scrollbar shadow-2xl" id="publicTabSwitcher" style="scrollbar-width: none; -ms-overflow-style: none;">
-        
-        <button onclick="switchPublicTab('links')" id="pubTabLinks" class="shrink-0 px-5 py-2.5 rounded-xl text-xs font-black text-slate-900 bg-white shadow-[0_4px_20px_rgba(255,255,255,0.25)] transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
-          <i class="fa-solid fa-link text-xs"></i> Tautan
-        </button>
-        <button onclick="switchPublicTab('content')" id="pubTabContent" class="shrink-0 px-5 py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
-          <i class="fa-solid fa-play text-xs"></i> Konten
-        </button>
-        <button onclick="switchPublicTab('affiliate')" id="pubTabAffiliate" class="shrink-0 px-5 py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
-          <i class="fa-solid fa-shirt text-xs"></i> Racun Produk
-        </button>
-        <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="shrink-0 px-5 py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
-          <i class="fa-solid fa-id-card-clip text-xs"></i> Rate Card
-        </button>
-        <button onclick="switchPublicTab('community')" id="pubTabCommunity" class="shrink-0 px-5 py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
-          <i class="fa-solid fa-users-line text-xs"></i> Komunitas VIP
-        </button>
-        
-        <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="shrink-0 px-5 py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center">
-          <i class="fa-solid fa-user-secret text-xs"></i> Pesan
-        </button>
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: LUXURY 6-TAB LIQUID CRYSTAL SWITCHER (ULTRA LUXURY)       -->
+<!-- ========================================================================= -->
 
+<!-- CUSTOM LUXURY TAB SWITCHER STYLING & ANIMATIONS -->
+<style>
+  /* Liquid Glass Master Track */
+  .public-tab-track {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(10, 15, 30, 0.88) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.5),
+      0 0 35px -5px rgba(56, 189, 248, 0.18),
+      inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+  }
+
+  /* Hide Scrollbars Cleanly */
+  .public-tab-track::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
+  .public-tab-track {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Base Tab Button */
+  .pub-tab-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    cursor: pointer;
+  }
+  .pub-tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .pub-tab-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* Active Tab State (Luminous Crystal Elevation) */
+  .pub-tab-btn.active {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    border-color: rgba(255, 255, 255, 0.95) !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    box-shadow: 
+      0 6px 25px -4px rgba(255, 255, 255, 0.45),
+      0 0 20px rgba(56, 189, 248, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    transform: scale(1.02);
+  }
+  .pub-tab-btn.active i {
+    color: #0f172a !important;
+  }
+</style>
+
+<!-- TAB SWITCHER STRUCTURE CONTAINER -->
+<div class="w-full mt-7 relative z-30 max-w-[480px] mx-auto">
+  <div class="public-tab-track flex items-center gap-1.5 p-1.5 rounded-2xl overflow-x-auto overflow-y-hidden snap-x snap-mandatory" id="publicTabSwitcher">
+    
+    <!-- 1. Tab Tautan -->
+    <button onclick="switchPublicTab('links')" id="pubTabLinks" class="pub-tab-btn active shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-link text-cyan-400 text-xs transition-colors"></i> 
+      <span>Tautan</span>
+    </button>
+    
+    <!-- 2. Tab Konten -->
+    <button onclick="switchPublicTab('content')" id="pubTabContent" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-play text-rose-400 text-xs transition-colors"></i> 
+      <span>Konten</span>
+    </button>
+    
+    <!-- 3. Tab Racun Produk -->
+    <button onclick="switchPublicTab('affiliate')" id="pubTabAffiliate" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-shirt text-orange-400 text-xs transition-colors"></i> 
+      <span>Racun</span>
+    </button>
+    
+    <!-- 4. Tab Rate Card -->
+    <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-id-card-clip text-purple-400 text-xs transition-colors"></i> 
+      <span>Rate Card</span>
+    </button>
+
+    <!-- 5. Tab Komunitas VIP -->
+    <button onclick="switchPublicTab('community')" id="pubTabCommunity" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-users-line text-teal-300 text-xs transition-colors"></i> 
+      <span>Komunitas</span>
+    </button>
+    
+    <!-- 6. Tab Pesan NGL -->
+    <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-user-secret text-pink-400 text-xs transition-colors"></i> 
+      <span>Pesan</span>
+    </button>
+
+  </div>
+</div>
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: MAIN CONTENT SUITE (LINKS, SEARCH, PRODUCTS & SOCIAL BAR) -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC MAIN CONTENT -->
+<style>
+  /* Spotlight Search Master Chamber */
+  .public-search-chamber {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 15px 35px -5px rgba(0, 0, 0, 0.35),
+      inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-search-chamber:focus-within {
+    border-color: #38bdf8;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(56, 189, 248, 0.08) 100%);
+    box-shadow: 
+      0 0 0 4px rgba(56, 189, 248, 0.2),
+      0 20px 45px -10px rgba(56, 189, 248, 0.25),
+      inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    transform: translateY(-1.5px);
+  }
+
+  /* Public Link Glass Card */
+  .public-link-card {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 15px 35px -5px rgba(0, 0, 0, 0.3),
+      inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-link-card:hover {
+    transform: translateY(-2.5px) scale(1.015);
+    border-color: rgba(56, 189, 248, 0.45);
+    box-shadow: 
+      0 25px 50px -10px rgba(56, 189, 248, 0.25),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  }
+  .public-link-card:active {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  /* Product Store Glass Card */
+  .public-store-card {
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    box-shadow: 
+      0 20px 45px -10px rgba(0, 0, 0, 0.4),
+      0 0 30px -10px rgba(16, 185, 129, 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-store-card:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 
+      0 25px 60px -10px rgba(16, 185, 129, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  }
+
+  /* WhatsApp Direct Purchase Action CTA */
+  .btn-public-wa {
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.45);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-public-wa:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 12px 30px -5px rgba(16, 185, 129, 0.6);
+  }
+  .btn-public-wa:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  /* Floating Liquid Social Capsule */
+  .public-social-capsule {
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.5),
+      0 0 35px -5px rgba(56, 189, 248, 0.25),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-social-capsule:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 25px 60px -10px rgba(0, 0, 0, 0.6),
+      0 0 45px -5px rgba(56, 189, 248, 0.4);
+  }
+</style>
+
+<!-- MAIN CONTENT WRAPPER -->
+<div id="publicMainContent" class="w-full flex flex-col items-center">
+  
+  <!-- 1. SPOTLIGHT SEARCH CHAMBER -->
+  <div class="w-full mt-7 relative" id="searchBoxContainer">
+    <div class="public-search-chamber relative flex items-center rounded-2xl overflow-hidden group">
+      <!-- Search Glass Icon -->
+      <div class="absolute left-4.5 w-6 h-6 flex items-center justify-center text-cyan-300 pointer-events-none" id="searchIcon">
+        <i class="fa-solid fa-magnifying-glass text-sm"></i>
       </div>
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- 4. AREA TAUTAN & PRODUK (DIBUNGKUS DENGAN BENAR DI DALAM DIV INI) -->
-    <!-- ================================================================= -->
-    <div id="publicMainContent" class="w-full flex flex-col items-center">
       
-      <!-- Search Bar Interaktif -->
-      <div class="w-full mt-7 relative" id="searchBoxContainer">
-        <input type="text" id="searchInput" oninput="filterLinks(this.value)" class="w-full bg-white/10 border border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm font-semibold placeholder-white/50 focus:outline-none focus:ring-1" placeholder="Cari link (misal: Youtube, Shop)...">
-        <div class="absolute left-4.5 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none" id="searchIcon">
-          <i class="fa-solid fa-magnifying-glass text-xs"></i>
-        </div>
-      </div>
+      <!-- Input Pencarian Tautan -->
+      <input 
+        type="text" 
+        id="searchInput" 
+        oninput="filterLinks(this.value)" 
+        class="w-full h-13 pl-13 pr-10 text-sm font-semibold text-white placeholder-white/50 bg-transparent focus:outline-none tracking-wide" 
+        placeholder="Cari tautan, portofolio, atau produk..."
+        autocomplete="off"
+      >
 
-      <!-- Container Button Links -->
-      <div id="linksContainer" class="w-full mt-7 flex flex-col gap-4">
-         <!-- Akan dirender via JS -->
-      </div>
+      <!-- Clear/Shortcut Pill Indicator -->
+      <span class="absolute right-4 px-2 py-0.5 rounded-md bg-white/10 border border-white/10 text-[9.5px] font-black uppercase tracking-wider text-slate-300 pointer-events-none hidden sm:inline-block">
+        Spotlight
+      </span>
+    </div>
+  </div>
 
-      <!-- Container Etalase Produk Digital -->
-      <div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="h-[1px] w-12 bg-white/20"></div>
-          <span class="text-[10px] font-black tracking-[0.2em] uppercase text-white/50"><i class="fa-solid fa-store mr-1"></i> Etalase Produk</span>
-          <div class="h-[1px] w-12 bg-white/20"></div>
-        </div>
-        <div id="productsContainer" class="w-full flex flex-col gap-5">
-          <!-- Produk akan dirender di sini via JS -->
-        </div>
-      </div>
+  <!-- 2. CONTAINER DAFTAR TAUTAN PUBLIK (GLASS CARDS) -->
+  <div id="linksContainer" class="w-full mt-6 flex flex-col gap-3.5">
+    <!-- Tautan dan Inline Banner akan dirender secara dinamis via JavaScript -->
+  </div>
 
-      <!-- Floating Social Bar (Mengikuti aliran halaman / auto-flow) -->
-   <div id="floatingSocialBar" class="w-full mt-10 mb-4 hidden justify-center items-center z-30 transition-all duration-500 ease-out transform translate-y-4 opacity-0">
-      <!-- inline-flex memaksa ukuran kapsul menciut pas mengikuti jumlah ikon di dalamnya -->
-      <div class="inline-flex items-center justify-center gap-6 px-7 py-3 rounded-full border shadow-xl backdrop-blur-xl mx-auto" id="socialBarGlass">
-        <!-- Ikon dirender via JS -->
-      </div>
+  <!-- 3. CONTAINER ETALASE PRODUK DIGITAL (SOCIAL COMMERCE) -->
+  <div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
+    <!-- Header Pembagi Etalase -->
+    <div class="flex items-center justify-center gap-3 mb-6 w-full px-2">
+      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm">
+        <i class="fa-solid fa-store text-xs"></i> Etalase Produk Digital
+      </span>
+      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
     </div>
-    </div> <!-- PENUTUP publicMainContent YANG BENAR -->
 
-    <!-- ================================================================= -->
-    <!-- 5. AREA RATE CARD PUBLIK (TAMPIL HANYA SAAT TAB RATE CARD AKTIF)  -->
-    <!-- ================================================================= -->
-    <div id="publicRateCardSection" class="w-full mt-7 hidden flex-col space-y-6">
-       <!-- Rate card dirender via JS di sini -->
+    <!-- Grid Produk Digital -->
+    <div id="productsContainer" class="w-full flex flex-col gap-4">
+      <!-- Produk akan dirender secara dinamis via JavaScript -->
     </div>
-    <!-- ================================================================= -->
-    <!-- AREA NGL Q&A PUBLIK (TAMPIL HANYA SAAT TAB PESAN AKTIF)           -->
-    <!-- ================================================================= -->
-    <div id="publicNglSection" class="w-full mt-7 hidden flex-col items-center shrink-0">
-       <!-- Kotak pesan akan dirender via JS -->
+  </div>
+
+  <!-- 4. FLOATING LIQUID SOCIAL ICONS BAR -->
+  <div id="floatingSocialBar" class="w-full mt-10 mb-4 hidden justify-center items-center z-30 transition-all duration-500 ease-out transform translate-y-4 opacity-0">
+    <div class="public-social-capsule inline-flex items-center justify-center gap-5 sm:gap-6 px-6 sm:px-8 py-3 rounded-full border border-white/20 mx-auto" id="socialBarGlass">
+      <!-- Ikon sosial media digenerate secara dinamis via JavaScript -->
     </div>
+  </div>
+
+</div>
+    
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: RATE CARD & MEDIA KIT (SPONSORSHIP PORTAL - ULTRA LUXE)   -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC RATE CARD SECTION -->
+<style>
+  /* Master Rate Card Glass Container */
+  .public-rate-card {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 25px 60px -12px rgba(0, 0, 0, 0.5),
+      0 0 35px -5px rgba(168, 85, 247, 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-rate-card:hover {
+    transform: translateY(-2.5px) scale(1.01);
+    border-color: rgba(168, 85, 247, 0.45);
+    box-shadow: 
+      0 30px 70px -10px rgba(0, 0, 0, 0.6),
+      0 0 45px -5px rgba(168, 85, 247, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  }
+
+  /* Metric KPI Mini Chamber */
+  .ratecard-kpi-chamber {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Dual-Tone Gender Ratio Bar Track */
+  .ratecard-gender-track {
+    background: rgba(59, 130, 246, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  /* WhatsApp Collaboration Action CTA */
+  .btn-ratecard-collab {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 40%, #ec4899 75%, #f43f5e 100%);
+    box-shadow: 0 8px 25px -5px rgba(168, 85, 247, 0.45);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-ratecard-collab::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-ratecard-collab:hover::before {
+    left: 100%;
+  }
+  .btn-ratecard-collab:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 12px 30px -5px rgba(236, 72, 153, 0.6);
+  }
+  .btn-ratecard-collab:active {
+    transform: translateY(1px) scale(0.98);
+  }
+</style>
+
+<!-- PUBLIC RATE CARD SECTION CONTAINER -->
+<div id="publicRateCardSection" class="w-full mt-7 hidden flex-col space-y-5 shrink-0">
+  <!-- Kartu Demografi & Paket Kolaborasi akan dirender secara dinamis oleh JavaScript -->
+</div>
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: ANONYMOUS Q&A & SECRET INBOX (NGL SUITE - ULTRA LUXURY)   -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC NGL SECTION -->
+<style>
+  /* Master NGL Public Card Glassmorphism */
+  .ngl-public-card {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 25px 60px -12px rgba(0, 0, 0, 0.5),
+      0 0 35px -5px rgba(244, 63, 94, 0.2),
+      inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ngl-public-card:hover {
+    transform: translateY(-2.5px) scale(1.01);
+    box-shadow: 
+      0 30px 70px -10px rgba(0, 0, 0, 0.6),
+      0 0 45px -5px rgba(244, 63, 94, 0.35),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Textarea Glass Chamber */
+  .ngl-textarea-glass {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ngl-textarea-glass:focus {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: #f43f5e;
+    box-shadow: 
+      0 0 0 4px rgba(244, 63, 94, 0.2),
+      0 10px 25px -5px rgba(244, 63, 94, 0.25),
+      inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Random Question Dice Button */
+  .btn-random-dice {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-random-dice:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(244, 63, 94, 0.25));
+    border-color: rgba(245, 158, 11, 0.5);
+    color: #ffffff;
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+  .btn-random-dice:active {
+    transform: scale(0.95);
+  }
+
+  /* Iridescent Send Message Button */
+  .btn-ngl-send {
+    background: linear-gradient(135deg, #f43f5e 0%, #ec4899 40%, #c026d3 75%, #7c3aed 100%);
+    background-size: 250% 250%;
+    animation: nglSendSheen 6s ease infinite;
+    box-shadow: 0 10px 30px -5px rgba(244, 63, 94, 0.45);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-ngl-send::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-ngl-send:hover::before {
+    left: 100%;
+  }
+  .btn-ngl-send:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px -5px rgba(236, 72, 153, 0.6);
+  }
+  .btn-ngl-send:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  @keyframes nglSendSheen {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>
+
+<!-- PUBLIC NGL CONTAINER -->
+<div id="publicNglSection" class="w-full mt-7 hidden flex-col items-center shrink-0">
+  <!-- Kotak Q&A pesan rahasia akan dirender secara dinamis oleh JavaScript -->
+</div>
     <!-- ================================================================= -->
-    <!-- AREA CREATOR HUB PUBLIK (TAMPIL HANYA SAAT TAB KONTEN AKTIF)      -->
-    <!-- ================================================================= -->
-    <div id="publicContentSection" class="w-full mt-7 hidden flex-col items-center shrink-0 space-y-6">
-       <!-- Spotlight Media Player dirender via JS di sini -->
-    </div>
+ <!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: SPOTLIGHT MEDIA PLAYER (CREATOR HUB - ULTRA LUXURY)       -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC CONTENT SECTION -->
+<style>
+  /* Master Media Glass Card */
+  .public-media-card {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+      0 25px 60px -12px rgba(0, 0, 0, 0.5),
+      0 0 35px -5px rgba(244, 63, 94, 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .public-media-card:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(244, 63, 94, 0.45);
+    box-shadow: 
+      0 30px 70px -10px rgba(0, 0, 0, 0.6),
+      0 0 45px -5px rgba(244, 63, 94, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  }
+
+  /* Cinematic Viewport Chamber */
+  .media-viewport-chamber {
+    box-shadow: 
+      inset 0 0 30px rgba(0, 0, 0, 0.8),
+      0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Liquid Glass Play Button Orb */
+  .btn-liquid-play {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      0 0 30px rgba(0, 0, 0, 0.6),
+      0 0 20px rgba(244, 63, 94, 0.4),
+      inset 0 1px 2px rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-liquid-play:hover {
+    transform: scale(1.15);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6) 0%, rgba(244, 63, 94, 0.35) 100%);
+    box-shadow: 
+      0 0 40px rgba(244, 63, 94, 0.7),
+      inset 0 1px 4px rgba(255, 255, 255, 0.9);
+  }
+  .btn-liquid-play:active {
+    transform: scale(0.95);
+  }
+
+  /* Outbound Platform Buttons */
+  .btn-media-outbound {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-media-outbound::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-media-outbound:hover::before {
+    left: 100%;
+  }
+  .btn-media-outbound:hover {
+    transform: translateY(-1.5px);
+    filter: brightness(1.1);
+  }
+  .btn-media-outbound:active {
+    transform: translateY(1px) scale(0.98);
+  }
+</style>
+
+<!-- PUBLIC CONTENT SECTION CONTAINER -->
+<div id="publicContentSection" class="w-full mt-7 hidden flex-col items-center shrink-0 space-y-5">
+  <!-- Kartu Media Spotlight akan dirender secara dinamis oleh JavaScript -->
+</div>
     <!-- ================================================================= -->
     <!-- AREA RACUN PRODUK AFILIASI (TAMPIL HANYA SAAT TAB RACUN AKTIF)    -->
     <!-- ================================================================= -->
@@ -316,170 +839,279 @@
     }
 // -> PENGENDALI ROTASI OTOMATIS BANNER HALAMAN PUBLIK (AUTO-SLIDE)
     let publicBannerInterval = null;
-      function renderPublicNglCard(data) {
-      const nglContainer = document.getElementById('publicNglSection');
-      if (!nglContainer) return;
-      
-      const ngl = data.nglSettings || { Is_Active: true, Prompt_Text: 'Tanyakan apa saja secara anonim! 🤫', Card_Theme: 'Neon_Purple' };
-      const user = data.user || {};
+   // =========================================================================
+// JAVASCRIPT ANONYMOUS Q&A & SECRET INBOX ENGINE (EXECUTIVE REDESIGN)
+// =========================================================================
 
-      if (!ngl.Is_Active) {
-        nglContainer.innerHTML = `
-          <div class="p-6 text-center border border-white/10 bg-black/20 rounded-[32px] backdrop-blur-md">
-            <i class="fa-solid fa-lock text-3xl text-white/30 mb-3"></i>
-            <h3 class="text-white font-bold text-sm">Kotak Pesan Ditutup</h3>
-            <p class="text-xs text-white/50 mt-1">${user.name} sedang tidak menerima pesan anonim saat ini.</p>
+// 1. DAFTAR IDE PERTANYAAN ACAK INTERAKTIF
+const RANDOM_QUESTIONS = [
+  "Apa rahasia terbesar yang belum pernah kamu ceritain ke siapapun? 🤫",
+  "Jujur, hal apa yang paling bikin kamu insecure akhir-akhir ini?",
+  "Spill 1 lagu yang lagi sering banget kamu ulang-ulang dong! 🎧",
+  "Kalau bisa ulang waktu ke 3 tahun lalu, apa yang mau kamu ubah?",
+  "Pernah naksir diam-diam sama teman sendiri nggak? 👀",
+  "Satu pencapaian yang paling bikin kamu bangga tahun ini apa?",
+  "Hal paling konyol yang pernah kamu lakuin pas lagi sendirian?",
+  "Pesan yang pengen banget kamu sampaikan ke seseorang tapi gengsi?"
+];
+
+// 2. FUNGSI ROLL DADU PERTANYAAN ACAK
+function rollRandomQuestion() {
+  const input = document.getElementById('nglMessageInput');
+  const countEl = document.getElementById('charCount');
+  if (!input) return;
+
+  const randomIndex = Math.floor(Math.random() * RANDOM_QUESTIONS.length);
+  const selectedQuestion = RANDOM_QUESTIONS[randomIndex];
+  
+  input.value = selectedQuestion;
+  if (countEl) {
+    countEl.textContent = `${input.value.length}/300`;
+  }
+  
+  // Efek getar halus saat mengacak
+  input.focus();
+}
+
+// 3. RENDER KOTAK Q&A ANONIM DI HALAMAN PUBLIK
+function renderPublicNglCard(data) {
+  const nglContainer = document.getElementById('publicNglSection');
+  if (!nglContainer) return;
+  nglContainer.innerHTML = '';
+
+  const ngl = data.nglSettings || { 
+    Is_Active: true, 
+    Prompt_Text: 'Tanyakan apa saja secara anonim! 🤫', 
+    Card_Theme: 'Neon_Purple' 
+  };
+  const user = data.user || {};
+
+  // Jika Kotak Pesan Dinonaktifkan oleh Pemilik Akun
+  if (ngl.Is_Active === false) {
+    nglContainer.innerHTML = `
+      <div class="public-rate-card w-full max-w-sm p-6 sm:p-8 text-center rounded-[32px] bg-slate-900/80 border border-white/10 backdrop-blur-xl">
+        <div class="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center text-rose-300 text-2xl mx-auto mb-3 shadow-inner">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <h4 class="text-white font-black text-base">Kotak Pesan Ditutup</h4>
+        <p class="text-xs text-slate-300 mt-1 font-medium leading-relaxed">
+          ${escapeHtml(user.name || 'Pengguna')} sedang tidak menerima pesan anonim saat ini.
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  // Konfigurasi Tema Gradasi Kaca
+  let themeStyle = "background: linear-gradient(145deg, rgba(168, 85, 247, 0.22) 0%, rgba(99, 102, 241, 0.15) 50%, rgba(15, 23, 42, 0.85) 100%); border-color: rgba(168, 85, 247, 0.4);";
+  if (ngl.Card_Theme === 'Sunset_Pink') {
+    themeStyle = "background: linear-gradient(145deg, rgba(244, 63, 94, 0.22) 0%, rgba(236, 72, 153, 0.15) 50%, rgba(15, 23, 42, 0.85) 100%); border-color: rgba(244, 63, 94, 0.4);";
+  } else if (ngl.Card_Theme === 'Dark_Glass') {
+    themeStyle = "background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(10, 15, 30, 0.9) 100%); border-color: rgba(255, 255, 255, 0.2);";
+  }
+
+  const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=random`;
+
+  nglContainer.innerHTML = `
+    <div class="ngl-public-card w-full max-w-md p-6 sm:p-8 rounded-[36px] relative overflow-hidden text-center" style="${themeStyle}">
+      
+      <!-- Top Specular Luminous Ray -->
+      <div class="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-rose-400/60 to-transparent"></div>
+
+      <!-- Lencana Enkripsi Keamanan -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/70 border border-white/20 text-rose-300 text-[9.5px] font-black uppercase tracking-wider mb-4 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping"></span>
+        <i class="fa-solid fa-user-secret text-[10px]"></i> 100% Anonymous & Encrypted
+      </div>
+
+      <!-- Avatar Halo Header -->
+      <div class="flex justify-center mb-3">
+        <div class="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-rose-500 via-purple-500 to-cyan-400 shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+          <img src="${avatarUrl}" class="w-full h-full rounded-full object-cover border-2 border-slate-950 bg-slate-900" alt="Avatar">
+        </div>
+      </div>
+
+      <!-- Prompt Pertanyaan / Teks Pancingan -->
+      <h3 class="text-lg sm:text-xl font-black text-white tracking-tight leading-snug mb-5 drop-shadow-md">
+        ${escapeHtml(ngl.Prompt_Text || 'Kirim pesan rahasia ke aku! 🤫')}
+      </h3>
+
+      <!-- Formulir Pengiriman Pesan Rahasia -->
+      <form onsubmit="submitAnonymousMessage(event, '${escapeHtml(user.username || '')}')" class="space-y-3.5 text-left" id="nglFormBox">
+        
+        <!-- Textarea Pesan -->
+        <div class="relative">
+          <textarea 
+            id="nglMessageInput" 
+            rows="4" 
+            maxlength="300" 
+            class="ngl-textarea-glass w-full rounded-2xl p-4 text-xs sm:text-sm font-semibold text-white placeholder-slate-400 focus:outline-none resize-none leading-relaxed" 
+            placeholder="Tuliskan pesan atau pertanyaan rahasiamu di sini... (Tanpa nama & 100% aman)" 
+            required 
+            oninput="document.getElementById('charCount').textContent = this.value.length + '/300'"
+          ></textarea>
+        </div>
+
+        <!-- Sub-Bar: Counter Karakter & Tombol Dadu Acak Ide -->
+        <div class="flex items-center justify-between px-1">
+          <span id="charCount" class="text-[10px] font-bold text-slate-400">0/300</span>
+          
+          <button 
+            type="button" 
+            onclick="rollRandomQuestion()" 
+            class="btn-random-dice px-3 py-1 rounded-full text-slate-200 text-[10px] font-extrabold flex items-center gap-1.5 cursor-pointer shadow-sm"
+            title="Klik untuk mendapatkan ide pertanyaan acak"
+          >
+            <i class="fa-solid fa-dice text-amber-300 text-xs"></i>
+            <span>Acak Ide Pertanyaan</span>
+          </button>
+        </div>
+
+        <!-- Tombol Kirim Pesan Rahasia -->
+        <button 
+          type="submit" 
+          id="btnSubmitNgl" 
+          class="btn-ngl-send w-full py-4 rounded-2xl text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 border border-white/20 cursor-pointer shadow-lg mt-2"
+        >
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+          <span>Kirim Pesan Rahasia</span>
+        </button>
+
+      </form>
+
+      <!-- Trust Footer Disclaimer -->
+      <div class="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-center gap-1.5 text-[9.5px] font-bold text-slate-400">
+        <i class="fa-solid fa-shield-halved text-rose-400 text-[10px]"></i>
+        <span>Identitas Anda 100% dirahasiakan &bull; Aman tanpa pelacakan</span>
+      </div>
+
+    </div>
+  `;
+}
+
+// 4. SUBMIT PESAN RAHASIA KE BACKEND GOOGLE APPS SCRIPT
+async function submitAnonymousMessage(e, username) {
+  e.preventDefault();
+  const input = document.getElementById('nglMessageInput');
+  const btn = document.getElementById('btnSubmitNgl');
+  const formBox = document.getElementById('nglFormBox');
+
+  if (!input || !username) return;
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xs"></i> <span>Menerbangkan Pesan...</span>';
+  btn.disabled = true;
+
+  try {
+    const payload = new URLSearchParams();
+    payload.append('action', 'send_ngl_message');
+    payload.append('guestUsername', username);
+    payload.append('messageText', msg);
+
+    const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
+    const res = await response.json();
+
+    if (res.status === 'success') {
+      // Tampilkan Animasi Sukses Berkilau
+      if (formBox) {
+        formBox.innerHTML = `
+          <div class="py-6 flex flex-col items-center text-center animate-pulse">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-3xl mb-3 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <h4 class="text-white font-black text-lg tracking-tight">Pesan Berhasil Terkirim! ✨</h4>
+            <p class="text-xs text-slate-300 font-medium max-w-[240px] mt-1.5 leading-relaxed">
+              Pesan rahasiamu telah sampai dengan aman di kotak masuk @${escapeHtml(username)}.
+            </p>
+            <button 
+              type="button" 
+              onclick="fetchUserProfile('${escapeHtml(username)}')" 
+              class="mt-5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-extrabold text-xs uppercase tracking-wider transition-all border border-white/15 cursor-pointer"
+            >
+              <i class="fa-solid fa-rotate-left mr-1"></i> Kirim Pesan Lain
+            </button>
           </div>
         `;
-        return;
       }
-
-      // Tentukan Tema Background Gradasi
-      let themeClass = "bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-700"; // Neon_Purple (Default)
-      if (ngl.Card_Theme === 'Sunset_Pink') themeClass = "bg-gradient-to-br from-rose-500 via-pink-500 to-orange-500";
-      if (ngl.Card_Theme === 'Dark_Glass') themeClass = "bg-slate-900/80 border border-white/10";
-
-      nglContainer.innerHTML = `
-        <div class="w-full max-w-sm rounded-[32px] p-1.5 shadow-2xl relative overflow-hidden ${themeClass}">
-          <!-- Pola grid latar belakang untuk aksen estetik -->
-          <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-          
-          <div class="relative bg-white/10 backdrop-blur-md rounded-[26px] p-6 text-center border border-white/20">
-            <!-- Header Prompt -->
-            <div class="flex justify-center mb-4">
-              <div class="w-12 h-12 rounded-full border-2 border-white/50 overflow-hidden shadow-lg">
-                <img src="${user.avatar || 'https://ui-avatars.com/api/?name=User'}" class="w-full h-full object-cover">
-              </div>
-            </div>
-            <h3 class="text-white font-black text-lg leading-snug tracking-tight shadow-black drop-shadow-md mb-6">${escapeHtml(ngl.Prompt_Text)}</h3>
-            
-            <!-- Area Textarea -->
-            <form onsubmit="submitAnonymousMessage(event, '${user.username}')" class="relative">
-              <textarea id="nglMessageInput" rows="4" maxlength="300" class="w-full bg-black/20 border border-white/20 rounded-2xl p-4 text-sm font-semibold text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none shadow-inner" placeholder="Ketik pesan rahasiamu di sini... (100% anonim)" required oninput="document.getElementById('charCount').textContent = this.value.length + '/300'"></textarea>
-              
-              <div class="flex items-center justify-between mt-2 mb-5 px-1">
-                <span id="charCount" class="text-[10px] font-bold text-white/50">0/300</span>
-                <button type="button" onclick="rollRandomQuestion()" class="text-xs text-white/70 hover:text-white flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-full transition-colors">
-                  <i class="fa-solid fa-dice"></i> Acak Ide
-                </button>
-              </div>
-
-              <!-- Tombol Submit -->
-              <button type="submit" id="btnSubmitNgl" class="w-full py-4 bg-white hover:bg-slate-100 text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
-                <i class="fa-solid fa-paper-plane"></i> Kirim Pesan Rahasia
-              </button>
-            </form>
-            
-            <div class="mt-5 flex items-center justify-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-white/40">
-              <i class="fa-solid fa-lock"></i> Dijamin 100% Anonim
-            </div>
-          </div>
-        </div>
-      `;
+    } else {
+      throw new Error(res.message);
     }
+  } catch (error) {
+    alert(error.message || 'Gagal mengirim pesan rahasia.');
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane text-xs"></i> <span>Kirim Pesan Rahasia</span>';
+    btn.disabled = false;
+  }
+}
+function switchPublicTab(tab) {
+  const mainContent = document.getElementById('publicMainContent');           // Tab Tautan
+  const contentSection = document.getElementById('publicContentSection');     // Tab Konten
+  const affiliateSection = document.getElementById('publicAffiliateSection'); // Tab Racun
+  const rateSection = document.getElementById('publicRateCardSection');       // Tab Rate Card
+  const nglSection = document.getElementById('publicNglSection');             // Tab Pesan
+  const communitySection = document.getElementById('publicCommunitySection'); // Tab Komunitas
 
-    // Kumpulan Ide Pertanyaan Acak
-    const RANDOM_QUESTIONS = [
-      "Apa rahasia terbesar yang belum pernah kamu ceritain ke siapapun?",
-      "Pernah naksir sama temen sekantor/sekelas nggak?",
-      "Spill lagu yang lagi sering banget kamu dengerin dong!",
-      "Kalau dapet uang 1 Miliar hari ini, mau dipakai buat apa?",
-      "Satu penyesalan terbesar kamu di masa lalu apa?",
-      "Cita-cita waktu kecil vs pekerjaan sekarang, beda jauh nggak?",
-      "Jujur, kamu lagi kangen sama seseorang nggak sekarang?"
-    ];
+  const btnLinks = document.getElementById('pubTabLinks');
+  const btnContent = document.getElementById('pubTabContent');
+  const btnAffiliate = document.getElementById('pubTabAffiliate');
+  const btnRate = document.getElementById('pubTabRateCard');
+  const btnCommunity = document.getElementById('pubTabCommunity');
+  const btnNgl = document.getElementById('pubTabNgl');
 
-    function rollRandomQuestion() {
-      const input = document.getElementById('nglMessageInput');
-      if (input) {
-        const randomQ = RANDOM_QUESTIONS[Math.floor(Math.random() * RANDOM_QUESTIONS.length)];
-        input.value = randomQ;
-        document.getElementById('charCount').textContent = input.value.length + '/300';
-      }
+  const allSections = [mainContent, contentSection, affiliateSection, rateSection, nglSection, communitySection];
+  const allButtons = [btnLinks, btnContent, btnAffiliate, btnRate, btnCommunity, btnNgl];
+
+  // 1. Sembunyikan Seluruh Konten Tab
+  allSections.forEach(el => {
+    if (el) {
+      el.classList.add('hidden');
+      el.classList.remove('flex');
     }
+  });
 
-    // FUNGSI SUBMIT PESAN (DIKIRIM KE BACKEND)
-    async function submitAnonymousMessage(e, username) {
-      e.preventDefault();
-      const input = document.getElementById('nglMessageInput');
-      const btn = document.getElementById('btnSubmitNgl');
-      
-      const msg = input.value.trim();
-      if (!msg) return;
+  // 2. Reset Status Aktif Semua Tombol Tab
+  allButtons.forEach(btn => {
+    if (btn) btn.classList.remove('active');
+  });
 
-      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Mengirim...';
-      btn.disabled = true;
+  // 3. Tampilkan Tab Terpilih & Aktifkan Tombol
+  let activeTargetSection = null;
+  let activeTargetBtn = null;
 
-      try {
-        const payload = new URLSearchParams();
-        payload.append('action', 'send_ngl_message');
-        payload.append('guestUsername', username);
-        payload.append('messageText', msg);
-        // IP dan Browser ditangkap dan dienkripsi oleh backend/fetch
+  if (tab === 'links' && mainContent) {
+    activeTargetSection = mainContent;
+    activeTargetBtn = btnLinks;
+  } else if (tab === 'content' && contentSection) {
+    activeTargetSection = contentSection;
+    activeTargetBtn = btnContent;
+  } else if (tab === 'affiliate' && affiliateSection) {
+    activeTargetSection = affiliateSection;
+    activeTargetBtn = btnAffiliate;
+  } else if (tab === 'ratecard' && rateSection) {
+    activeTargetSection = rateSection;
+    activeTargetBtn = btnRate;
+  } else if (tab === 'community' && communitySection) {
+    activeTargetSection = communitySection;
+    activeTargetBtn = btnCommunity;
+  } else if (tab === 'ngl' && nglSection) {
+    activeTargetSection = nglSection;
+    activeTargetBtn = btnNgl;
+  }
 
-        const response = await fetch(SCRIPT_URL, { method: 'POST', body: payload });
-        const res = await response.json();
+  if (activeTargetSection) {
+    activeTargetSection.classList.remove('hidden');
+    activeTargetSection.classList.add('flex');
+  }
 
-        if (res.status === 'success') {
-          // Ganti form dengan kartu ucapan sukses (Confetti Vibe)
-          const formArea = input.parentElement;
-          formArea.innerHTML = `
-            <div class="py-8 flex flex-col items-center animate-pulse">
-              <div class="w-16 h-16 bg-emerald-400 rounded-full flex items-center justify-center text-white text-3xl mb-4 shadow-[0_0_30px_rgba(52,211,153,0.5)]">
-                <i class="fa-solid fa-check"></i>
-              </div>
-              <h4 class="text-white font-black text-lg">Pesan Terkirim!</h4>
-              <p class="text-xs text-white/70 mt-2 font-medium max-w-[200px] mx-auto">Pesan rahasiamu sudah terbang dan masuk ke kotak masuk ${username}.</p>
-            </div>
-          `;
-        } else {
-          throw new Error(res.message);
-        }
-      } catch (error) {
-        alert(error.message); // Menampilkan peringatan (seperti spam limit 1 menit)
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Pesan Rahasia';
-        btn.disabled = false;
-      }
+  if (activeTargetBtn) {
+    activeTargetBtn.classList.add('active');
+    
+    // Auto-scroll tombol yang aktif ke tengah viewport pada layar seluler
+    if (typeof activeTargetBtn.scrollIntoView === 'function') {
+      activeTargetBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
-   // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 3 TABS: LINKS, RATECARD, NGL)
-   // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (REVISI PREMIUM 3 TABS)
-    // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 4 TABS)
-    // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 5 TABS)
-    // -> FUNGSI PENGALIH TAB HALAMAN PUBLIK (MENDUKUNG 6 TABS)
-    function switchPublicTab(tab) {
-      const mainContent = document.getElementById('publicMainContent'); // Tab Links
-      const contentSection = document.getElementById('publicContentSection'); // Tab Konten
-      const affiliateSection = document.getElementById('publicAffiliateSection'); // Tab Afiliasi
-      const rateSection = document.getElementById('publicRateCardSection'); // Tab Rate Card
-      const nglSection = document.getElementById('publicNglSection'); // Tab Pesan
-      const communitySection = document.getElementById('publicCommunitySection'); // Tab Komunitas
-
-      const btnLinks = document.getElementById('pubTabLinks');
-      const btnContent = document.getElementById('pubTabContent');
-      const btnAffiliate = document.getElementById('pubTabAffiliate');
-      const btnRate = document.getElementById('pubTabRateCard');
-      const btnNgl = document.getElementById('pubTabNgl');
-      const btnCommunity = document.getElementById('pubTabCommunity');
-
-      // Sembunyikan Semua
-      [mainContent, contentSection, affiliateSection, rateSection, nglSection, communitySection].forEach(el => {
-        if(el) { el.classList.add('hidden'); el.classList.remove('flex'); }
-      });
-
-      // Reset Gaya Tombol (Transparan)
-      const inactiveClass = "shrink-0 px-5 py-2.5 rounded-xl text-xs font-extrabold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-1.5 snap-center";
-      const activeClass = "shrink-0 px-5 py-2.5 rounded-xl text-xs font-black text-slate-900 bg-white shadow-[0_4px_20px_rgba(255,255,255,0.25)] transition-all duration-300 flex items-center justify-center gap-1.5 snap-center";
-      
-      [btnLinks, btnContent, btnAffiliate, btnRate, btnNgl, btnCommunity].forEach(btn => { if(btn) btn.className = inactiveClass; });
-
-      // Tampilkan yang dipilih
-      if (tab === 'links' && mainContent) { mainContent.classList.remove('hidden'); mainContent.classList.add('flex'); if(btnLinks) btnLinks.className = activeClass; }
-      else if (tab === 'content' && contentSection) { contentSection.classList.remove('hidden'); contentSection.classList.add('flex'); if(btnContent) btnContent.className = activeClass; }
-      else if (tab === 'affiliate' && affiliateSection) { affiliateSection.classList.remove('hidden'); affiliateSection.classList.add('flex'); if(btnAffiliate) btnAffiliate.className = activeClass; }
-      else if (tab === 'ratecard' && rateSection) { rateSection.classList.remove('hidden'); rateSection.classList.add('flex'); if(btnRate) btnRate.className = activeClass; }
-      else if (tab === 'ngl' && nglSection) { nglSection.classList.remove('hidden'); nglSection.classList.add('flex'); if(btnNgl) btnNgl.className = activeClass; }
-      else if (tab === 'community' && communitySection) { communitySection.classList.remove('hidden'); communitySection.classList.add('flex'); if(btnCommunity) btnCommunity.className = activeClass; }
-    }
+  }
+}
     // -> SMART DEEP-LINKING & AFFILIATE TRACKING ENGINE
     function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
       e.preventDefault(); // Hentikan perpindahan halaman biasa
@@ -634,48 +1266,9 @@
         mainContainer.style.fontFamily = `"${settings.Font_Family}", sans-serif`;
       }
 
-      // Rendering Glassmorphism Link Cards
-      const container = document.getElementById('linksContainer');
-      container.innerHTML = '';
-
-      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
-      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)';
-
-      BLOCKS_DATA.forEach(block => {
-        if (!block.Is_Active) return;
-
-        const card = document.createElement('a');
-        card.href = block.URL_Destination;
-        card.target = "_blank";
-        
-        // SANGAT PENTING: Menambahkan kembali fungsi pelacak klik yang sempat terhapus
-        // GANTI MENJADI (Native JS Binding):
-card.onclick = (e) => {
-  recordClick(user.id || '', block.Block_ID);
-};
-        card.className = `w-full flex items-center gap-4 p-3.5 border backdrop-blur-md shadow-sm transition-transform hover:scale-[1.015] active:scale-[0.985] group ${settings.Button_Style || 'rounded-full'}`;
-        
-        if (isDarkBg) {
-          card.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-          card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-        } else {
-          card.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-          card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-        }
-
-        const imgUrl = block.Thumbnail_URL || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100';
-
-        card.innerHTML = `
-          <img src="${imgUrl}" class="w-12 h-12 rounded-xl object-cover border border-white/20 shadow-sm shrink-0">
-          <div class="flex-1 min-w-0 text-left">
-            <h4 class="font-bold text-[15.5px] tracking-tight truncate" style="color: ${cardTextColor};">${block.Title}</h4>
-            <p class="text-[12.5px] mt-1 leading-normal line-clamp-2 font-semibold" style="color: ${cardDescColor};">${block.Description || ''}</p>
-          </div>
-          <i class="fa-solid fa-chevron-right text-[11px] group-hover:translate-x-0.5 transition-transform shrink-0" style="color: ${cardTextColor}; opacity: 0.5;"></i>
-        `;
-
-        container.appendChild(card);
-      });
+ 
+    
+    
       // =========================================================================
     // FUNGSI PEMBANTU YANG HILANG (TAMBAHKAN DI PALING BAWAH SCRIPT profile.html)
     // =========================================================================
@@ -795,111 +1388,166 @@ card.onclick = (e) => {
       // RENDERING CREATOR HUB (SPOTLIGHT MEDIA PLAYER)
       // ========================================================
       const publicContentSection = document.getElementById('publicContentSection');
+
+if (publicContentSection) {
+  publicContentSection.innerHTML = '';
+  const CREATOR_CONTENTS = data.creatorContents || [];
+  const activeContents = CREATOR_CONTENTS.filter(c => c.Is_Active);
+
+  if (activeContents.length > 0) {
+    activeContents.forEach(content => {
       
-      if (publicContentSection) {
-        publicContentSection.innerHTML = '';
-        const CREATOR_CONTENTS = data.creatorContents || [];
+      // Lapis 1 Analitik: Catat Impresi (Impression Tracking)
+      trackContentEvent(user.id, content.Content_ID, 'Impression');
+
+      // Konfigurasi Tema Kartu
+      const cardBg = isDarkBg ? 'rgba(15, 23, 42, 0.78)' : 'rgba(255, 255, 255, 0.88)';
+      const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.9)';
+      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.65)' : 'rgba(15,23,42,0.65)';
+
+      // Deteksi Ikon, Warna & Link Embed Media
+      let platIcon = 'fa-solid fa-play';
+      let platColor = 'text-cyan-400';
+      let platBadge = 'Spotlight Video';
+      let btnText = 'Buka Tautan Media';
+      let btnTheme = 'bg-gradient-to-r from-cyan-500 to-blue-600 shadow-cyan-500/30 text-white';
+      let embedUrl = '';
+
+      // Ekstraksi Otomatis YouTube Embed
+      if (content.Platform === 'YouTube') {
+        platIcon = 'fa-brands fa-youtube';
+        platColor = 'text-red-500';
+        platBadge = 'YouTube Video HD';
+        btnText = 'Tonton di YouTube';
+        btnTheme = 'bg-gradient-to-r from-[#FF0000] via-[#CC0000] to-[#990000] shadow-red-500/35 text-white';
         
-        if (CREATOR_CONTENTS.length > 0) {
-          CREATOR_CONTENTS.forEach(content => {
-            
-            // Lapis 1 (Impression Tracking): Catat log ketika kartu ini dirender (muncul di layar pengunjung)
-            trackContentEvent(user.id, content.Content_ID, 'Impression');
-
-            // Konfigurasi Tema & Ikon Platform
-            const cardBg = isDarkBg ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.65)';
-            const cardBorder = isDarkBg ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.8)';
-            
-            let platIcon = 'fa-link'; let platColor = 'text-slate-400';
-            let btnText = 'Buka Tautan'; let btnTheme = 'bg-slate-800 text-white hover:bg-slate-700';
-
-            // Smart Extractor logic: Mengambil ID Video untuk proses Inline Play (Embed)
-            let embedUrl = '';
-            
-            if (content.Platform === 'YouTube') { 
-              platIcon = 'fa-youtube'; platColor = 'text-red-500'; btnText = 'Tonton di YouTube'; btnTheme = 'bg-[#ff0000] text-white hover:bg-red-600'; 
-              const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
-              const match = content.Media_URL.match(ytRegex);
-              if(match && match[1]) embedUrl = `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0`;
-            }
-            if (content.Platform === 'TikTok') { 
-              platIcon = 'fa-tiktok'; platColor = 'text-slate-200'; btnText = 'Lihat di TikTok'; btnTheme = 'bg-black text-white border border-white/20 hover:bg-slate-900'; 
-            }
-            if (content.Platform === 'Spotify') { 
-              platIcon = 'fa-spotify'; platColor = 'text-green-500'; btnText = 'Dengarkan di Spotify'; btnTheme = 'bg-[#1DB954] text-black hover:bg-[#1ed760]'; 
-              const sptRegex = /spotify.com\/(track|album|playlist|episode)\/([a-zA-Z0-9]+)/;
-              const match = content.Media_URL.match(sptRegex);
-              if(match) embedUrl = `https://open.spotify.com/embed/${match[1]}/${match[2]}?utm_source=generator`;
-            }
-            if (content.Platform === 'Instagram_Reels') { 
-              platIcon = 'fa-instagram'; platColor = 'text-pink-500'; btnText = 'Buka di Instagram'; btnTheme = 'bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white'; 
-            }
-
-            const defaultThumb = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800';
-            const card = document.createElement('div');
-            card.className = "w-full p-4 rounded-[32px] border backdrop-blur-xl shadow-2xl flex flex-col relative overflow-hidden transition-all duration-300 hover:scale-[1.01]";
-            card.style.backgroundColor = cardBg;
-            card.style.borderColor = cardBorder;
-
-            card.innerHTML = `
-              <!-- Area Thumbnail / Inline Player -->
-              <div class="relative w-full h-48 md:h-64 rounded-2xl overflow-hidden bg-black group shadow-inner border border-white/10" id="mediaContainer_${content.Content_ID}">
-                
-                <img src="${content.Thumbnail_URL || defaultThumb}" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
-                
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity">
-                  <button onclick="playInlineMedia('${content.Content_ID}', '${embedUrl}', '${user.id}')" class="w-16 h-16 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:scale-110 active:scale-95 transition-all cursor-pointer">
-                    <i class="fa-solid fa-play text-white text-2xl ml-1"></i>
-                  </button>
-                </div>
-
-                ${content.Badge_Label ? `<span class="absolute top-3 left-3 px-3 py-1 bg-red-600 text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-md border border-red-400/50">${escapeHtml(content.Badge_Label)}</span>` : ''}
-              </div>
-
-              <!-- Metadata Info -->
-              <div class="flex items-center gap-4 px-2 mt-5 mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-black/10 border border-white/10 flex items-center justify-center shrink-0 shadow-inner">
-                  <i class="fa-brands ${platIcon} ${platColor} text-xl drop-shadow-md"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                  <h4 class="font-extrabold text-base leading-tight truncate" style="color: ${cardTextColor};">${escapeHtml(content.Title)}</h4>
-                  <p class="text-xs mt-1 font-bold tracking-wide" style="color: ${cardDescColor};">${content.Platform.replace('_', ' ')} Media</p>
-                </div>
-              </div>
-
-              <!-- Outbound Button (Lapis 3 Tracking) -->
-              <a href="${content.Media_URL}" target="_blank" onclick="trackContentEvent('${user.id}', '${content.Content_ID}', 'Outbound_Click')" class="w-full py-4 rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all ${btnTheme}">
-                ${btnText} <i class="fa-solid fa-arrow-up-right-from-square text-[11px] opacity-70 ml-1"></i>
-              </a>
-            `;
-            
-            publicContentSection.appendChild(card);
-          });
+        const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+        const match = (content.Media_URL || '').match(ytRegex);
+        if (match && match[1]) {
+          embedUrl = `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0&modestbranding=1`;
         }
+      } 
+      // Ekstraksi Otomatis Spotify Embed
+      else if (content.Platform === 'Spotify') {
+        platIcon = 'fa-brands fa-spotify';
+        platColor = 'text-emerald-400';
+        platBadge = 'Spotify Master Audio';
+        btnText = 'Dengarkan di Spotify';
+        btnTheme = 'bg-gradient-to-r from-[#1DB954] via-[#1AA34A] to-[#15803D] shadow-emerald-500/35 text-white';
+        
+        const sptRegex = /spotify\.com\/(track|album|playlist|episode)\/([a-zA-Z0-9]+)/i;
+        const match = (content.Media_URL || '').match(sptRegex);
+        if (match && match[1] && match[2]) {
+          embedUrl = `https://open.spotify.com/embed/${match[1]}/${match[2]}?utm_source=generator&theme=0`;
+        }
+      } 
+      // Ekstraksi TikTok
+      else if (content.Platform === 'TikTok') {
+        platIcon = 'fa-brands fa-tiktok';
+        platColor = 'text-cyan-300';
+        platBadge = 'TikTok Viral Video';
+        btnText = 'Lihat di TikTok';
+        btnTheme = 'bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-white/25 shadow-cyan-500/20 text-white';
+      } 
+      // Ekstraksi Instagram Reels
+      else if (content.Platform === 'Instagram_Reels') {
+        platIcon = 'fa-brands fa-instagram';
+        platColor = 'text-pink-400';
+        platBadge = 'Instagram Reels';
+        btnText = 'Tonton di Instagram';
+        btnTheme = 'bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] shadow-pink-500/35 text-white';
       }
-      // RENDERING KATALOG PRODUK DIGITAL (DI DALAM renderPublicProfile)
-      // ========================================================
-      // RENDERING FLOATING SOCIAL ICONS BAR
-      // ========================================================
-      const socialBar = document.getElementById('floatingSocialBar');
-      const socialGlass = document.getElementById('socialBarGlass');
-      socialGlass.innerHTML = ''; // Reset kontainer
-      
-      const socColor = settings.Social_Color || '#ffffff';
-      let socialCount = 0;
 
-      // Fungsi Helper Pembuat Ikon
-const createIcon = (url, iconClass) => {
-        if (!url) return;
-        socialCount++;
-        const a = document.createElement('a');
-        a.href = url;
-        a.target = '_blank';
-        // Efek perbesaran ikon saat kursor diarahkan (hover:scale-125)
-        a.className = "flex items-center justify-center w-7 h-7 rounded-full hover:scale-125 active:scale-90 transition-transform duration-200 shrink-0";
-        a.innerHTML = `<i class="fa-brands ${iconClass} text-[20px]" style="color: ${socColor}; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));"></i>`;
-        socialGlass.appendChild(a);
-      };
+      const defaultThumb = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800';
+      const imgUrl = content.Thumbnail_URL || defaultThumb;
+
+      const card = document.createElement('div');
+      card.className = "public-media-card w-full p-4 sm:p-5 rounded-[32px] flex flex-col relative overflow-hidden group";
+      card.style.backgroundColor = cardBg;
+      card.style.borderColor = cardBorder;
+
+      card.innerHTML = `
+        <!-- Cinematic 16:9 Media Viewport Chamber -->
+        <div class="media-viewport-chamber relative w-full aspect-video rounded-[22px] overflow-hidden bg-slate-950 border border-white/15" id="mediaContainer_${content.Content_ID}">
+          
+          <!-- Cover Image dengan Efek Zoom -->
+          <img 
+            src="${escapeHtml(imgUrl)}" 
+            class="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700"
+            onerror="this.src='https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800'"
+            alt="${escapeHtml(content.Title)}"
+          >
+          
+          <!-- Ambient Vignette Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 pointer-events-none"></div>
+
+          <!-- Lencana Sorotan / Badge Tag (Kiri Atas) -->
+          ${content.Badge_Label ? `
+            <div class="absolute top-3 left-3 z-10">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-rose-600/90 border border-rose-400/50 text-white font-black text-[9px] sm:text-[10px] uppercase tracking-wider rounded-xl shadow-lg backdrop-blur-md">
+                ${escapeHtml(content.Badge_Label)}
+              </span>
+            </div>
+          ` : ''}
+
+          <!-- Lencana Format Platform (Kanan Atas) -->
+          <div class="absolute top-3 right-3 z-10">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-950/70 border border-white/20 text-white font-bold text-[9px] uppercase tracking-widest rounded-xl backdrop-blur-md shadow-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              ${platBadge}
+            </span>
+          </div>
+
+          <!-- Liquid Glass Play Button Orb (Pusat Layar) -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <button 
+              type="button" 
+              onclick="playInlineMedia('${content.Content_ID}', '${embedUrl}', '${user.id}')" 
+              class="btn-liquid-play w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-white cursor-pointer group-hover:shadow-[0_0_30px_rgba(244,63,94,0.6)]"
+              title="Putar Konten Sekarang"
+            >
+              <i class="fa-solid fa-play text-lg sm:text-xl ml-1 drop-shadow-md text-white"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Metadata & Channel Bar -->
+        <div class="flex items-center gap-3.5 px-1.5 mt-4 mb-5">
+          <!-- Branded Platform Squircle Chamber -->
+          <div class="w-11 h-11 rounded-2xl bg-slate-950/80 border border-white/15 flex items-center justify-center shrink-0 shadow-inner">
+            <i class="${platIcon} ${platColor} text-lg drop-shadow"></i>
+          </div>
+          
+          <div class="flex-1 min-w-0 text-left">
+            <h4 class="font-black text-sm sm:text-base tracking-tight leading-snug truncate" style="color: ${cardTextColor};">
+              ${escapeHtml(content.Title)}
+            </h4>
+            <p class="text-[11px] font-bold mt-0.5 tracking-wide flex items-center gap-1.5 truncate" style="color: ${cardDescColor};">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              <span>${content.Platform.replace('_', ' ')} Official Spotlight</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Outbound Action CTA (Lapis 3 Tracking) -->
+        <a 
+          href="${escapeHtml(content.Media_URL)}" 
+          target="_blank" 
+          onclick="trackContentEvent('${user.id}', '${content.Content_ID}', 'Outbound_Click')" 
+          class="btn-media-outbound w-full py-3.5 rounded-2xl font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 border border-white/20 cursor-pointer shadow-lg ${btnTheme}"
+        >
+          <span>${btnText}</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[11px] opacity-80"></i>
+        </a>
+      `;
+
+      publicContentSection.appendChild(card);
+    });
+  }
+}
+
       // Buat ikon berdasarkan data dari database
       createIcon(settings.Social_Instagram, 'fa-instagram');
       createIcon(settings.Social_TikTok, 'fa-tiktok');
@@ -925,6 +1573,138 @@ const createIcon = (url, iconClass) => {
           socialBar.classList.add('translate-y-0', 'opacity-100');
         }, 500);
       }
+      // =========================================================================
+// JAVASCRIPT PUBLIC MAIN CONTENT ENGINE (LUXURY CARDS, COMMERCE & SOCIAL)
+// =========================================================================
+
+// 1. FUNGSI PENCARIAN TAUTAN REAL-TIME DI HALAMAN PUBLIK
+function filterLinks(query) {
+  const cleanQuery = (query || '').toLowerCase().trim();
+  const cards = document.querySelectorAll('#linksContainer > a');
+  
+  cards.forEach(card => {
+    const title = card.querySelector('h4') ? card.querySelector('h4').textContent.toLowerCase() : '';
+    const desc = card.querySelector('p') ? card.querySelector('p').textContent.toLowerCase() : '';
+    
+    if (title.includes(cleanQuery) || desc.includes(cleanQuery)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// 2. LOGIKA RENDERING TAUTAN, PRODUK & SOSIAL MEDIA DI DALAM renderPublicProfile(data)
+// (Pastikan bagian ini terpasang di dalam fungsi renderPublicProfile(data)):
+
+/* --- A. RENDERING TAUTAN PUBLIK (CRYSTAL ASSET CARDS) --- */
+const linksContainer = document.getElementById('linksContainer');
+if (linksContainer) {
+  linksContainer.innerHTML = '';
+  
+  const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
+  const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)';
+  const btnStyle = settings.Button_Style || 'rounded-full';
+
+  (BLOCKS_DATA || []).forEach(block => {
+    if (!block.Is_Active) return;
+
+    const card = document.createElement('a');
+    card.href = block.URL_Destination || '#';
+    card.target = "_blank";
+    
+    // Pelacak Klik Senyap Image Beacon
+    card.onclick = (e) => {
+      recordClick(user.id || '', block.Block_ID);
+    };
+
+    // Styling Kartu Kaca Adaptif
+    card.className = `public-link-card w-full flex items-center gap-3.5 sm:gap-4 p-3.5 sm:p-4 group cursor-pointer ${btnStyle}`;
+    
+    if (isDarkBg) {
+      card.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+      card.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+    } else {
+      card.style.backgroundColor = 'rgba(255, 255, 255, 0.75)';
+      card.style.borderColor = 'rgba(255, 255, 255, 0.9)';
+    }
+
+    const imgUrl = block.Thumbnail_URL || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120';
+
+    card.innerHTML = `
+      <!-- Thumbnail Squircle Chamber -->
+      <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border border-white/20 shadow-md shrink-0 bg-slate-950/60 p-0.5 group-hover:scale-105 transition-transform duration-300">
+        <img src="${imgUrl}" class="w-full h-full object-cover rounded-[13px]" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120'">
+      </div>
+
+      <!-- Detail Judul & Deskripsi -->
+      <div class="flex-1 min-w-0 text-left">
+        <h4 class="font-black text-sm sm:text-base tracking-tight truncate leading-snug group-hover:text-cyan-300 transition-colors" style="color: ${cardTextColor};">
+          ${escapeHtml(block.Title)}
+        </h4>
+        <p class="text-xs mt-0.5 line-clamp-2 font-medium leading-relaxed" style="color: ${cardDescColor};">
+          ${escapeHtml(block.Description) || ''}
+        </p>
+      </div>
+
+      <!-- Animated Chevron Action Button -->
+      <div class="w-8 h-8 rounded-xl bg-white/10 group-hover:bg-cyan-500/20 text-slate-300 group-hover:text-cyan-300 border border-white/10 group-hover:border-cyan-400/30 flex items-center justify-center shrink-0 transition-all duration-300">
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+      </div>
+    `;
+
+    linksContainer.appendChild(card);
+  });
+}
+
+/* --- B. RENDERING ETALASE PRODUK DIGITAL (SOCIAL COMMERCE) --- */
+
+/* --- C. RENDERING FLOATING LIQUID SOCIAL BAR --- */
+const socialBar = document.getElementById('floatingSocialBar');
+const socialGlass = document.getElementById('socialBarGlass');
+
+if (socialBar && socialGlass) {
+  socialGlass.innerHTML = '';
+  const socColor = settings.Social_Color || '#ffffff';
+  let socialCount = 0;
+
+  const createIcon = (url, iconClass) => {
+    if (!url) return;
+    socialCount++;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.className = "flex items-center justify-center w-8 h-8 rounded-full hover:scale-125 active:scale-95 transition-transform duration-200 shrink-0";
+    a.innerHTML = `<i class="fa-brands ${iconClass} text-[21px]" style="color: ${socColor}; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));"></i>`;
+    socialGlass.appendChild(a);
+  };
+
+  createIcon(settings.Social_Instagram, 'fa-instagram');
+  createIcon(settings.Social_TikTok, 'fa-tiktok');
+  createIcon(settings.Social_YouTube, 'fa-youtube');
+  createIcon(settings.Social_Twitter, 'fa-x-twitter');
+  createIcon(settings.Social_Facebook, 'fa-facebook');
+
+  if (socialCount > 0) {
+    if (isDarkBg) {
+      socialGlass.style.backgroundColor = 'rgba(15, 23, 42, 0.75)';
+      socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+    } else {
+      socialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
+      socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.9)';
+    }
+
+    socialBar.classList.remove('hidden');
+    socialBar.classList.add('flex');
+    setTimeout(() => {
+      socialBar.classList.remove('translate-y-4', 'opacity-0');
+      socialBar.classList.add('translate-y-0', 'opacity-100');
+    }, 400);
+  } else {
+    socialBar.classList.add('hidden');
+    socialBar.classList.remove('flex');
+  }
+}
       // ========================================================
       // ========================================================
       // RENDERING ADVERTISING ENGINE (PROMO BANNERS)
@@ -932,8 +1712,7 @@ const createIcon = (url, iconClass) => {
       // === REVISI JALUR RENDERING BANNER DI HALAMAN PUBLIK ===
       const topBanner = document.getElementById('topBannerContainer');
       const floatBanner = document.getElementById('floatingBannerContainer');
-      const linksContainer = document.getElementById('linksContainer');
-
+    
       if (topBanner) topBanner.innerHTML = '';
       if (floatBanner) floatBanner.innerHTML = '';
 
@@ -1334,40 +2113,35 @@ const createIcon = (url, iconClass) => {
       }
     }
     // FUNGSI SEARCH FILTERING
-    function filterLinks(query) {
-      const cleanQuery = query.toLowerCase().trim();
-      const cards = document.querySelectorAll('#linksContainer a');
-      
-      cards.forEach(card => {
-        const title = card.querySelector('h4').textContent.toLowerCase();
-        const desc = card.querySelector('p').textContent.toLowerCase();
-        
-        if (title.includes(cleanQuery) || desc.includes(cleanQuery)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-// -> FUNGSI INLINE MEDIA PLAYER (REPLACE IMAGE DENGAN IFRAME VIDEO ASLI)
+
+    // -> FUNGSI INLINE MEDIA PLAYER (REPLACE IMAGE DENGAN IFRAME VIDEO ASLI)
     function playInlineMedia(contentId, embedUrl, userId) {
-      // Lapis 2 (Play Event Tracking): Catat log ketika pengunjung memutar video secara langsung
-      trackContentEvent(userId, contentId, 'Play');
+  // Lapis 2 Analitik: Catat Pemutaran (Play Event Tracking)
+  trackContentEvent(userId, contentId, 'Play');
 
-      const container = document.getElementById(`mediaContainer_${contentId}`);
-      if (!container) return;
+  const container = document.getElementById(`mediaContainer_${contentId}`);
+  if (!container) return;
 
-      if (!embedUrl) {
-        // Jika platform tidak didukung Inline Play (misal TikTok), arahkan paksa ke aplikasi aslinya
-        alert("Platform ini memerlukan Anda untuk membukanya di aplikasi resmi.");
-        return;
-      }
-
-      // Ganti gambar dengan Iframe YouTube/Spotify
-      container.innerHTML = `
-        <iframe src="${embedUrl}" class="w-full h-full border-0 absolute inset-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      `;
+  if (!embedUrl) {
+    // Jika platform tidak mendukung inline iframe (misal TikTok/Reels app-only), buka di tab baru
+    const content = (STATE && STATE.creatorContents) ? STATE.creatorContents.find(c => c.Content_ID === contentId) : null;
+    if (content && content.Media_URL) {
+      window.open(content.Media_URL, '_blank');
     }
+    return;
+  }
+
+  // Ganti Thumbnail dengan Iframe Pemutar Video / Audio HD
+  container.innerHTML = `
+    <iframe 
+      src="${embedUrl}" 
+      class="w-full h-full border-0 absolute inset-0 rounded-[22px] bg-black shadow-inner" 
+      allow="autoplay; encrypted-media; picture-in-picture; fullscreen" 
+      allowfullscreen
+    ></iframe>
+  `;
+}
+
     function loadGoogleFont(fontName) {
       if (!fontName) return;
       const id = 'gf-' + fontName.replace(/\s+/g, '-').toLowerCase();
@@ -1382,170 +2156,203 @@ const createIcon = (url, iconClass) => {
 // DEFINISI FUNGSI RENDER RATE CARD (Ditaruh di luar/di bawah renderPublicProfile)
     // DEFINISI FUNGSI RENDER RATE CARD
     // -> RENDER RATE CARD PUBLIK (ULTRA PREMIUM REDESIGN WITH AUTO-CHECKLIST)
-    function renderPublicRateCard(data) {
-      const rateContainer = document.getElementById('publicRateCardSection');
-      if (!rateContainer) return;
-      rateContainer.innerHTML = '';
+   // =========================================================================
+// JAVASCRIPT PUBLIC RATE CARD & SPONSORSHIP ENGINE (EXECUTIVE REDESIGN)
+// =========================================================================
 
-      const stats = data.rateStats || {};
-      const packages = data.ratePackages || [];
-      const user = data.user || {};
-      const settings = data.pageSettings || {};
+function renderPublicRateCard(data) {
+  const rateContainer = document.getElementById('publicRateCardSection');
+  if (!rateContainer) return;
+  rateContainer.innerHTML = '';
 
-      const isDarkBg = isColorDark(settings.Bg_Color);
-      const cardTextColor = isDarkBg ? '#ffffff' : '#0f172a';
-      const cardDescColor = isDarkBg ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)';
+  const stats = data.rateStats || {};
+  const packages = (data.ratePackages || []).filter(p => p.Is_Active !== false);
+  const user = data.user || {};
+  const settings = data.pageSettings || {};
 
-      // Helper Pembersih & Pemformat Persentase (Otomatis konversi 0.6 -> 60%)
-      const cleanPercent = (val, fallback) => {
-        if (!val) return fallback;
-        let str = String(val).trim();
-        if (str.endsWith('%')) return str;
-        let num = parseFloat(str);
-        if (!isNaN(num)) {
-          if (num <= 1) return Math.round(num * 100) + '%';
-          return Math.round(num) + '%';
-        }
-        return fallback;
-      };
+  const isDark = typeof isColorDark === 'function' ? isColorDark(settings.Bg_Color) : true;
+  const cardBg = isDark ? 'rgba(15, 23, 42, 0.78)' : 'rgba(255, 255, 255, 0.88)';
+  const cardBorder = isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.9)';
+  const cardTextColor = isDark ? '#ffffff' : '#0f172a';
+  const cardDescColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(15,23,42,0.7)';
 
-      const femalePercent = cleanPercent(stats.Gender_Female, '50%');
-      const malePercent = cleanPercent(stats.Gender_Male, '50%');
-      
-      // Pemformat ER Rate
-      let erText = String(stats.Engagement_Rate || '0%').trim();
-      if (!erText.endsWith('%') && !isNaN(parseFloat(erText))) {
-        let num = parseFloat(erText);
-        erText = (num <= 1 ? (num * 100).toFixed(1) : num) + '%';
-      }
-
-      // ========================================================
-      // 1. RENDER KARTU DEMOGRAFI AUDIENS (AESTHETIC GLASS BOX)
-      // ========================================================
-      const statsBox = document.createElement('div');
-      statsBox.className = "w-full p-6 rounded-[32px] border backdrop-blur-xl shadow-2xl space-y-5 relative overflow-hidden group";
-      
-      if (isDarkBg) {
-        statsBox.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-        statsBox.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-      } else {
-        statsBox.style.backgroundColor = 'rgba(255, 255, 255, 0.65)';
-        statsBox.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-      }
-
-      statsBox.innerHTML = `
-        <!-- Header Demografi -->
-        <div class="flex items-center justify-between">
-          <span class="text-[10px] font-black tracking-[0.2em] uppercase text-violet-400 flex items-center gap-1.5">
-            <i class="fa-solid fa-chart-pie"></i> Demografi Audiens
-          </span>
-          <span class="text-[10px] font-extrabold px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300">
-            ${stats.Platform || 'Social Media'}
-          </span>
-        </div>
-
-        <!-- Metric Cards Grid -->
-        <div class="grid grid-cols-2 gap-3 text-center">
-          <div class="p-3.5 bg-black/10 rounded-2xl border border-white/10 shadow-inner">
-            <p class="text-[9px] font-black uppercase tracking-widest opacity-60" style="color: ${cardTextColor};">Followers</p>
-            <p class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-400 mt-1">${stats.Followers || '0'}</p>
-          </div>
-          <div class="p-3.5 bg-black/10 rounded-2xl border border-white/10 shadow-inner">
-            <p class="text-[9px] font-black uppercase tracking-widest opacity-60" style="color: ${cardTextColor};">Engagement Rate</p>
-            <p class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400 mt-1">${erText}</p>
-          </div>
-        </div>
-
-        <!-- Progress Bar Demografi Gender -->
-        <div class="space-y-2 pt-1">
-          <div class="flex justify-between text-[11px] font-bold">
-            <span class="text-pink-400 flex items-center gap-1.5"><i class="fa-solid fa-venus"></i> Wanita ${femalePercent}</span>
-            <span class="text-blue-400 flex items-center gap-1.5">Pria ${malePercent} <i class="fa-solid fa-mars"></i></span>
-          </div>
-          <div class="w-full h-3 bg-blue-500/30 rounded-full overflow-hidden flex p-0.5 border border-white/10 shadow-inner">
-            <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transition-all duration-700 shadow-md" style="width: ${femalePercent}"></div>
-          </div>
-        </div>
-
-        <!-- Detail Usia & Lokasi -->
-        <div class="flex items-center justify-between text-[11.5px] font-bold pt-3 border-t border-white/10">
-          <span style="color: ${cardTextColor};" class="opacity-80"><i class="fa-solid fa-users text-xs mr-1.5 text-violet-400"></i> Usia: <strong class="text-violet-400">${stats.Top_Age_Group || '18-24'}</strong></span>
-          <span style="color: ${cardTextColor};" class="opacity-80"><i class="fa-solid fa-location-dot text-xs mr-1.5 text-rose-400"></i> <strong class="text-rose-400">${stats.Top_Location || 'Indonesia'}</strong></span>
-        </div>
-      `;
-      rateContainer.appendChild(statsBox);
-
-      // ========================================================
-      // 2. RENDER PAKET KOLABORASI (DENGAN LIST CHECKMARK REKURSIF)
-      // ========================================================
-      if (packages.length > 0) {
-        packages.forEach(pkg => {
-          const card = document.createElement('div');
-          card.className = "w-full p-6 rounded-[32px] border backdrop-blur-xl shadow-2xl relative flex flex-col text-left group transition-all duration-300 hover:scale-[1.01]";
-          
-          if (isDarkBg) {
-            card.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
-            card.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-          } else {
-            card.style.backgroundColor = 'rgba(255, 255, 255, 0.65)';
-            card.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-          }
-
-          // Format WhatsApp Link
-          const waMessage = encodeURIComponent(`Halo Kak ${user.name}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon info jadwal ketersediaannya ya kak. Terima kasih!`);
-          const waLink = `https://wa.me/${settings.Social_WhatsApp || '628123456789'}?text=${waMessage}`;
-
-          // Memecah Teks Deliverables Menjadi List Poin-poin Bercentang Hijau
-          const rawDeliverables = pkg.Deliverables || '';
-          const items = rawDeliverables.split(/(?:✔|\n|,)/).map(s => s.trim()).filter(s => s.length > 0);
-          
-          let deliverablesHTML = '';
-          if (items.length > 0) {
-            deliverablesHTML = `<ul class="space-y-2 mt-4">`;
-            items.forEach(item => {
-              deliverablesHTML += `
-                <li class="flex items-start gap-2.5 text-xs font-semibold leading-relaxed" style="color: ${cardDescColor};">
-                  <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-[9px] shrink-0 mt-0.5 shadow-sm"><i class="fa-solid fa-check"></i></span>
-                  <span>${escapeHtml(item)}</span>
-                </li>
-              `;
-            });
-            deliverablesHTML += `</ul>`;
-          } else {
-            deliverablesHTML = `<p class="text-xs mt-3 leading-relaxed font-medium" style="color: ${cardDescColor};">${escapeHtml(rawDeliverables)}</p>`;
-          }
-
-       // CARI BAGIAN 'card.innerHTML' UNTUK PAKET DI DALAM renderPublicRateCard(data), LALU SEJAJARKAN MENJADI:
-          card.innerHTML = `
-            <!-- Judul & Badge Harga -->
-            <div class="flex justify-between items-start gap-3">
-              <h4 class="font-black text-lg leading-snug tracking-tight" style="color: ${cardTextColor};">${escapeHtml(pkg.Package_Name)}</h4>
-              <span class="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-xs rounded-2xl shrink-0 shadow-sm">
-                ${formatRupiahProfile(pkg.Package_Price)}
-              </span>
-            </div>
-
-            <!-- List Poin Deliverables -->
-            ${deliverablesHTML}
-
-            <!-- Bottom Section: Est. Reach (Baris Atas) & Tombol Full-Width (Baris Bawah) -->
-            <div class="mt-5 pt-4 border-t border-white/10 flex flex-col gap-3">
-              <!-- Baris 1: Est Reach Tampil Panjang & Luas -->
-              <div class="flex items-start gap-1.5 text-xs font-bold text-violet-400 leading-relaxed">
-                <i class="fa-solid fa-bolt text-xs shrink-0 mt-0.5"></i>
-                <span>Est. Reach: <strong class="text-white font-bold ml-1">${escapeHtml(pkg.Est_Reach || 'N/A')}</strong></span>
-              </div>
-
-              <!-- Baris 2: Tombol Ajukan Kerja Sama Full-Width -->
-              <a href="${waLink}" target="_blank" onclick="recordClick('${user.id}', '${pkg.Package_ID}')" class="w-full mt-1 py-3.5 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold text-xs rounded-2xl shadow-[0_4px_20px_rgba(139,92,246,0.3)] transition-all active:scale-95 flex items-center justify-center gap-2 tracking-wide uppercase">
-                <i class="fa-solid fa-handshake text-sm"></i> Ajukan Kerja Sama
-              </a>
-            </div>
-          `;
-          rateContainer.appendChild(card);
-        });
-      }
+  // Helper Pembersih & Pemformat Persentase (0.6 -> 60%)
+  const cleanPercent = (val, fallback) => {
+    if (!val) return fallback;
+    let str = String(val).trim();
+    if (str.endsWith('%')) return str;
+    let num = parseFloat(str);
+    if (!isNaN(num)) {
+      return (num <= 1 ? Math.round(num * 100) : Math.round(num)) + '%';
     }
+    return fallback;
+  };
+
+  const femalePercent = cleanPercent(stats.Gender_Female, '50%');
+  const malePercent = cleanPercent(stats.Gender_Male, '50%');
+  
+  // Format ER Rate
+  let erText = String(stats.Engagement_Rate || '0%').trim();
+  if (!erText.endsWith('%') && !isNaN(parseFloat(erText))) {
+    let num = parseFloat(erText);
+    erText = (num <= 1 ? (num * 100).toFixed(1) : num) + '%';
+  }
+
+  // =========================================================================
+  // 1. KARTU DEMOGRAFI & STATISTIK AUDIENS (MEDIA KIT SHOWCASE)
+  // =========================================================================
+  const statsBox = document.createElement('div');
+  statsBox.className = "public-rate-card w-full p-5 sm:p-6 rounded-[32px] space-y-5 relative overflow-hidden";
+  statsBox.style.backgroundColor = cardBg;
+  statsBox.style.borderColor = cardBorder;
+
+  statsBox.innerHTML = `
+    <!-- Header Demografi -->
+    <div class="flex items-center justify-between pb-3.5 border-b border-white/10">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-300 flex items-center justify-center text-base shadow-sm">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <div class="text-left">
+          <h4 class="font-black text-sm sm:text-base tracking-tight leading-none" style="color: ${cardTextColor};">Demografi & Wawasan Audiens</h4>
+          <p class="text-[11px] text-purple-300/80 font-bold mt-1">Laporan Resmi Jangkauan Media Sosial</p>
+        </div>
+      </div>
+
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-300 font-extrabold text-[9.5px] uppercase tracking-wider shrink-0">
+        ${escapeHtml(stats.Platform || 'All Platforms')}
+      </span>
+    </div>
+
+    <!-- Grid 2 Metrik KPI Utama (Followers & Engagement Rate) -->
+    <div class="grid grid-cols-2 gap-3 text-center">
+      <div class="ratecard-kpi-chamber p-3.5 rounded-2xl">
+        <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">Total Pengikut</p>
+        <p class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-300 mt-1">
+          ${escapeHtml(stats.Followers || '0')}
+        </p>
+      </div>
+      <div class="ratecard-kpi-chamber p-3.5 rounded-2xl">
+        <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">Engagement Rate</p>
+        <p class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-300 mt-1">
+          ${escapeHtml(erText)}
+        </p>
+      </div>
+    </div>
+
+    <!-- Dual-Tone Gender Ratio Visual Bar -->
+    <div class="space-y-2 pt-1">
+      <div class="flex justify-between text-xs font-bold">
+        <span class="text-pink-400 flex items-center gap-1.5"><i class="fa-solid fa-venus"></i> Wanita ${femalePercent}</span>
+        <span class="text-blue-400 flex items-center gap-1.5">Pria ${malePercent} <i class="fa-solid fa-mars"></i></span>
+      </div>
+      <div class="ratecard-gender-track w-full h-3 rounded-full overflow-hidden flex p-0.5">
+        <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full transition-all duration-700 shadow-md" style="width: ${femalePercent}"></div>
+      </div>
+    </div>
+
+    <!-- Rincian Kelompok Usia & Lokasi Geografis -->
+    <div class="flex items-center justify-between text-xs font-bold pt-3.5 border-t border-white/10 gap-2 flex-wrap text-left">
+      <span class="flex items-center gap-1.5" style="color: ${cardTextColor};">
+        <i class="fa-solid fa-users text-xs text-violet-400"></i>
+        <span>Usia: <strong class="text-violet-400">${escapeHtml(stats.Top_Age_Group || '18 - 24 Tahun')}</strong></span>
+      </span>
+      <span class="flex items-center gap-1.5" style="color: ${cardTextColor};">
+        <i class="fa-solid fa-location-dot text-xs text-rose-400"></i>
+        <span>Domisili: <strong class="text-rose-400">${escapeHtml(stats.Top_Location || 'Indonesia')}</strong></span>
+      </span>
+    </div>
+  `;
+  rateContainer.appendChild(statsBox);
+
+  // =========================================================================
+  // 2. HEADER PEMBAGI PAKET KOLABORASI
+  // =========================================================================
+  if (packages.length > 0) {
+    const divider = document.createElement('div');
+    divider.className = "flex items-center justify-center gap-3 my-2 w-full px-2";
+    divider.innerHTML = `
+      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm">
+        <i class="fa-solid fa-handshake text-xs text-amber-300"></i> Paket Kolaborasi & Sponsorship
+      </span>
+      <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+    `;
+    rateContainer.appendChild(divider);
+
+    // =========================================================================
+    // 3. KARTU PAKET TIER PRICING DENGAN DELIVERABLES CHECKLIST
+    // =========================================================================
+    packages.forEach(pkg => {
+      const card = document.createElement('div');
+      card.className = "public-rate-card w-full p-5 sm:p-6 rounded-[32px] flex flex-col text-left relative overflow-hidden group";
+      card.style.backgroundColor = cardBg;
+      card.style.borderColor = cardBorder;
+
+      // WhatsApp Message Generator
+      const waNumber = settings.Social_WhatsApp || '628123456789';
+      const waMessage = encodeURIComponent(`Halo Kak ${user.name || ''}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon informasi ketersediaan jadwal slot dan brief selanjutnya. Terima kasih!`);
+      const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
+
+      // Parsing Rincian Deliverables menjadi Checklist
+      const rawDeliverables = pkg.Deliverables || '';
+      const items = rawDeliverables.split(/(?:✔|\n|,)/).map(s => s.trim()).filter(s => s.length > 0);
+      
+      let deliverablesHTML = '';
+      if (items.length > 0) {
+        deliverablesHTML = `<ul class="space-y-2 mt-4 mb-5">`;
+        items.forEach(item => {
+          deliverablesHTML += `
+            <li class="flex items-start gap-2.5 text-xs font-semibold leading-relaxed" style="color: ${cardDescColor};">
+              <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-[9px] shrink-0 mt-0.5 shadow-sm">
+                <i class="fa-solid fa-check"></i>
+              </span>
+              <span>${escapeHtml(item)}</span>
+            </li>
+          `;
+        });
+        deliverablesHTML += `</ul>`;
+      } else {
+        deliverablesHTML = `<p class="text-xs mt-3 mb-5 leading-relaxed font-medium" style="color: ${cardDescColor};">${escapeHtml(rawDeliverables) || '<span class="text-slate-500 italic">Rincian layanan kustom.</span>'}</p>`;
+      }
+
+      card.innerHTML = `
+        <!-- Baris Atas: Judul Paket & Badge Harga Hijau Emerald Glow -->
+        <div class="flex justify-between items-start gap-3 pb-3.5 border-b border-white/10">
+          <div>
+            <h4 class="font-black text-base sm:text-lg tracking-tight leading-snug" style="color: ${cardTextColor};">
+              ${escapeHtml(pkg.Package_Name)}
+            </h4>
+            <div class="flex items-center gap-1.5 text-[11px] font-extrabold text-purple-300 mt-1">
+              <i class="fa-solid fa-bolt text-amber-300 text-xs"></i>
+              <span>Est. Reach: <strong class="text-white">${escapeHtml(pkg.Est_Reach || 'N/A')}</strong></span>
+            </div>
+          </div>
+
+          <div class="px-3.5 py-1.5 bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 font-black text-xs sm:text-sm rounded-2xl shadow-inner shrink-0">
+            ${formatRupiahProfile(pkg.Package_Price)}
+          </div>
+        </div>
+
+        <!-- Rincian Deliverables Bercentang -->
+        ${deliverablesHTML}
+
+        <!-- Tombol WhatsApp Direct Sponsorship Proposal -->
+        <a 
+          href="${waLink}" 
+          target="_blank" 
+          onclick="recordClick('${user.id || ''}', '${pkg.Package_ID}')" 
+          class="btn-ratecard-collab w-full py-3.5 rounded-2xl text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 border border-white/20 cursor-pointer shadow-lg mt-auto"
+        >
+          <i class="fa-solid fa-handshake text-sm"></i>
+          <span>Ajukan Kerja Sama via WhatsApp</span>
+        </a>
+      `;
+
+      rateContainer.appendChild(card);
+    });
+  }
+}
     function isColorDark(colorVal) {
       if (!colorVal) return false;
       let hex = colorVal;
