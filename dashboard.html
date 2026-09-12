@@ -5068,6 +5068,9 @@ function deleteCommunityHub(id) {
 }
 
 // 5. RENDER ANGGOTA CRM KE TABEL
+// =========================================================================
+// PERBAIKAN: RENDER ANGGOTA CRM (ANTI ERROR TIPE DATA NUMBER)
+// =========================================================================
 function renderCommunityMembers() {
   const tbody = document.getElementById('comMembersTableBody');
   if (!tbody) return;
@@ -5084,7 +5087,9 @@ function renderCommunityMembers() {
       ? dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
       : (member.Joined_At || '-');
     
-    const phoneClean = (member.Phone_Number || '').replace(/[^0-9]/g, '');
+    // 👉 PERBAIKAN DI SINI: Konversi paksa ke String() agar .replace() tidak error
+    const rawPhone = String(member.Phone_Number || '');
+    const phoneClean = rawPhone.replace(/[^0-9]/g, '');
     const waUrl = phoneClean ? `https://wa.me/${phoneClean}` : '#';
 
     const tr = document.createElement('tr');
@@ -5098,7 +5103,7 @@ function renderCommunityMembers() {
       </td>
       <td class="py-3.5 px-3 text-slate-300 font-medium truncate max-w-[160px] sm:max-w-[200px]">${escapeHtml(member.Email) || '<span class="text-slate-500">-</span>'}</td>
       <td class="py-3.5 px-3">
-        ${phoneClean ? `<a href="${waUrl}" target="_blank" class="inline-flex items-center gap-1 text-emerald-400 font-bold hover:underline"><i class="fa-brands fa-whatsapp text-xs"></i> ${escapeHtml(member.Phone_Number)}</a>` : '<span class="text-slate-500">-</span>'}
+        ${phoneClean ? `<a href="${waUrl}" target="_blank" class="inline-flex items-center gap-1 text-emerald-400 font-bold hover:underline"><i class="fa-brands fa-whatsapp text-xs"></i> ${escapeHtml(rawPhone)}</a>` : '<span class="text-slate-500">-</span>'}
       </td>
       <td class="py-3.5 pr-4 text-right text-[11px] text-slate-400 font-bold">${dateStr}</td>
     `;
@@ -5106,7 +5111,7 @@ function renderCommunityMembers() {
   });
 }
 
-// 6. EXPORT ANGGOTA KE FORMAT FILE CSV
+// Sekaligus amankan fungsi export CSV agar tidak mengalami error yang sama
 function exportMembersToCSV() {
   if (!STATE.comMembers || STATE.comMembers.length === 0) {
     return Swal.fire({
@@ -5121,10 +5126,10 @@ function exportMembersToCSV() {
 
   let csvContent = "Nama Lengkap,Email,Nomor WhatsApp,Tanggal Bergabung\n";
   STATE.comMembers.forEach(m => {
-    const name = (m.Full_Name || '').replace(/"/g, '""');
-    const email = (m.Email || '').replace(/"/g, '""');
-    const phone = (m.Phone_Number || '').replace(/"/g, '""');
-    const joined = (m.Joined_At || '').replace(/"/g, '""');
+    const name = String(m.Full_Name || '').replace(/"/g, '""');
+    const email = String(m.Email || '').replace(/"/g, '""');
+    const phone = String(m.Phone_Number || '').replace(/"/g, '""');
+    const joined = String(m.Joined_At || '').replace(/"/g, '""');
     csvContent += `"${name}","${email}","${phone}","${joined}"\n`;
   });
 
