@@ -1544,7 +1544,155 @@
     // =========================================================================
 // JAVASCRIPT COMMUNITY GATED MODAL ENGINE (EXECUTIVE VERIFICATION PASSPORT)
 // =========================================================================
+// =========================================================================
+// LINKHUB REAL-TIME REACTIVE CLIENT (PROFILE LANDING PAGE)
+// =========================================================================
 
+// 1. Inisialisasi Jalur Penerima Siaran
+const SYNC_BUS = ('BroadcastChannel' in window) ? new BroadcastChannel('linkhub_realtime_bus') : null;
+
+// 2. Listener Otomatis: Tangkap Perubahan dari Dashboard Tanpa Refresh Halaman!
+if (SYNC_BUS) {
+  SYNC_BUS.onmessage = function(event) {
+    const data = event.data;
+    if (!data) return;
+
+    // Periksa apakah perubahan ditujukan untuk akun profil yang sedang dibuka
+    const currentUsername = new URLSearchParams(window.location.search).get('u') || '';
+    if (data.user && data.user.username.toLowerCase() !== currentUsername.toLowerCase()) return;
+
+    // ⚡ UPDATE DOM SECARA INSTAN DI DEPAN MATA TANPA REFRESH BROWSER! ⚡
+    
+    // Perbarui Teks, Latar Belakang & Tampilan
+    if (data.settings) {
+      document.title = data.settings.Page_Title || document.title;
+      const titleEl = document.getElementById('profileTitle');
+      const bioEl = document.getElementById('profileBio');
+      const mainContainer = document.getElementById('mainContainer');
+
+      if (titleEl) {
+        titleEl.textContent = data.settings.Page_Title;
+        if (data.settings.Title_Color) titleEl.style.color = data.settings.Title_Color;
+      }
+      if (bioEl) {
+        bioEl.textContent = data.settings.Bio_Description;
+        if (data.settings.Bio_Color) bioEl.style.color = data.settings.Bio_Color;
+      }
+      if (mainContainer && data.settings.Bg_Color) {
+        mainContainer.style.background = data.settings.Bg_Color;
+      }
+    }
+
+    // Render Ulang Seluruh Komponen dengan Data Baru
+    const fullData = {
+      user: data.user,
+      pageSettings: data.settings,
+      blocks: data.blocks || BLOCKS_DATA,
+      products: data.products || [],
+      banners: data.banners || [],
+      rateStats: data.rateStats || {},
+      ratePackages: data.ratePackages || [],
+      comHubs: data.comHubs || [],
+      comPosts: data.comPosts || [],
+      nglSettings: data.nglSettings || {},
+      creatorContents: data.creatorContents || [],
+      affiliateItems: data.affiliateItems || []
+    };
+
+    BLOCKS_DATA = fullData.blocks;
+    renderPublicProfile(fullData);
+    
+    // Simpan ke Cache Lokal agar kunjungan berikutnya 0 detik
+    localStorage.setItem('lh_cache_' + currentUsername.toLowerCase(), JSON.stringify(fullData));
+  };
+}
+
+// 3. Kirim Sinyal Balik ke Dashboard saat Ada Interaksi Baru di Profil Publik
+// A. Saat Pengunjung Mengirim Pesan NGL:
+const originalSubmitAnonymousMessage = submitAnonymousMessage;
+submitAnonymousMessage = async function(e, username) {
+  const msgText = document.getElementById('nglMessageInput').value.trim();
+  await originalSubmitAnonymousMessage(e, username);
+
+  // Kirim sinyal seketika ke tab dashboard admin
+  if (SYNC_BUS && msgText) {
+    SYNC_BUS.postMessage({
+      type: 'NEW_NGL_MESSAGE',
+      payload: {
+        Message_ID: 'MSG-' + Date.now(),
+        Message_Text: msgText,
+        Is_Read: false,
+        Created_At: new Date().toISOString()
+      }
+    });
+  }
+};
+
+// B. Saat Pengunjung Bergabung ke Komunitas VIP (Leads Baru):
+const originalSubmitCommunityJoin = submitCommunityJoin;
+submitCommunityJoin = async function(e) {
+  const fullName = document.getElementById('joinFullName').value.trim();
+  const email = document.getElementById('joinEmail').value.trim();
+  const phone = document.getElementById('joinPhone').value.trim();
+  
+  await originalSubmitCommunityJoin(e);
+
+  if (SYNC_BUS && fullName) {
+    SYNC_BUS.postMessage({
+      type: 'NEW_COMMUNITY_MEMBER',
+      payload: {
+        Member_ID: 'MBR-' + Date.now(),
+        Full_Name: fullName,
+        Email: email,
+        Phone_Number: phone,
+        Joined_At: new Date().toISOString()
+      }
+    });
+  }
+};
+
+// C. Saat Pengunjung Mengklik Tautan (Live Click Stream):
+const originalRecordClick = recordClick;
+recordClick = function(userId, blockId) {
+  originalRecordClick(userId, blockId);
+  if (SYNC_BUS) {
+    SYNC_BUS.postMessage({ type: 'NEW_CLICK_TRACKED', blockId: blockId });
+  }
+};
+
+// 4. Pola SWR (Stale-While-Revalidate) Load Profil Publik 0 Detik
+const originalFetchUserProfile = fetchUserProfile;
+fetchUserProfile = async function(username) {
+  const cacheKey = 'lh_cache_' + username.toLowerCase().trim();
+  const localCache = localStorage.getItem(cacheKey);
+  
+  // Jika ada cache lokal, tampilkan dalam 0,01 detik!
+  if (localCache) {
+    try {
+      const parsed = JSON.parse(localCache);
+      BLOCKS_DATA = parsed.blocks || [];
+      renderPublicProfile(parsed);
+      const loader = document.getElementById('profileLoader');
+      if (loader) loader.style.display = 'none';
+    } catch (e) {}
+  }
+
+  // Ambil data resmi dari Google Apps Script di latar belakang
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=get_dashboard_data&u=${encodeURIComponent(username)}&_t=${Date.now()}`);
+    const res = await response.json();
+    if (res.status === 'success') {
+      localStorage.setItem(cacheKey, JSON.stringify(res.data));
+      BLOCKS_DATA = res.data.blocks || [];
+      renderPublicProfile(res.data);
+    }
+  } catch (err) {
+    console.error("Sync error:", err);
+  } finally {
+    const loader = document.getElementById('profileLoader');
+    if (loader) loader.style.display = 'none';
+  }
+};
 // 1. MEMBUKA MODAL AKSES VIP DENGAN ANIMASI HALUS
 function openCommunityModal(communityId, communityName) {
   const hiddenId = document.getElementById('joinComId');
@@ -2156,6 +2304,9 @@ function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
   } catch (err) {
     console.error("Tracking Error:", err);
   }
+   if (SYNC_BUS) {
+    SYNC_BUS.postMessage({ type: 'AFFILIATE_CLICKED', itemId: itemId });
+  }
 
   // 2. Deteksi Perangkat (Mobile vs Desktop)
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -2194,7 +2345,11 @@ function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
         beacon.src = trackingUrl;
         console.log(`[Analytics] Tracked ${eventType} for Content: ${contentId}`);
       } catch (e) { console.error("Tracking Error:", e); }
+       if (SYNC_BUS) {
+    SYNC_BUS.postMessage({ type: 'AFFILIATE_CLICKED', itemId: itemId });
+  }
     }
+    
     function startPublicBannerSlider() {
       if (publicBannerInterval) clearInterval(publicBannerInterval);
       
