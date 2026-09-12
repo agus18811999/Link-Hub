@@ -1383,7 +1383,82 @@
 
 <!-- CONTAINER ETALASE PRODUK DIGITAL -->
 
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: LUXURY FROSTED GLASS DIGITAL STORE (ULTRA LUXE)           -->
+<!-- ========================================================================= -->
 
+<!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS ETALASE PRODUK -->
+<style>
+ /* Master Frosted Crystal Glass Store Card */
+  .luxury-glass-store-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan kilau cahaya atas */
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.35),
+      0 0 35px -5px rgba(16, 185, 129, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .luxury-glass-store-card:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(52, 211, 153, 0.45) !important;
+    box-shadow: 
+      0 25px 60px -10px rgba(0, 0, 0, 0.45),
+      0 0 45px rgba(16, 185, 129, 0.25),
+      inset 0 1px 3px rgba(255, 255, 255, 0.55) !important;
+  }
+
+  /* Tombol WhatsApp Glossy Jewel */
+  .btn-store-whatsapp-glossy {
+    background: linear-gradient(135deg, #10b981 0%, #059669 45%, #0d9488 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.32) !important;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-store-whatsapp-glossy::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-store-whatsapp-glossy:hover::before {
+    left: 100%;
+  }
+  .btn-store-whatsapp-glossy:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 14px 35px -5px rgba(16, 185, 129, 0.6);
+    filter: brightness(1.08);
+  }
+  .btn-store-whatsapp-glossy:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  
+</style>
+
+<!-- CONTAINER ETALASE PRODUK DIGITAL -->
+<div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
+  
+  <!-- Header Pembagi Etalase Kaca Kristal -->
+  <div class="flex items-center justify-center gap-3 mb-6 w-full px-2">
+    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm backdrop-blur-md">
+      <i class="fa-solid fa-store text-xs text-emerald-400"></i> Etalase Produk Digital
+    </span>
+    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+  </div>
+
+  <!-- Grid Produk Digital Kaca -->
+  <div id="productsContainer" class="w-full flex flex-col gap-4">
+    <!-- Produk akan dirender secara dinamis oleh JavaScript -->
+  </div>
+
+</div>
 <!-- 4. FLOATING LIQUID SOCIAL ICONS BAR -->
 <div id="floatingSocialBar" class="w-full mt-10 mb-4 hidden justify-center items-center z-30 transition-all duration-500 ease-out transform translate-y-4 opacity-0">
   <div class="luxury-glass-social-capsule inline-flex items-center justify-center gap-3 sm:gap-4 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full mx-auto" id="socialBarGlass">
@@ -1787,6 +1862,7 @@ function switchPublicTab(tab) {
   const rateSection = document.getElementById('publicRateCardSection');       // Tab Rate Card
   const nglSection = document.getElementById('publicNglSection');             // Tab Pesan
   const communitySection = document.getElementById('publicCommunitySection'); // Tab Komunitas
+  const productsSection = document.getElementById('productsSection'); 
 
   const btnLinks = document.getElementById('pubTabLinks');
   const btnContent = document.getElementById('pubTabContent');
@@ -1805,6 +1881,20 @@ function switchPublicTab(tab) {
       el.classList.remove('flex');
     }
   });
+  if (productsSection) {
+    if (tab === 'links') {
+      // Jika di Tab Tautan ('links') & ada produknya -> Tampilkan
+      const hasProducts = productsSection.querySelectorAll('.luxury-glass-store-card').length > 0;
+      if (hasProducts) {
+        productsSection.classList.remove('hidden');
+        productsSection.classList.add('flex');
+      }
+    } else {
+      // Jika di Tab Lain (Konten, Racun, Rate Card, Komunitas, Pesan) -> WAJIB HILANG
+      productsSection.classList.add('hidden');
+      productsSection.classList.remove('flex');
+    }
+  }
 
   // 2. Reset Status Aktif Seluruh Tombol Tab
   allButtons.forEach(btn => {
@@ -2603,6 +2693,7 @@ if (socialBar && socialGlass) {
       // ========================================================
    /* --- B. RENDERING ETALASE PRODUK DIGITAL (TRUE FROSTED GLASS REVISION) --- */
 /* --- B. RENDERING ETALASE PRODUK DIGITAL (FIX UKURAN GAMBAR & TRUE GLASS) --- */
+/* --- B. RENDERING ETALASE PRODUK DIGITAL (FIX UKURAN GAMBAR & TRUE GLASS) --- */
 const productsContainer = document.getElementById('productsContainer');
 const productsSection = document.getElementById('productsSection');
 
@@ -2675,7 +2766,8 @@ if (productsContainer && productsSection) {
     productsSection.classList.remove('flex');
   }
 }
-      const rateContainer = document.getElementById('publicRateCardSection');
+
+const rateContainer = document.getElementById('publicRateCardSection');
       if (!rateContainer) return;
       rateContainer.innerHTML = '';
 
