@@ -2301,12 +2301,17 @@ function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
     const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
     const trackingUrl = `${SCRIPT_URL}?action=log_affiliate_click&userId=${userId}&itemId=${itemId}&platform=${platform}&ip=127.0.0.1&device=${device}`;
     new Image().src = trackingUrl;
+    if (SYNC_BUS) {
+      SYNC_BUS.postMessage({ 
+        type: 'AFFILIATE_CLICKED', 
+        itemId: itemId,
+        platform: platform 
+      });
+    }
   } catch (err) {
     console.error("Tracking Error:", err);
   }
-   if (SYNC_BUS) {
-    SYNC_BUS.postMessage({ type: 'AFFILIATE_CLICKED', itemId: itemId });
-  }
+ 
 
   // 2. Deteksi Perangkat (Mobile vs Desktop)
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -2344,10 +2349,15 @@ function handleAffiliateClick(e, userId, itemId, platform, originalUrl) {
         const beacon = new Image();
         beacon.src = trackingUrl;
         console.log(`[Analytics] Tracked ${eventType} for Content: ${contentId}`);
+        if (SYNC_BUS) {
+      SYNC_BUS.postMessage({ 
+        type: 'CREATOR_EVENT_TRACKED', 
+        contentId: contentId, 
+        eventType: eventType 
+      });
+    }
       } catch (e) { console.error("Tracking Error:", e); }
-       if (SYNC_BUS) {
-    SYNC_BUS.postMessage({ type: 'AFFILIATE_CLICKED', itemId: itemId });
-  }
+      
     }
     
     function startPublicBannerSlider() {
@@ -3249,24 +3259,39 @@ function timeAgo(dateString) {
     // -> FUNGSI UNTUK MENCATAT KLIK SECARA SENYAP (DENGAN DEBUGLOG)
   // -> FUNGSI PENCATAT KLIK DENGAN TEKNIK IMAGE PIXEL TRACKING (100% ANTI-CORS)
    // -> FUNGSI PELACAK KLIK (METODE IMAGE BEACON - 100% AMAN & ANTI BLOKIR)
-    function recordClick(userId, blockId) {
-      try {
-        const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
-        const ref = encodeURIComponent(document.referrer || 'Direct');
-        
-        // Membangun URL GET Request
-        const trackingUrl = `${SCRIPT_URL}?action=log_click&userId=${userId}&blockId=${blockId}&device=${device}&referrer=${ref}`;
-        
-        // Metode Image Beacon: Membuat elemen gambar maya di latar belakang.
-        // Browser TIDAK BISA membatalkan pemuatan gambar, sehingga log dijamin sampai ke server Google.
-        const beacon = new Image();
-        beacon.src = trackingUrl;
-        
-        console.log("Klik terdeteksi! Mengirim Beacon ke:", trackingUrl);
-      } catch (e) {
-        console.error("Gagal meluncurkan beacon analitik.", e);
-      }
+   // =========================================================================
+// REVISI: PELACAK KLIK REAL-TIME (IMAGE BEACON + ANTI-CACHE + SYNC BUS 0 MS)
+// =========================================================================
+function recordClick(userId, blockId) {
+  try {
+    const uid = String(userId || 'GUEST').trim();
+    const bid = String(blockId || 'UNKNOWN_BLOCK').trim();
+    const device = encodeURIComponent(navigator.userAgent.substring(0, 100));
+    const ref = encodeURIComponent(document.referrer || 'Direct');
+    const timestamp = Date.now();
+
+    // 1. URL Telemetri dengan Parameter Anti-Cache (_t) agar klik berulang selalu terkirim
+    const trackingUrl = `${SCRIPT_URL}?action=log_click&userId=${encodeURIComponent(uid)}&blockId=${encodeURIComponent(bid)}&device=${device}&referrer=${ref}&_t=${timestamp}`;
+
+    // 2. Metode Image Beacon (100% Bebas CORS & Tidak Mengganggu Navigasi Pengunjung)
+    const beacon = new Image();
+    beacon.src = trackingUrl;
+
+    // 3. ⚡ SIARAN LANGSUNG KE DASHBOARD SECARA REAL-TIME (0 MILIDETIK) ⚡
+    if (typeof SYNC_BUS !== 'undefined' && SYNC_BUS) {
+      SYNC_BUS.postMessage({
+        type: 'NEW_CLICK_TRACKED',
+        blockId: bid,
+        userId: uid,
+        timestamp: timestamp
+      });
     }
+
+    console.log(`[Analytics] Klik Terekam -> Block: ${bid}`);
+  } catch (e) {
+    console.error("Gagal meluncurkan beacon analitik.", e);
+  }
+}
     // FUNGSI SEARCH FILTERING
 
     // -> FUNGSI INLINE MEDIA PLAYER (REPLACE IMAGE DENGAN IFRAME VIDEO ASLI)
