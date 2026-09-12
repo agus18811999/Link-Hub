@@ -925,25 +925,47 @@
       inset 0 1px 2px rgba(255, 255, 255, 0.45);
   }
 
-  /* Official Bulletin Pinboard Card */
+/* ========================================================================= */
+  /* REVISI: LUXURY FROSTED GLASS BULLETIN CARD (PAPAN PENGUMUMAN RESMI)       */
+  /* ========================================================================= */
   .public-bulletin-card {
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-    border-right: 1px solid rgba(255, 255, 255, 0.16);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-    border-left: 4px solid #10b981;
+    /* Latar Kaca Transparan Tembus Pandang Menyatu 360 Derajat */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan kilau cahaya kristal atas */
     box-shadow: 
-      0 20px 50px -10px rgba(0, 0, 0, 0.45),
-      0 0 30px -5px rgba(16, 185, 129, 0.15),
-      inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+      0 25px 60px -12px rgba(0, 0, 0, 0.35),
+      0 0 35px -5px rgba(16, 185, 129, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.38) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
   .public-bulletin-card:hover {
     transform: translateY(-2px) scale(1.01);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
     box-shadow: 
-      0 25px 60px -10px rgba(0, 0, 0, 0.55),
-      0 0 40px -5px rgba(16, 185, 129, 0.25);
+      0 30px 70px -10px rgba(0, 0, 0, 0.45),
+      0 0 45px rgba(16, 185, 129, 0.25),
+      inset 0 1px 3px rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Bilik Baca Isi Pengumuman Kaca Halus */
+  .bulletin-glass-chamber {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 15px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Lencana Status Kaca */
+  .bulletin-badge-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
   }
 
   /* Action Buttons with Liquid Light Sweep */
@@ -2967,10 +2989,12 @@ function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
  // =========================================================================
     // B. RENDER PAPAN PENGUMUMAN RESMI (FULL GLASS GRADIENT EDISI MEWAH)
     // =========================================================================
+  // =========================================================================
+    // B. RENDER PAPAN PENGUMUMAN RESMI (TRUE FROSTED GLASS REVISION)
+    // =========================================================================
     COM_POSTS.forEach(post => {
       const pCard = document.createElement('div');
-      // Menggunakan padding yang proporsional, sudut membulat 32px, dan class kaca menyeluruh
-      pCard.className = "public-bulletin-card w-full p-6 sm:p-7 rounded-[32px] text-left relative overflow-hidden group";
+      pCard.className = "public-bulletin-card w-full p-5 sm:p-7 rounded-[32px] text-left relative overflow-hidden group";
 
       const formattedTime = typeof timeAgo === 'function' ? timeAgo(post.Created_At) : 'Baru saja';
 
@@ -2978,9 +3002,10 @@ function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
         <!-- Specular Highlight Ray di Bagian Atas Kartu -->
         <div class="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-emerald-300/60 to-transparent pointer-events-none"></div>
 
-        <!-- Baris Header: Badge Lencana Status & Waktu Terbit -->
-        <div class="flex items-center justify-between gap-3 mb-3.5 pb-3 border-b border-white/10">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${post.Is_Members_Only ? 'community-pill-rose' : 'community-pill-emerald'} font-black text-[9.5px] uppercase tracking-wider shadow-sm backdrop-blur-md">
+        <!-- Baris 1: Header (Lencana Privasi & Waktu Terbit Kaca Transparan) -->
+        <div class="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/10">
+          <span class="bulletin-badge-glass inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${post.Is_Members_Only ? 'bg-rose-500/20 border border-rose-400/40 text-rose-200' : 'bg-emerald-500/20 border border-emerald-400/40 text-emerald-200'} font-black text-[9.5px] uppercase tracking-wider shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full ${post.Is_Members_Only ? 'bg-rose-400' : 'bg-emerald-400'} animate-pulse"></span>
             <i class="fa-solid fa-thumbtack text-[8.5px]"></i>
             <span>${post.Is_Members_Only ? 'Khusus Member VIP' : 'Kabar Resmi Publik'}</span>
           </span>
@@ -2991,16 +3016,30 @@ function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
           </span>
         </div>
 
-        <!-- Judul Pengumuman Berkontras Tinggi & Bersih -->
-        <h5 class="font-black text-base sm:text-lg leading-snug tracking-tight mb-3.5 text-white drop-shadow-sm">
-          ${escapeHtml(post.Post_Title)}
-        </h5>
+        <!-- Baris 2: Judul Pengumuman dengan Ikon Megaphone Chamber -->
+        <div class="flex items-start gap-3 mb-4">
+          <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 text-emerald-300 flex items-center justify-center text-sm shrink-0 shadow-inner mt-0.5">
+            <i class="fa-solid fa-bullhorn text-xs"></i>
+          </div>
+          <h5 class="font-black text-base sm:text-lg leading-snug tracking-tight text-white drop-shadow-sm flex-1">
+            ${escapeHtml(post.Post_Title)}
+          </h5>
+        </div>
 
-        <!-- Ruang Baca Kaca Transparan Tembus Pandang -->
-        <div class="bulletin-glass-content p-4 sm:p-5 rounded-[22px]">
+        <!-- Baris 3: Ruang Baca Kaca Transparan Tembus Pandang -->
+        <div class="bulletin-glass-chamber p-4 sm:p-5 rounded-[22px]">
           <p class="text-xs sm:text-[13.5px] leading-relaxed font-medium whitespace-pre-line text-white/90">
             ${escapeHtml(post.Post_Content)}
           </p>
+        </div>
+
+        <!-- Baris 4: Footer Terverifikasi -->
+        <div class="flex items-center justify-between text-[10.5px] font-bold text-white/60 pt-3.5 border-t border-white/10 mt-4">
+          <span class="flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
+            <span>Terverifikasi oleh Pengelola Komunitas</span>
+          </span>
+          <span class="text-[9px] font-black uppercase tracking-widest text-emerald-300">Official Notice</span>
         </div>
       `;
 
