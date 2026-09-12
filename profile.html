@@ -1235,6 +1235,41 @@
       0 0 45px rgba(56, 189, 248, 0.25),
       inset 0 1px 3px rgba(255, 255, 255, 0.5) !important;
   }
+  /* ========================================================================= */
+  /* REVISI: FULL-SURROUND FROSTED GLASS BULLETIN CARD (GRADASI MENYELURUH)   */
+  /* ========================================================================= */
+  .public-bulletin-card {
+    /* Gradasi Kaca Kristal Menyebar di Seluruh Latar Belakang Kartu */
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.16) 0%, rgba(6, 182, 212, 0.08) 45%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan kilau cahaya atas (Specular Rim) */
+    box-shadow: 
+      0 25px 60px -12px rgba(0, 0, 0, 0.45),
+      0 0 40px -8px rgba(16, 185, 129, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .public-bulletin-card:hover {
+    transform: translateY(-3px) scale(1.01);
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.12) 50%, rgba(255, 255, 255, 0.06) 100%) !important;
+    border-color: rgba(52, 211, 153, 0.45) !important;
+    box-shadow: 
+      0 30px 70px -10px rgba(0, 0, 0, 0.55),
+      0 0 50px rgba(16, 185, 129, 0.3),
+      inset 0 1px 3px rgba(255, 255, 255, 0.55) !important;
+  }
+
+  /* Ruang Baca Isi Pengumuman Kaca Halus (Transparan & Ringan) */
+  .bulletin-glass-content {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
 
   /* Bantalan Kaca Mikro untuk Masing-Masing Ikon Sosial Media */
   .social-glass-pod {
@@ -2688,31 +2723,41 @@ function renderPublicCommunity(data, isDarkBg, cardTextColor, cardDescColor) {
     `;
     publicCommunitySection.appendChild(postHeader);
 
+ // =========================================================================
+    // B. RENDER PAPAN PENGUMUMAN RESMI (FULL GLASS GRADIENT EDISI MEWAH)
+    // =========================================================================
     COM_POSTS.forEach(post => {
       const pCard = document.createElement('div');
-      pCard.className = "public-bulletin-card w-full p-5 sm:p-6 rounded-[28px] text-left relative overflow-hidden group";
-      pCard.style.backgroundColor = 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%)';
+      // Menggunakan padding yang proporsional, sudut membulat 32px, dan class kaca menyeluruh
+      pCard.className = "public-bulletin-card w-full p-6 sm:p-7 rounded-[32px] text-left relative overflow-hidden group";
 
       const formattedTime = typeof timeAgo === 'function' ? timeAgo(post.Created_At) : 'Baru saja';
 
       pCard.innerHTML = `
-        <div class="flex items-center justify-between gap-3 mb-3 pb-2.5 border-b border-white/10">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md ${post.Is_Members_Only ? 'community-pill-rose' : 'community-pill-emerald'} font-black text-[9px] uppercase tracking-wider">
-            <i class="fa-solid fa-thumbtack text-[8px]"></i>
-            ${post.Is_Members_Only ? 'Khusus Member VIP' : 'Kabar Resmi Publik'}
+        <!-- Specular Highlight Ray di Bagian Atas Kartu -->
+        <div class="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-emerald-300/60 to-transparent pointer-events-none"></div>
+
+        <!-- Baris Header: Badge Lencana Status & Waktu Terbit -->
+        <div class="flex items-center justify-between gap-3 mb-3.5 pb-3 border-b border-white/10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${post.Is_Members_Only ? 'community-pill-rose' : 'community-pill-emerald'} font-black text-[9.5px] uppercase tracking-wider shadow-sm backdrop-blur-md">
+            <i class="fa-solid fa-thumbtack text-[8.5px]"></i>
+            <span>${post.Is_Members_Only ? 'Khusus Member VIP' : 'Kabar Resmi Publik'}</span>
           </span>
 
-          <span class="text-[10px] font-bold text-white/70 flex items-center gap-1.5">
-            <i class="fa-regular fa-clock text-xs text-emerald-400"></i> ${formattedTime}
+          <span class="text-[11px] font-bold text-white/75 flex items-center gap-1.5">
+            <i class="fa-regular fa-clock text-xs text-emerald-300"></i>
+            <span>${formattedTime}</span>
           </span>
         </div>
 
-        <h5 class="font-black text-sm sm:text-base leading-snug tracking-tight mb-2.5 text-white drop-shadow-sm">
+        <!-- Judul Pengumuman Berkontras Tinggi & Bersih -->
+        <h5 class="font-black text-base sm:text-lg leading-snug tracking-tight mb-3.5 text-white drop-shadow-sm">
           ${escapeHtml(post.Post_Title)}
         </h5>
 
-        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-inner">
-          <p class="text-xs sm:text-[13px] leading-relaxed font-semibold whitespace-pre-line text-white/85">
+        <!-- Ruang Baca Kaca Transparan Tembus Pandang -->
+        <div class="bulletin-glass-content p-4 sm:p-5 rounded-[22px]">
+          <p class="text-xs sm:text-[13.5px] leading-relaxed font-medium whitespace-pre-line text-white/90">
             ${escapeHtml(post.Post_Content)}
           </p>
         </div>
