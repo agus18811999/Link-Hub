@@ -4083,6 +4083,7 @@
   .btn-community-cta:active {
     transform: translateY(1px) scale(0.99);
   }
+  
 
   /* Master Announcement CTA */
   .btn-announcement-cta {
@@ -4179,7 +4180,63 @@
     box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(40px);
   }
+  /* ========================================================================= */
+  /* REVISI: LUXURY FROSTED GLASS COMMUNITY BULLETIN CARD                      */
+  /* ========================================================================= */
+  .community-post-card {
+    /* Gradasi Kaca Kristal Transparan Penuh (Bukan Hitam Pekat) */
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.14) 0%, rgba(6, 182, 212, 0.08) 45%, rgba(15, 23, 42, 0.75) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.38) !important; /* Pantulan kilau cahaya atas (Specular Rim) */
+    box-shadow: 
+      0 25px 60px -15px rgba(0, 0, 0, 0.45),
+      0 0 35px -5px rgba(16, 185, 129, 0.16),
+      inset 0 1px 2px rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .community-post-card:hover {
+    transform: translateY(-2px) scale(1.005);
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.18) 0%, rgba(6, 182, 212, 0.12) 50%, rgba(15, 23, 42, 0.8) 100%) !important;
+    border-color: rgba(52, 211, 153, 0.4) !important;
+    box-shadow: 
+      0 30px 70px -10px rgba(0, 0, 0, 0.55),
+      0 0 45px rgba(16, 185, 129, 0.25),
+      inset 0 1px 3px rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Ruang Baca Konten Kaca Halus (Transparan, Sejuk & Menyatu) */
+  .bulletin-content-chamber {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 15px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Tombol Hapus Kabar Kaca Mawar (Rose Crystal Button) */
+  .btn-bulletin-delete {
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.25);
+    color: #fecdd3;
+    backdrop-filter: blur(12px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-bulletin-delete:hover {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 0 6px 20px -3px rgba(244, 63, 94, 0.5);
+    transform: translateY(-1px);
+  }
+  .btn-bulletin-delete:active {
+    transform: scale(0.97);
+  }
+
 </style>
+
 
 <div id="tab-community" class="tab-pane hidden select-none space-y-8">
   
@@ -5162,6 +5219,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 7. RENDER POSTINGAN PENGUMUMAN KOMUNITAS
+// =========================================================================
+// JAVASCRIPT COMMUNITY POSTS ENGINE (ULTRA LUXURY GLASS REVISION)
+// =========================================================================
+
 function renderCommunityPosts() {
   const container = document.getElementById('comPostsContainer');
   if (!container) return;
@@ -5171,61 +5232,81 @@ function renderCommunityPosts() {
 
   STATE.comPosts.forEach(post => {
     const div = document.createElement('div');
-    div.className = "community-post-card p-5 sm:p-6 rounded-[26px] relative overflow-hidden group";
-    
-    const formattedTime = timeAgo(post.Created_At);
+    div.className = "community-post-card w-full p-6 sm:p-7 rounded-[30px] relative overflow-hidden group";
+
+    const formattedTime = typeof timeAgo === 'function' ? timeAgo(post.Created_At) : 'Baru saja';
 
     div.innerHTML = `
-      <!-- Baris 1: Ikon, Judul & Badge Privasi -->
-      <div class="flex items-start justify-between gap-4 mb-3">
-        <div class="flex items-start gap-3 min-w-0">
-          <div class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-xs shrink-0 mt-0.5 shadow-sm">
+      <!-- Specular Top Highlight Ray -->
+      <div class="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-emerald-400/70 to-transparent pointer-events-none"></div>
+
+      <!-- Baris 1: Header (Ikon Chamber, Judul, & Lencana Status) -->
+      <div class="flex items-start justify-between gap-4 mb-4 pb-3.5 border-b border-white/10">
+        <div class="flex items-start gap-3.5 min-w-0 flex-1">
+          <!-- Squircle Megaphone Icon Chamber -->
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500/25 to-teal-500/25 border border-emerald-400/40 text-emerald-300 flex items-center justify-center text-base shrink-0 mt-0.5 shadow-[0_0_20px_rgba(16,185,129,0.25)]">
             <i class="fa-solid fa-bullhorn"></i>
           </div>
+
+          <!-- Judul & Waktu -->
           <div class="min-w-0 flex-1">
-            <h4 class="font-black text-white text-sm sm:text-base tracking-tight leading-snug truncate">
+            <h4 class="font-black text-white text-base sm:text-lg tracking-tight leading-snug drop-shadow-sm">
               ${escapeHtml(post.Post_Title)}
             </h4>
-            <span class="text-[10px] font-bold text-slate-400 tracking-wide mt-1 flex items-center gap-1.5">
-              <i class="fa-regular fa-clock text-xs text-slate-500"></i> ${formattedTime}
-            </span>
+            <div class="flex items-center gap-2 mt-1 flex-wrap">
+              <span class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                <i class="fa-regular fa-clock text-xs text-emerald-400"></i> ${formattedTime}
+              </span>
+              <span class="text-white/30 text-xs">&bull;</span>
+              <span class="text-[10.5px] font-bold text-emerald-300 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Official Notice
+              </span>
+            </div>
           </div>
         </div>
 
-        <!-- Badge Privasi -->
-        ${post.Is_Members_Only ? `
-          <span class="px-2.5 py-1 bg-rose-500/15 border border-rose-400/30 text-rose-300 rounded-full text-[9px] font-black uppercase tracking-wider flex items-center gap-1 shrink-0">
-            <i class="fa-solid fa-lock text-[8px]"></i> Khusus Member
-          </span>
-        ` : `
-          <span class="px-2.5 py-1 bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 rounded-full text-[9px] font-black uppercase tracking-wider flex items-center gap-1 shrink-0">
-            <i class="fa-solid fa-globe text-[8px]"></i> Publik
-          </span>
-        `}
+        <!-- Lencana Privasi (Publik vs Khusus Member) -->
+        <div class="shrink-0">
+          ${post.Is_Members_Only ? `
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-400/30 text-rose-300 font-black text-[10px] uppercase tracking-wider shadow-sm backdrop-blur-md">
+              <i class="fa-solid fa-lock text-[9px]"></i> Khusus Member
+            </span>
+          ` : `
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-black text-[10px] uppercase tracking-wider shadow-sm backdrop-blur-md">
+              <i class="fa-solid fa-globe text-[9px]"></i> Publik
+            </span>
+          `}
+        </div>
       </div>
 
-      <!-- Baris 2: Boks Pesan Pengumuman -->
-      <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 shadow-inner my-3">
-        <p class="text-xs sm:text-sm font-semibold text-slate-300 leading-relaxed whitespace-pre-line">
+      <!-- Baris 2: Ruang Baca Konten Kaca Halus (Transparan & Sejuk) -->
+      <div class="bulletin-content-chamber p-4 sm:p-5 rounded-[22px] my-3.5">
+        <p class="text-xs sm:text-[13.5px] leading-relaxed font-medium whitespace-pre-line text-white/95">
           ${escapeHtml(post.Post_Content)}
         </p>
       </div>
 
-      <!-- Baris 3: Tombol Aksi Hapus -->
-      <div class="pt-2 border-t border-white/5 flex justify-end">
+      <!-- Baris 3: Footer Aksi (Status Info & Tombol Hapus Kaca Mawar) -->
+      <div class="pt-3.5 border-t border-white/10 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+          <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
+          <span>Tayang di Landing Page Publik</span>
+        </div>
+
         <button 
           onclick="deleteCommunityPost('${post.Post_ID}')" 
-          class="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 text-rose-400 hover:text-rose-200 border border-rose-500/20 hover:border-rose-500/40 transition-all text-xs font-bold flex items-center gap-1.5 cursor-pointer" 
-          title="Hapus Pengumuman"
+          class="btn-bulletin-delete px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2 cursor-pointer shadow-sm" 
+          title="Hapus Pengumuman Ini"
         >
-          <i class="fa-solid fa-trash-can text-xs"></i> Hapus Kabar
+          <i class="fa-solid fa-trash-can text-xs"></i>
+          <span>Hapus Kabar</span>
         </button>
       </div>
     `;
+
     container.appendChild(div);
   });
 }
-
 // 8. SUBMIT PENGUMUMAN BARU
 async function submitCommunityPost(e) {
   e.preventDefault();
