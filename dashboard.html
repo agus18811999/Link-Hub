@@ -2414,15 +2414,15 @@
             </div>
             <div class="relative flex items-center group">
               <span class="absolute left-3.5 text-emerald-400 font-bold text-xs select-none pointer-events-none">Rp</span>
-              <input 
-                type="text" 
-                id="newProductPrice" 
-                class="store-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-black text-emerald-400 placeholder-slate-500 focus:outline-none" 
-                placeholder="99000" 
-                oninput="this.value=this.value.replace(/[^0-9]/g,'')" 
-                required 
-                autocomplete="off"
-              >
+             <input 
+  type="text" 
+  id="newProductPrice" 
+  class="store-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-black text-emerald-400 placeholder-slate-500 focus:outline-none" 
+  placeholder="8.000" 
+  oninput="formatCurrencyInput(this)" 
+  required 
+  autocomplete="off"
+>
             </div>
           </div>
 
@@ -2923,14 +2923,14 @@
               <div class="relative flex items-center group">
                 <span class="absolute left-3.5 text-emerald-400 font-bold text-xs select-none pointer-events-none">Rp</span>
                 <input 
-                  type="text" 
-                  id="newPkgPrice" 
-                  class="ratecard-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-black text-emerald-400 placeholder-slate-500 focus:outline-none" 
-                  placeholder="2500000" 
-                  oninput="this.value=this.value.replace(/[^0-9]/g,'')" 
-                  required 
-                  autocomplete="off"
-                >
+  type="text" 
+  id="newPkgPrice" 
+  class="ratecard-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-black text-emerald-400 placeholder-slate-500 focus:outline-none" 
+  placeholder="2.500.000" 
+  oninput="formatCurrencyInput(this)" 
+  required 
+  autocomplete="off"
+>
               </div>
             </div>
 
@@ -3908,12 +3908,12 @@
               <div class="relative flex items-center group">
                 <span class="absolute left-3.5 text-slate-400 font-bold text-xs select-none pointer-events-none">Rp</span>
                 <input 
-                  type="text" 
-                  id="affiliateOrigPrice" 
-                  class="affiliate-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-bold text-slate-400 line-through placeholder-slate-500 focus:outline-none" 
-                  placeholder="150000" 
-                  oninput="this.value=this.value.replace(/[^0-9]/g,''); if(typeof updateLivePreview==='function') updateLivePreview()"
-                >
+  type="text" 
+  id="affiliateOrigPrice" 
+  class="affiliate-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-bold text-slate-400 line-through placeholder-slate-500 focus:outline-none" 
+  placeholder="150.000" 
+  oninput="formatCurrencyInput(this); if(typeof updateLivePreview==='function') updateLivePreview()"
+>
               </div>
             </div>
 
@@ -3926,12 +3926,12 @@
               <div class="relative flex items-center group">
                 <span class="absolute left-3.5 text-emerald-400 font-bold text-xs select-none pointer-events-none">Rp</span>
                 <input 
-                  type="text" 
-                  id="affiliatePromoPrice" 
-                  class="affiliate-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-black text-emerald-400 placeholder-slate-500 focus:outline-none" 
-                  placeholder="75000" 
-                  oninput="this.value=this.value.replace(/[^0-9]/g,''); if(typeof updateLivePreview==='function') updateLivePreview()"
-                >
+  type="text" 
+  id="affiliatePromoPrice" 
+  class="affiliate-crystal-input w-full h-11 rounded-xl pl-10 pr-3.5 text-xs sm:text-sm font-black text-emerald-400 placeholder-slate-500 focus:outline-none" 
+  placeholder="75.000" 
+  oninput="formatCurrencyInput(this); if(typeof updateLivePreview==='function') updateLivePreview()"
+>
               </div>
             </div>
 
@@ -5729,8 +5729,8 @@ async function submitAffiliateItem(e) {
       Platform: platform,
       Category: category,
       Item_Name: name,
-      Original_Price: origPrice,
-      Promo_Price: promoPrice,
+      Original_Price: origPrice.replace(/[^0-9]/g, ''),
+Promo_Price: promoPrice.replace(/[^0-9]/g, ''),
       Affiliate_URL: url,
       Image_URL: image,
       Badge_Tag: badge
@@ -6750,7 +6750,7 @@ async function submitNewRatePackage(e) {
   try {
     const newPkg = {
       Package_Name: name,
-      Package_Price: price,
+      Package_Price: price.replace(/[^0-9]/g, ''),
       Deliverables: deliverables,
       Est_Reach: reach
     };
@@ -7745,7 +7745,7 @@ async function submitNewProduct(e) {
   try {
     const newProd = {
       Product_Name: name,
-      Product_Price: price,
+      Product_Price: price.replace(/[^0-9]/g, ''),
       Product_Desc: desc,
       Product_Image: image,
       WA_Number: wa,
@@ -8881,7 +8881,19 @@ async function saveUserProfileSettings() {
   // =========================================================================
 // JAVASCRIPT HEADER ENGINE (CLIPBOARD & TOAST FEEDBACK)
 // =========================================================================
-
+// =========================================================================
+// AUTO-FORMAT TITIK RIBUAN REAL-TIME PADA INPUT HARGA (IDR)
+// =========================================================================
+function formatCurrencyInput(input) {
+  // Ambil hanya angka murni
+  let val = input.value.replace(/[^0-9]/g, '');
+  if (!val) {
+    input.value = '';
+    return;
+  }
+  // Format langsung menjadi titik ribuan standar Indonesia
+  input.value = new Intl.NumberFormat('id-ID').format(parseInt(val, 10));
+}
 function copyPublicLink() {
   const username = (STATE.user && STATE.user.username) ? STATE.user.username : '';
   const publicUrl = (STATE.user && STATE.user.publicUrl) 
