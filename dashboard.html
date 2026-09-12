@@ -4943,6 +4943,162 @@
       fetchDashboardData();
     });
     // =========================================================================
+// LINKHUB REAL-TIME BROADCAST & SWR ENGINE (DASHBOARD)
+// =========================================================================
+
+// 1. Inisialisasi Jalur Siaran Antar-Tab (BroadcastChannel)
+const SYNC_BUS = ('BroadcastChannel' in window) ? new BroadcastChannel('linkhub_realtime_bus') : null;
+
+// 2. Dengarkan sinyal yang masuk dari halaman profil publik (Real-time Feedback)
+// =========================================================================
+// SINKRONISASI LENGKAP SEMUA FITUR DI DASHBOARD (PROFIL -> DASHBOARD)
+// =========================================================================
+if (SYNC_BUS) {
+  SYNC_BUS.onmessage = function(event) {
+    const msg = event.data;
+    if (!msg || !msg.type) return;
+
+    // 1. PESAN RAHASIA NGL MASUK
+    if (msg.type === 'NEW_NGL_MESSAGE') {
+      if (!STATE.nglInbox) STATE.nglInbox = [];
+      STATE.nglInbox.unshift(msg.payload);
+      if (typeof renderNglInbox === 'function') renderNglInbox();
+      showToast('Pesan Rahasia Masuk! 🤫', `"${msg.payload.Message_Text.substring(0, 30)}..."`, 'info');
+      playNotificationSound();
+    }
+
+    // 2. ANGGOTA BARU DAFTAR KOMUNITAS VIP (LEADS CRM)
+    if (msg.type === 'NEW_COMMUNITY_MEMBER') {
+      if (!STATE.comMembers) STATE.comMembers = [];
+      STATE.comMembers.unshift(msg.payload);
+      if (typeof renderCommunityMembers === 'function') renderCommunityMembers();
+      showToast('Anggota VIP Baru! 🎉', `${msg.payload.Full_Name} bergabung ke grup.`, 'success');
+      playNotificationSound();
+    }
+
+    // 3. KLIK TAUTAN BIASA TERCATAT
+    if (msg.type === 'NEW_CLICK_TRACKED') {
+      const totalClicksEl = document.getElementById('summaryTotalClicks');
+      if (totalClicksEl) {
+        const current = parseInt(totalClicksEl.textContent.replace(/\D/g, '')) || 0;
+        totalClicksEl.textContent = (current + 1).toLocaleString('id-ID');
+      }
+    }
+
+    // 4. KLIK RACUN AFILIASI TERCATAT (LIVE)
+    if (msg.type === 'AFFILIATE_CLICKED') {
+      const item = (STATE.affiliateItems || []).find(i => i.Item_ID === msg.itemId);
+      if (item) {
+        item.Total_Clicks = (Number(item.Total_Clicks) || 0) + 1;
+        if (typeof renderAffiliateItems === 'function') renderAffiliateItems();
+      }
+    }
+
+    // 5. VIDEO/AUDIO CREATOR DIPUTAR PENGUNJUNG (LIVE)
+    if (msg.type === 'CREATOR_EVENT_TRACKED') {
+      const cnt = (STATE.creatorContents || []).find(c => c.Content_ID === msg.contentId);
+      if (cnt && cnt.Stats) {
+        if (msg.eventType === 'Play') cnt.Stats.Plays = (Number(cnt.Stats.Plays) || 0) + 1;
+        if (msg.eventType === 'Impression') cnt.Stats.Impressions = (Number(cnt.Stats.Impressions) || 0) + 1;
+        if (msg.eventType === 'Outbound_Click') cnt.Stats.Outbound_Clicks = (Number(cnt.Stats.Outbound_Clicks) || 0) + 1;
+        if (typeof renderCreatorContents === 'function') renderCreatorContents();
+      }
+    }
+  };
+}
+
+// 3. Fungsi untuk menyiarkan perubahan dashboard ke tab Profil publik secara instan
+function broadcastToPublicProfile(actionType, dataPayload) {
+  // Update pratinjau internal di HP
+  if (typeof updateLivePreview === 'function') updateLivePreview();
+
+  // Kirim sinyal instan ke tab Profil publik yang sedang terbuka
+  if (SYNC_BUS) {
+    SYNC_BUS.postMessage({
+      type: actionType,
+      user: STATE.user,
+      settings: STATE.settings,
+      blocks: STATE.blocks,
+      products: STATE.products,
+      banners: STATE.banners,
+      rateStats: STATE.rateStats,
+      ratePackages: STATE.ratePackages,
+      comHubs: STATE.comHubs,
+      comPosts: STATE.comPosts,
+      nglSettings: STATE.nglSettings,
+      payload: dataPayload
+    });
+  }
+}
+
+// 4. Efek Suara Notifikasi Halus (Synthesizer Asli Tanpa File Eksternal)
+function playNotificationSound() {
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.35);
+  } catch (e) {}
+}
+
+// 5. Pola SWR (Stale-While-Revalidate) Load Dashboard Instan 0 Detik
+const originalFetchDashboardData = fetchDashboardData;
+fetchDashboardData = async function() {
+  // A. Ambil cache lokal browser seketika
+  const localCache = localStorage.getItem('lh_dashboard_cache');
+  if (localCache) {
+    try {
+      const parsed = JSON.parse(localCache);
+      STATE.user = parsed.user;
+      STATE.settings = parsed.pageSettings;
+      STATE.blocks = parsed.blocks;
+      STATE.products = parsed.products || [];
+      STATE.banners = parsed.banners || [];
+      STATE.ratePackages = parsed.ratePackages || [];
+      STATE.rateStats = parsed.rateStats || {};
+      STATE.nglSettings = parsed.nglSettings || {};
+      STATE.comHubs = parsed.comHubs || [];
+      STATE.comMembers = parsed.comMembers || [];
+      STATE.comPosts = parsed.comPosts || [];
+      STATE.affiliateItems = parsed.affiliateItems || [];
+      STATE.nglInbox = parsed.nglInbox || [];
+      STATE.creatorContents = parsed.creatorContents || [];
+
+      initializeUI();
+      const loader = document.getElementById('pageLoader');
+      if (loader) loader.style.display = 'none';
+    } catch (e) {}
+  }
+
+  // B. Ambil data segar dari server di latar belakang dan simpan ke cache
+  try {
+    const payload = new URLSearchParams({ action: 'get_dashboard_data', token: STATE.token });
+    const response = await fetch(`${SCRIPT_URL}?_t=${Date.now()}`, { method: 'POST', body: payload });
+    const res = await response.json();
+    if (res.status === 'success') {
+      localStorage.setItem('lh_dashboard_cache', JSON.stringify(res.data));
+      // Sinkronkan data terbaru
+      STATE.user = res.data.user;
+      STATE.settings = res.data.pageSettings;
+      STATE.blocks = res.data.blocks;
+      initializeUI();
+    }
+  } catch (err) {
+    console.error("Silent sync error:", err);
+  } finally {
+    const loader = document.getElementById('pageLoader');
+    if (loader) loader.style.display = 'none';
+  }
+};
+    // =========================================================================
     // JAVASCRIPT ANONYMOUS Q&A ENGINE (NGL INBOX)
 // =========================================================================
 // JAVASCRIPT MULTI-COMMUNITY & MEMBER CRM ENGINE (EXECUTIVE REDESIGN)
@@ -5072,6 +5228,7 @@ async function submitNewCommunityHub(e) {
     if (res.status === 'success') {
       if (!STATE.comHubs) STATE.comHubs = [];
       STATE.comHubs.push(res.data);
+      broadcastToPublicProfile('COMMUNITY_HUBS_UPDATED', STATE.comHubs); // 
       renderCommunityHubsList();
       if (typeof updateLivePreview === 'function') updateLivePreview();
       
@@ -5103,6 +5260,7 @@ async function toggleCommunityHubActive(id, isActive) {
   if (hub) hub.Is_Active = isActive;
   renderCommunityHubsList();
   if (typeof updateLivePreview === 'function') updateLivePreview();
+  broadcastToPublicProfile('COMMUNITY_HUBS_UPDATED', STATE.comHubs); // 👈 Sisipkan ini
 
   try {
     const payload = new URLSearchParams();
@@ -5136,6 +5294,7 @@ function deleteCommunityHub(id) {
       STATE.comHubs = STATE.comHubs.filter(c => c.Community_ID !== id);
       renderCommunityHubsList();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('COMMUNITY_HUBS_UPDATED', STATE.comHubs); // 👈 Sisipkan ini
 
       const payload = new URLSearchParams();
       payload.append('action', 'delete_community_hub');
@@ -5364,6 +5523,7 @@ async function submitCommunityPost(e) {
     if (res.status === 'success') {
       if (!STATE.comPosts) STATE.comPosts = [];
       STATE.comPosts.unshift(res.data);
+      broadcastToPublicProfile('COMMUNITY_POSTS_UPDATED', STATE.comPosts);
       renderCommunityPosts();
       if (typeof updateLivePreview === 'function') updateLivePreview();
 
@@ -5410,6 +5570,7 @@ function deleteCommunityPost(id) {
       STATE.comPosts = STATE.comPosts.filter(p => p.Post_ID !== id);
       renderCommunityPosts();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('COMMUNITY_POSTS_UPDATED', STATE.comPosts); // 👈 Sisipkan ini
 
       const payload = new URLSearchParams();
       payload.append('action', 'delete_community_post');
@@ -5771,6 +5932,7 @@ Promo_Price: promoPrice.replace(/[^0-9]/g, ''),
       res.data.Total_Clicks = 0;
       if (!STATE.affiliateItems) STATE.affiliateItems = [];
       STATE.affiliateItems.push(res.data);
+      broadcastToPublicProfile('AFFILIATE_UPDATED', STATE.affiliateItems); 
       renderAffiliateItems();
       if (typeof updateLivePreview === 'function') updateLivePreview();
 
@@ -5805,6 +5967,7 @@ async function toggleAffiliateItem(id, isActive) {
   if (item) item.Is_Active = isActive;
   renderAffiliateItems();
   if (typeof updateLivePreview === 'function') updateLivePreview();
+  broadcastToPublicProfile('AFFILIATE_UPDATED', STATE.affiliateItems); // 👈 Sisipkan ini
 
   try {
     const payload = new URLSearchParams();
@@ -5838,6 +6001,7 @@ function deleteAffiliateItem(id) {
       STATE.affiliateItems = STATE.affiliateItems.filter(c => c.Item_ID !== id);
       renderAffiliateItems();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('AFFILIATE_UPDATED', STATE.affiliateItems); // 👈 Sisipkan ini
 
       const payload = new URLSearchParams();
       payload.append('action', 'delete_affiliate_item');
@@ -5868,6 +6032,7 @@ function initAffiliateDragDrop() {
         });
         STATE.affiliateItems.sort((a, b) => a.Sort_Order - b.Sort_Order);
         if (typeof updateLivePreview === 'function') updateLivePreview();
+        broadcastToPublicProfile('AFFILIATE_UPDATED', STATE.affiliateItems); // 👈 Sisipkan ini
         
         // Simpan urutan baru ke backend secara senyap
         const payload = new URLSearchParams();
@@ -6211,6 +6376,7 @@ async function submitCreatorContent(e) {
       
       if (!STATE.creatorContents) STATE.creatorContents = [];
       STATE.creatorContents.push(res.data);
+      broadcastToPublicProfile('CREATOR_CONTENTS_UPDATED', STATE.creatorContents); // 👈 Sisipkan ini
       renderCreatorContents();
       if (typeof updateLivePreview === 'function') updateLivePreview();
       
@@ -6247,6 +6413,7 @@ async function toggleCreatorContent(id, isActive) {
   if (cnt) cnt.Is_Active = isActive;
   renderCreatorContents();
   if (typeof updateLivePreview === 'function') updateLivePreview();
+  broadcastToPublicProfile('CREATOR_CONTENTS_UPDATED', STATE.creatorContents); // 👈 Sisipkan ini
 
   try {
     const payload = new URLSearchParams();
@@ -6280,6 +6447,7 @@ function deleteCreatorContent(id) {
       STATE.creatorContents = STATE.creatorContents.filter(c => c.Content_ID !== id);
       renderCreatorContents();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('CREATOR_CONTENTS_UPDATED', STATE.creatorContents); // 👈 Sisipkan ini
 
       const payload = new URLSearchParams();
       payload.append('action', 'delete_creator_content');
@@ -6419,6 +6587,8 @@ async function saveNglSettings() {
 
     if (res.status === 'success') {
       STATE.nglSettings = nglData;
+      STATE.nglSettings = nglData;
+broadcastToPublicProfile('NGL_SETTINGS_UPDATED', STATE.nglSettings); // 👈 Sisipkan ini
       if (typeof updateLivePreview === 'function') updateLivePreview();
       showToast('Tersimpan', 'Pengaturan Q&A Anonim berhasil diperbarui.', 'success');
     } else {
@@ -6707,6 +6877,8 @@ async function submitRateStats(e) {
 
   btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin text-xs"></i> <span>Menyimpan Demografi...</span>';
   btn.disabled = true;
+  STATE.rateStats = statsData;
+broadcastToPublicProfile('RATE_STATS_UPDATED', STATE.rateStats); // 👈 Sisipkan ini
 
   try {
     const statsData = {
@@ -6787,6 +6959,8 @@ async function submitNewRatePackage(e) {
     if (res.status === 'success') {
       if (!STATE.ratePackages) STATE.ratePackages = [];
       STATE.ratePackages.push(res.data);
+     
+broadcastToPublicProfile('RATE_PACKAGES_UPDATED', STATE.ratePackages); // 👈 Sisipkan ini
       renderRatePackagesList();
       if (typeof updateLivePreview === 'function') updateLivePreview();
 
@@ -6818,6 +6992,7 @@ async function toggleRatePackageActive(id, isActive) {
   if (pkg) pkg.Is_Active = isActive;
   renderRatePackagesList();
   if (typeof updateLivePreview === 'function') updateLivePreview();
+   broadcastToPublicProfile('RATE_PACKAGES_UPDATED', STATE.ratePackages);
 
   try {
     const payload = new URLSearchParams();
@@ -6851,6 +7026,8 @@ function deleteRatePackage(id) {
       STATE.ratePackages = STATE.ratePackages.filter(p => p.Package_ID !== id);
       renderRatePackagesList();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('RATE_PACKAGES_UPDATED', STATE.ratePackages);
+
 
       const payload = new URLSearchParams();
       payload.append('action', 'delete_rate_package');
@@ -7558,6 +7735,7 @@ async function submitNewBanner(e) {
       STATE.banners.push(res.data);
       renderBannersList();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('BANNERS_UPDATED', STATE.banners);
       
       // Reset Form & Dropzone State
       document.getElementById('addBannerForm').querySelector('form').reset();
@@ -7786,6 +7964,7 @@ async function submitNewProduct(e) {
       STATE.products.push(res.data);
       renderProductsList();
       if (typeof updateLivePreview === 'function') updateLivePreview();
+      broadcastToPublicProfile('PRODUCTS_UPDATED', STATE.products);
 
       // Reset Form
       document.getElementById('addProductForm').querySelector('form').reset();
@@ -8538,6 +8717,8 @@ async function submitNewLink(e) {
       document.getElementById('newLinkThumbnail').value = '';
       document.getElementById('newLinkUrl').value = '';
       toggleForm('addLinkForm');
+      broadcastToPublicProfile('LINKS_UPDATED', STATE.blocks);
+
       
       showToast('Tautan Diterbitkan', 'Tautan baru berhasil disimpan ke workspace.', 'success');
     } else {
@@ -8667,6 +8848,7 @@ async function saveAppearanceSettings() {
     if (res.status === 'success') {
       STATE.settings = Object.assign(STATE.settings || {}, settingsData);
       updateLivePreview();
+       broadcastToPublicProfile('SETTINGS_UPDATED', settingsData);
       showToast('Tersimpan', 'Pengaturan tampilan berhasil diperbarui.', 'success');
     } else {
       throw new Error(res.message);
