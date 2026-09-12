@@ -3262,10 +3262,12 @@ function renderPublicRateCard(data) {
       card.className = "luxury-glass-rate-card w-full p-5 sm:p-6 rounded-[32px] flex flex-col text-left relative overflow-hidden group";
 
       // WhatsApp Message Generator
-      const waNumber = settings.Social_WhatsApp || '628123456789';
-      const waMessage = encodeURIComponent(`Halo Kak ${user.name || ''}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon informasi ketersediaan jadwal slot dan brief selanjutnya. Terima kasih!`);
-      const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
-
+      // ✅ KODE SETELAH DIPERBAIKI (MEMBACA NOMOR WA ASLI DARI PAKET):
+const cleanWA = String(pkg.WA_Number || settings.Social_WhatsApp || '').replace(/[^0-9]/g, '');
+const waNumber = cleanWA || '628123456789';
+const waMessage = encodeURIComponent(`Halo Kak ${user.name || ''}, saya tertarik mengajukan kerja sama untuk paket Rate Card: *${pkg.Package_Name}* (${formatRupiahProfile(pkg.Package_Price)}). Mohon info ketersediaan jadwal slot dan brief selanjutnya. Terima kasih!`);
+const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
+    
       // Parsing Rincian Deliverables menjadi Checklist Berbutir Kaca
       const rawDeliverables = pkg.Deliverables || '';
       const items = rawDeliverables.split(/(?:✔|\n|,)/).map(s => s.trim()).filter(s => s.length > 0);
