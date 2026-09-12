@@ -144,44 +144,51 @@
 <!-- PUBLIC PROFILE: LUXURY 6-TAB LIQUID CRYSTAL SWITCHER (ULTRA LUXURY)       -->
 <!-- ========================================================================= -->
 
-<!-- CUSTOM LUXURY TAB SWITCHER STYLING & ANIMATIONS -->
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: LUXURY OPTIC GLASS TAB SWITCHER (VISIONOS EDITION)        -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY GLASS STYLING -->
 <style>
-  /* Liquid Glass Master Track */
+  /* 1. Track Kaca Luar (Master Frosted Glass Track) */
   .public-tab-track {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(10, 15, 30, 0.88) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
     box-shadow: 
-      0 20px 50px -10px rgba(0, 0, 0, 0.5),
-      0 0 35px -5px rgba(56, 189, 248, 0.18),
-      inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+      0 20px 45px -10px rgba(0, 0, 0, 0.35),
+      0 0 30px -5px rgba(255, 255, 255, 0.08),
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
   }
 
-  /* Hide Scrollbars Cleanly */
+  /* Hilangkan Scrollbar Bawaan Browser */
   .public-tab-track::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
     display: none;
+    width: 0;
+    height: 0;
   }
   .public-tab-track {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 
-  /* Base Tab Button */
+  /* 2. Tombol Tab Pasif (Translucent Glass Pill) */
   .pub-tab-btn {
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.75);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent;
+    border: 1px solid transparent;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
     user-select: none;
     cursor: pointer;
   }
   .pub-tab-btn:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.18);
     color: #ffffff;
     transform: translateY(-1px);
   }
@@ -189,59 +196,64 @@
     transform: scale(0.96);
   }
 
-  /* Active Tab State (Luminous Crystal Elevation) */
+  /* 3. Tombol Tab Aktif (Elevated Luminous Crystal Lens) */
   .pub-tab-btn.active {
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-    border-color: rgba(255, 255, 255, 0.95) !important;
-    color: #0f172a !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.14) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.65) !important;
+    color: #ffffff !important;
     font-weight: 900 !important;
     box-shadow: 
-      0 6px 25px -4px rgba(255, 255, 255, 0.45),
-      0 0 20px rgba(56, 189, 248, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+      0 8px 24px -4px rgba(0, 0, 0, 0.28),
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.65),
+      0 0 20px -2px rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     transform: scale(1.02);
   }
+
+  /* Efek Kilau Halus pada Ikon saat Aktif */
   .pub-tab-btn.active i {
-    color: #0f172a !important;
+    filter: drop-shadow(0 0 8px currentColor);
   }
 </style>
 
 <!-- TAB SWITCHER STRUCTURE CONTAINER -->
-<div class="w-full mt-7 relative z-30 max-w-[480px] mx-auto">
-  <div class="public-tab-track flex items-center gap-1.5 p-1.5 rounded-2xl overflow-x-auto overflow-y-hidden snap-x snap-mandatory" id="publicTabSwitcher">
+<div class="w-full mt-7 relative z-30 max-w-[480px] mx-auto px-1 sm:px-0">
+  <div class="public-tab-track flex items-center gap-1.5 p-1.5 rounded-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory" id="publicTabSwitcher">
     
     <!-- 1. Tab Tautan -->
-    <button onclick="switchPublicTab('links')" id="pubTabLinks" class="pub-tab-btn active shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 snap-center">
-      <i class="fa-solid fa-link text-cyan-400 text-xs transition-colors"></i> 
+    <button onclick="switchPublicTab('links')" id="pubTabLinks" class="pub-tab-btn active shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-link text-cyan-300 text-xs transition-colors"></i> 
       <span>Tautan</span>
     </button>
     
     <!-- 2. Tab Konten -->
-    <button onclick="switchPublicTab('content')" id="pubTabContent" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+    <button onclick="switchPublicTab('content')" id="pubTabContent" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs flex items-center justify-center gap-1.5 snap-center">
       <i class="fa-solid fa-play text-rose-400 text-xs transition-colors"></i> 
       <span>Konten</span>
     </button>
     
     <!-- 3. Tab Racun Produk -->
-    <button onclick="switchPublicTab('affiliate')" id="pubTabAffiliate" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+    <button onclick="switchPublicTab('affiliate')" id="pubTabAffiliate" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs flex items-center justify-center gap-1.5 snap-center">
       <i class="fa-solid fa-shirt text-orange-400 text-xs transition-colors"></i> 
       <span>Racun</span>
     </button>
     
     <!-- 4. Tab Rate Card -->
-    <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
-      <i class="fa-solid fa-id-card-clip text-purple-400 text-xs transition-colors"></i> 
+    <button onclick="switchPublicTab('ratecard')" id="pubTabRateCard" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs flex items-center justify-center gap-1.5 snap-center">
+      <i class="fa-solid fa-id-card-clip text-purple-300 text-xs transition-colors"></i> 
       <span>Rate Card</span>
     </button>
 
     <!-- 5. Tab Komunitas VIP -->
-    <button onclick="switchPublicTab('community')" id="pubTabCommunity" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+    <button onclick="switchPublicTab('community')" id="pubTabCommunity" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs flex items-center justify-center gap-1.5 snap-center">
       <i class="fa-solid fa-users-line text-teal-300 text-xs transition-colors"></i> 
       <span>Komunitas</span>
     </button>
     
     <!-- 6. Tab Pesan NGL -->
-    <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2.5 rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 snap-center">
+    <button onclick="switchPublicTab('ngl')" id="pubTabNgl" class="pub-tab-btn shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs flex items-center justify-center gap-1.5 snap-center">
       <i class="fa-solid fa-user-secret text-pink-400 text-xs transition-colors"></i> 
       <span>Pesan</span>
     </button>
@@ -494,93 +506,97 @@
 <!-- PUBLIC PROFILE: ANONYMOUS Q&A & SECRET INBOX (NGL SUITE - ULTRA LUXURY)   -->
 <!-- ========================================================================= -->
 
-<!-- CUSTOM LUXURY STYLING KHUSUS PUBLIC NGL SECTION -->
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: REFINED FROSTED GLASS NGL CARD (ULTRA LUXURY EDITION)     -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS NGL CARD -->
 <style>
-  /* Master NGL Public Card Glassmorphism */
-  .ngl-public-card {
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Master Frosted Crystal Glass Card */
+  .luxury-glass-ngl-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
     box-shadow: 
-      0 25px 60px -12px rgba(0, 0, 0, 0.5),
-      0 0 35px -5px rgba(244, 63, 94, 0.2),
-      inset 0 1px 1px rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+      0 25px 60px -15px rgba(0, 0, 0, 0.35),
+      0 0 35px -5px rgba(244, 63, 94, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .ngl-public-card:hover {
-    transform: translateY(-2.5px) scale(1.01);
+  .luxury-glass-ngl-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    border-color: rgba(255, 255, 255, 0.38) !important;
     box-shadow: 
-      0 30px 70px -10px rgba(0, 0, 0, 0.6),
-      0 0 45px -5px rgba(244, 63, 94, 0.35),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      0 30px 70px -10px rgba(0, 0, 0, 0.45),
+      0 0 45px rgba(244, 63, 94, 0.25),
+      inset 0 1px 3px rgba(255, 255, 255, 0.55) !important;
   }
 
-  /* Textarea Glass Chamber */
-  .ngl-textarea-glass {
-    background: rgba(15, 23, 42, 0.65);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Textarea Frosted Glass Pod (Bebas Lubang Hitam Pekat) */
+  .ngl-glass-textarea {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
-  .ngl-textarea-glass:focus {
-    background: rgba(30, 41, 59, 0.85);
-    border-color: #f43f5e;
+  .ngl-glass-textarea:focus {
+    background: rgba(255, 255, 255, 0.13) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
     box-shadow: 
-      0 0 0 4px rgba(244, 63, 94, 0.2),
-      0 10px 25px -5px rgba(244, 63, 94, 0.25),
-      inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      0 0 25px rgba(244, 63, 94, 0.25),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3) !important;
   }
 
-  /* Random Question Dice Button */
-  .btn-random-dice {
+  /* Random Question Frosted Dice Button */
+  .btn-glass-dice {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .btn-random-dice:hover {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(244, 63, 94, 0.25));
-    border-color: rgba(245, 158, 11, 0.5);
-    color: #ffffff;
-    transform: translateY(-1px) scale(1.03);
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  .btn-glass-dice:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
   }
-  .btn-random-dice:active {
-    transform: scale(0.95);
+  .btn-glass-dice:active {
+    transform: scale(0.96);
   }
 
-  /* Iridescent Send Message Button */
-  .btn-ngl-send {
-    background: linear-gradient(135deg, #f43f5e 0%, #ec4899 40%, #c026d3 75%, #7c3aed 100%);
-    background-size: 250% 250%;
-    animation: nglSendSheen 6s ease infinite;
-    box-shadow: 0 10px 30px -5px rgba(244, 63, 94, 0.45);
+  /* Glossy Jewel Action Button */
+  .btn-glass-send {
+    background: linear-gradient(135deg, #f43f5e 0%, #ec4899 45%, #a855f7 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: 
+      0 12px 30px -5px rgba(244, 63, 94, 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
     position: relative;
     overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .btn-ngl-send::before {
+  .btn-glass-send::before {
     content: '';
     position: absolute;
     top: 0; left: -100%; width: 100%; height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
     transition: all 0.6s ease;
   }
-  .btn-ngl-send:hover::before {
+  .btn-glass-send:hover::before {
     left: 100%;
   }
-  .btn-ngl-send:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px -5px rgba(236, 72, 153, 0.6);
+  .btn-glass-send:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 16px 35px -5px rgba(236, 72, 153, 0.6);
+    filter: brightness(1.06);
   }
-  .btn-ngl-send:active {
+  .btn-glass-send:active {
     transform: translateY(1px) scale(0.98);
-  }
-
-  @keyframes nglSendSheen {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
   }
 </style>
 
@@ -1352,6 +1368,11 @@ function rollRandomQuestion() {
 }
 
 // 3. RENDER KOTAK Q&A ANONIM DI HALAMAN PUBLIK
+// =========================================================================
+// JAVASCRIPT PUBLIC NGL Q&A ENGINE (TRUE FROSTED GLASS REVISION)
+// =========================================================================
+
+// 1. RENDER KOTAK Q&A DENGAN KACA KRISTAL TEMBUS PANDANG
 function renderPublicNglCard(data) {
   const nglContainer = document.getElementById('publicNglSection');
   if (!nglContainer) return;
@@ -1364,15 +1385,15 @@ function renderPublicNglCard(data) {
   };
   const user = data.user || {};
 
-  // Jika Kotak Pesan Dinonaktifkan oleh Pemilik Akun
+  // Jika Kotak Pesan Dinonaktifkan
   if (ngl.Is_Active === false) {
     nglContainer.innerHTML = `
-      <div class="public-rate-card w-full max-w-sm p-6 sm:p-8 text-center rounded-[32px] bg-slate-900/80 border border-white/10 backdrop-blur-xl">
-        <div class="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center text-rose-300 text-2xl mx-auto mb-3 shadow-inner">
+      <div class="luxury-glass-ngl-card w-full max-w-md p-6 sm:p-8 text-center rounded-[32px]">
+        <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-rose-300 text-xl mx-auto mb-3 shadow-inner">
           <i class="fa-solid fa-lock"></i>
         </div>
-        <h4 class="text-white font-black text-base">Kotak Pesan Ditutup</h4>
-        <p class="text-xs text-slate-300 mt-1 font-medium leading-relaxed">
+        <h4 class="text-white font-black text-base drop-shadow-sm">Kotak Pesan Ditutup</h4>
+        <p class="text-xs text-white/80 mt-1 font-medium leading-relaxed">
           ${escapeHtml(user.name || 'Pengguna')} sedang tidak menerima pesan anonim saat ini.
         </p>
       </div>
@@ -1380,50 +1401,40 @@ function renderPublicNglCard(data) {
     return;
   }
 
-  // Konfigurasi Tema Gradasi Kaca
-  let themeStyle = "background: linear-gradient(145deg, rgba(168, 85, 247, 0.22) 0%, rgba(99, 102, 241, 0.15) 50%, rgba(15, 23, 42, 0.85) 100%); border-color: rgba(168, 85, 247, 0.4);";
-  if (ngl.Card_Theme === 'Sunset_Pink') {
-    themeStyle = "background: linear-gradient(145deg, rgba(244, 63, 94, 0.22) 0%, rgba(236, 72, 153, 0.15) 50%, rgba(15, 23, 42, 0.85) 100%); border-color: rgba(244, 63, 94, 0.4);";
-  } else if (ngl.Card_Theme === 'Dark_Glass') {
-    themeStyle = "background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(10, 15, 30, 0.9) 100%); border-color: rgba(255, 255, 255, 0.2);";
-  }
-
   const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=random`;
 
   nglContainer.innerHTML = `
-    <div class="ngl-public-card w-full max-w-md p-6 sm:p-8 rounded-[36px] relative overflow-hidden text-center" style="${themeStyle}">
+    <div class="luxury-glass-ngl-card w-full max-w-md p-6 sm:p-8 rounded-[36px] relative overflow-hidden text-center">
       
-      <!-- Top Specular Luminous Ray -->
-      <div class="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-rose-400/60 to-transparent"></div>
-
-      <!-- Lencana Enkripsi Keamanan -->
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/70 border border-white/20 text-rose-300 text-[9.5px] font-black uppercase tracking-wider mb-4 shadow-sm">
-        <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping"></span>
-        <i class="fa-solid fa-user-secret text-[10px]"></i> 100% Anonymous & Encrypted
+      <!-- Lencana Enkripsi Keamanan (Frosted Glass Pill) -->
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[9.5px] font-black uppercase tracking-wider mb-4 shadow-sm backdrop-blur-md">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse shadow-[0_0_8px_#fb7185]"></span>
+        <i class="fa-solid fa-shield-halved text-[9px] text-rose-300"></i>
+        <span>100% Anonymous & Encrypted</span>
       </div>
 
-      <!-- Avatar Halo Header -->
+      <!-- Avatar Halo Header Ring -->
       <div class="flex justify-center mb-3">
-        <div class="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-rose-500 via-purple-500 to-cyan-400 shadow-[0_0_20px_rgba(244,63,94,0.4)]">
-          <img src="${avatarUrl}" class="w-full h-full rounded-full object-cover border-2 border-slate-950 bg-slate-900" alt="Avatar">
+        <div class="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 via-purple-500 to-rose-400 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
+          <img src="${avatarUrl}" class="w-full h-full rounded-full object-cover border border-slate-950 bg-slate-900" alt="Avatar">
         </div>
       </div>
 
       <!-- Prompt Pertanyaan / Teks Pancingan -->
-      <h3 class="text-lg sm:text-xl font-black text-white tracking-tight leading-snug mb-5 drop-shadow-md">
-        ${escapeHtml(ngl.Prompt_Text || 'Kirim pesan rahasia ke aku! 🤫')}
+      <h3 class="text-lg sm:text-xl font-black text-white tracking-tight leading-snug mb-5 drop-shadow-sm">
+        ${escapeHtml(ngl.Prompt_Text || 'Tanyakan apa saja secara anonim! 🤫')}
       </h3>
 
-      <!-- Formulir Pengiriman Pesan Rahasia -->
+      <!-- Formulir Pesan Rahasia -->
       <form onsubmit="submitAnonymousMessage(event, '${escapeHtml(user.username || '')}')" class="space-y-3.5 text-left" id="nglFormBox">
         
-        <!-- Textarea Pesan -->
+        <!-- Textarea Kaca Transparan Tembus Pandang -->
         <div class="relative">
           <textarea 
             id="nglMessageInput" 
             rows="4" 
             maxlength="300" 
-            class="ngl-textarea-glass w-full rounded-2xl p-4 text-xs sm:text-sm font-semibold text-white placeholder-slate-400 focus:outline-none resize-none leading-relaxed" 
+            class="ngl-glass-textarea w-full rounded-2xl p-4 text-xs sm:text-sm font-medium text-white placeholder-white/50 focus:outline-none resize-none leading-relaxed" 
             placeholder="Tuliskan pesan atau pertanyaan rahasiamu di sini... (Tanpa nama & 100% aman)" 
             required 
             oninput="document.getElementById('charCount').textContent = this.value.length + '/300'"
@@ -1432,12 +1443,12 @@ function renderPublicNglCard(data) {
 
         <!-- Sub-Bar: Counter Karakter & Tombol Dadu Acak Ide -->
         <div class="flex items-center justify-between px-1">
-          <span id="charCount" class="text-[10px] font-bold text-slate-400">0/300</span>
+          <span id="charCount" class="text-[10.5px] font-bold text-white/60">0/300</span>
           
           <button 
             type="button" 
             onclick="rollRandomQuestion()" 
-            class="btn-random-dice px-3 py-1 rounded-full text-slate-200 text-[10px] font-extrabold flex items-center gap-1.5 cursor-pointer shadow-sm"
+            class="btn-glass-dice px-3.5 py-1.5 rounded-full text-white text-[10.5px] font-extrabold flex items-center gap-1.5 cursor-pointer shadow-sm"
             title="Klik untuk mendapatkan ide pertanyaan acak"
           >
             <i class="fa-solid fa-dice text-amber-300 text-xs"></i>
@@ -1445,11 +1456,11 @@ function renderPublicNglCard(data) {
           </button>
         </div>
 
-        <!-- Tombol Kirim Pesan Rahasia -->
+        <!-- Tombol Kirim Pesan Glossy Jewel -->
         <button 
           type="submit" 
           id="btnSubmitNgl" 
-          class="btn-ngl-send w-full py-4 rounded-2xl text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 border border-white/20 cursor-pointer shadow-lg mt-2"
+          class="btn-glass-send w-full py-3.5 sm:py-4 rounded-2xl text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-lg mt-2"
         >
           <i class="fa-solid fa-paper-plane text-xs"></i>
           <span>Kirim Pesan Rahasia</span>
@@ -1458,8 +1469,8 @@ function renderPublicNglCard(data) {
       </form>
 
       <!-- Trust Footer Disclaimer -->
-      <div class="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-center gap-1.5 text-[9.5px] font-bold text-slate-400">
-        <i class="fa-solid fa-shield-halved text-rose-400 text-[10px]"></i>
+      <div class="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-center gap-1.5 text-[10px] font-medium text-white/70">
+        <i class="fa-solid fa-lock text-rose-300 text-[10px]"></i>
         <span>Identitas Anda 100% dirahasiakan &bull; Aman tanpa pelacakan</span>
       </div>
 
@@ -1467,7 +1478,7 @@ function renderPublicNglCard(data) {
   `;
 }
 
-// 4. SUBMIT PESAN RAHASIA KE BACKEND GOOGLE APPS SCRIPT
+// 2. SUBMIT PESAN RAHASIA DENGAN FEEDBACK SUKSES KACA FROSTED
 async function submitAnonymousMessage(e, username) {
   e.preventDefault();
   const input = document.getElementById('nglMessageInput');
@@ -1491,21 +1502,21 @@ async function submitAnonymousMessage(e, username) {
     const res = await response.json();
 
     if (res.status === 'success') {
-      // Tampilkan Animasi Sukses Berkilau
+      // Tampilan Sukses Bersih dengan Tema Kaca Kristal
       if (formBox) {
         formBox.innerHTML = `
           <div class="py-6 flex flex-col items-center text-center animate-pulse">
-            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-3xl mb-3 shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+            <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/30 flex items-center justify-center text-emerald-300 text-3xl mb-3 shadow-[0_0_30px_rgba(16,185,129,0.35)] backdrop-blur-md">
               <i class="fa-solid fa-check"></i>
             </div>
-            <h4 class="text-white font-black text-lg tracking-tight">Pesan Berhasil Terkirim! ✨</h4>
-            <p class="text-xs text-slate-300 font-medium max-w-[240px] mt-1.5 leading-relaxed">
-              Pesan rahasiamu telah sampai dengan aman di kotak masuk @${escapeHtml(username)}.
+            <h4 class="text-white font-black text-lg tracking-tight drop-shadow-sm">Pesan Berhasil Terkirim! ✨</h4>
+            <p class="text-xs text-white/80 font-medium max-w-[240px] mt-1.5 leading-relaxed">
+              Pesan rahasiamu telah terkirim secara anonim ke kotak masuk @${escapeHtml(username)}.
             </p>
             <button 
               type="button" 
               onclick="fetchUserProfile('${escapeHtml(username)}')" 
-              class="mt-5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-extrabold text-xs uppercase tracking-wider transition-all border border-white/15 cursor-pointer"
+              class="mt-5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-extrabold text-xs uppercase tracking-wider transition-all border border-white/20 cursor-pointer backdrop-blur-md"
             >
               <i class="fa-solid fa-rotate-left mr-1"></i> Kirim Pesan Lain
             </button>
@@ -1521,6 +1532,10 @@ async function submitAnonymousMessage(e, username) {
     btn.disabled = false;
   }
 }
+// =========================================================================
+// JAVASCRIPT PUBLIC TAB SWITCHER ENGINE (OPTIC GLASS & AUTO-SCROLL)
+// =========================================================================
+
 function switchPublicTab(tab) {
   const mainContent = document.getElementById('publicMainContent');           // Tab Tautan
   const contentSection = document.getElementById('publicContentSection');     // Tab Konten
@@ -1539,7 +1554,7 @@ function switchPublicTab(tab) {
   const allSections = [mainContent, contentSection, affiliateSection, rateSection, nglSection, communitySection];
   const allButtons = [btnLinks, btnContent, btnAffiliate, btnRate, btnCommunity, btnNgl];
 
-  // 1. Sembunyikan Seluruh Konten Tab
+  // 1. Sembunyikan Seluruh Konten Tab dengan Aman
   allSections.forEach(el => {
     if (el) {
       el.classList.add('hidden');
@@ -1547,50 +1562,50 @@ function switchPublicTab(tab) {
     }
   });
 
-  // 2. Reset Status Aktif Semua Tombol Tab
+  // 2. Reset Status Aktif Seluruh Tombol Tab
   allButtons.forEach(btn => {
     if (btn) btn.classList.remove('active');
   });
 
-  // 3. Tampilkan Tab Terpilih & Aktifkan Tombol
+  // 3. Tentukan Tab yang Dituju
   let activeTargetSection = null;
   let activeTargetBtn = null;
 
-  if (tab === 'links' && mainContent) {
+  if (tab === 'links') {
     activeTargetSection = mainContent;
     activeTargetBtn = btnLinks;
-  } else if (tab === 'content' && contentSection) {
+  } else if (tab === 'content') {
     activeTargetSection = contentSection;
     activeTargetBtn = btnContent;
-  } else if (tab === 'affiliate' && affiliateSection) {
+  } else if (tab === 'affiliate') {
     activeTargetSection = affiliateSection;
     activeTargetBtn = btnAffiliate;
-  } else if (tab === 'ratecard' && rateSection) {
+  } else if (tab === 'ratecard') {
     activeTargetSection = rateSection;
     activeTargetBtn = btnRate;
-  } else if (tab === 'community' && communitySection) {
+  } else if (tab === 'community') {
     activeTargetSection = communitySection;
     activeTargetBtn = btnCommunity;
-  } else if (tab === 'ngl' && nglSection) {
+  } else if (tab === 'ngl') {
     activeTargetSection = nglSection;
     activeTargetBtn = btnNgl;
   }
 
+  // 4. Munculkan Section yang Dipilih
   if (activeTargetSection) {
     activeTargetSection.classList.remove('hidden');
     activeTargetSection.classList.add('flex');
   }
 
+  // 5. Beri Efek Kaca Aktif & Gulir Otomatis ke Tengah Layar Mobile
   if (activeTargetBtn) {
     activeTargetBtn.classList.add('active');
-    
-    // Auto-scroll tombol yang aktif ke tengah viewport pada layar seluler
     if (typeof activeTargetBtn.scrollIntoView === 'function') {
       activeTargetBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
   }
-}
-    // -> SMART DEEP-LINKING & AFFILIATE TRACKING ENGINE
+}    
+// -> SMART DEEP-LINKING & AFFILIATE TRACKING ENGINE
   // =========================================================================
 // JAVASCRIPT AFFILIATE STOREFRONT & DEEP-LINKING ENGINE (EXECUTIVE REDESIGN)
 // =========================================================================
