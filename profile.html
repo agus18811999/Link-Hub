@@ -1103,10 +1103,62 @@
 </div>
 
     <!-- 6. FOOTER BRANDING (LINKHUB) -->
-    <div class="mt-auto pt-16 pb-4 relative z-30">
-      <a href="#" class="text-[10px] font-black tracking-[0.25em] uppercase opacity-40 hover:opacity-80 transition-opacity" id="footerBranding">Powered by LinkHub.</a>
-    </div>
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: FLOATING SOCIAL BAR (TRUE FROSTED GLASS CAPSULE)          -->
+<!-- ========================================================================= -->
 
+<!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS SOCIAL BAR -->
+<style>
+  /* Kapsul Kaca Tembus Pandang Utama (Persis Seperti Kartu Tautan) */
+  .luxury-glass-social-capsule {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.35),
+      0 0 35px -5px rgba(255, 255, 255, 0.12),
+      inset 0 1px 2px rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .luxury-glass-social-capsule:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.42) !important;
+    box-shadow: 
+      0 25px 60px -10px rgba(0, 0, 0, 0.45),
+      0 0 45px rgba(56, 189, 248, 0.25),
+      inset 0 1px 3px rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Bantalan Kaca Mikro untuk Masing-Masing Ikon Sosial Media */
+  .social-glass-pod {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .social-glass-pod:hover {
+    transform: translateY(-2px) scale(1.15);
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(255, 255, 255, 0.4),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  }
+  .social-glass-pod:active {
+    transform: scale(0.95);
+  }
+</style>
+
+<!-- 4. FLOATING LIQUID SOCIAL ICONS BAR -->
+<div id="floatingSocialBar" class="w-full mt-10 mb-4 hidden justify-center items-center z-30 transition-all duration-500 ease-out transform translate-y-4 opacity-0">
+  <div class="luxury-glass-social-capsule inline-flex items-center justify-center gap-3 sm:gap-4 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full mx-auto" id="socialBarGlass">
+    <!-- Ikon sosial media digenerate secara dinamis via JavaScript -->
+  </div>
+</div>
   </div> <!-- Penutup MAIN PROFILE CARD WRAPPER -->
 
   <!-- JAVASCRIPT ENGINE -->
@@ -2099,9 +2151,7 @@ if (linksContainer) {
 }
 
 /* --- B. RENDERING ETALASE PRODUK DIGITAL (SOCIAL COMMERCE) --- */
-
-/* --- C. RENDERING FLOATING LIQUID SOCIAL BAR --- */
-/* --- C. RENDERING FLOATING LIQUID SOCIAL BAR (FIX IKON TWITTER / X) --- */
+/* --- C. RENDERING FLOATING LIQUID SOCIAL BAR (TRUE FROSTED GLASS FIX) --- */
 const socialBar = document.getElementById('floatingSocialBar');
 const socialGlass = document.getElementById('socialBarGlass');
 
@@ -2110,24 +2160,24 @@ if (socialBar && socialGlass) {
   const socColor = settings.Social_Color || '#ffffff';
   let socialCount = 0;
 
-  // Helper pembuat ikon (mendukung Font Awesome dan Vektor SVG Mandiri)
+  // Helper pembuat ikon dengan kapsul kaca mikro (.social-glass-pod)
   const createIcon = (url, iconClass, isX = false) => {
     if (!url || String(url).trim() === '') return;
     socialCount++;
     const a = document.createElement('a');
     a.href = url.trim();
     a.target = '_blank';
-    a.className = "flex items-center justify-center w-8 h-8 rounded-full hover:scale-125 active:scale-95 transition-transform duration-200 shrink-0";
+    a.className = "social-glass-pod w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 cursor-pointer";
     
     if (isX) {
-      // Vektor Resmi X (Twitter) - Dijamin 100% Muncul Tanpa Tergantung Versi CDN
+      // Vektor Resmi X (Twitter)
       a.innerHTML = `
-        <svg class="w-5 h-5 transition-transform" viewBox="0 0 24 24" fill="${socColor}" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+        <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform" viewBox="0 0 24 24" fill="${socColor}" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       `;
     } else {
-      a.innerHTML = `<i class="fa-brands ${iconClass} text-[21px]" style="color: ${socColor}; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));"></i>`;
+      a.innerHTML = `<i class="fa-brands ${iconClass} text-base sm:text-[19px]" style="color: ${socColor}; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));"></i>`;
     }
     socialGlass.appendChild(a);
   };
@@ -2135,31 +2185,25 @@ if (socialBar && socialGlass) {
   createIcon(settings.Social_Instagram, 'fa-instagram');
   createIcon(settings.Social_TikTok, 'fa-tiktok');
   createIcon(settings.Social_YouTube, 'fa-youtube');
-  // Ikon X (Twitter) menggunakan SVG bawaan resmi
-  createIcon(settings.Social_Twitter, '', true);
+  createIcon(settings.Social_Twitter, '', true); // Ikon X (Twitter)
   createIcon(settings.Social_Facebook, 'fa-facebook');
 
   if (socialCount > 0) {
-    if (isDarkBg) {
-      socialGlass.style.backgroundColor = 'rgba(15, 23, 42, 0.75)';
-      socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-    } else {
-      socialGlass.style.backgroundColor = 'rgba(255, 255, 255, 0.85)';
-      socialGlass.style.borderColor = 'rgba(255, 255, 255, 0.9)';
-    }
+    // Bersihkan penimpaan background dari JavaScript agar CSS kaca kristal tembus pandang aktif sempurna
+    socialGlass.style.backgroundColor = '';
+    socialGlass.style.borderColor = '';
 
     socialBar.classList.remove('hidden');
     socialBar.classList.add('flex');
     setTimeout(() => {
       socialBar.classList.remove('translate-y-4', 'opacity-0');
       socialBar.classList.add('translate-y-0', 'opacity-100');
-    }, 400);
+    }, 300);
   } else {
     socialBar.classList.add('hidden');
     socialBar.classList.remove('flex');
   }
 }
-
 // ========================================================
       // ========================================================
       // RENDERING ADVERTISING ENGINE (PROMO BANNERS)
