@@ -1382,103 +1382,7 @@
 </style>
 
 <!-- CONTAINER ETALASE PRODUK DIGITAL -->
-<div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
-  
-  <!-- Header Pembagi Etalase Kaca Kristal -->
-  <div class="flex items-center justify-center gap-3 mb-6 w-full px-2">
-    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm backdrop-blur-md">
-      <i class="fa-solid fa-store text-xs text-emerald-400"></i> Etalase Produk Digital
-    </span>
-    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-  </div>
 
-  <!-- Grid Produk Digital Kaca -->
-  <div id="productsContainer" class="w-full flex flex-col gap-4">
-    <!-- Produk akan dirender secara dinamis oleh JavaScript -->
-  </div>
-
-</div>
-<!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS SOCIAL BAR -->
-<style>
-  /* Kapsul Kaca Tembus Pandang Utama (Persis Seperti Kartu Tautan) */
-  .luxury-glass-social-capsule {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 
-      0 20px 50px -10px rgba(0, 0, 0, 0.35),
-      0 0 35px -5px rgba(255, 255, 255, 0.12),
-      inset 0 1px 2px rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(28px) !important;
-    -webkit-backdrop-filter: blur(28px) !important;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .luxury-glass-social-capsule:hover {
-    transform: translateY(-3px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.42) !important;
-    box-shadow: 
-      0 25px 60px -10px rgba(0, 0, 0, 0.45),
-      0 0 45px rgba(56, 189, 248, 0.25),
-      inset 0 1px 3px rgba(255, 255, 255, 0.5) !important;
-  }
-  /* ========================================================================= */
-  /* REVISI: FULL-SURROUND FROSTED GLASS BULLETIN CARD (GRADASI MENYELURUH)   */
-  /* ========================================================================= */
-  .public-bulletin-card {
-    /* Gradasi Kaca Kristal Menyebar di Seluruh Latar Belakang Kartu */
-    background: linear-gradient(145deg, rgba(16, 185, 129, 0.16) 0%, rgba(6, 182, 212, 0.08) 45%, rgba(255, 255, 255, 0.04) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan kilau cahaya atas (Specular Rim) */
-    box-shadow: 
-      0 25px 60px -12px rgba(0, 0, 0, 0.45),
-      0 0 40px -8px rgba(16, 185, 129, 0.2),
-      inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: blur(30px) !important;
-    -webkit-backdrop-filter: blur(30px) !important;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .public-bulletin-card:hover {
-    transform: translateY(-3px) scale(1.01);
-    background: linear-gradient(145deg, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.12) 50%, rgba(255, 255, 255, 0.06) 100%) !important;
-    border-color: rgba(52, 211, 153, 0.45) !important;
-    box-shadow: 
-      0 30px 70px -10px rgba(0, 0, 0, 0.55),
-      0 0 50px rgba(16, 185, 129, 0.3),
-      inset 0 1px 3px rgba(255, 255, 255, 0.55) !important;
-  }
-
-  /* Ruang Baca Isi Pengumuman Kaca Halus (Transparan & Ringan) */
-  .bulletin-glass-content {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), 0 4px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-
-  /* Bantalan Kaca Mikro untuk Masing-Masing Ikon Sosial Media */
-  .social-glass-pod {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .social-glass-pod:hover {
-    transform: translateY(-2px) scale(1.15);
-    background: rgba(255, 255, 255, 0.24);
-    border-color: rgba(255, 255, 255, 0.55);
-    box-shadow: 
-      0 8px 25px rgba(0, 0, 0, 0.3),
-      0 0 20px rgba(255, 255, 255, 0.4),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5);
-  }
-  .social-glass-pod:active {
-    transform: scale(0.95);
-  }
-</style>
 
 <!-- 4. FLOATING LIQUID SOCIAL ICONS BAR -->
 <div id="floatingSocialBar" class="w-full mt-10 mb-4 hidden justify-center items-center z-30 transition-all duration-500 ease-out transform translate-y-4 opacity-0">
@@ -1490,50 +1394,61 @@
 <!-- 6. FOOTER BRANDING: LUXURY FROSTED GLASS CAPSULE (POWERED BY LINKHUB)     -->
 <!-- ========================================================================= -->
 
-<!-- CUSTOM LUXURY STYLING KHUSUS FOOTER BADGE -->
+<!-- ========================================================================= -->
+<!-- 6. FOOTER BRANDING: LUXURY LINKHUB PILL BADGE (ULTRA LUXE & VISIBLE)      -->
+<!-- ========================================================================= -->
+
+<!-- CUSTOM LUXURY FOOTER BADGE STYLING -->
 <style>
-  /* Kapsul Kaca Kristal Footer Branding */
-  .luxury-footer-pill {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.24) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan cahaya atas (Specular Rim) */
+  /* Kapsul Kaca Kristal Branding Footer */
+  .luxury-footer-badge {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Specular rim highlight */
     box-shadow: 
       0 12px 30px -5px rgba(0, 0, 0, 0.35),
-      0 0 25px -3px rgba(56, 189, 248, 0.15),
-      inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
+      0 0 25px -5px rgba(56, 189, 248, 0.2),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .luxury-footer-pill:hover {
+  .luxury-footer-badge:hover {
     transform: translateY(-2px) scale(1.03);
-    border-color: rgba(56, 189, 248, 0.45) !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+    border-color: rgba(56, 189, 248, 0.55) !important;
     box-shadow: 
-      0 18px 40px -5px rgba(0, 0, 0, 0.45),
-      0 0 35px rgba(56, 189, 248, 0.3),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+      0 16px 35px -5px rgba(0, 0, 0, 0.45),
+      0 0 35px rgba(56, 189, 248, 0.35),
+      inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
   }
 </style>
 
-<!-- FOOTER BADGE WRAPPER (TAMPIL JELAS DI SEMUA TAB) -->
-<div class="w-full flex justify-center items-center mt-12 mb-6 relative z-30 select-none">
+<!-- KONTEN FOOTER BRANDING (TAMPIL RAPI DI SEMUA FITUR/TAB) -->
+<div class="w-full mt-10 mb-6 pt-4 flex flex-col items-center justify-center relative z-30 select-none">
   <a 
     href="index.html" 
     target="_blank" 
     id="footerBranding" 
-    class="luxury-footer-pill inline-flex items-center gap-2.5 px-4.5 py-2 rounded-full group cursor-pointer"
-    title="Buat landing page bio-link eksklusif Anda dengan LinkHub"
+    class="luxury-footer-badge inline-flex items-center gap-2.5 px-4.5 py-2 rounded-full cursor-pointer group transition-all"
+    title="Buat landing page Anda sendiri dengan LinkHub"
   >
-    <!-- Mini Logo Squircle dengan Pendaran Cyan-Indigo -->
-    <div class="w-5 h-5 rounded-lg bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-500 flex items-center justify-center text-white text-[10px] shadow-sm group-hover:scale-110 transition-transform duration-300">
-      <i class="fa-solid fa-link text-[9px] text-white"></i>
+    <!-- Mini Logo Chamber dengan Efek Putar Halus saat Hover -->
+    <div class="w-5 h-5 rounded-lg bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-[10px] text-white shadow-sm group-hover:rotate-12 transition-transform duration-300">
+      <i class="fa-solid fa-link text-[9px]"></i>
     </div>
-
-    <!-- Teks Branding Tajam, Jelas & Bergradasi -->
-    <span class="text-xs font-extrabold tracking-wide text-white/90 group-hover:text-white transition-colors">
-      Powered by <strong class="font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300">LinkHub</strong><span class="text-pink-400 font-black">.</span>
+    
+    <!-- Teks Branding Berkontras Jelas & Mewah -->
+    <span class="text-xs font-bold text-white flex items-center gap-1">
+      <span class="opacity-90">Powered by</span>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-fuchsia-300 font-black tracking-wide">LinkHub.</span>
     </span>
   </a>
+
+  <!-- Slogan Mikro di Bawah Kapsul -->
+  <p class="text-[9.5px] font-black text-white/50 tracking-[0.25em] uppercase mt-2.5">
+    The Modern Link in Bio Protocol
+  </p>
 </div>
   </div> <!-- Penutup MAIN PROFILE CARD WRAPPER -->
 
@@ -2290,11 +2205,11 @@ function formatRupiahProfile(angka) {
 
       // Sinkronisasi Warna Branding Footer
     // Sinkronisasi Warna Branding Footer
-      const footerBranding = document.getElementById('footerBranding');
-      if (footerBranding) {
-        // Biarkan CSS gradasi menangani warna teks agar tampil tajam dan berkilau
-        footerBranding.style.opacity = '1';
-      }
+    // ❌ KODE LAMA (YANG MEMBUAT TULISAN MENJADI REDUP/HILANG):
+const footerBranding = document.getElementById('footerBranding');
+if (footerBranding) {
+  footerBranding.style.color = isDarkBg ? 'rgba(255, 255, 255, 0.4)' : 'rgba(15, 23, 42, 0.4)';
+}
 
       // Load Google Fonts secara dinamis
       if (settings.Font_Family) {
