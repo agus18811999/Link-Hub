@@ -460,91 +460,7 @@
 <!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS ETALASE PRODUK -->
 
 
-<!-- ========================================================================= -->
-<!-- PUBLIC PROFILE: LUXURY FROSTED GLASS DIGITAL STORE (ULTRA LUXE)           -->
-<!-- ========================================================================= -->
 
-<!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS ETALASE PRODUK -->
-<style>
-  /* Master Frosted Crystal Glass Store Card */
-  .luxury-glass-store-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan kilau cahaya atas (Specular Rim) */
-    box-shadow: 
-      0 20px 50px -10px rgba(0, 0, 0, 0.35),
-      0 0 35px -5px rgba(16, 185, 129, 0.15),
-      inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: blur(28px) !important;
-    -webkit-backdrop-filter: blur(28px) !important;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .luxury-glass-store-card:hover {
-    transform: translateY(-3px) scale(1.01);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
-    border-color: rgba(52, 211, 153, 0.45) !important;
-    box-shadow: 
-      0 25px 60px -10px rgba(0, 0, 0, 0.45),
-      0 0 45px rgba(16, 185, 129, 0.25),
-      inset 0 1px 3px rgba(255, 255, 255, 0.55) !important;
-  }
-
-  /* Wadah Foto Produk Kaca Mikro */
-  .store-image-chamber {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 8px 20px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-
-  /* Tombol WhatsApp Glossy Jewel CTA */
-  .btn-store-whatsapp-glossy {
-    background: linear-gradient(135deg, #10b981 0%, #059669 45%, #0d9488 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.32) !important;
-    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .btn-store-whatsapp-glossy::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: all 0.6s ease;
-  }
-  .btn-store-whatsapp-glossy:hover::before {
-    left: 100%;
-  }
-  .btn-store-whatsapp-glossy:hover {
-    transform: translateY(-1.5px);
-    box-shadow: 0 14px 35px -5px rgba(16, 185, 129, 0.6);
-    filter: brightness(1.08);
-  }
-  .btn-store-whatsapp-glossy:active {
-    transform: translateY(1px) scale(0.98);
-  }
-</style>
-
-<!-- CONTAINER ETALASE PRODUK DIGITAL -->
-<div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
-  
-  <!-- Header Pembagi Etalase Kaca Kristal -->
-  <div class="flex items-center justify-center gap-3 mb-6 w-full px-2">
-    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm backdrop-blur-md">
-      <i class="fa-solid fa-store text-xs text-emerald-400"></i> Etalase Produk Digital
-    </span>
-    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-  </div>
-
-  <!-- Grid Produk Digital Kaca -->
-  <div id="productsContainer" class="w-full flex flex-col gap-4">
-    <!-- Produk akan dirender secara dinamis oleh JavaScript -->
-  </div>
-
-</div>
 
   <!-- 4. FLOATING LIQUID SOCIAL ICONS BAR -->
   <div id="floatingSocialBar" class="w-full mt-10 mb-4 hidden justify-center items-center z-30 transition-all duration-500 ease-out transform translate-y-4 opacity-0">
@@ -1395,7 +1311,94 @@
 <!-- ========================================================================= -->
 <!-- PUBLIC PROFILE: FLOATING SOCIAL BAR (TRUE FROSTED GLASS CAPSULE)          -->
 <!-- ========================================================================= -->
+<!-- ========================================================================= -->
+<!-- PUBLIC PROFILE: LUXURY FROSTED GLASS DIGITAL STORE (ULTRA LUXE)           -->
+<!-- ========================================================================= -->
 
+<!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS ETALASE PRODUK -->
+<style>
+  /* Master Frosted Crystal Glass Store Card */
+  
+
+  /* Wadah Foto Produk Kaca Mikro */
+  .store-image-chamber {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 8px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+/* Master Frosted Crystal Glass Store Card */
+  .luxury-glass-store-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important; /* Pantulan kilau cahaya atas */
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.35),
+      0 0 35px -5px rgba(16, 185, 129, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .luxury-glass-store-card:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(52, 211, 153, 0.45) !important;
+    box-shadow: 
+      0 25px 60px -10px rgba(0, 0, 0, 0.45),
+      0 0 45px rgba(16, 185, 129, 0.25),
+      inset 0 1px 3px rgba(255, 255, 255, 0.55) !important;
+  }
+
+  /* Tombol WhatsApp Glossy Jewel */
+  .btn-store-whatsapp-glossy {
+    background: linear-gradient(135deg, #10b981 0%, #059669 45%, #0d9488 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.32) !important;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-store-whatsapp-glossy::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-store-whatsapp-glossy:hover::before {
+    left: 100%;
+  }
+  .btn-store-whatsapp-glossy:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 14px 35px -5px rgba(16, 185, 129, 0.6);
+    filter: brightness(1.08);
+  }
+  .btn-store-whatsapp-glossy:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  /* Tombol WhatsApp Glossy Jewel CTA */
+
+</style>
+
+<!-- CONTAINER ETALASE PRODUK DIGITAL -->
+<div id="productsSection" class="w-full mt-10 hidden flex-col items-center">
+  
+  <!-- Header Pembagi Etalase Kaca Kristal -->
+  <div class="flex items-center justify-center gap-3 mb-6 w-full px-2">
+    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-sm backdrop-blur-md">
+      <i class="fa-solid fa-store text-xs text-emerald-400"></i> Etalase Produk Digital
+    </span>
+    <div class="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+  </div>
+
+  <!-- Grid Produk Digital Kaca -->
+  <div id="productsContainer" class="w-full flex flex-col gap-4">
+    <!-- Produk akan dirender secara dinamis oleh JavaScript -->
+  </div>
+
+</div>
 <!-- CUSTOM LUXURY GLASSMORPHISM STYLING KHUSUS SOCIAL BAR -->
 <style>
   /* Kapsul Kaca Tembus Pandang Utama (Persis Seperti Kartu Tautan) */
@@ -2664,13 +2667,14 @@ if (socialBar && socialGlass) {
       // RENDERING KATALOG PRODUK DIGITAL (TEMPEL DI AKHIR renderPublicProfile)
       // ========================================================
    /* --- B. RENDERING ETALASE PRODUK DIGITAL (TRUE FROSTED GLASS REVISION) --- */
+/* --- B. RENDERING ETALASE PRODUK DIGITAL (FIX UKURAN GAMBAR & TRUE GLASS) --- */
 const productsContainer = document.getElementById('productsContainer');
 const productsSection = document.getElementById('productsSection');
 
 if (productsContainer && productsSection) {
   productsContainer.innerHTML = '';
   const PRODUCTS_DATA = data.products || [];
-  const activeProducts = PRODUCTS_DATA.filter(p => p.Is_Active);
+  const activeProducts = PRODUCTS_DATA.filter(p => p.Is_Active !== false);
 
   if (activeProducts.length > 0) {
     productsSection.classList.remove('hidden');
@@ -2680,7 +2684,7 @@ if (productsContainer && productsSection) {
       const waText = encodeURIComponent(prod.WA_Message || `Halo, saya tertarik memesan produk ${prod.Product_Name}`);
       const waLink = `https://wa.me/${prod.WA_Number}?text=${waText}`;
 
-      // KARTU PRODUK KACA TEMBUS PANDANG (MEWAH & TIDAK GELAP)
+      // KARTU PRODUK KACA KRISTAL
       const card = document.createElement('div');
       card.className = "luxury-glass-store-card w-full p-4 sm:p-5 rounded-[28px] flex flex-col relative overflow-hidden group";
 
@@ -2689,17 +2693,17 @@ if (productsContainer && productsSection) {
 
       card.innerHTML = `
         <div class="flex gap-4 items-start">
-          <!-- Wadah Gambar Produk Kaca Mikro -->
-          <div class="store-image-chamber p-1 rounded-2xl shrink-0">
+          <!-- WADAH GAMBAR DENGAN UKURAN PASTI (W-20 H-20 / W-24 H-24) TIDAK AKAN MELEDAK LAGI -->
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border border-white/20 bg-slate-950/70 p-0.5 shadow-md relative">
             <img 
               src="${escapeHtml(imgUrl)}" 
-              class="w-18 h-18 sm:w-22 sm:h-22 rounded-[14px] object-cover block group-hover:scale-105 transition-transform duration-500" 
+              class="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-500 block" 
               onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400'"
               alt="${escapeHtml(prod.Product_Name)}"
             >
           </div>
 
-          <!-- Detail Nama, Deskripsi & Lencana Harga Luminous -->
+          <!-- DETAIL NAMA, DESKRIPSI & HARGA -->
           <div class="flex-1 min-w-0 text-left">
             <h4 class="font-black text-sm sm:text-base tracking-tight leading-snug text-white truncate drop-shadow-sm">
               ${escapeHtml(prod.Product_Name)}
@@ -2708,8 +2712,8 @@ if (productsContainer && productsSection) {
               ${escapeHtml(prod.Product_Desc) || '<span class="text-white/50 italic">Tidak ada deskripsi produk.</span>'}
             </p>
             
-            <!-- Lencana Harga Hijau Emerald Glow Kaca -->
-            <div class="mt-2.5 inline-flex items-center px-3.5 py-1 bg-emerald-500/20 border border-emerald-400/40 rounded-xl shadow-inner backdrop-blur-md">
+            <!-- Lencana Harga Hijau Emerald Glow -->
+            <div class="mt-2.5 inline-flex items-center px-3 py-1 bg-emerald-500/20 border border-emerald-400/40 rounded-xl shadow-inner backdrop-blur-md">
               <span class="text-emerald-300 font-black text-xs sm:text-sm tracking-tight drop-shadow-sm">
                 ${formatRupiahProfile(prod.Product_Price)}
               </span>
@@ -2717,7 +2721,7 @@ if (productsContainer && productsSection) {
           </div>
         </div>
         
-        <!-- Tombol Pembelian WhatsApp Glossy Jewel Sheen -->
+        <!-- TOMBOL PEMBELIAN WHATSAPP GLOSSY JEWEL -->
         <a 
           href="${waLink}" 
           target="_blank" 
@@ -2736,7 +2740,6 @@ if (productsContainer && productsSection) {
     productsSection.classList.remove('flex');
   }
 }
-  
       const rateContainer = document.getElementById('publicRateCardSection');
       if (!rateContainer) return;
       rateContainer.innerHTML = '';
