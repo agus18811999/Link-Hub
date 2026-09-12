@@ -7,7 +7,8 @@
 
   <!-- Google Fonts: Plus Jakarta Sans (Modern & Techy) -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
+  <!-- Favicon Resmi LinkHub (Sama Persis dengan Logo Dashboard) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2306b6d4'/%3E%3Cstop offset='50%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3ClinearGradient id='linkGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2338bdf8'/%3E%3Cstop offset='40%25' stop-color='%23bae6fd'/%3E%3Cstop offset='100%25' stop-color='%23f0abfc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2' y='2' width='96' height='96' rx='30' fill='url(%23bgGrad)'/%3E%3Crect x='7' y='7' width='86' height='86' rx='25' fill='%230B0F19'/%3E%3Cpath fill='url(%23linkGrad)' transform='translate(23.5, 23.5) scale(0.104)' d='M326.6 98.4c-4.5-4.5-10.6-7-17-7s-12.5 2.5-17 7l-72 72c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l72-72c1.9-1.9 4.4-2.9 7-2.9s5.1 1 7 2.9l64 64c3.9 3.9 3.9 10.2 0 14.1l-72 72c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l72-72c28.1-28.1 28.1-73.7 0-101.8l-64-64zm-144 144c-9.4-9.4-24.6-9.4-33.9 0l-72 72c-28.1 28.1-28.1 73.7 0 101.8l64 64c28.1 28.1 73.7 28.1 101.8 0l72-72c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-72 72c-3.9 3.9-10.2 3.9-14.1 0l-64-64c-3.9-3.9-3.9-10.2 0-14.1l72-72c9.4-9.4 9.4-24.6 0-33.9zm-41 121l160-160c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-160 160c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0z'/%3E%3C/svg%3E">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
@@ -112,236 +113,534 @@
 <body class="flex items-center justify-center p-4 md:p-6 relative overflow-x-hidden font-sans select-none">
 
   <!-- Ambient Background Elements -->
-  <div class="ambient-orb orb-1"></div>
-  <div class="ambient-orb orb-2"></div>
-  <div class="bg-pattern"></div>
+  <!-- ========================================================================= -->
+<!-- LINKHUB ULTRA-PREMIUM LOGIN SECTION (REVISED LUXURY EDITION)              -->
+<!-- ========================================================================= -->
 
-  <!-- MAIN LOGIN CONTAINER (ULTRA PREMIUM GLASSMORPHISM) -->
-  <div class="w-full max-w-[1020px] rounded-[36px] glass-card shadow-[0_30px_100px_rgba(0,0,0,0.6)] relative z-10 flex flex-col lg:flex-row overflow-hidden border border-white/10">
+<!-- CUSTOM LUXURY STYLING & ANIMATIONS -->
+<style>
+  /* Base Dynamic Canvas */
+  .auth-ambient-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+    background: radial-gradient(circle at 15% 15%, #1e1b4b 0%, #0f172a 45%, #020617 100%);
+  }
+
+  /* Radiant Chromatic Light Orbs */
+  .luminous-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.65;
+    animation: orbDrift 18s ease-in-out infinite alternate;
+  }
+  .luminous-orb-1 {
+    width: 650px;
+    height: 650px;
+    top: -15%;
+    left: -10%;
+    background: radial-gradient(circle, #38bdf8 0%, #6366f1 60%, transparent 80%);
+  }
+  .luminous-orb-2 {
+    width: 700px;
+    height: 700px;
+    bottom: -20%;
+    right: -10%;
+    background: radial-gradient(circle, #ec4899 0%, #8b5cf6 50%, #3b82f6 80%);
+    animation-delay: -7s;
+  }
+  .luminous-orb-3 {
+    width: 450px;
+    height: 450px;
+    top: 35%;
+    left: 40%;
+    background: radial-gradient(circle, #10b981 0%, #06b6d4 60%, transparent 80%);
+    opacity: 0.35;
+    animation-delay: -12s;
+  }
+
+  @keyframes orbDrift {
+    0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+    50% { transform: translate(40px, -30px) scale(1.08) rotate(180deg); }
+    100% { transform: translate(-30px, 40px) scale(0.95) rotate(360deg); }
+  }
+
+  /* Micro Dot Luxury Matrix */
+  .luxury-mesh-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.2px, transparent 1.2px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 85%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  /* Master Crystalline Container */
+  .crystal-master-frame {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 
+      0 40px 100px -20px rgba(15, 23, 42, 0.8),
+      0 0 60px -10px rgba(99, 102, 241, 0.25),
+      inset 0 1px 2px rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
+
+  /* Visual Showcase Inner Glass Panels */
+  .frosted-glass-pill {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  /* Inputs with Specular Inner Glow */
+  .crystal-input {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .crystal-input:focus {
+    background: rgba(30, 41, 59, 0.75);
+    border-color: #38bdf8;
+    box-shadow: 
+      0 0 0 4px rgba(56, 189, 248, 0.18),
+      0 10px 25px -5px rgba(56, 189, 248, 0.25),
+      inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* High-Octane Action Button */
+  .btn-iridescent {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 40%, #8b5cf6 75%, #ec4899 100%);
+    background-size: 250% 250%;
+    animation: gradientShift 6s ease infinite;
+    box-shadow: 0 12px 35px -5px rgba(99, 102, 241, 0.45);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-iridescent::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: all 0.6s ease;
+  }
+  .btn-iridescent:hover::before {
+    left: 100%;
+  }
+  .btn-iridescent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 45px -5px rgba(236, 72, 153, 0.55);
+  }
+  .btn-iridescent:active {
+    transform: translateY(1px) scale(0.99);
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Custom Modern Switch Checkbox */
+  .modern-check {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 7px;
+    background: rgba(15, 23, 42, 0.6);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modern-check:checked {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+  }
+  .modern-check:checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 11px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<!-- AMBIENT VIBRANT LIGHTING LAYER -->
+<div class="auth-ambient-canvas">
+  <div class="luminous-orb luminous-orb-1"></div>
+  <div class="luminous-orb luminous-orb-2"></div>
+  <div class="luminous-orb luminous-orb-3"></div>
+  <div class="luxury-mesh-grid"></div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MAIN LOGIN CONTAINER (ENTERPRISE LUXURY GLASSMORPHISM)                    -->
+<!-- ========================================================================= -->
+<div class="w-full max-w-[1140px] relative z-10 my-4 md:my-8 transition-all duration-300">
+  <div class="crystal-master-frame rounded-[40px] overflow-hidden flex flex-col lg:flex-row">
     
-    <!-- SISI KIRI: BRANDING & VISUAL MOCKUP -->
-    <div class="lg:w-1/2 p-8 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/5 bg-gradient-to-br from-blue-600/10 via-purple-600/5 to-transparent relative">
+    <!-- ===================================================================== -->
+    <!-- SISI KIRI: HIGH-END DIGITAL SUITE SHOWCASE & LIVE VISUAL ASSET        -->
+    <!-- ===================================================================== -->
+    <div class="lg:w-[54%] p-8 sm:p-12 lg:p-14 flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-indigo-900/35 via-purple-900/20 to-sky-900/20 border-b lg:border-b-0 lg:border-r border-white/15">
       
-      <!-- Logo & Brand Header -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/20">
-          <i class="fa-solid fa-link"></i>
+      <!-- Top Glow Accent Line -->
+      <div class="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75"></div>
+
+      <!-- 1. Header Logo & Live Operational Badge -->
+      <div class="flex items-center justify-between gap-4">
+        <!-- Logo Brand -->
+        <div class="flex items-center gap-3.5 group cursor-pointer">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-400 via-indigo-500 to-fuchsia-500 p-[1.5px] shadow-[0_8px_25px_rgba(99,102,241,0.4)] group-hover:scale-105 transition-transform duration-300">
+            <div class="w-full h-full bg-slate-950/80 rounded-[14.5px] flex items-center justify-center text-white text-xl backdrop-blur-md">
+              <i class="fa-solid fa-link text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-fuchsia-300"></i>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-2xl font-black tracking-tight text-white leading-none">
+              Link<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400">Hub</span><span class="text-pink-400">.</span>
+            </span>
+            <span class="text-[9px] font-black uppercase tracking-[0.25em] text-cyan-300/80 mt-1">Enterprise Suite</span>
+          </div>
         </div>
-        <span class="text-2xl font-black tracking-tight text-white">Link<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Hub.</span></span>
+
+        <!-- Live Intelligence Engine Pill -->
+        <div class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md shadow-inner">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span class="text-[10px] font-extrabold tracking-wider text-emerald-300 uppercase">Engine 2.0 Live</span>
+        </div>
       </div>
 
-      <!-- Hero Copywriting -->
-      <div class="my-10 space-y-4">
-        <h1 class="text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
-          Satu Tautan untuk <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Seluruh Audiens Anda.</span>
+      <!-- 2. Hero Headline Copywriting -->
+      <div class="my-8 lg:my-10 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-[11px] font-extrabold uppercase tracking-widest">
+          <i class="fa-solid fa-wand-magic-sparkles text-cyan-300"></i> The Next-Gen Link-in-Bio
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-black text-white leading-[1.15] tracking-tight">
+          Satu Sentuhan Akses, <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-300 to-fuchsia-400">
+            Peluang Bisnis Tanpa Batas.
+          </span>
         </h1>
-        <p class="text-xs md:text-sm text-slate-300 font-medium leading-relaxed max-w-md">
-          Kelola bio-link, katalog toko digital, dan analitik pengunjung dalam satu dashboard SaaS yang canggih & presisi.
+        <p class="text-xs sm:text-sm text-slate-200/90 font-medium leading-relaxed max-w-lg">
+          Transformasikan satu tautan sederhana menjadi pusat monetisasi otomatis: katalog produk digital, integrasi pesanan instan, dan analitik performa berakurasi tinggi.
         </p>
 
-        <!-- Floating Preview Card Decorative Mockup -->
-        <div class="pt-6 space-y-3 max-w-sm">
-          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg transform hover:scale-[1.02] transition-transform">
-            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-bold">
-              <i class="fa-solid fa-chart-line"></i>
+        <!-- 3. Interactive Floating Metric Widgets Showcase -->
+        <div class="pt-4 space-y-3.5 max-w-md relative">
+          
+          <!-- Widget 1: Real-Time Traffic Surge -->
+          <div class="frosted-glass-pill p-4 rounded-2xl flex items-center justify-between gap-4 transform hover:translate-x-1.5 transition-all duration-300">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-500/30 to-cyan-500/30 border border-cyan-400/40 text-cyan-300 flex items-center justify-center text-lg shrink-0 shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <div class="truncate">
+                <p class="text-[10px] font-black text-cyan-300/90 uppercase tracking-widest">Lalu Lintas Pengunjung</p>
+                <p class="text-sm font-black text-white tracking-tight mt-0.5">+48,920 Klik <span class="text-emerald-400 font-extrabold text-[11px] ml-1">(+312%)</span></p>
+              </div>
             </div>
-            <div>
-              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Performa Real-Time</p>
-              <p class="text-xs font-black text-white">+1,250 Klik Minggu Ini</p>
-            </div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg transform hover:scale-[1.02] transition-transform ml-4">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold">
-              <i class="fa-solid fa-bag-shopping"></i>
-            </div>
-            <div>
-              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Toko Digital</p>
-              <p class="text-xs font-black text-emerald-400">Pemesanan WhatsApp Instan</p>
+            <div class="hidden sm:flex items-center gap-1 text-[10px] font-extrabold text-emerald-300 bg-emerald-500/20 border border-emerald-400/30 px-2.5 py-1 rounded-lg shrink-0">
+              <i class="fa-solid fa-arrow-trend-up"></i> Live Surge
             </div>
           </div>
+
+          <!-- Widget 2: Social Commerce WhatsApp Checkout -->
+          <div class="frosted-glass-pill p-4 rounded-2xl flex items-center justify-between gap-4 transform hover:translate-x-1.5 transition-all duration-300 ml-0 sm:ml-6">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-500/30 to-teal-500/30 border border-emerald-400/40 text-emerald-300 flex items-center justify-center text-lg shrink-0 shadow-lg shadow-emerald-500/20">
+                <i class="fa-solid fa-bag-shopping"></i>
+              </div>
+              <div class="truncate">
+                <p class="text-[10px] font-black text-emerald-300/90 uppercase tracking-widest">Toko Digital Otomatis</p>
+                <p class="text-sm font-black text-white tracking-tight mt-0.5">Konversi WhatsApp Instan</p>
+              </div>
+            </div>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399] shrink-0"></span>
+          </div>
+
         </div>
       </div>
 
-      <!-- Footer Copyright -->
-      <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">© 2026 LinkHub Technologies</p>
+      <!-- 4. Social Proof / Trusted Users Footer -->
+      <div class="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <!-- Stack Avatars -->
+          <div class="flex -space-x-2.5 overflow-hidden">
+            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-indigo-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-indigo-900 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+            <img class="inline-block h-8 w-8 rounded-full ring-2 ring-indigo-900 object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" alt="Avatar">
+            <div class="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-indigo-900 bg-gradient-to-tr from-cyan-500 to-indigo-600 text-[10px] font-black text-white">
+              +45k
+            </div>
+          </div>
+          <div class="text-left">
+            <div class="flex items-center gap-1 text-amber-300 text-[10px]">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <span class="text-white font-bold ml-1 text-xs">4.9/5</span>
+            </div>
+            <p class="text-[10px] font-semibold text-slate-300 mt-0.5">Digunakan kreator & brand global</p>
+          </div>
+        </div>
+        <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.2em]">© 2026 LINKHUB</p>
+      </div>
+
     </div>
 
-    <!-- SISI KANAN: FORMULIR MASUK (SECURE FORM) -->
-    <div class="lg:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-slate-950/40">
+    <!-- ===================================================================== -->
+    <!-- SISI KANAN: CRYSTAL AUTH VAULT (SECURE LOGIN FORM)                    -->
+    <!-- ===================================================================== -->
+    <div class="lg:w-[46%] p-8 sm:p-12 lg:p-14 flex flex-col justify-center bg-slate-950/60 backdrop-blur-2xl relative">
       
+      <!-- Ambient Glow Behind Form -->
+      <div class="absolute -top-10 -right-10 w-48 h-48 bg-fuchsia-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
       <!-- Form Header -->
       <div class="mb-8">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-          Secure Login
-        </span>
-        <h2 class="text-2xl md:text-3xl font-black text-white tracking-tight">Selamat Datang</h2>
-        <p class="text-xs text-slate-400 font-medium mt-1">Silakan masuk untuk mengelola workspace Anda.</p>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/25 text-cyan-300 text-[10px] font-black uppercase tracking-widest mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+          Direct Workspace Access
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">Selamat Datang</h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1.5">
+          Akses dashboard eksklusif Anda untuk mengelola seluruh ekosistem tautan.
+        </p>
       </div>
 
       <!-- FORMULIR MASUK -->
       <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
         
-        <!-- Input Email / Username (Rapi & Bebas Bentrok Teks) -->
-        <div>
-          <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 block mb-2">Email atau Username</label>
-          <div class="relative flex items-center">
-            <i class="fa-solid fa-user absolute left-4 text-slate-500 text-sm"></i>
-            <input type="text" id="authInput" class="w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl pl-11 pr-4 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="nama@email.com atau username" required autocomplete="off">
+        <!-- Input Email / Username -->
+        <div class="space-y-2">
+          <label class="text-[11px] font-extrabold text-slate-300 uppercase tracking-widest pl-1 flex items-center justify-between">
+            <span>Email atau Username</span>
+            <span class="text-[10px] text-cyan-300 font-bold lowercase tracking-normal">@username / email</span>
+          </label>
+          <div class="relative flex items-center group">
+            <div class="absolute left-4 w-5 h-5 flex items-center justify-center text-slate-400 group-focus-within:text-cyan-300 transition-colors pointer-events-none">
+              <i class="fa-solid fa-user-astronaut text-sm"></i>
+            </div>
+            <input 
+              type="text" 
+              id="authInput" 
+              class="crystal-input w-full h-[52px] rounded-2xl pl-12 pr-4 text-sm font-semibold text-white placeholder-slate-400 focus:outline-none" 
+              placeholder="nama@email.com atau username" 
+              required 
+              autocomplete="off"
+            >
           </div>
         </div>
 
-        <!-- Input Password (Rapi & Bebas Bentrok Teks) -->
-        <div>
-          <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest pl-1 block mb-2">Kata Sandi</label>
-          <div class="relative flex items-center">
-            <i class="fa-solid fa-lock absolute left-4 text-slate-500 text-sm"></i>
-            <input type="password" id="passwordInput" class="w-full h-12 bg-slate-950/60 border border-slate-800 focus:border-blue-500/80 rounded-2xl pl-11 pr-12 text-sm font-semibold text-white focus:outline-none focus:ring-1 focus:ring-blue-500/20 shadow-inner transition-all duration-200" placeholder="••••••••" required autocomplete="off">
-            <!-- Eye Toggle -->
-            <button type="button" onclick="togglePassword()" class="absolute right-4 text-slate-500 hover:text-white transition-colors p-1 z-20">
+        <!-- Input Password -->
+        <div class="space-y-2">
+          <label class="text-[11px] font-extrabold text-slate-300 uppercase tracking-widest pl-1 flex items-center justify-between">
+            <span>Kata Sandi Akun</span>
+            <span class="text-[10px] text-slate-400 font-bold">Terenkripsi SHA-256</span>
+          </label>
+          <div class="relative flex items-center group">
+            <div class="absolute left-4 w-5 h-5 flex items-center justify-center text-slate-400 group-focus-within:text-cyan-300 transition-colors pointer-events-none">
+              <i class="fa-solid fa-shield-halved text-sm"></i>
+            </div>
+            <input 
+              type="password" 
+              id="passwordInput" 
+              class="crystal-input w-full h-[52px] rounded-2xl pl-12 pr-12 text-sm font-semibold text-white placeholder-slate-400 focus:outline-none" 
+              placeholder="••••••••••••" 
+              required 
+              autocomplete="off"
+            >
+            <!-- Eye Toggle Button -->
+            <button 
+              type="button" 
+              onclick="togglePassword()" 
+              class="absolute right-3.5 text-slate-400 hover:text-cyan-300 focus:outline-none transition-colors p-2 z-20"
+              title="Tampilkan / Sembunyikan Sandi"
+            >
               <i id="eyeIcon" class="fa-regular fa-eye text-sm"></i>
             </button>
           </div>
         </div>
 
         <!-- Options: Remember Me & Forgot Password -->
-        <div class="flex items-center justify-between text-xs pt-1">
-          <label class="flex items-center gap-2 cursor-pointer group">
-            <input type="checkbox" class="custom-checkbox">
-            <span class="font-semibold text-slate-400 group-hover:text-slate-200 transition-colors">Ingat saya</span>
+        <div class="flex items-center justify-between text-xs pt-1.5">
+          <label class="flex items-center gap-2.5 cursor-pointer group select-none">
+            <input type="checkbox" class="modern-check custom-checkbox">
+            <span class="font-bold text-slate-300 group-hover:text-white transition-colors">Ingat sesi saya</span>
           </label>
-          <a href="forgot-password.html" class="font-bold text-blue-400 hover:text-blue-300 transition-colors">Lupa sandi?</a>
+          <a href="forgot-password.html" class="font-extrabold text-cyan-300 hover:text-cyan-200 transition-colors underline decoration-cyan-400/30 underline-offset-4">
+            Lupa sandi?
+          </a>
         </div>
 
-        <!-- Submit Button (Sleek Hologram Gradient Button) -->
-        <button type="submit" id="btnLogin" class="w-full h-12 mt-2 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-extrabold text-sm tracking-wide uppercase flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(59,130,246,0.25)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300">
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          id="btnLogin" 
+          class="btn-iridescent w-full h-[54px] mt-3 rounded-2xl text-white font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 border border-white/25 cursor-pointer"
+        >
           <span id="btnText">Masuk ke Dashboard</span>
           <i id="btnIcon" class="fa-solid fa-arrow-right text-xs"></i>
           <i id="btnLoader" class="fa-solid fa-circle-notch fa-spin hidden text-xs"></i>
         </button>
+
       </form>
 
-      <!-- Register Link -->
-      <div class="mt-8 text-center border-t border-white/5 pt-6">
-        <p class="text-xs font-semibold text-slate-400">
-          Belum memiliki akun? 
-          <a href="register.html" class="text-white font-extrabold hover:text-blue-400 transition-colors underline decoration-blue-500/50 underline-offset-4 ml-1">Daftar sekarang</a>
+      <!-- Register Referral Link -->
+      <div class="mt-8 text-center border-t border-white/10 pt-6">
+        <p class="text-xs font-bold text-slate-300">
+          Belum memiliki akun eksklusif? 
+          <a href="register.html" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-fuchsia-400 font-black hover:opacity-80 transition-opacity ml-1.5 underline decoration-cyan-400/50 underline-offset-4">
+            Daftar Sekarang <i class="fa-solid fa-angle-right text-[10px] text-cyan-300 ml-0.5"></i>
+          </a>
         </p>
       </div>
 
     </div>
 
   </div>
+</div>
 
+<!-- ========================================================================= -->
+<!-- JAVASCRIPT ENGINE (LOGIKA LOGIN & VALIDASI OTENTIKASI)                    -->
+<!-- ========================================================================= -->
+<script>
+   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6ibH9YtP443dYfnCJbDIDU-Q3-YJNOexhCDSl7y1WBwWjVk_rwVtSpvQR_3NlDU-Y/exec'; 
 
-  <script>
-    // ==================================================
-    // KONFIGURASI BACKEND
-    // ==================================================
-    // GANTI URL INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA!
-   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3KHDlJ-DfYxnKPyLFUdNa0-wuPH7yOwtOznD6r9jeJSJJ04l7w0fkARTrWrFFleHx/exec'; 
+  // ==================================================
+  // KONFIGURASI BACKEND URL (APPS SCRIPT)
+  // ==================================================
+ 
+// Toggle Visibility Password
+  function togglePassword() {
+    const input = document.getElementById('passwordInput');
+    const icon = document.getElementById('eyeIcon');
+    if (!input || !icon) return;
 
-    // ==================================================
-    // LOGIKA FRONTEND
-    // ==================================================
-
-    // Fungsi Toggle Mata Password
-    function togglePassword() {
-      const input = document.getElementById('passwordInput');
-      const icon = document.getElementById('eyeIcon');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-      }
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+      input.type = 'password';
+      icon.classList.replace('fa-eye-slash', 'fa-eye');
     }
+  }
 
-    // Fungsi Submit Form Login
-    async function handleLogin(event) {
-      event.preventDefault(); // Mencegah reload halaman
-      
-      const authVal = document.getElementById('authInput').value.trim();
-      const passVal = document.getElementById('passwordInput').value;
-      const btn = document.getElementById('btnLogin');
-      const btnText = document.getElementById('btnText');
-      const btnIcon = document.getElementById('btnIcon');
-      const btnLoader = document.getElementById('btnLoader');
+  // Handler Submit Login Form
+  async function handleLogin(event) {
+    event.preventDefault();
+    
+    const authVal = document.getElementById('authInput').value.trim();
+    const passVal = document.getElementById('passwordInput').value;
+    const btn = document.getElementById('btnLogin');
+    const btnText = document.getElementById('btnText');
+    const btnIcon = document.getElementById('btnIcon');
+    const btnLoader = document.getElementById('btnLoader');
 
-      if (!authVal || !passVal) {
-        Swal.fire({ icon: 'warning', title: 'Oops!', text: 'Email/Username dan Password wajib diisi.', background: '#1e293b', color: '#fff', confirmButtonColor: '#3b82f6' });
-        return;
-      }
-
-      // Animasi Loading Tombol
-      btn.disabled = true;
-      btnText.textContent = 'Memverifikasi...';
-      btnIcon.classList.add('hidden');
-      btnLoader.classList.remove('hidden');
-
-      try {
-        // Ambil Data Perangkat untuk Keamanan
-        const deviceInfo = navigator.userAgent.substring(0, 100);
-
-        // Siapkan Payload ke Backend
-        const payload = new URLSearchParams();
-        payload.append('action', 'login');
-        payload.append('emailOrUsername', authVal);
-        payload.append('password', passVal);
-        payload.append('deviceInfo', deviceInfo);
-
-        // Fetch ke Google Apps Script
-        const response = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: payload
-        });
-
-        const result = await response.json();
-
-        if (result.status === 'success') {
-          // Simpan Token dan Data User ke LocalStorage
-          localStorage.setItem('lh_token', result.token);
-          localStorage.setItem('lh_user', JSON.stringify(result.data));
-
-          // Sukses Alert & Redirect
-          Swal.fire({
-            icon: 'success',
-            title: 'Berhasil Masuk',
-            text: 'Mengarahkan ke dashboard...',
-            background: '#1e293b',
-            color: '#fff',
-            showConfirmButton: false,
-            timer: 1500
-          }).then(() => {
-            // Arahkan ke halaman dashboard
-            window.location.href = 'dashboard.html'; 
-          });
-
-        } else {
-          // Gagal dari backend (Password salah, dll)
-          throw new Error(result.message);
+    if (!authVal || !passVal) {
+      Swal.fire({ 
+        icon: 'warning', 
+        title: 'Form Belum Lengkap', 
+        text: 'Silakan masukkan Email/Username dan Kata Sandi Anda.', 
+        background: '#0f172a', 
+        color: '#f8fafc', 
+        confirmButtonColor: '#06b6d4',
+        customClass: {
+          popup: 'border border-white/20 rounded-3xl shadow-2xl backdrop-blur-xl'
         }
-
-      } catch (error) {
-        // Tangkap Eror
-        Swal.fire({
-          icon: 'error',
-          title: 'Login Gagal',
-          text: error.message || 'Terjadi kesalahan koneksi ke server.',
-          background: '#1e293b',
-          color: '#fff',
-          confirmButtonColor: '#ef4444'
-        });
-      } finally {
-        // Kembalikan Tombol ke Semula
-        btn.disabled = false;
-        btnText.textContent = 'Masuk ke Dashboard';
-        btnIcon.classList.remove('hidden');
-        btnLoader.classList.add('hidden');
-      }
+      });
+      return;
     }
-  </script>
+
+    // Dynamic Loading Button State
+    btn.disabled = true;
+    btnText.textContent = 'Memverifikasi Akses...';
+    btnIcon.classList.add('hidden');
+    btnLoader.classList.remove('hidden');
+
+    try {
+      const deviceInfo = navigator.userAgent.substring(0, 100);
+
+      const payload = new URLSearchParams();
+      payload.append('action', 'login');
+      payload.append('emailOrUsername', authVal);
+      payload.append('password', passVal);
+      payload.append('deviceInfo', deviceInfo);
+
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: payload
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        // Simpan token & user data ke LocalStorage
+        localStorage.setItem('lh_token', result.token);
+        localStorage.setItem('lh_user', JSON.stringify(result.data));
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Otentikasi Berhasil',
+          text: 'Mengarahkan ke dashboard workspace Anda...',
+          background: '#0f172a',
+          color: '#f8fafc',
+          showConfirmButton: false,
+          timer: 1500,
+          customClass: {
+            popup: 'border border-emerald-500/30 rounded-3xl shadow-2xl backdrop-blur-xl'
+          }
+        }).then(() => {
+          window.location.href = 'dashboard.html'; 
+        });
+
+      } else {
+        throw new Error(result.message || 'Kredensial akun tidak valid.');
+      }
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal Masuk',
+        text: error.message || 'Terjadi kesalahan saat menghubungi server.',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#ec4899',
+        customClass: {
+          popup: 'border border-rose-500/30 rounded-3xl shadow-2xl backdrop-blur-xl'
+        }
+      });
+    } finally {
+      btn.disabled = false;
+      btnText.textContent = 'Masuk ke Dashboard';
+      btnIcon.classList.remove('hidden');
+      btnLoader.classList.add('hidden');
+    }
+  }
+</script>
+
+
+ 
 </body>
 </html>
